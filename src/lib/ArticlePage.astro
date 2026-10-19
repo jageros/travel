@@ -1,0 +1,63 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Card from '../components/Card.astro';
+import AdSlot from '../components/AdSlot.astro';
+import FareCalculator from '../components/FareCalculator';
+import { type Article, articleHref, visibleArticles, formatDate, topic } from './content';
+import { articleSources, articleFacts } from './sources';
+import { SITE_URL } from './site';
+interface Props { article: Article }
+const {article}=Astro.props;
+const {Content,headings}=await render(article);
+const sources=articleSources(article.data.sources);
+const facts=articleFacts(article.data.facts);
+const related=(await visibleArticles()).filter(item=>article.data.related.includes(item.data.slug));
+const path=articleHref(article);
+const isPublished=article.data.status==='published';
+const articleData=isPublished?{
+  '@context':'https://schema.org','@type':'Article',headline:article.data.title,description:article.data.description,
+  datePublished:article.data.publishedAt,dateModified:article.data.updatedAt,
+  author:{'@type':'Organization',name:'US Travel Guide Editorial Team',url:`${SITE_URL}/editorial-policy/`},
+  publisher:{'@type':'Organization',name:'US Travel Guide',url:SITE_URL},
+  mainEntityOfPage:`${SITE_URL}${path}`,
+  ...(article.data.hero?{image:`${SITE_URL}${article.data.hero.src}`}:{})
+}:undefined;
+---
+<BaseLayout title={`${article.data.title} — US Travel Guide`} description={article.data.description} path={path} noindex={!isPublished} article={articleData} breadcrumbs={[{name:'Home',url:'/'},{name:topic.title,url:`/topics/${article.data.topic}/`},{name:article.data.title,url:path}]}>
+<article class="container article-shell">
+  <header class="article-header"><a class="eyebrow" href={`/topics/${article.data.topic}/`}>{topic.title}</a><h1>{article.data.title}</h1><p class="article-deck">{article.data.description}</p><div class="article-meta"><a href="/editorial-policy/">US Travel Guide Editorial Team</a><span>Sources checked {formatDate(article.data.checkedAt)}</span></div>{!isPublished&&<aside class="notice review-notice"><strong>Editorial review copy</strong><p>This draft is provided for review. It is excluded from the public sitemap and search indexing.</p></aside>}</header>
+  <aside class="article-sidebar" aria-label="On this page"><p class="eyebrow">On this page</p><nav><ul>{headings.filter(heading=>heading.depth===2).map(heading=><li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}<li><a href="#official-sources">Official sources</a></li></ul></nav><p class="source-note">Transport services and ticket rules can change. Check the linked operator before travelling.</p></aside>
+  <div class="article-body">
+    {article.data.hero&&<figure class="article-figure"><img src={article.data.hero.src} alt={article.data.hero.alt} width="800" height="800" fetchpriority="high"/><figcaption>Illustration: {article.data.hero.credit} · {article.data.hero.license}</figcaption></figure>}
+    {facts.length>0&&<section class="fact-panel" aria-label="Source-checked facts"><p class="eyebrow">Check the details</p><h2>Source notes for this guide</h2><ul>{facts.map(({fact,source,status})=><li>{status==='current'&&<div data-current-fact data-fact-checked={fact.checkedAt} data-fact-expires={fact.expiresAt||''} hidden><p>{fact.statement}</p><small>Checked {formatDate(fact.checkedAt)}{fact.expiresAt&&` · Recheck by ${formatDate(fact.expiresAt)}`}</small></div>}<p data-fact-fallback>This detail needs a fresh check before you rely on it. Consult the operator for its current rules.</p><a href={source.url} rel="noopener">{source.publisher}: {source.title} ↗</a></li>)}</ul></section>}
+    <div class="prose"><Content/></div>
+    {article.data.slug==='is-muni-pass-worth-it'&&<FareCalculator client:load/>}
+    {isPublished&&<AdSlot position="endArticle"/>}
+    <section id="official-sources" class="official-sources"><p class="eyebrow">Go to the source</p><h2>Official references</h2><ul class="sources-list">{sources.map(source=><li><a href={source.url} rel="noopener">{source.title} ↗</a><span>{source.publisher} · Checked {formatDate(source.checkedAt)}</span></li>)}</ul><p class="source-note">This guide is research based, rather than a claim of firsthand testing. <a href="/editorial-policy/">Read our editorial method</a> or <a href="/contact/">report a correction</a>.</p></section>
+  </div>
+</article>
+{related.length>0&&<section class="container section-block"><div class="section-heading"><div><p class="eyebrow">Your next decision</p><h2>Keep your planning connected.</h2></div></div><div class="cards-grid">{related.map(item=><Card title={item.data.title} description={item.data.description} href={articleHref(item)} type={item.data.type}/>)}</div></section>}
+</BaseLayout>
+
+<script>
+  // Precise claims are hidden in static HTML. A browser time check prevents stale
+  // facts from surviving their expiry even when a production rebuild is delayed.
+  for (const element of document.querySelectorAll<HTMLElement>('[data-current-fact]')) {
+    const checked = Date.parse(`${element.dataset.factChecked}T00:00:00Z`);
+    const expiry = element.dataset.factExpires ? Date.parse(`${element.dataset.factExpires}T00:00:00Z`) : Infinity;
+    const now = Date.now();
+    if (Number.isFinite(checked) && checked <= now && expiry > now) {
+      element.hidden = false;
+      const fallback = element.parentElement?.querySelector<HTMLElement>('[data-fact-fallback]');
+      if (fallback) fallback.hidden = true;
+      if (Number.isFinite(expiry)) {
+        const recheck = () => {
+          if (Date.now() >= expiry) { element.hidden = true; if (fallback) fallback.hidden = false; }
+          else window.setTimeout(recheck, Math.min(expiry - Date.now(), 86400000));
+        };
+        window.setTimeout(recheck, Math.min(expiry - now, 86400000));
+      }
+    }
+  }
+</script>

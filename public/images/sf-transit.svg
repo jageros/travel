@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" role="img" aria-labelledby="title desc">
+  <title id="title">San Francisco, one connection at a time</title>
+  <desc id="desc">An original stylized illustration of a red suspension bridge, green hills, a city street, and a teal transit vehicle. It is an illustration, not a photograph or a route map.</desc>
+  <metadata>Original vector illustration created for US Travel Guide. Dedicated to the public domain under CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/</metadata>
+  <defs><clipPath id="frame"><rect width="800" height="800" rx="14"/></clipPath><pattern id="windows" width="24" height="29" patternUnits="userSpaceOnUse"><rect x="4" y="6" width="6" height="12" rx="1" fill="#f9f3da"/></pattern></defs>
+  <g clip-path="url(#frame)">
+    <rect width="800" height="800" fill="#e9ede0"/>
+    <circle cx="633" cy="139" r="58" fill="#f2dba6"/>
+    <path d="M0 286c94-21 172-6 265 28 103 39 177-34 287-47 104-12 177 6 248 46v213H0Z" fill="#d0dacb"/>
+    <path d="M0 390c124-47 195-68 294-32 129 48 260 8 506-31v211H0Z" fill="#acbeac"/>
+    <path d="M0 432c182-42 273-17 422-34 155-17 257 4 378 18v154H0Z" fill="#719589"/>
+    <path d="M0 465h800v126H0Z" fill="#b8d1c8"/>
+    <path d="M1 514c100-12 203 14 306 0s206 9 300 0 150-7 193 0" fill="none" stroke="#e0e9da" stroke-width="4"/>
+    <path d="M0 554c131-10 199 12 319-1s276-7 481-4" fill="none" stroke="#dae5d8" stroke-width="3"/>
+    <g fill="none" stroke="#bc634b" stroke-linecap="round">
+      <path d="M-30 379h870" stroke-width="15"/>
+      <path d="M185 224v215m310-220v220" stroke-width="18"/>
+      <path d="M169 260h33m277-5h32M169 308h33m277-5h32" stroke-width="9"/>
+      <path d="M-30 273c86 82 151 85 215-49 78 183 223 182 310-5 102 172 249 178 345 71" stroke-width="5"/>
+      <path d="M17 310v61m42-30v30m42-23v23m42-43v43m84-66v66m42-10v10m42-4v4m42-4v4m42-14v14m42-49v49m100-84v84m42-31v31m42-5v5m42 0v0m42-10v10m42-36v36m42-61v61" stroke-width="3"/>
+    </g>
+    <path d="M0 619c141-14 305-4 461 10 141 11 236 3 339-13v184H0Z" fill="#688d77"/>
+    <path d="m0 759 800-90v131H0Z" fill="#d1cdbb"/>
+    <path d="m0 780 800-82M0 791l800-82" fill="none" stroke="#879b8b" stroke-width="3"/>
+    <g>
+      <path d="m34 641 108-15V477L34 491Z" fill="#e0c7a1"/>
+      <path d="m142 626 49 28V501l-49-24Z" fill="#bcaa8c"/>
+      <path d="m27 489 117-17 54 26-12 9-45-22-109 16Z" fill="#5b6f63"/>
+      <path d="m52 519 21-3v37l-21 3Zm40-5 23-3v37l-23 3Zm-40 60 21-3v37l-21 3Zm40-6 23-3v37l-23 3Z" fill="#60796a"/>
+      <path d="m212 661 104-8V518l-104 7Z" fill="#f1dfbb"/>
+      <path d="m316 653 42 19V538l-42-20Z" fill="#c3b69b"/>
+      <path d="m207 522 109-10 47 24-9 9-39-19-104 9Z" fill="#506d5d"/>
+      <path d="m232 545 20-1v29l-20 2Zm39-2 20-1v29l-20 2Zm-39 49 20-1v29l-20 2Zm39-3 20-1v29l-20 2Z" fill="#879b7c"/>
+    </g>
+    <g>
+      <path d="M433 565h230a15 15 0 0 1 15 15v120H419V579a14 14 0 0 1 14-14Z" fill="#174b46"/>
+      <path d="M430 560h236v15H430Z" fill="#123f39"/>
+      <path d="M432 587h51v66h-51Zm67 0h52v66h-52Zm68 0h52v66h-52Zm68 0h29v66h-29Z" fill="#d9e4ca"/>
+      <path d="M432 587h51v9h-51Zm67 0h52v9h-52Zm68 0h52v9h-52Zm68 0h29v9h-29Z" fill="#b4cbb8"/>
+      <path d="M420 667h259v13H420Z" fill="#e1b76d"/>
+      <path d="M416 698h267v13H416Z" fill="#d5d8bf"/>
+      <circle cx="457" cy="714" r="12" fill="#203c34"/><circle cx="639" cy="714" r="12" fill="#203c34"/>
+      <rect x="484" y="548" width="128" height="18" rx="4" fill="#f2e8c8"/>
+      <text x="548" y="561" text-anchor="middle" font-family="sans-serif" font-size="10" letter-spacing="2" fill="#174b46">SAN FRANCISCO</text>
+    </g>
+    <path d="M719 620v103m-18-97h37" stroke="#405f4c" stroke-width="5"/>
+    <rect x="705" y="579" width="29" height="45" rx="4" fill="#f2e8c8" stroke="#405f4c" stroke-width="3"/>
+    <path d="M714 590h11v13h-11Z" fill="#174b46"/>
+    <circle cx="716" cy="611" r="2" fill="#174b46"/><circle cx="724" cy="611" r="2" fill="#174b46"/>
+    <path d="M0 732c89-27 125-11 188 7" fill="none" stroke="#426a53" stroke-width="15"/>
+    <g fill="#315d47"><circle cx="44" cy="712" r="38"/><circle cx="0" cy="722" r="48"/><circle cx="95" cy="730" r="34"/><circle cx="777" cy="677" r="34"/><circle cx="809" cy="665" r="45"/></g>
+    <path d="M50 79h96M50 91h66" stroke="#94aa97" stroke-width="2"/>
+    <text x="50" y="121" font-family="sans-serif" font-size="10" letter-spacing="3" fill="#547764">TAKE THE SCENIC ROUTE</text>
+  </g>
+</svg>

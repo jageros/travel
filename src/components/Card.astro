@@ -1,0 +1,25 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  href: string;
+  topic?: string;
+  type?: string;
+  updated?: string;
+  number?: string | number;
+}
+const { title, description, href, topic, type = 'Practical guide', updated, number } = Astro.props;
+---
+<article class="guide-card">
+  <div class="card-topline">
+    <span class="card-type">{type}</span>
+    {number && <span class="card-number" aria-hidden="true">{String(number).padStart(2, '0')}</span>}
+  </div>
+  <h3 class="card-title"><a href={href} data-analytics="internal-link">{title}</a></h3>
+  <p class="card-description">{description}</p>
+  <div class="card-meta">
+    <span>{topic ?? 'Plan with confidence'}</span>
+    <span class="card-arrow" aria-hidden="true">↗</span>
+  </div>
+  {updated && <p class="card-updated">Checked <time datetime={updated}>{new Date(`${updated.slice(0, 10)}T12:00:00Z`).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' })}</time></p>}
+</article>

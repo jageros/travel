@@ -1,0 +1,7 @@
+---
+import ArticlePage from '../../lib/ArticlePage.astro';
+import {visibleArticles,type Article} from '../../lib/content';
+export async function getStaticPaths() {return (await visibleArticles()).filter(article=>article.data.type==='destination').map(article=>({params:{slug:article.data.slug},props:{article}}));}
+interface Props {article:Article}
+---
+<ArticlePage article={Astro.props.article}/>

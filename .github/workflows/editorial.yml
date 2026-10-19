@@ -1,0 +1,106 @@
+name: Editorial source monitor and content queue
+on:
+  schedule:
+    - cron: '15 1 * * *'
+  workflow_dispatch:
+    inputs:
+      approve_slug:
+        description: 'Optional exact draft slug you personally reviewed; leave empty to monitor only'
+        required: false
+        type: string
+      generate_draft:
+        description: 'Attempt one new draft using configured server-side model credentials'
+        default: false
+        type: boolean
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+concurrency:
+  group: editorial-queue
+  cancel-in-progress: false
+jobs:
+  editorial:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Continue the existing editorial review branch
+        run: |
+          if git ls-remote --exit-code --heads origin automation/editorial > /dev/null; then
+            git checkout -B automation/editorial origin/automation/editorial
+            git merge --no-edit origin/main
+          else
+            git checkout -b automation/editorial
+          fi
+        env:
+          GIT_AUTHOR_NAME: travel-editorial[bot]
+          GIT_AUTHOR_EMAIL: travel-editorial@users.noreply.github.com
+          GIT_COMMITTER_NAME: travel-editorial[bot]
+          GIT_COMMITTER_EMAIL: travel-editorial@users.noreply.github.com
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Record explicit editorial approval
+        if: github.event_name == 'workflow_dispatch' && inputs.approve_slug != ''
+        env:
+          REVIEW_SLUG: ${{ inputs.approve_slug }}
+          REVIEWER: ${{ github.actor }}
+        run: node scripts/content-pipeline.mjs --approve "$REVIEW_SLUG" --reviewer "$REVIEWER"
+      - name: Monitor, draft on Monday/Wednesday/Friday, and apply publication gates
+        id: pipeline
+        continue-on-error: true
+        env:
+          DRAFT_API_KEY: ${{ secrets.DRAFT_API_KEY }}
+          DRAFT_MODEL: ${{ vars.DRAFT_MODEL }}
+          DRAFT_API_BASE_URL: ${{ vars.DRAFT_API_BASE_URL }}
+          DRAFT_API_ALLOWED_HOSTS: ${{ vars.DRAFT_API_ALLOWED_HOSTS }}
+          REQUEST_DRAFT: ${{ inputs.generate_draft }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          weekday=$(date -u +%u)
+          if [ -n "$DRAFT_API_KEY" ] && { [ "$REQUEST_DRAFT" = true ] || { [ "$EVENT_NAME" = schedule ] && { [ "$weekday" = 1 ] || [ "$weekday" = 3 ] || [ "$weekday" = 5 ]; }; }; }; then
+            node scripts/content-pipeline.mjs --draft --publish
+          else
+            node scripts/content-pipeline.mjs --publish
+          fi
+      - run: npm run verify
+        if: success()
+      - name: Publish a reviewable content and source-health PR
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          git config user.name 'travel-editorial[bot]'
+          git config user.email 'travel-editorial@users.noreply.github.com'
+          git add src/content/articles automation/editorial.json automation/review-queue.json automation/source-health.json automation/sources.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore(content): refresh source health and editorial queue'
+            git push origin HEAD:automation/editorial
+          fi
+          if ! git diff --quiet origin/main..HEAD; then
+            if ! gh pr view automation/editorial --json number > /dev/null 2>&1; then
+              gh pr create --base main --head automation/editorial --title 'Content and official-source review queue' --body-file .github/editorial-pr.md
+            fi
+            gh workflow run ci.yml --ref automation/editorial
+            manual_count=$(node -e "const s=JSON.parse(require('fs').readFileSync('automation/editorial.json'));process.stdout.write(String(s.publications.filter(p=>p.manualApproval).length))")
+            if [ "$manual_count" -ge 5 ]; then
+              gh pr merge automation/editorial --auto --squash
+            fi
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: editorial-reports
+          path: |
+            automation/reports/
+            automation/review-queue.json
+            automation/source-health.json
+          retention-days: 30
+          if-no-files-found: ignore

@@ -1,0 +1,7 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { topic } from '../../lib/content';
+---
+<BaseLayout title="Explore US travel topics — US Travel Guide" description="Explore connected travel guides organized around the details of a place: transport, tickets, routes and the next decision." path="/topics/" breadcrumbs={[{name:'Home',url:'/'},{name:'Topics',url:'/topics/'}]}>
+<section class="container section-block"><div class="page-intro"><p class="eyebrow">A place to begin</p><h1>Travel topics</h1><p>Start with a destination, then follow the details that fit your trip.</p></div><div class="topic-grid"><a class="topic-card" href={`/topics/${topic.slug}/`}><span class="card-type">California</span><h2>{topic.title}</h2><p>{topic.description}</p><span class="topic-link">Explore this topic →</span></a></div></section>
+</BaseLayout>

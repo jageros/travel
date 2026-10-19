@@ -1,0 +1,5 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import {contactEmail} from '../lib/site';
+---
+<BaseLayout title="Contact & corrections — US Travel Guide" description="Report a travel-guide correction, ask about our editorial method or contact US Travel Guide about advertising." path="/contact/"><section class="container section-block"><div class="page-intro"><p class="eyebrow">Help keep the details useful</p><h1>Get in touch.</h1><p>For a correction, include the guide URL, the information that needs checking and a reference from the responsible organization.</p></div><div class="prose">{contactEmail?<p><a href={`mailto:${contactEmail}`}>{contactEmail}</a></p>:<p><a href="https://github.com/jageros/travel/issues/new" rel="noopener">Send a correction through our public issue tracker ↗</a></p>}<p>Please do not include booking references, identity documents, payment information or other private details in a public report. Contact an operator directly about tickets, reservations or urgent travel assistance.</p></div></section></BaseLayout>

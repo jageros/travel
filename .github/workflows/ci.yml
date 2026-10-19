@@ -1,0 +1,31 @@
+name: Content and site checks
+on:
+  push:
+    branches: [main, 'automation/**']
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run verify
+      - run: npm run build
+        env:
+          CONTENT_REVIEW_PREVIEW: 'true'
+      - run: node scripts/verify-build.mjs
+        env:
+          CONTENT_REVIEW_PREVIEW: 'true'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: built-site
+          path: dist/
+          if-no-files-found: ignore

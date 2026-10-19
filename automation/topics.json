@@ -1,0 +1,66 @@
+{
+  "version": 1,
+  "selection": "san-francisco-without-a-car",
+  "topics": [
+    {
+      "slug": "sf-airport-arrival-checklist",
+      "type": "guide",
+      "topic": "san-francisco-without-a-car",
+      "status": "needs-editorial-assessment",
+      "primaryIntent": "What should I check before using transit from SFO with luggage?",
+      "brief": "A practical pre-departure and arrival decision checklist for airport transit with luggage. Explain how to compare hotel access, transfers, walking and fallback choices without inventing prices, timetables or safety guarantees.",
+      "sources": [
+        "bart-sfo",
+        "clipper-contactless"
+      ],
+      "facts": [
+        "bart-sfo-station",
+        "clipper-separate-riders"
+      ],
+      "related": [
+        "sfo-to-fishermans-wharf-with-luggage",
+        "bart-vs-muni-clipper"
+      ],
+      "reviewNote": "Potential intent overlap with an existing review guide; confirm an independent reader task before making ready."
+    },
+    {
+      "slug": "sf-waterfront-transit-itinerary",
+      "type": "guide",
+      "topic": "san-francisco-without-a-car",
+      "status": "ready",
+      "primaryIntent": "How can I plan a flexible waterfront sightseeing day using public transit?",
+      "brief": "A flexible sightseeing decision guide combining waterfront visits and a historic streetcar. Include mobility considerations, a walking fallback and a short versus long visit choice without invented schedules.",
+      "sources": [
+        "sfmta-f-line",
+        "sfmta-f-access"
+      ],
+      "facts": [
+        "muni-f-waterfront"
+      ],
+      "related": [
+        "san-francisco-without-a-car",
+        "is-muni-pass-worth-it"
+      ]
+    },
+    {
+      "slug": "golden-gate-bridge-transit-checklist",
+      "type": "guide",
+      "topic": "san-francisco-without-a-car",
+      "status": "needs-editorial-assessment",
+      "primaryIntent": "What should I check before visiting the Golden Gate Bridge by transit?",
+      "brief": "A before-you-leave checklist covering which bridge end, pedestrian access verification, weather and return transit research. Provide decision support; do not give unverified service hours or promise current route numbers.",
+      "sources": [
+        "golden-gate-transit",
+        "golden-gate-sidewalks"
+      ],
+      "facts": [
+        "bridge-transit-option",
+        "bridge-pedestrian-east"
+      ],
+      "related": [
+        "golden-gate-bridge-without-a-car"
+      ],
+      "reviewNote": "Potential intent overlap with an existing review guide; confirm an independent reader task before making ready."
+    }
+  ]
+}

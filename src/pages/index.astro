@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Search from '../components/Search';
+import { visibleArticles, articleHref, topic } from '../lib/content';
+const articles = await visibleArticles();
+const items = articles.map(article=>({title:article.data.title,description:article.data.description,href:articleHref(article),topic:topic.title,type:article.data.type}));
+---
+<BaseLayout title="Practical US travel guides — US Travel Guide" description="Plan the details that make a trip work. Clear US travel guides with official sources, useful comparisons and thoughtfully connected itineraries." path="/">
+  <section class="hero container">
+    <div class="hero-copy"><p class="eyebrow">A little planning. A better trip.</p><h1>Go beyond<br/>the sightseeing list.</h1><p>Find your way from “I’d like to go” to a plan that works. Start with the transport, tickets and small decisions that shape a good day out.</p><div class="hero-actions"><a class="button" href="/topics/">Explore destinations <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="/editorial-policy/">How we research</a></div><p class="hero-footnote">Clear comparisons. Official sources. No invented firsthand stories.</p></div>
+    <div class="hero-art"><img src="/images/sf-transit.svg" alt="An original illustration of a bay bridge, hills and a transit route" width="800" height="800" fetchpriority="high"/><span class="art-caption">Find a route that fits your day.</span></div>
+  </section>
+  <section class="container section-block"><div class="section-heading"><div><p class="eyebrow">Start somewhere good</p><h2>One place, all the useful details.</h2></div><a href="/topics/">Browse our focus areas <span aria-hidden="true">→</span></a></div><div class="topic-grid"><a class="topic-card" href={`/topics/${topic.slug}/`}><span class="card-type">California · City travel</span><h3>{topic.title}</h3><p>{topic.description}</p><span class="topic-link">Explore the planning guide →</span></a><div class="topic-note"><span class="eyebrow">Travel with context</span><h3>The right ticket.<br/>The last connection.<br/>The time to linger.</h3><p>Good travel advice helps you make a decision. Our guides bring the relevant details together and show you where to check what has changed.</p></div></div></section>
+  {articles.length > 0 && <section class="container section-block" id="guides"><div class="section-heading"><div><p class="eyebrow">Make your next decision</p><h2>Practical guides, connected.</h2></div><a href="/guides/">View all guides →</a></div><Search items={items} client:load/><noscript><p class="source-note">Browse every guide below. Search filtering is available with JavaScript.</p></noscript></section>}
+  <section class="container section-block"><div class="principles"><div><span>01</span><h3>Know your options</h3><p>Compare routes and tickets by the journey you actually want to make.</p></div><div><span>02</span><h3>Check the source</h3><p>Follow official references for changing fares, operating hours and booking rules.</p></div><div><span>03</span><h3>Keep exploring</h3><p>Move from the big picture to the detail that helps you plan your next stop.</p></div></div></section>
+</BaseLayout>
