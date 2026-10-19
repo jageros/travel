@@ -44,5 +44,14 @@ test('a staged production release has static content, working links, metadata an
   const sitemap=await fs.readFile(path.join(root,'dist/sitemap.xml'),'utf8');
   assert.match(sitemap,/guides\/is-muni-pass-worth-it\//);
   assert.doesNotMatch(sitemap,/guides\/sfo-to-fishermans-wharf-with-luggage\//);
+  const previewEnv={...env,VERCEL_ENV:'preview'};
+  delete previewEnv.CONTENT_REVIEW_PREVIEW;
+  const previewOptions={...options,env:previewEnv};
+  execFileSync(process.execPath,[path.join(source,'node_modules/astro/bin/astro.mjs'),'build'],previewOptions);
+  execFileSync(process.execPath,['scripts/verify-build.mjs'],previewOptions);
+  const previewHtml=await fs.readFile(path.join(root,'dist/guides/sfo-to-fishermans-wharf-with-luggage/index.html'),'utf8');
+  assert.match(previewHtml,/Editorial review copy/,'Vercel Preview automatically includes review copies');
+  assert.match(previewHtml,/<meta name="robots" content="noindex/);
+  assert.doesNotMatch(previewHtml,/data-ad-container/,'no ads in review deployments even with configured IDs');
  }finally{await fs.rm(temporary,{recursive:true,force:true});}
 });

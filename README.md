@@ -37,10 +37,10 @@ A normal production build excludes draft/review articles. This repository initia
 
 The previous `Makefile push` used SSH to replace a different domain. It has been disabled. Do not run an old copy to deploy this project.
 
-The new `vercel.json` uses Astro, `npm ci`, the verified build command and `dist` output. The production site responded with Vercel headers during the original audit, but its account/project Git connection has not been authenticated from this workspace. Before publishing:
+The new `vercel.json` uses Astro, `npm ci`, the verified build command and `dist` output. The implementation PR triggered a Vercel Git preview for project `jageros-projects/travel`, confirming repository integration. Production account settings and real service identifiers still need verification. Before publishing:
 
 1. Confirm the Vercel project belongs to this site, Git repository `jageros/travel`, root directory, production branch `main`, domain, and Node 24. Use a feature-branch Preview first.
-2. Set `CONTENT_REVIEW_PREVIEW=true` for Preview deployments only. Keep `SITE_INDEXING_ENABLED=false` while initial content is being reviewed. `VERCEL_ENV=preview` independently forces noindex and disables optional services.
+2. Vercel Preview deployments automatically include review copies unless explicitly overridden with `CONTENT_REVIEW_PREVIEW=false`. Use `CONTENT_REVIEW_PREVIEW=true` for local review builds. Keep `SITE_INDEXING_ENABLED=false` while initial content is being reviewed. `VERCEL_ENV=preview` independently forces noindex and disables optional services.
 3. Review the five guides and source baselines; release through the approval ledger. Confirm article URLs, canonical/JSON-LD, keyboard/mobile behavior, source links, robots/sitemap and real 404 responses on the deployment.
 4. After approved content is available, set `SITE_INDEXING_ENABLED=true` in Production and rebuild. Submit `https://travel.mumasir.com/sitemap.xml` in the verified Search Console property.
 5. Verify the deployed result and retain the previous deployment for rollback. Local builds do not prove production deployment, indexing or real-user Core Web Vitals.

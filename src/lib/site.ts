@@ -1,3 +1,4 @@
+import {isReviewBuild} from './build-mode.mjs';
 const productionUrl = 'https://travel.mumasir.com';
 function safeSiteUrl(value?: string): string {
   try {
@@ -8,7 +9,7 @@ function safeSiteUrl(value?: string): string {
 }
 export const SITE_URL = safeSiteUrl(import.meta.env.PUBLIC_SITE_URL);
 export const SITE_NAME = 'US Travel Guide';
-export const isReviewPreview = import.meta.env.CONTENT_REVIEW_PREVIEW === 'true';
+export const isReviewPreview = isReviewBuild({CONTENT_REVIEW_PREVIEW:import.meta.env.CONTENT_REVIEW_PREVIEW,VERCEL_ENV:import.meta.env.VERCEL_ENV});
 export const isIndexable = import.meta.env.SITE_INDEXING_ENABLED === 'true'
   && !isReviewPreview && (!import.meta.env.VERCEL_ENV || import.meta.env.VERCEL_ENV === 'production');
 export const gaMeasurementId = isIndexable && /^G-[A-Z0-9]+$/.test(import.meta.env.PUBLIC_GA_MEASUREMENT_ID || '') ? import.meta.env.PUBLIC_GA_MEASUREMENT_ID : '';

@@ -1,3 +1,4 @@
+import {isReviewBuild} from '../src/lib/build-mode.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
@@ -5,7 +6,7 @@ import {parse} from 'yaml';
 
 const root=process.cwd();
 const dist=path.join(root,'dist');
-const review=process.env.CONTENT_REVIEW_PREVIEW==='true';
+const review=isReviewBuild(process.env);
 const indexable=process.env.SITE_INDEXING_ENABLED==='true'&&!review&&(!process.env.VERCEL_ENV||process.env.VERCEL_ENV==='production');
 async function walk(dir) {
   const entries=await fs.readdir(dir,{withFileTypes:true});

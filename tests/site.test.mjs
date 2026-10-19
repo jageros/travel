@@ -41,3 +41,11 @@ test('fare calculator compares paid windows with integer cents and clear break-e
  assert.equal(compareFares(3,2,6).saving,0);
  for(const values of [[0,3,6],[3,1.5,6],[3,101,6],[NaN,3,6],[3,3,-1]])assert.equal(compareFares(...values),null);
 });
+
+import {isReviewBuild} from '../src/lib/build-mode.mjs';
+test('Vercel previews automatically show review copies and production requires an explicit review flag',()=>{
+ assert.equal(isReviewBuild({VERCEL_ENV:'preview'}),true);
+ assert.equal(isReviewBuild({VERCEL_ENV:'preview',CONTENT_REVIEW_PREVIEW:'false'}),false);
+ assert.equal(isReviewBuild({VERCEL_ENV:'production'}),false);
+ assert.equal(isReviewBuild({CONTENT_REVIEW_PREVIEW:'true'}),true);
+});

@@ -1,3 +1,4 @@
+import {isReviewBuild} from './build-mode.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import {parse} from 'yaml';
@@ -14,7 +15,7 @@ export function rewriteUnpublishedLinks(tree, visibleRoutes) {
   }
   visit(tree);
 }
-export default function visibleLinks() {
+export default function visibleLinks(options={}) {
   return function(tree) {
     const directory=path.join(process.cwd(),'src/content/articles');
     const visibleRoutes=new Set();
@@ -23,7 +24,7 @@ export default function visibleLinks() {
       const frontmatter=/^---\r?\n([\s\S]*?)\r?\n---/.exec(raw);
       if(!frontmatter) continue;
       const article=parse(frontmatter[1]);
-      if(article.status==='published'||(process.env.CONTENT_REVIEW_PREVIEW==='true'&&article.status==='review')) visibleRoutes.add(`/${article.type==='destination'?'destinations':'guides'}/${article.slug}/`);
+      if(article.status==='published'||((options.review??isReviewBuild(process.env))&&article.status==='review')) visibleRoutes.add(`/${article.type==='destination'?'destinations':'guides'}/${article.slug}/`);
     }
     rewriteUnpublishedLinks(tree,visibleRoutes);
   };
