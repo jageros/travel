@@ -7,10 +7,12 @@ interface Props {
   type?: string;
   updated?: string;
   number?: string | number;
+  image?: { src: string; srcSet: string; width: number; height: number; alt: string } | null;
 }
-const { title, description, href, topic, type = 'Practical guide', updated, number } = Astro.props;
+const { title, description, href, topic, type = 'Practical guide', updated, number, image } = Astro.props;
 ---
-<article class="guide-card">
+<article class:list={['guide-card', { 'guide-card-with-image': image }]}>
+  {image && <div class="card-image"><img src={image.src} srcset={image.srcSet} sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) calc((100vw - 64px) / 2), 380px" width={image.width} height={image.height} alt={image.alt} loading="lazy" decoding="async" /></div>}
   <div class="card-topline">
     <span class="card-type">{type}</span>
     {number && <span class="card-number" aria-hidden="true">{String(number).padStart(2, '0')}</span>}

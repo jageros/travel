@@ -13,10 +13,7 @@ sources: ["sfmta-fares", "sfmta-adult-single", "sfmta-day-pass", "sfmta-visitor-
 facts: ["muni-adult-clipper-fare", "muni-transfer-window", "muni-day-pass-fare", "muni-passport-fare"]
 related: ["bart-vs-muni-clipper", "san-francisco-without-a-car", "golden-gate-bridge-without-a-car"]
 hero:
-  src: "/images/sf-transit.svg"
-  alt: "Original transport illustration accompanying a comparison of Muni fare products"
-  credit: "US Travel Guide"
-  license: "CC0-1.0"
+  photoId: "muni-streetcar"
 ---
 
 A Muni pass is worth considering when it covers journeys you are likely to make for less than their applicable individual fares. Start with the itinerary, not the number of vehicles in a sightseeing plan. A transfer within a valid fare window may not require another full fare, while a cable car or another operator may need a different product.

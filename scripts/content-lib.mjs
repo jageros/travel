@@ -3,6 +3,7 @@ import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { parseDocument, stringify } from 'yaml';
 import { fromMarkdown } from 'mdast-util-from-markdown';
+import photos from '../src/data/photos.json' with { type: 'json' };
 
 export const isoDay = (date = new Date()) => date.toISOString().slice(0, 10);
 export const sha256 = (value) => createHash('sha256').update(value).digest('hex');
@@ -79,6 +80,7 @@ export function factMap(registry) {
 }
 
 const allowedFields = new Set(['title', 'description', 'slug', 'type', 'topic', 'status', 'author', 'publishedAt', 'updatedAt', 'checkedAt', 'primaryIntent', 'sources', 'facts', 'related', 'hero']);
+const photoIds = new Set(photos.map((photo) => photo.id));
 const dynamicClaimPattern = /\$\s*\d|\b(?:USD|dollars?)\s*\d|\b\d+(?:\.\d+)?\s*(?:dollars?|USD)\b|\b\d{1,2}:\d{2}\b|\b\d{1,2}\s*(?:a\.?m\.?|p\.?m\.?)\b|\b20\d{2}-\d{2}-\d{2}\b|\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}\b/i;
 
 export function validateMarkdownLinks(body, allowedHosts) {
@@ -150,7 +152,13 @@ export function validateArticle(article, registry, { now = new Date(), publishin
   for (const [field, value] of Object.entries({ title: data.title, description: data.description, body })) {
     if (typeof value === 'string' && dynamicClaimPattern.test(value)) errors.push(`Exact prices, clock times and dated claims belong in expiring registered facts (${field})`);
   }
-  if (data.hero && (typeof data.hero !== 'object' || Array.isArray(data.hero) || !/^\/images\/[a-zA-Z0-9/_-]+\.(?:svg|png|webp|jpe?g|avif)$/.test(data.hero.src ?? '') || !data.hero.alt || !data.hero.credit || !data.hero.license)) errors.push('Hero must use a local image with alt, credit, and license');
+  if (data.hero !== undefined) {
+    const hero = data.hero;
+    if (!hero || typeof hero !== 'object' || Array.isArray(hero)) errors.push('Hero must reference a registered photo or licensed local image');
+    else if (Object.hasOwn(hero, 'photoId')) {
+      if (Object.keys(hero).length !== 1 || typeof hero.photoId !== 'string' || !photoIds.has(hero.photoId)) errors.push('Hero photoId must reference a registered photo without legacy fields');
+    } else if (Object.keys(hero).some((key) => !['src', 'alt', 'credit', 'license'].includes(key)) || !/^\/images\/[a-zA-Z0-9/_-]+\.(?:svg|png|webp|jpe?g|avif)$/.test(hero.src ?? '') || ['alt', 'credit', 'license'].some((key) => typeof hero[key] !== 'string' || !hero[key].trim())) errors.push('Hero must use a local image with alt, credit, and license');
+  }
   return errors;
 }
 

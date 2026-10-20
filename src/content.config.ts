@@ -13,7 +13,10 @@ const articles = defineCollection({
     publishedAt: isoDate.optional(), updatedAt: isoDate, checkedAt: isoDate,
     primaryIntent: z.string().min(10), sources: z.array(z.string()).min(1),
     facts: z.array(z.string()).default([]), related: z.array(z.string()).default([]),
-    hero: z.object({src: z.string().startsWith('/images/'), alt: z.string(), credit: z.string(), license: z.string()}).optional()
+    hero: z.union([
+      z.object({ photoId: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/) }).strict(),
+      z.object({src: z.string().startsWith('/images/'), alt: z.string(), credit: z.string(), license: z.string()}).strict()
+    ]).optional()
   })
 });
 export const collections = { articles };

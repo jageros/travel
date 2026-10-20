@@ -6,6 +6,7 @@ export interface SearchItem {
   href: string;
   topic: string;
   type: string;
+  image?: { src: string; srcSet: string; width: number; height: number; alt: string } | null;
 }
 
 export default function Search({ items }: { items: SearchItem[] }) {
@@ -40,7 +41,8 @@ export default function Search({ items }: { items: SearchItem[] }) {
       <p className="search-count" aria-live="polite" aria-atomic="true">{results.length} {results.length === 1 ? 'guide' : 'guides'}{query.trim() ? ` for “${query.trim()}”` : ' to help you plan'}</p>
       <div className="cards-grid">
         {results.map((item, index) => (
-          <article className="guide-card" key={item.href}>
+          <article className={`guide-card${item.image ? ' guide-card-with-image' : ''}`} key={item.href}>
+            {item.image && <div className="card-image"><img src={item.image.src} srcSet={item.image.srcSet} sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) calc((100vw - 64px) / 2), 380px" width={item.image.width} height={item.image.height} alt={item.image.alt} loading="lazy" decoding="async" /></div>}
             <div className="card-topline"><span className="card-type">{item.type}</span><span className="card-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span></div>
             <h3 className="card-title"><a href={item.href} data-analytics="internal-link">{item.title}</a></h3>
             <p className="card-description">{item.description}</p>

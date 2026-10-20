@@ -13,10 +13,7 @@ sources: ["golden-gate-transit", "golden-gate-sidewalks", "sfmta-fares"]
 facts: ["bridge-transit-option", "bridge-pedestrian-east"]
 related: ["san-francisco-without-a-car", "bart-vs-muni-clipper", "is-muni-pass-worth-it"]
 hero:
-  src: "/images/sf-transit.svg"
-  alt: "Original bridge and transit illustration, not a photograph or a navigation map"
-  credit: "US Travel Guide"
-  license: "CC0-1.0"
+  photoId: "golden-gate"
 ---
 
 Decide what “visit the Golden Gate Bridge” means for your group before choosing a bus. Viewing it from the San Francisco end, walking partway out and returning, and making a complete crossing are different outings. Each needs a different walking budget and return plan.

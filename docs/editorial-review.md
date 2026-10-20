@@ -21,8 +21,9 @@ All five initial articles intentionally have `status: review`. They are excluded
 - [ ] Verify official links and related internal links. The bridge article uses `/destinations/`; the other four use `/guides/`.
 - [ ] Confirm no invented firsthand experience, named expert, travel test, testimonial, guaranteed safety, blanket accessibility or revenue claim appears.
 - [ ] Inspect the preview on mobile and desktop with JavaScript disabled. Confirm headings, tables, citations and fact-expiry messaging remain useful.
-- [ ] Confirm the hero is labeled as an original illustration, its attribution is accurate, and the CC0 declaration is intended by the site owner. It is not a location photograph or a usable navigation map.
-- [ ] Confirm title and description accurately describe the content; image alt describes the illustration; no keyword repetition is added solely to target search.
+- [ ] Confirm the registered hero photo matches the actual location and transport discussed. Check the original Commons file page, photographer, capture date and license against `src/data/photos.json`; the downloaded original's checksum must match. A historical photo does not establish today's services, signs or fares.
+- [ ] Confirm the photo credit, license link and resize/crop disclosure are visible, including the original ShareAlike license on adapted photos where required. Do not add unverified image URLs or invent a license.
+- [ ] Confirm title and description accurately describe the content; image alt describes what the photograph shows; no keyword repetition is added solely to target search.
 - [ ] Record a named reviewer and review date using the approval command documented in the operations guide. Do not approve solely to unlock automated publishing.
 
 ## Drafting and fact policy

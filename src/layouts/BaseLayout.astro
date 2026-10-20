@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Consent from '../components/Consent.astro';
+import { getPhoto } from '../lib/photos';
 import { SITE_URL, SITE_NAME, isReviewPreview, isIndexable, googleSiteVerification } from '../lib/site';
 interface Props {
   title: string;
@@ -9,8 +10,11 @@ interface Props {
   noindex?: boolean;
   article?: Record<string, unknown>;
   breadcrumbs?: Array<{ name: string; url: string }>;
+  socialImage?: { src: string; width: number; height: number; alt: string };
 }
-const { title, description, path = Astro.url.pathname, noindex = false, article, breadcrumbs = [] } = Astro.props;
+const { title, description, path = Astro.url.pathname, noindex = false, article, breadcrumbs = [], socialImage } = Astro.props;
+const defaultPhoto = socialImage ? null : await getPhoto('golden-gate');
+const share = socialImage ?? {...defaultPhoto!.share,alt:defaultPhoto!.alt};
 const canonical = new URL(path, SITE_URL).href;
 const pageTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
 const excluded = noindex || !isIndexable || isReviewPreview;
@@ -38,12 +42,13 @@ const navigation = [{ href: '/topics/', label: 'Explore topics' }, { href: '/gui
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:image" content={new URL('/images/travel-social.png', SITE_URL).href} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="An original illustration of San Francisco's bridge, hills, and transit" />
+    <meta property="og:image" content={new URL(share.src, SITE_URL).href} />
+    <meta property="og:image:width" content={String(share.width)} />
+    <meta property="og:image:height" content={String(share.height)} />
+    <meta property="og:image:alt" content={share.alt} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:image" content={new URL('/images/travel-social.png', SITE_URL).href} />
+    <meta name="twitter:image" content={new URL(share.src, SITE_URL).href} />
+    <meta name="twitter:image:alt" content={share.alt} />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
     {schema.map((item) => <script type="application/ld+json" set:html={json(item)} />)}
@@ -69,7 +74,7 @@ const navigation = [{ href: '/topics/', label: 'Explore topics' }, { href: '/gui
       <div class="container footer-main">
         <div class="footer-brand"><a href="/" class="footer-wordmark">US Travel Guide<span aria-hidden="true">↗</span></a><p>Practical answers for your next American adventure. Built around real questions, with sources you can check.</p></div>
         <div><h2>Start planning</h2><a href="/topics/">Explore topics</a><a href="/guides/">All guides</a><a href="/about/">About this site</a></div>
-        <div><h2>How we work</h2><a href="/editorial-policy/">Editorial policy</a><a href="/contact/">Contact & corrections</a><a href="/advertising/">Advertising</a><a href="/privacy/">Privacy & cookies</a><button type="button" class="text-button" data-consent-settings hidden>Cookie preferences</button></div>
+        <div><h2>How we work</h2><a href="/editorial-policy/">Editorial policy</a><a href="/photo-credits/">Photo credits</a><a href="/contact/">Contact & corrections</a><a href="/advertising/">Advertising</a><a href="/privacy/">Privacy & cookies</a><button type="button" class="text-button" data-consent-settings hidden>Cookie preferences</button></div>
       </div>
       <div class="container footer-bottom"><p>© {new Date().getUTCFullYear()} {SITE_NAME}.</p><p>Independent planning guides. Confirm changing details with the official provider.</p></div>
     </footer>

@@ -27,8 +27,8 @@ A normal production build excludes draft/review articles. This repository initia
 - `/topics/{slug}/`: connected planning hub (initial topic: San Francisco without a car).
 - `/guides/{slug}/` and `/destinations/{slug}/`: source-linked Markdown articles.
 - About, editorial policy, contact/corrections, privacy and advertising disclosures.
-- Per-page canonical, description, Open Graph PNG, safely escaped Article/Breadcrumb JSON-LD, robots, sitemap and a true 404.
-- Original CC0 illustrations; legacy hotlinked images are removed from seed data. The remaining 100 seed descriptions are research inputs, not published thin pages.
+- Per-page canonical, description, Open Graph images, safely escaped Article/Breadcrumb JSON-LD, robots, sitemap and a true 404.
+- Five real destination and transport photos with reviewed Commons source pages, creators, dates, licenses and original checksums in `src/data/photos.json`. Local JPEG originals in `src/assets/photos/` generate responsive WebP variants, JPEG fallbacks and per-page social previews at build time; no remote image requests are needed. Captions and `/photo-credits/` retain attribution, license and adaptation details. Legacy unverified hotlinks remain removed from the 100 research seeds.
 - A first-party pass comparison calculator uses reader-supplied current fares and paid fare windows; it does not invent ticket prices.
 - Optional current-fact panels use registered facts, source health and expiry. Precise claims are hidden by default in static HTML. A browser checks the date before revealing them and hides them at expiry; without JavaScript, readers get the official reference instead. Guide prose and links remain readable without JavaScript.
 - Internal Markdown links to unreleased guides degrade to readable text and become links once the destination is published. Related cards only include visible articles.

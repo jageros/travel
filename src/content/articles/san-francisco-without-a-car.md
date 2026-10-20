@@ -13,10 +13,7 @@ sources: ["bart-sfo", "sfmta-fares", "sfmta-f-line", "golden-gate-transit"]
 facts: ["bart-sfo-station", "muni-f-waterfront"]
 related: ["sfo-to-fishermans-wharf-with-luggage", "bart-vs-muni-clipper", "is-muni-pass-worth-it", "golden-gate-bridge-without-a-car"]
 hero:
-  src: "/images/sf-transit.svg"
-  alt: "Original illustration of a train, streetcar and bridge representing a car-free San Francisco trip"
-  credit: "US Travel Guide"
-  license: "CC0-1.0"
+  photoId: "city-cable-car"
 ---
 
 For a first visit, plan San Francisco as a set of connected neighborhoods rather than a checklist scattered across a map. Start with your accommodation address, your airport arrival, and one main outing per day. Then decide which journeys need transit and which can fit into a comfortable walk. A trip can use public transport for most journeys and still include a taxi for a difficult arrival transfer.

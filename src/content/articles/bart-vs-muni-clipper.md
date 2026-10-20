@@ -13,10 +13,7 @@ sources: ["bart-sfo", "sfmta-fares", "sfmta-adult-single", "sfmta-visitor-passpo
 facts: ["clipper-separate-riders", "muni-transfer-window"]
 related: ["is-muni-pass-worth-it", "sfo-to-fishermans-wharf-with-luggage", "golden-gate-bridge-without-a-car"]
 hero:
-  src: "/images/sf-transit.svg"
-  alt: "Original illustration of different transport modes used to explain operators and payment"
-  credit: "US Travel Guide"
-  license: "CC0-1.0"
+  photoId: "bart-train"
 ---
 
 Read the operator's name first, then the fare product, then the payment method. These are three different decisions. A trip planner may offer several services in one itinerary, and a payment card may work on more than one operator, without any single pass covering the whole journey.

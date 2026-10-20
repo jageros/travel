@@ -56,6 +56,11 @@ p { margin-bottom: 1.25em; }
 .button-secondary:hover { color: var(--teal); background: var(--sage); border-color: var(--teal); }
 .button-small { min-height: 40px; padding: 10px 15px; font-size: .78rem; }
 .hero-art { position: relative; }
+.photo { margin: 0; }
+.photo picture { display: block; }
+.photo-caption { margin-top: 10px; color: var(--muted); font-size: .68rem; line-height: 1.7; }
+.photo-caption a { color: inherit; text-decoration-color: #a3b4a8; }
+.hero-photo .photo-caption { text-align: right; }
 .hero-art img { width: 100%; border-radius: 12px 12px 100px 12px; background: var(--sage); aspect-ratio: 1 / 1; object-fit: cover; }
 .illustration-caption { margin: 12px 0 0; color: var(--muted); font-size: .69rem; text-align: right; }
 .hero-note { font-size: .73rem !important; margin-top: 24px; }
@@ -78,6 +83,8 @@ p { margin-bottom: 1.25em; }
 .cards-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .guide-card { position: relative; display: flex; flex-direction: column; padding: 26px; background: #fffefb; border: 1px solid var(--line); border-radius: 6px; transition: border-color .16s, box-shadow .16s; }
 .guide-card:hover { border-color: #92ab98; box-shadow: 0 8px 24px #20363207; }
+.card-image { margin: -26px -26px 24px; overflow: hidden; aspect-ratio: 16 / 10; border-radius: 5px 5px 0 0; background: var(--sage); }
+.card-image img { width: 100%; height: 100%; object-fit: cover; }
 .card-topline { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 27px; }
 .card-type { color: var(--teal); font-size: .64rem; text-transform: uppercase; font-weight: 650; letter-spacing: .11em; }
 .card-number { color: #8a9b8e; font-family: var(--serif); font-size: .85rem; }
@@ -187,6 +194,12 @@ p { margin-bottom: 1.25em; }
 .related-guides h2 { margin-bottom: 30px; }
 .info-page { max-width: 770px; padding-bottom: 75px; }
 .info-page h1 { margin-bottom: 28px; }
+.photo-credits-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; padding-bottom: 65px; }
+.photo-credit-card { padding: 22px; background: #fffefb; border: 1px solid var(--line); border-radius: 6px; }
+.photo-credit-card h2 { font-size: 1.7rem; margin-bottom: 18px; }
+.photo-credit-card img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 4px; }
+.photo-credit-card p { font-size: .83rem; color: var(--muted); margin-bottom: 12px; }
+.photo-credit-card .photo { margin-bottom: 20px; }
 .ad-slot { min-height: 280px; margin-block: 36px; padding-top: 9px; border-block: 1px solid var(--line); background: #f4f4ed; text-align: center; }
 .ad-label { display: block; color: var(--muted); text-transform: uppercase; font-size: .6rem; letter-spacing: .13em; margin-bottom: 8px; }
 .site-footer { background: #edf0e7; border-top: 1px solid var(--line); }
@@ -249,6 +262,7 @@ p { margin-bottom: 1.25em; }
   .principles { grid-template-columns: 1fr; gap: 27px; padding-top: 28px; }
   .principles > div > span { margin-bottom: 10px; }
   .guide-card { padding: 24px; }
+  .card-image { margin: -24px -24px 23px; }
   .card-topline { margin-bottom: 21px; }
   .card-title { font-size: 1.5rem; }
   .card-description { margin-bottom: 23px; }
@@ -284,6 +298,7 @@ p { margin-bottom: 1.25em; }
   .related-guides { padding-block: 27px 45px; }
   .notice, .source-note { padding: 17px 19px; font-size: .79rem; }
   .info-page { padding-bottom: 45px; }
+  .photo-credits-grid { grid-template-columns: 1fr; gap: 22px; padding-bottom: 45px; }
   .footer-main { grid-template-columns: 1fr 1fr; gap: 28px 22px; padding-block: 37px 26px; }
   .footer-brand { grid-column: 1 / -1; }
   .footer-brand p { max-width: 360px; margin-bottom: 7px; }

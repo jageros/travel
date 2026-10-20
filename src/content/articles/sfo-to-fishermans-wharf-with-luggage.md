@@ -13,10 +13,7 @@ sources: ["bart-sfo", "sfmta-f-line", "sfmta-f-access", "clipper-contactless"]
 facts: ["bart-sfo-station", "muni-f-waterfront", "clipper-separate-riders"]
 related: ["san-francisco-without-a-car", "bart-vs-muni-clipper", "is-muni-pass-worth-it"]
 hero:
-  src: "/images/sf-transit.svg"
-  alt: "Original illustration representing the train and streetcar portions of an airport transfer"
-  credit: "US Travel Guide"
-  license: "CC0-1.0"
+  photoId: "sfo-bart"
 ---
 
 The key decision is the final leg to your hotel. BART can be part of the journey from SFO, but “take BART to the Wharf” leaves out the transfer and the walk. With luggage, compare that complete trip with a direct road transfer before choosing on fare alone.
