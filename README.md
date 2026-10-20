@@ -20,7 +20,7 @@ CONTENT_REVIEW_PREVIEW=true npm run verify:build
 npm run preview
 ```
 
-A normal production build excludes draft/review articles. This repository initially has **zero approved/published articles**. Merging code is not editorial approval. First-five review instructions are in [docs/editorial-review.md](docs/editorial-review.md); official-source baseline and release procedures are in [docs/automation.md](docs/automation.md).
+A normal production build excludes draft/review articles. Current named approvals and release records are in `automation/editorial.json`; merging code is not editorial approval. The owner confirmed the five exact initial article versions on 2026-10-20, with the overview, operator/payment and SFO transfer guides selected for the first batch. First-five review instructions are in [docs/editorial-review.md](docs/editorial-review.md); official-source baseline and release procedures are in [docs/automation.md](docs/automation.md).
 
 ## Site architecture
 

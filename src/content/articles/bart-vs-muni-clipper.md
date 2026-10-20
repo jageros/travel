@@ -1,19 +1,31 @@
 ---
-title: "BART vs Muni vs Clipper: what each name means for your trip"
-description: "Separate transport operators from payment methods, understand pass limits, and avoid buying the wrong ticket for airport and city journeys."
-slug: "bart-vs-muni-clipper"
-type: "guide"
-topic: "san-francisco-without-a-car"
-status: "review"
-author: "editorial-team"
-updatedAt: "2026-10-20"
-checkedAt: "2026-10-20"
-primaryIntent: "Understand which San Francisco transport services and payment products cover a proposed journey"
-sources: ["bart-sfo", "sfmta-fares", "sfmta-adult-single", "sfmta-day-pass", "sfmta-visitor-passport", "clipper-contactless"]
-facts: ["clipper-separate-riders", "muni-transfer-window"]
-related: ["is-muni-pass-worth-it", "sfo-to-fishermans-wharf-with-luggage", "golden-gate-bridge-without-a-car"]
-hero:
-  photoId: "bart-train"
+"title": "BART vs Muni vs Clipper: what each name means for your trip"
+"description": "Separate transport operators from payment methods, understand pass limits, and avoid buying the wrong ticket for airport and city journeys."
+"slug": "bart-vs-muni-clipper"
+"type": "guide"
+"topic": "san-francisco-without-a-car"
+"status": "published"
+"author": "editorial-team"
+"updatedAt": "2026-10-20"
+"checkedAt": "2026-10-20"
+"primaryIntent": "Understand which San Francisco transport services and payment products cover a proposed journey"
+"sources":
+  - "bart-sfo"
+  - "sfmta-fares"
+  - "sfmta-adult-single"
+  - "sfmta-day-pass"
+  - "sfmta-visitor-passport"
+  - "clipper-contactless"
+"facts":
+  - "clipper-separate-riders"
+  - "muni-transfer-window"
+"related":
+  - "is-muni-pass-worth-it"
+  - "sfo-to-fishermans-wharf-with-luggage"
+  - "golden-gate-bridge-without-a-car"
+"hero":
+  "photoId": "bart-train"
+"publishedAt": "2026-10-20"
 ---
 
 BART and Muni are transport services. Clipper is a way to pay for eligible journeys or hold eligible products. A Visitor Passport is a specific Muni product. Keep these names separate and you can avoid buying a city pass that does not cover your airport journey.

@@ -1,6 +1,6 @@
 # First five articles: required human review
 
-All five initial articles intentionally have `status: review`. They are excluded from production article routes and the production sitemap until explicitly approved. The local review-preview mode renders review content with `noindex`; it is for checking the proposed result. A preview is not publication approval.
+Initial articles enter `status: review` and stay excluded from production article routes and the sitemap until explicitly approved and released. The owner confirmed all five exact digests on 2026-10-20; the overview, operator/payment and SFO transfer guides are the first release batch, while the other two remain approved review copies until the rolling quota allows release. The local review-preview mode renders review content with `noindex`; a preview itself is not publication approval. Current authority is the versioned editorial ledger.
 
 ## Review queue
 

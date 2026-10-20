@@ -2,6 +2,59 @@
   "version": 1,
   "requiredManualApprovals": 5,
   "autoPublishEnabled": true,
-  "approvals": [],
-  "publications": []
+  "approvals": [
+    {
+      "slug": "san-francisco-without-a-car",
+      "contentSha256": "95ca758995e7df9e7dd2e8c9df31614cf9d4abf5f416208a52ca49b4c00e0b80",
+      "reviewer": "jageros",
+      "reviewedAt": "2026-10-20"
+    },
+    {
+      "slug": "bart-vs-muni-clipper",
+      "contentSha256": "0cd30964d409a890a05001e771ea2f28c5ee5dc1fb59e7c334c644165c78d0e2",
+      "reviewer": "jageros",
+      "reviewedAt": "2026-10-20"
+    },
+    {
+      "slug": "sfo-to-fishermans-wharf-with-luggage",
+      "contentSha256": "7721e4a80be04978e8bf9ef89d97954c8116bce45363562f08aef88b9cfd9104",
+      "reviewer": "jageros",
+      "reviewedAt": "2026-10-20"
+    },
+    {
+      "slug": "is-muni-pass-worth-it",
+      "contentSha256": "73bc716399151dcba26a5dad80f9941cfca8ee52d72565f6ca7b9188283a284a",
+      "reviewer": "jageros",
+      "reviewedAt": "2026-10-20"
+    },
+    {
+      "slug": "golden-gate-bridge-without-a-car",
+      "contentSha256": "513707150908b0f95ff03c49897f05b7f5bddd2c823c78c9b5af00a80363a627",
+      "reviewer": "jageros",
+      "reviewedAt": "2026-10-20"
+    }
+  ],
+  "publications": [
+    {
+      "slug": "bart-vs-muni-clipper",
+      "publishedAt": "2026-10-20T12:18:20.750Z",
+      "contentSha256": "0cd30964d409a890a05001e771ea2f28c5ee5dc1fb59e7c334c644165c78d0e2",
+      "manualApproval": true,
+      "reviewer": "jageros"
+    },
+    {
+      "slug": "san-francisco-without-a-car",
+      "publishedAt": "2026-10-20T12:18:20.750Z",
+      "contentSha256": "95ca758995e7df9e7dd2e8c9df31614cf9d4abf5f416208a52ca49b4c00e0b80",
+      "manualApproval": true,
+      "reviewer": "jageros"
+    },
+    {
+      "slug": "sfo-to-fishermans-wharf-with-luggage",
+      "publishedAt": "2026-10-20T12:18:20.750Z",
+      "contentSha256": "7721e4a80be04978e8bf9ef89d97954c8116bce45363562f08aef88b9cfd9104",
+      "manualApproval": true,
+      "reviewer": "jageros"
+    }
+  ]
 }

@@ -1,10 +1,10 @@
 # Cedar Trips 首批五篇人工审阅包
 
-稿件与来源检查日期：**2026-10-20**。五篇均保持 `status: review`，没有 `publishedAt`，也没有因本次编辑产生任何人工批准或发布记录。`author: editorial-team` 表示站点编辑署名，不表示已经获得某位真人批准，也不声称作者亲历、实测过路线或购买过车票。
+稿件与来源检查日期：**2026-10-20**。用户已明确确认本包对应的五篇精确稿件版本，并同意按 3+2 分批发布；`automation/editorial.json` 记录了真实确认人 `jageros` 与下列 SHA-256。总览、运营方解释、SFO 接驳三篇已通过首批发布检查；另外两篇保留批准记录及 `review` 状态，等待滚动配额。`author: editorial-team` 是站点编辑署名，不声称作者亲历、实测过路线或购买过车票。
 
-本包先把完整成果交给用户阅读确认。下列路径需要在开启 `CONTENT_REVIEW_PREVIEW=true` 的预览站点访问；它们不是已经公开上线的页面。预览统一 noindex，具体预览域名由部署结果提供。
+本包保留当时交给用户确认的完整成果。预览站统一 noindex，并显示待发的两篇；正式站只生成已发布文章，下列路径是否公开以实际生产响应和发布账本为准。
 
-本轮实际部署预览：[查看五篇稿件](https://travel-git-codex-first-content-launch-jageros-projects.vercel.app/guides/)。独立 GitHub runner 后续已完成 11 / 11 来源抓取和基线检查，来源健康 PR #4 已合并；当前五篇的质量与重复检查均无错误，剩余发布条件是用户对下列精确稿件版本的确认。该来源更新没有修改文章指纹。
+本轮实际部署预览：[查看五篇稿件](https://travel-git-codex-first-content-launch-jageros-projects.vercel.app/guides/)。独立 GitHub runner 已完成 11 / 11 来源抓取和基线检查，来源健康 PR #4 已合并；五篇的质量与重复检查均无错误。用户随后确认这些精确版本，文章正文和指纹没有因批准、状态或发布日期改变。
 
 ## 阅读顺序与每篇新增价值
 
@@ -73,4 +73,4 @@
 node scripts/content-pipeline.mjs --list-review
 ```
 
-真实审核人明确确认具体稿件后，批准接口需要同时提供 `--approve SLUG --reviewer NAME --sha256 REVIEWED_DIGEST`，或在GitHub手动触发工作流时提供匹配的slug与指纹。确认人与指纹均不得伪造。批准与发布是两个独立动作；本轮没有执行任一动作。即使五篇全部批准，每滚动七天最多三篇的发布上限仍然适用。
+批准接口需要同时提供 `--approve SLUG --reviewer NAME --sha256 REVIEWED_DIGEST`，或在GitHub手动触发工作流时提供匹配的slug与指纹。确认人与指纹均不得伪造。本轮是在收到用户对五篇的明确确认后记录批准，并用相同发布门禁生成三条首批发布记录。每滚动七天最多三篇的上限继续适用，另外两篇的批准不等于已经发布。

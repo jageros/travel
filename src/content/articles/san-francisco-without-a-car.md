@@ -1,19 +1,30 @@
 ---
-title: "San Francisco without a car: plan the journeys before the sights"
-description: "Build a practical San Francisco trip around your hotel, airport transfer and a few connected neighborhoods, with clear transit and ticket boundaries."
-slug: "san-francisco-without-a-car"
-type: "guide"
-topic: "san-francisco-without-a-car"
-status: "review"
-author: "editorial-team"
-updatedAt: "2026-10-20"
-checkedAt: "2026-10-20"
-primaryIntent: "Decide how to organize a first San Francisco visit without renting a car"
-sources: ["bart-sfo", "sfmta-fares", "sfmta-f-line", "golden-gate-transit"]
-facts: ["bart-sfo-station", "muni-f-waterfront"]
-related: ["sfo-to-fishermans-wharf-with-luggage", "bart-vs-muni-clipper", "is-muni-pass-worth-it", "golden-gate-bridge-without-a-car"]
-hero:
-  photoId: "city-cable-car"
+"title": "San Francisco without a car: plan the journeys before the sights"
+"description": "Build a practical San Francisco trip around your hotel, airport transfer and a few connected neighborhoods, with clear transit and ticket boundaries."
+"slug": "san-francisco-without-a-car"
+"type": "guide"
+"topic": "san-francisco-without-a-car"
+"status": "published"
+"author": "editorial-team"
+"updatedAt": "2026-10-20"
+"checkedAt": "2026-10-20"
+"primaryIntent": "Decide how to organize a first San Francisco visit without renting a car"
+"sources":
+  - "bart-sfo"
+  - "sfmta-fares"
+  - "sfmta-f-line"
+  - "golden-gate-transit"
+"facts":
+  - "bart-sfo-station"
+  - "muni-f-waterfront"
+"related":
+  - "sfo-to-fishermans-wharf-with-luggage"
+  - "bart-vs-muni-clipper"
+  - "is-muni-pass-worth-it"
+  - "golden-gate-bridge-without-a-car"
+"hero":
+  "photoId": "city-cable-car"
+"publishedAt": "2026-10-20"
 ---
 
 A car-free San Francisco trip is easiest to organize around an arrival route, a useful hotel location and a small number of connected outings. Choose those three things before buying a transit pass. You can use public transport for sightseeing and still choose a taxi for an awkward airport transfer.

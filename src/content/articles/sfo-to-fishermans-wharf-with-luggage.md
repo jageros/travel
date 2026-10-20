@@ -1,19 +1,30 @@
 ---
-title: "SFO to Fisherman's Wharf with luggage: compare the whole transfer"
-description: "Compare BART plus the F streetcar, BART plus a road transfer, and a direct airport transfer by luggage, group size and your exact hotel address."
-slug: "sfo-to-fishermans-wharf-with-luggage"
-type: "guide"
-topic: "san-francisco-without-a-car"
-status: "review"
-author: "editorial-team"
-updatedAt: "2026-10-20"
-checkedAt: "2026-10-20"
-primaryIntent: "Choose an SFO to Fisherman's Wharf transfer when carrying luggage"
-sources: ["bart-sfo", "sfmta-f-line", "sfmta-f-access", "clipper-contactless"]
-facts: ["bart-sfo-station", "muni-f-waterfront", "clipper-separate-riders"]
-related: ["san-francisco-without-a-car", "bart-vs-muni-clipper", "is-muni-pass-worth-it"]
-hero:
-  photoId: "sfo-bart"
+"title": "SFO to Fisherman's Wharf with luggage: compare the whole transfer"
+"description": "Compare BART plus the F streetcar, BART plus a road transfer, and a direct airport transfer by luggage, group size and your exact hotel address."
+"slug": "sfo-to-fishermans-wharf-with-luggage"
+"type": "guide"
+"topic": "san-francisco-without-a-car"
+"status": "published"
+"author": "editorial-team"
+"updatedAt": "2026-10-20"
+"checkedAt": "2026-10-20"
+"primaryIntent": "Choose an SFO to Fisherman's Wharf transfer when carrying luggage"
+"sources":
+  - "bart-sfo"
+  - "sfmta-f-line"
+  - "sfmta-f-access"
+  - "clipper-contactless"
+"facts":
+  - "bart-sfo-station"
+  - "muni-f-waterfront"
+  - "clipper-separate-riders"
+"related":
+  - "san-francisco-without-a-car"
+  - "bart-vs-muni-clipper"
+  - "is-muni-pass-worth-it"
+"hero":
+  "photoId": "sfo-bart"
+"publishedAt": "2026-10-20"
 ---
 
 For Fisherman's Wharf, compare the whole trip to your hotel entrance. BART can cover the airport-to-city rail leg, but you will still need a connection and a final walk. With bags, that last leg can matter more than the train ride.
