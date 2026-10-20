@@ -21,10 +21,10 @@ test('site URL configuration rejects stale, noncanonical, malformed and unsafe v
  ])assert.throws(()=>resolveSiteUrl(value),undefined,value);
 });
 
-test('Vercel domain redirects are host-scoped and preserve paths without redirecting the unrelated root domain',async()=>{
+test('Vercel only normalizes the Cedar Trips bare domain and does not redirect retired or unrelated domains',async()=>{
  const config=JSON.parse(await readFile(new URL('../vercel.json',import.meta.url),'utf8'));
  const redirects=config.redirects||[];
- const expected=['cedartrips.com','travel.mumasir.com'];
+ const expected=['cedartrips.com'];
  for(const host of expected) {
   const rules=redirects.filter(rule=>(rule.has||[]).some(condition=>condition.type==='host'&&condition.value===host));
   assert.equal(rules.length,1,`${host}: one scoped redirect`);
@@ -33,10 +33,11 @@ test('Vercel domain redirects are host-scoped and preserve paths without redirec
   assert.ok(rules[0].permanent===true||rules[0].statusCode===308,'permanent 308 redirect');
  }
  for(const rule of redirects) {
-  if(!rule.destination?.startsWith(CANONICAL_SITE_URL))continue;
   const hosts=(rule.has||[]).filter(condition=>condition.type==='host');
-  assert.ok(hosts.length>0,'migration redirect must have a host condition');
-  for(const host of hosts)assert.ok(expected.includes(host.value),'unrelated mumasir root/subdomains must not redirect');
-  assert.ok(!rule.destination.includes('?'),'query string is not replaced by the migration destination');
+  for(const host of hosts)assert.ok(!['travel.mumasir.com','mumasir.com','www.mumasir.com'].includes(host.value),'retired travel and unrelated mumasir domains must not redirect');
+  if(!rule.destination?.startsWith(CANONICAL_SITE_URL))continue;
+  assert.ok(hosts.length>0,'canonical-domain redirect must have a host condition');
+  for(const host of hosts)assert.ok(expected.includes(host.value),'only the Cedar Trips bare host redirects to the www site');
+  assert.ok(!rule.destination.includes('?'),'query string is not replaced by the canonical destination');
  }
 });
