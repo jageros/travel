@@ -1,6 +1,6 @@
-# US Travel Guide
+# Cedar Trips
 
-A source-led English travel site for https://travel.mumasir.com. Astro generates readable static HTML; React progressively enhances guide search. No account, database or CMS is required.
+A source-led English travel site for https://www.cedartrips.com. Astro generates readable static HTML; React progressively enhances guide search. No account, database or CMS is required.
 
 ## Run and review
 
@@ -42,8 +42,18 @@ The new `vercel.json` uses Astro, `npm ci`, the verified build command and `dist
 1. Confirm the Vercel project belongs to this site, Git repository `jageros/travel`, root directory, production branch `main`, domain, and Node 24. Use a feature-branch Preview first.
 2. Vercel Preview deployments automatically include review copies unless explicitly overridden with `CONTENT_REVIEW_PREVIEW=false`. Use `CONTENT_REVIEW_PREVIEW=true` for local review builds. Keep `SITE_INDEXING_ENABLED=false` while initial content is being reviewed. `VERCEL_ENV=preview` independently forces noindex and disables optional services.
 3. Review the five guides and source baselines; release through the approval ledger. Confirm article URLs, canonical/JSON-LD, keyboard/mobile behavior, source links, robots/sitemap and real 404 responses on the deployment.
-4. After approved content is available, set `SITE_INDEXING_ENABLED=true` in Production and rebuild. Submit `https://travel.mumasir.com/sitemap.xml` in the verified Search Console property.
+4. After approved content is available, set `SITE_INDEXING_ENABLED=true` in Production and rebuild. Submit `https://www.cedartrips.com/sitemap.xml` in the verified Search Console property.
 5. Verify the deployed result and retain the previous deployment for rollback. Local builds do not prove production deployment, indexing or real-user Core Web Vitals.
+
+### Cedar Trips domain migration
+
+The only canonical origin is `https://www.cedartrips.com`. Set the Production `PUBLIC_SITE_URL` to this value before deploying. The shared identity in `src/lib/site-config.mjs` is used by Astro, page metadata and editorial monitoring. A bare Cedar Trips URL is normalized to `www`; retired or unrelated origins fail the build instead of silently emitting incorrect canonical URLs.
+
+`vercel.json` contains host-scoped permanent redirects from `cedartrips.com` and `travel.mumasir.com` to the same path at the canonical origin. Query parameters are retained. No rule targets the unrelated `mumasir.com` root site. Keep the old travel hostname attached to this Vercel project, its DNS and TLS working, and its redirects in service for at least a year. An existing Vercel domain redirect must target the same canonical hostname to avoid loops.
+
+The owner has added the Search Console Domain property `cedartrips.com`, which includes `www`. New reports can initially show processing; adding a property does not itself index pages or establish that the old site was never indexed. Keep the current noindex and editorial gates until the first guides have been reviewed and released. Then submit `https://www.cedartrips.com/sitemap.xml` in that existing property. If using Google's Change of Address tool, first verify the old travel property as well, confirm the permanent redirects, and then submit the move; old Search Console report history is not a prerequisite for redirects.
+
+After deployment, check homepage and deep-path redirects (including query parameters), canonical/OG/JSON-LD, robots/sitemap, real HTTP 404s, and Preview noindex. See [Google's migration guidance](https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes). Do not enable indexing, advertising, model calls or article approvals merely because the domain changed.
 
 ## Optional site configuration
 
@@ -51,7 +61,7 @@ Copy `.env.example` to a local `.env` for local-only configuration. Set deployme
 
 | Setting | Purpose |
 | --- | --- |
-| `PUBLIC_SITE_URL` | Canonical origin, default `https://travel.mumasir.com` |
+| `PUBLIC_SITE_URL` | Canonical origin, default `https://www.cedartrips.com` |
 | `SITE_INDEXING_ENABLED` | Explicit production indexing opt-in; default false |
 | `CONTENT_REVIEW_PREVIEW` | Include review copies only in noindex preview |
 | `PUBLIC_GOOGLE_SITE_VERIFICATION` | Search Console verification token |

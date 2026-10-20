@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { assertOfficialUrl, isoDay, queueFailure, readJson, sha256, validateRegistry, writeJson } from './content-lib.mjs';
+import {CANONICAL_SITE_URL} from '../src/lib/site-config.mjs';
 
 export function extractText(html) {
   return html.replace(/<(script|style|nav|footer|header)\b[^>]*>[\s\S]*?<\/\1>/gi, ' ')
@@ -10,7 +11,7 @@ export function extractText(html) {
 
 export async function fetchOfficialText(url, allowedHosts, fetcher = fetch, redirects = 0) {
   assertOfficialUrl(url, allowedHosts);
-  const response = await fetcher(url, { redirect: 'manual', signal: AbortSignal.timeout(20000), headers: { 'User-Agent': 'TravelEditorialSourceMonitor/1.0 (+https://travel.mumasir.com/editorial/)', Accept: 'text/html,text/plain' } });
+  const response = await fetcher(url, { redirect: 'manual', signal: AbortSignal.timeout(20000), headers: { 'User-Agent': `CedarTripsSourceMonitor/1.0 (+${CANONICAL_SITE_URL}/editorial-policy/)`, Accept: 'text/html,text/plain' } });
   if (response.status >= 300 && response.status < 400) {
     if (redirects >= 3 || !response.headers.get('location')) throw new Error('Source redirect limit exceeded');
     return fetchOfficialText(new URL(response.headers.get('location'), url).href, allowedHosts, fetcher, redirects + 1);

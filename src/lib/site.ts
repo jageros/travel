@@ -1,14 +1,7 @@
 import {isReviewBuild} from './build-mode.mjs';
-const productionUrl = 'https://travel.mumasir.com';
-function safeSiteUrl(value?: string): string {
-  try {
-    const url = new URL(value || productionUrl);
-    if (url.protocol !== 'https:' || url.username || url.password) return productionUrl;
-    return url.origin;
-  } catch { return productionUrl; }
-}
-export const SITE_URL = safeSiteUrl(import.meta.env.PUBLIC_SITE_URL);
-export const SITE_NAME = 'US Travel Guide';
+import {resolveSiteUrl} from './site-config.mjs';
+export {SITE_NAME, SITE_EDITORIAL_TEAM} from './site-config.mjs';
+export const SITE_URL = resolveSiteUrl(import.meta.env.PUBLIC_SITE_URL);
 export const isReviewPreview = isReviewBuild({CONTENT_REVIEW_PREVIEW:import.meta.env.CONTENT_REVIEW_PREVIEW,VERCEL_ENV:import.meta.env.VERCEL_ENV});
 export const isIndexable = import.meta.env.SITE_INDEXING_ENABLED === 'true'
   && !isReviewPreview && (!import.meta.env.VERCEL_ENV || import.meta.env.VERCEL_ENV === 'production');

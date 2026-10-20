@@ -1,4 +1,5 @@
 import {isReviewBuild} from './build-mode.mjs';
+import {CANONICAL_SITE_URL} from './site-config.mjs';
 import fs from 'node:fs';
 import path from 'node:path';
 import {parse} from 'yaml';
@@ -8,7 +9,7 @@ export function rewriteUnpublishedLinks(tree, visibleRoutes) {
   function textOf(node) { return node.value || (node.children || []).map(textOf).join(''); }
   function visit(node) {
     if(node.type==='link' && /^\/(?:guides|destinations)\//.test(node.url||'')) {
-      const route=new URL(node.url,'https://travel.mumasir.com').pathname.replace(/\/?$/,'/');
+      const route=new URL(node.url,CANONICAL_SITE_URL).pathname.replace(/\/?$/,'/');
       if(!visibleRoutes.has(route)) {node.type='text';node.value=textOf(node);delete node.children;delete node.url;delete node.title;}
     }
     for(const child of node.children||[]) visit(child);
