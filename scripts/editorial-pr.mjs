@@ -10,6 +10,46 @@ const sourceStatePaths = new Set(['automation/source-health.json', 'automation/s
 const hashPattern = /^[a-f0-9]{64}$/;
 const queueStages = new Set(['source-check', 'fact-evidence', 'publish', 'draft', 'draft-preflight']);
 
+export function createEditorialRunner({ root = process.cwd(), env = process.env, execute = exec } = {}) {
+  return async (command, args) => {
+    const appWrite = (command === 'git' && args[0] === 'push') || (command === 'gh' && args[0] === 'pr' && ['create', 'edit'].includes(args[1]));
+    const token = appWrite && env.EDITORIAL_APP_TOKEN ? env.EDITORIAL_APP_TOKEN : env.GH_TOKEN;
+    if ((command === 'gh' || (command === 'git' && args[0] === 'push')) && (!token || typeof token !== 'string' || /\s/.test(token))) throw new Error('A valid workflow credential is required for this GitHub operation');
+    const childEnv = { ...env };
+    delete childEnv.EDITORIAL_APP_TOKEN;
+    delete childEnv.EDITORIAL_APP_PRIVATE_KEY;
+    delete childEnv.GITHUB_TOKEN;
+    if (command === 'gh') childEnv.GH_TOKEN = token;
+    if (command === 'git') {
+      delete childEnv.GH_TOKEN;
+      childEnv.GIT_TERMINAL_PROMPT = '0';
+      childEnv.GIT_TRACE = '0';
+      childEnv.GIT_TRACE_CURL = '0';
+      childEnv.GIT_CURL_VERBOSE = '0';
+      if (token) {
+        if (typeof token !== 'string' || /\s/.test(token)) throw new Error('A valid workflow credential is required for Git authentication');
+        // checkout does not persist credentials. Git's temporary process config
+        // keeps tokens out of URLs, command arguments and repository config.
+        childEnv.GIT_CONFIG_COUNT = '2';
+        childEnv.GIT_CONFIG_KEY_0 = 'credential.helper';
+        childEnv.GIT_CONFIG_VALUE_0 = '';
+        childEnv.GIT_CONFIG_KEY_1 = 'http.https://github.com/.extraheader';
+        childEnv.GIT_CONFIG_VALUE_1 = `AUTHORIZATION: basic ${Buffer.from(`x-access-token:${token}`).toString('base64')}`;
+      }
+    }
+    return execute(command, args, { cwd: root, encoding: 'utf8', env: childEnv });
+  };
+}
+
+export async function pushEditorialBranch({ root = process.cwd(), env = process.env, run = createEditorialRunner({ root, env }) } = {}) {
+  if ((await run('git', ['branch', '--show-current'])).stdout.trim() !== 'automation/editorial') throw new Error('Editorial pushes are restricted to the automation/editorial branch');
+  const changed = (await run('git', ['diff', '--name-only', 'origin/main..HEAD'])).stdout.trim().split(/\r?\n/).filter(Boolean);
+  if (changed.some((file) => !allowedUpdates.test(file))) throw new Error('Editorial push contains files outside the content/source-state allowlist');
+  if (!changed.length) return { status: 'unchanged' };
+  await run('git', ['push', 'origin', 'HEAD:automation/editorial']);
+  return { status: 'pushed', prAuthMode: env.EDITORIAL_APP_TOKEN ? 'github-app' : 'github-token-human-workflow-approval' };
+}
+
 function requireKeys(value, required, optional = []) {
   if (!value || typeof value !== 'object' || Array.isArray(value) || required.some((key) => !Object.hasOwn(value, key)) || Object.keys(value).some((key) => !required.includes(key) && !optional.includes(key))) throw new Error('Unknown or incomplete source-state schema');
 }
@@ -137,7 +177,7 @@ export async function classifySourceStateUpdate({ changed, run, readVersion = as
   } catch (error) { return { eligible: false, reason: error.message }; }
 }
 
-export async function openEditorialPullRequest({ root = process.cwd(), run = (command, args) => exec(command, args, { cwd: root, encoding: 'utf8' }), readVersion, readChanges, sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)), attempts = 60, delayMs = 10000, now = new Date() } = {}) {
+export async function openEditorialPullRequest({ root = process.cwd(), env = process.env, run = createEditorialRunner({ root, env }), readVersion, readChanges, sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms)), attempts = 60, delayMs = 10000, now = new Date() } = {}) {
   try { await run('git', ['diff', '--quiet', 'origin/main..HEAD']); return { status: 'unchanged' }; }
   catch (error) { if (error.code !== 1) throw error; }
   const changed = (await run('git', ['diff', '--name-only', 'origin/main..HEAD'])).stdout.trim().split(/\r?\n/).filter(Boolean);
@@ -165,9 +205,10 @@ export async function openEditorialPullRequest({ root = process.cwd(), run = (co
   const autoEligible = state.autoPublishEnabled === true && sourceState.eligible && (healthOnly || manualCount >= 5);
   const listRuns = async () => JSON.parse((await run('gh', ['run', 'list', '--workflow', 'ci.yml', '--event', 'workflow_dispatch', '--branch', 'automation/editorial', '--commit', sha, '--limit', '10', '--json', 'databaseId,status,conclusion,headSha'])).stdout);
   const priorRuns = new Set(autoEligible ? (await listRuns()).map((item) => item.databaseId) : []);
-  // GITHUB_TOKEN pushes do not reliably start CI. workflow_dispatch is explicit.
+  // This extra exact-SHA dispatch is distinct from the required PR-event CI.
   await run('gh', ['workflow', 'run', 'ci.yml', '--ref', 'automation/editorial']);
-  if (!autoEligible) return { status: 'manual-review', number: pr.number, url: pr.url, sha, manualReleases: manualCount, sourceState: sourceState.reason };
+  const prAuthMode = env.EDITORIAL_APP_TOKEN ? 'github-app' : 'github-token-human-workflow-approval';
+  if (!autoEligible) return { status: 'manual-review', number: pr.number, url: pr.url, sha, manualReleases: manualCount, sourceState: sourceState.reason, prAuthMode };
 
   // Wait for a successful dispatched CI at this exact SHA even if the repository
   // has no required status checks; --auto alone may otherwise merge immediately.
@@ -186,10 +227,10 @@ export async function openEditorialPullRequest({ root = process.cwd(), run = (co
   const remoteBase = (await run('git', ['ls-remote', 'origin', 'refs/heads/main'])).stdout.trim();
   if (!/^[a-f0-9]{40}$/.test(checkedBase) || remoteBase !== `${checkedBase}\trefs/heads/main`) throw new Error('Main changed after checkout; refresh the editorial branch and rerun validation before merging');
   await run('gh', ['pr', 'merge', String(pr.number), '--auto', '--squash', '--match-head-commit', sha]);
-  return { status: 'auto-merge-requested', number: pr.number, url: pr.url, sha, manualReleases: manualCount, mergeChannel: healthOnly ? 'source-state' : 'content' };
+  return { status: 'auto-merge-requested', number: pr.number, url: pr.url, sha, manualReleases: manualCount, mergeChannel: healthOnly ? 'source-state' : 'content', prAuthMode };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  try { console.log(JSON.stringify(await openEditorialPullRequest(), null, 2)); }
+  try { console.log(JSON.stringify(await (process.argv.includes('--push-branch') ? pushEditorialBranch() : openEditorialPullRequest()), null, 2)); }
   catch (error) { console.error(error.message); process.exitCode = 1; }
 }
