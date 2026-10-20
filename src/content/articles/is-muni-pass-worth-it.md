@@ -6,8 +6,8 @@ type: "guide"
 topic: "san-francisco-without-a-car"
 status: "review"
 author: "editorial-team"
-updatedAt: "2026-10-19"
-checkedAt: "2026-10-19"
+updatedAt: "2026-10-20"
+checkedAt: "2026-10-20"
 primaryIntent: "Calculate whether a Muni pass fits the actual journeys in a visitor's day"
 sources: ["sfmta-fares", "sfmta-adult-single", "sfmta-day-pass", "sfmta-visitor-passport"]
 facts: ["muni-adult-clipper-fare", "muni-transfer-window", "muni-day-pass-fare", "muni-passport-fare"]
@@ -16,44 +16,48 @@ hero:
   photoId: "muni-streetcar"
 ---
 
-A Muni pass is worth considering when it covers journeys you are likely to make for less than their applicable individual fares. Start with the itinerary, not the number of vehicles in a sightseeing plan. A transfer within a valid fare window may not require another full fare, while a cable car or another operator may need a different product.
+A Muni pass is worth considering when it covers journeys you are likely to make for less than the applicable individual fares. Count paid fare windows first, then separate cable cars and other operators. Counting every boarding as another full fare can make a pass look better than it is.
 
-The calculations below are a reusable method. Use the currently checked facts and the linked operator pages for prices and conditions when you buy. This guide does not assume that every visitor pays the same fare or that a purchase channel shown in an older article is still available.
+Use the checked source notes and official product pages for current prices. The formula below works without a fare hardcoded into the article and remains useful if your payment method or planned rides change.
 
-## List the fare decisions in your day
+## Start with a small journey list
 
-Write down the approximate times and operators of your journeys. Include the return to your accommodation, and separate optional rides from journeys you must make. Label cable cars explicitly. A historic streetcar should not be counted as a cable car just because both are sightseeing experiences.
+Write down each ordinary Muni journey, approximately when you expect to make it and whether a transfer stays within the valid fare conditions. Mark cable car rides separately. Finally, add the airport and any ferry or other operator on separate budget lines.
 
-Next, group ordinary Muni journeys that fall within the applicable transfer conditions. [SFMTA's single-ride page](https://www.sfmta.com/fares/single-ride-adult-ages-19-64) describes those conditions. Count the number of new fare purchases your itinerary requires, rather than multiplying the single fare by every vehicle boarding.
+An outbound bus followed by an eligible Muni connection may form one paid fare window. A later return can require another. [SFMTA's single-ride conditions](https://www.sfmta.com/fares/single-ride-adult-ages-19-64) explain how to check this; the number of vehicles alone is not the fare count.
 
-Finally, mark any journey using BART, a ferry or another operator. Keep it outside the Muni comparison unless the exact product's terms include it. That prevents an apparently cheap “day total” from omitting the airport or a bridge connection.
-
-## Use a simple break-even formula
-
-Let **S** be the applicable ordinary single-ride fare, **N** the number of paid ordinary Muni fare windows, **C** the applicable separate cable car fare, and **K** the number of cable car tickets you would otherwise buy. Let **D** be the applicable Muni-only day product and **P** the relevant Visitor Passport price.
-
-| Option | Calculation to investigate | Coverage check |
+| Day pattern | What to count | Main comparison |
 | --- | --- | --- |
-| Individual purchases | N × S + K × C | Confirm transfer conditions and cable car ticket rules |
-| Muni-only day product | D + K × C | Verify that the product covers the ordinary services in your plan |
-| Visitor Passport | P | Verify the product's included Muni services and validity |
+| One connected outing, with transfers inside its valid window | One ordinary paid window if all conditions are met | The applicable single fare against a day product |
+| A morning outing, later return and separate evening trip | The actual new paid windows after checking the conditions | Ordinary individual fares against a Muni-only day product |
+| Ordinary Muni travel plus an intended cable car ride | Paid ordinary windows and separate cable car tickets | Individual purchases or a Muni-only day product against a cable-car-inclusive Passport |
 
-For an ordinary-Muni-only day, compare **N × S** with **D**. The mathematical break-even count is **D ÷ S**, but round only when translating that ratio into actual paid fare windows. For a day with cable cars, compare **P** with the lower of **N × S + K × C** and **D + K × C**. These formulas assume you qualify for and can buy the products being compared.
+Do not add a cable car ride solely to make a Passport appear economical. Calculate optional rides both ways.
 
-Do not add an extra ride just to justify a pass. If you are unlikely to use an optional cable car journey, calculate the day both with and without it. The difference shows how dependent your decision is on a plan that might change.
+## Compare the same journeys with a formula
 
-## Compare the right products
+Let **S** be the applicable ordinary single fare, **N** the paid ordinary Muni fare windows, **C** the applicable separate cable car ticket and **K** the cable car tickets you would otherwise buy. Let **D** be the relevant Muni-only day product and **P** the one-day Visitor Passport.
 
-[The Muni-only Day Pass page](https://www.sfmta.com/fares/day-pass) and [the Visitor Passport page](https://www.sfmta.com/fares/1-day-visitor-passport) describe different products. Read their service coverage and expiry rules before comparing price. A calendar-day product and a rolling period are not interchangeable concepts.
+| Option | Calculation | Coverage boundary |
+| --- | --- | --- |
+| Individual purchases | N × S + K × C | Ordinary transfer conditions and separate cable car tickets still apply |
+| Muni-only day product plus cable car tickets | D + K × C | The day product covers its listed ordinary Muni services; cable cars remain separate |
+| One-day Visitor Passport | P | Compare only the Muni journeys the Passport includes |
 
-If your visit spans several days, calculate each day's likely journeys before considering a longer product. One transit-heavy day does not establish that a multi-day purchase is economical. A walking-focused day may change the average substantially.
+Without cable cars, compare **N × S**, **D** and **P** for the same day. For the Muni-only day product, **D ÷ S** is the mathematical break-even ratio; the actual decision uses a whole number of paid fare windows. With cable cars, compare **P** with the lower of **N × S + K × C** and **D + K × C**.
 
-For a group, do the calculation per person first. Age, eligibility and payment method can produce different results. Multiply only after you know that the same fare and product assumptions apply to everyone.
+These expressions assume each ordinary paid window costs the same **S**. If a valid transfer credit or concession changes some journeys, replace **N × S** with the sum of their actual applicable fares. Do not subtract a credit twice or apply it to a pass purchase unless the official rules provide for that.
 
-## Adjust for transfers and uncertain plans
+## Check coverage and the purchase channel
 
-An eligible inter-operator transfer credit may change the individual-purchase total. Check the current conditions for your actual operator pair and payment method before subtracting anything. Do not apply the same assumed credit to every connection in a day.
+[The Muni-only Day Pass](https://www.sfmta.com/fares/day-pass) and [the Visitor Passport](https://www.sfmta.com/fares/1-day-visitor-passport) are different products. The Passport includes cable cars; its conditions exclude BART, other operators and SFO airport transportation. A Muni-only day product should not be treated as a cable car ticket.
 
-If a fare fact is unavailable or out of date here, open [SFMTA's fare overview](https://www.sfmta.com/getting-around/muni/fares) and re-enter the current values. The formula still works without a price copied into the article. Before purchase, confirm activation, validity and the available sales channel on the official product page.
+Read the current product page before purchase for available channels, activation and expiry. A calendar-day product is not a rolling period starting whenever you first use it. Do not assume an older app instruction, an automatic fare cap or a quoted channel discount applies to the product you choose.
 
-For the broader ticket distinction, read [BART, Muni and Clipper](/guides/bart-vs-muni-clipper/). Keep the airport budget and any other operators visible alongside your Muni total so the final travel budget reflects the entire visit.
+For a longer visit, calculate the likely days separately before comparing a multi-day product. A transit-heavy sightseeing day does not establish that every day needs unlimited travel. For a group, calculate per person before multiplying: eligibility and payment methods may differ.
+
+## Keep excluded travel visible
+
+Add BART, ferries or other excluded journeys to each compared option. If a connection qualifies for a current inter-operator credit, check its conditions for your actual payment method before entering the net fare. Use [SFMTA's fare overview](https://www.sfmta.com/getting-around/muni/fares) when an amount or purchase instruction is unavailable here.
+
+The [BART, Muni and Clipper guide](/guides/bart-vs-muni-clipper/) explains why payment compatibility does not establish pass coverage. The result you want is a product for the journeys you intend to make, rather than an unlimited ticket bought before the itinerary exists.

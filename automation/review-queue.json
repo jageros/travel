@@ -1,1 +1,58 @@
-[]
+[
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-sfo: unavailable (fetch failed)"
+    ],
+    "detectedAt": "2026-10-20T10:08:13.917Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "sfmta-fares: unavailable (fetch failed)"
+    ],
+    "detectedAt": "2026-10-20T09:55:18.128Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "sfmta-adult-single: unavailable (fetch failed)"
+    ],
+    "detectedAt": "2026-10-20T09:55:18.128Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "golden-gate-transit: unavailable (fetch failed)"
+    ],
+    "detectedAt": "2026-10-20T09:55:18.129Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "golden-gate-sidewalks: unavailable (fetch failed)"
+    ],
+    "detectedAt": "2026-10-20T09:55:18.129Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "clipper-contactless: unavailable (fetch failed)"
+    ],
+    "detectedAt": "2026-10-20T09:55:18.130Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "golden-gate-transit: unavailable (Official source returned HTTP 504)"
+    ],
+    "detectedAt": "2026-10-20T10:08:13.918Z"
+  }
+]

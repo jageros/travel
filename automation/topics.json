@@ -1,6 +1,7 @@
 {
   "version": 1,
   "selection": "san-francisco-without-a-car",
+  "planningNote": "Five initial articles plus eight distinct follow-up briefs can form a thirteen-article cluster. This is an editorial plan, not a demand estimate or publication approval. Three potentially overlapping briefs remain held and are excluded from that target.",
   "topics": [
     {
       "slug": "sf-airport-arrival-checklist",
@@ -61,6 +62,111 @@
         "golden-gate-bridge-without-a-car"
       ],
       "reviewNote": "Potential intent overlap with an existing review guide; confirm an independent reader task before making ready."
+    },
+    {
+      "slug": "sf-adult-group-contactless-payments",
+      "type": "guide",
+      "topic": "san-francisco-without-a-car",
+      "status": "needs-editorial-assessment",
+      "primaryIntent": "How should several adults assign contactless cards or devices before entering transit gates?",
+      "brief": "Solve the group coordination task for adult riders: create a rider-to-credential worksheet and agree on a meeting point after the gates without assuming staff can override payment rules. Use the registered Clipper separate-riders fact and BART airport-station fact. Apply same-credential entry/exit matching only where that operator requires both taps; never infer that every service has an exit tap or give unregistered Muni tap instructions. Distinguish adults using their own credentials from youth/discount eligibility; refer those readers to official programs without inventing conditions. Do not assert that multiple devices on one bank account always work, quote prices, promise acceptance of a particular foreign bank card, or invent a fix for declined payment. Include a practical pre-boarding checklist and a decision table explaining when to pause and consult the operator.",
+      "sources": ["clipper-contactless", "bart-sfo"],
+      "facts": ["clipper-separate-riders", "bart-sfo-station"],
+      "related": ["bart-vs-muni-clipper", "sfo-to-fishermans-wharf-with-luggage"],
+      "sourceGaps": [],
+      "reviewNote": "The revised BART/Muni guide already has a per-rider payment section covering separate credentials, matching entry/exit where required, eligibility and backup preparation. A worksheet or meeting-point checklist alone does not justify a separate full guide. Prefer improving the existing guide unless verified new group-specific rules or real reader questions establish an independent task.",
+      "distinctness": "Potential worksheet extension to the existing operator/payment guide; independent article value has not been established."
+    },
+    {
+      "slug": "sf-waterfront-step-free-transit-planning",
+      "type": "guide",
+      "topic": "san-francisco-without-a-car",
+      "status": "needs-source-verification",
+      "primaryIntent": "How can I verify a step-free F-line waterfront journey stop by stop?",
+      "brief": "Build a stop-level accessibility verification worksheet covering boarding platform, vehicle boarding arrangement, destination access and the return stop. Keep wheelchair/stroller questions separate from a general sightseeing itinerary. Link official access information and explain what remains unconfirmed. Do not guarantee step-free access, assume all historic streetcars or stops are interchangeable, invent ramp locations, or reuse the luggage-transfer article as a substitute.",
+      "sources": ["sfmta-f-access", "sfmta-f-line"],
+      "facts": ["muni-f-waterfront"],
+      "related": ["san-francisco-without-a-car", "sf-waterfront-transit-itinerary"],
+      "sourceGaps": ["Register and verify SFMTA facts describing accessible F-line boarding arrangements and the stop-specific access lookup; the existing waterfront-stop fact does not establish accessibility.", "Confirm an official way to check current access disruptions and a qualified fallback before making this brief ready."],
+      "distinctness": "A stop-by-stop access decision task; the general waterfront itinerary remains a separate sightseeing task."
+    },
+    {
+      "slug": "sf-cable-car-vs-historic-streetcar",
+      "type": "guide",
+      "topic": "san-francisco-without-a-car",
+      "status": "needs-source-verification",
+      "primaryIntent": "How can I tell whether the ride I want is a cable car or an F-line historic streetcar?",
+      "brief": "Help a visitor identify the intended transit experience before choosing a route: compare the two modes using verified operator descriptions, map lookup steps and clearly licensed reference photographs. Include a mode-identification checklist and explain where to verify route and boarding information. Avoid copying the pass break-even article, calling every historic vehicle a cable car, promising a specific vehicle on a departure, or publishing unregistered fares and operating hours.",
+      "sources": ["sfmta-f-line", "sfmta-day-pass", "sfmta-visitor-passport"],
+      "facts": ["muni-f-waterfront", "muni-day-pass-fare", "muni-passport-fare"],
+      "related": ["is-muni-pass-worth-it", "sf-waterfront-transit-itinerary"],
+      "sourceGaps": ["Register an official SFMTA cable-car mode/route source and verified facts distinguishing the cable-car system from the F-line streetcar.", "Verify boarding and route-identification guidance; existing pass coverage facts alone cannot establish these details."],
+      "distinctness": "Identify the ride and mode a visitor actually wants; ticket-price comparison stays with the existing pass guide."
+    },
+    {
+      "slug": "sf-transit-with-children-fare-planning",
+      "type": "guide",
+      "topic": "san-francisco-without-a-car",
+      "status": "needs-source-verification",
+      "primaryIntent": "How should a family check child and youth fare eligibility separately for BART and Muni?",
+      "brief": "Provide a family planning worksheet that records each rider's age category, operator, required payment credential and evidence to confirm eligibility. Compare verification steps rather than inventing a universal family ticket. Explicitly separate adult contactless payment from discount programs. Do not infer child eligibility from adult fare records, promise free travel, or invent an age threshold or application requirement.",
+      "sources": ["sfmta-fares", "clipper-contactless"],
+      "facts": ["clipper-separate-riders"],
+      "related": ["bart-vs-muni-clipper", "sf-adult-group-contactless-payments"],
+      "sourceGaps": ["Register current official SFMTA youth/free-fare conditions with expiring facts for age, service exclusions and credential requirements.", "Register current official BART youth-discount and Clipper youth-card sources with verified eligibility and payment facts."],
+      "distinctness": "Family eligibility and credential preparation, not an adult pass comparison or a repeat of the operator overview."
+    },
+    {
+      "slug": "sfo-late-arrival-transit-fallbacks",
+      "type": "guide",
+      "topic": "san-francisco-without-a-car",
+      "status": "needs-source-verification",
+      "primaryIntent": "What should I verify if my SFO arrival is too late for my planned BART connection?",
+      "brief": "Build an after-a-delay decision flow based on actual arrival readiness, official journey planners and verified airport ground-transport options. Explain how to abandon a missed connection and select a qualified alternative without declaring a timetable guarantee. Include a worksheet for the correct travel date and destination. Do not copy the normal airport-to-Wharf luggage route, invent last-train times, promise overnight service, or give unverified pickup locations and prices.",
+      "sources": ["bart-sfo"],
+      "facts": ["bart-sfo-station"],
+      "related": ["sfo-to-fishermans-wharf-with-luggage", "bart-vs-muni-clipper"],
+      "sourceGaps": ["Register official BART service-date/journey-planning sources and verified facts on checking the last feasible departure.", "Register current SFO ground-transport and any proposed overnight alternative sources, including operator-specific access/pickup facts before naming an alternative."],
+      "distinctness": "Recover from a disrupted late arrival; the existing airport guide covers a planned routine transfer."
+    },
+    {
+      "slug": "sf-contactless-transit-payment-declined",
+      "type": "guide",
+      "topic": "san-francisco-without-a-car",
+      "status": "needs-source-verification",
+      "primaryIntent": "What official checks should I make when my transit contactless payment is declined?",
+      "brief": "Create a bounded troubleshooting decision table using operator and payment-program guidance: distinguish a credential mismatch, an operator instruction and a bank-related issue only where official documentation supports that distinction. Explain when to stop retrying and contact the responsible provider. Do not diagnose an account as blocked from a single failed tap, promise a reversal/refund, invent bank-card compatibility rules, or recommend bypassing gates.",
+      "sources": ["clipper-contactless"],
+      "facts": ["clipper-separate-riders"],
+      "related": ["sf-adult-group-contactless-payments", "bart-vs-muni-clipper"],
+      "sourceGaps": ["Register official Clipper contactless troubleshooting, support and payment-decline guidance with verified problem/next-step facts.", "Verify operator-specific legitimate alternative payment instructions and where bank support is required; the current separate-riders fact does not establish a payment diagnosis."],
+      "distinctness": "Recover from a failed payment, rather than explain operator coverage or ordinary tap preparation."
+    },
+    {
+      "slug": "sausalito-without-car-return-ferry-or-bus",
+      "type": "guide",
+      "topic": "san-francisco-without-a-car",
+      "status": "needs-source-verification",
+      "primaryIntent": "How should I compare the ferry and bus return before a car-free Sausalito day trip?",
+      "brief": "Start with the return journey and compare which terminal/stop, operator, travel date and ticket conditions a visitor must check. Give a decision worksheet for a shorter or longer visit and a fallback if the chosen return no longer works. Do not promise boarding capacity, invent a combined ticket, copy the Golden Gate Bridge walk guide, or quote unverified schedules, fares or reservation rules.",
+      "sources": ["golden-gate-transit"],
+      "facts": ["bridge-transit-option"],
+      "related": ["san-francisco-without-a-car", "golden-gate-bridge-without-a-car"],
+      "sourceGaps": ["Register official Golden Gate Ferry Sausalito terminal, ticket and date-specific schedule sources with verified facts.", "Register an official Golden Gate Transit Sausalito route/return-planning source; the bridge visitor guide does not establish a Sausalito bus service or fare."],
+      "distinctness": "A town day-trip return-mode decision, separate from bridge access and walking."
+    },
+    {
+      "slug": "sf-transit-disruption-backup-plan",
+      "type": "guide",
+      "topic": "san-francisco-without-a-car",
+      "status": "needs-source-verification",
+      "primaryIntent": "How should I use official BART and Muni alerts to revise a disrupted sightseeing journey?",
+      "brief": "Develop an alert-to-action worksheet: identify the affected operator and segment, distinguish a station/stop issue from a whole-route disruption when official guidance allows it, re-plan the journey and recheck the return. Verify the advisory's issue/update date and applicable time range; an official page can still link to an expired incident. Link the live advisory index and represent any necessary precise date in expiring fact records instead of copying temporary incidents into evergreen prose. Do not invent a detour, promise replacement transport or accessibility, or present a historical advisory as current.",
+      "sources": ["bart-sfo", "sfmta-f-line"],
+      "facts": ["bart-sfo-station", "muni-f-waterfront"],
+      "related": ["bart-vs-muni-clipper", "sf-waterfront-transit-itinerary"],
+      "sourceGaps": ["Register official BART and SFMTA live-advisory and journey-replanning sources with verified facts about interpreting an alert and checking its issue/update date and effective time range.", "Confirm the fallback advice for accessibility or temporary replacement service against the responsible operator before any such claim can be published."],
+      "distinctness": "A current service-disruption response workflow, not another general route overview or payment guide."
     }
   ]
 }

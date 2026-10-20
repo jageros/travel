@@ -4,12 +4,24 @@ on:
     - cron: '15 1 * * *'
   workflow_dispatch:
     inputs:
+      accept_missing_baselines:
+        description: 'Capture missing source hashes only after personally completing official-source review'
+        default: false
+        type: boolean
       approve_slug:
         description: 'Optional exact draft slug you personally reviewed; leave empty to monitor only'
         required: false
         type: string
+      approve_sha256:
+        description: 'Exact reviewed contentSha256 from --list-review; required with approve_slug'
+        required: false
+        type: string
       generate_draft:
         description: 'Attempt one new draft using configured server-side model credentials'
+        default: false
+        type: boolean
+      publish_approved:
+        description: 'Explicitly attempt approved releases; false means monitoring/drafting only'
         default: false
         type: boolean
 permissions:
@@ -46,12 +58,22 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      - name: Capture explicitly reviewed missing source baselines
+        id: source-baselines
+        if: github.event_name == 'workflow_dispatch' && inputs.accept_missing_baselines == true
+        continue-on-error: true
+        env:
+          BASELINE_REVIEWER: ${{ github.actor }}
+        run: |
+          echo "Missing-baseline capture requested by $BASELINE_REVIEWER after official-source review."
+          node scripts/check-sources.mjs --accept-baseline
       - name: Record explicit editorial approval
         if: github.event_name == 'workflow_dispatch' && inputs.approve_slug != ''
         env:
           REVIEW_SLUG: ${{ inputs.approve_slug }}
           REVIEWER: ${{ github.actor }}
-        run: node scripts/content-pipeline.mjs --approve "$REVIEW_SLUG" --reviewer "$REVIEWER"
+          REVIEW_SHA256: ${{ inputs.approve_sha256 }}
+        run: node scripts/content-pipeline.mjs --approve "$REVIEW_SLUG" --reviewer "$REVIEWER" --sha256 "$REVIEW_SHA256"
       - name: Monitor, draft on Monday/Wednesday/Friday, and apply publication gates
         id: pipeline
         continue-on-error: true
@@ -61,14 +83,16 @@ jobs:
           DRAFT_API_BASE_URL: ${{ vars.DRAFT_API_BASE_URL }}
           DRAFT_API_ALLOWED_HOSTS: ${{ vars.DRAFT_API_ALLOWED_HOSTS }}
           REQUEST_DRAFT: ${{ inputs.generate_draft }}
+          REQUEST_PUBLISH: ${{ inputs.publish_approved }}
           EVENT_NAME: ${{ github.event_name }}
         run: |
           weekday=$(date -u +%u)
-          if [ -n "$DRAFT_API_KEY" ] && { [ "$REQUEST_DRAFT" = true ] || { [ "$EVENT_NAME" = schedule ] && { [ "$weekday" = 1 ] || [ "$weekday" = 3 ] || [ "$weekday" = 5 ]; }; }; }; then
-            node scripts/content-pipeline.mjs --draft --publish
-          else
-            node scripts/content-pipeline.mjs --publish
+          args=()
+          if [ -n "$DRAFT_API_KEY" ] && [ -n "$DRAFT_MODEL" ] && { [ "$REQUEST_DRAFT" = true ] || { [ "$EVENT_NAME" = schedule ] && { [ "$weekday" = 1 ] || [ "$weekday" = 3 ] || [ "$weekday" = 5 ]; }; }; }; then
+            args+=(--draft)
           fi
+          if [ "$EVENT_NAME" = schedule ] || [ "$REQUEST_PUBLISH" = true ]; then args+=(--publish); fi
+          node scripts/content-pipeline.mjs "${args[@]}"
       - run: npm run verify
         if: success()
       - name: Publish a reviewable content and source-health PR
@@ -84,16 +108,7 @@ jobs:
             git commit -m 'chore(content): refresh source health and editorial queue'
             git push origin HEAD:automation/editorial
           fi
-          if ! git diff --quiet origin/main..HEAD; then
-            if ! gh pr view automation/editorial --json number > /dev/null 2>&1; then
-              gh pr create --base main --head automation/editorial --title 'Content and official-source review queue' --body-file .github/editorial-pr.md
-            fi
-            gh workflow run ci.yml --ref automation/editorial
-            manual_count=$(node -e "const s=JSON.parse(require('fs').readFileSync('automation/editorial.json'));process.stdout.write(String(s.publications.filter(p=>p.manualApproval).length))")
-            if [ "$manual_count" -ge 5 ]; then
-              gh pr merge automation/editorial --auto --squash
-            fi
-          fi
+          node scripts/editorial-pr.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

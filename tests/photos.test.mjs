@@ -68,7 +68,7 @@ test('all five initial articles use registered photo IDs with no source override
 test('article validation rejects unknown photos and metadata mixing while retaining licensed legacy heroes', async () => {
   const [original] = await readArticles(root);
   const registry = await readJson(path.join(root, 'automation/sources.json'));
-  const latestCheckedDay = [original.data.checkedAt, ...registry.sources.map((source) => source.checkedAt)].sort().at(-1);
+  const latestCheckedDay = [original.data.updatedAt, original.data.checkedAt, ...registry.sources.map((source) => source.checkedAt)].sort().at(-1);
   const now = new Date(`${latestCheckedDay}T12:00:00Z`);
   const errorsWithHero = (hero) => validateArticle({ ...original, data: { ...original.data, hero } }, registry, { now });
   for (const photo of photos) assert.deepEqual(errorsWithHero({ photoId: photo.id }), [], photo.id);
