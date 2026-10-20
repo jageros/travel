@@ -1,0 +1,606 @@
+{
+  "version": 1,
+  "researchedAt": "2026-10-19",
+  "selectedTopic": "san-francisco-without-a-car",
+  "method": "Editorial prioritization from a small current search sample and official-source inspection; ordinal 1-5 judgments, not measured search volume or keyword difficulty. Every candidate requires individual validation before drafting.",
+  "weights": {
+    "demandEvidence": 0.2,
+    "contentGap": 0.2,
+    "independentValue": 0.25,
+    "officialVerifiability": 0.2,
+    "maintenanceEase": 0.1,
+    "adReadingFit": 0.05
+  },
+  "topics": [
+    {
+      "id": "san-francisco-without-a-car",
+      "title": "San Francisco without a car",
+      "scores": {
+        "demandEvidence": 2,
+        "contentGap": 3,
+        "independentValue": 5,
+        "officialVerifiability": 5,
+        "maintenanceEase": 3,
+        "adReadingFit": 3
+      },
+      "weightedScore": 3.7,
+      "keywords": [
+        {
+          "id": "san-francisco-without-a-car-01",
+          "query": "san francisco without a car three day itinerary",
+          "intent": "Organize a visit by connected neighborhoods",
+          "status": "review-draft",
+          "articleSlug": "san-francisco-without-a-car",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-02",
+          "query": "sfo to fishermans wharf with luggage",
+          "intent": "Choose a complete airport transfer",
+          "status": "review-draft",
+          "articleSlug": "sfo-to-fishermans-wharf-with-luggage",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-03",
+          "query": "bart vs muni for tourists clipper",
+          "intent": "Distinguish operators, payment and pass coverage",
+          "status": "review-draft",
+          "articleSlug": "bart-vs-muni-clipper",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-04",
+          "query": "muni day pass vs visitor passport worth it",
+          "intent": "Compare fare windows and cable car plans",
+          "status": "review-draft",
+          "articleSlug": "is-muni-pass-worth-it",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-05",
+          "query": "golden gate bridge without a car",
+          "intent": "Select a bridge end and return journey",
+          "status": "review-draft",
+          "articleSlug": "golden-gate-bridge-without-a-car",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-06",
+          "query": "sfo to union square late arrival public transport",
+          "intent": "Check an arrival-time-specific transfer",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-07",
+          "query": "clipper card vs contactless bank card san francisco visitors",
+          "intent": "Choose payment method and discount eligibility",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-08",
+          "query": "san francisco cable car vs streetcar tickets",
+          "intent": "Identify vehicle types and valid tickets",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-09",
+          "query": "embarcadero to fishermans wharf f streetcar luggage",
+          "intent": "Evaluate the final waterfront connection",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-10",
+          "query": "where to stay in san francisco without a car transit",
+          "intent": "Compare accommodation journeys",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-11",
+          "query": "golden gate bridge north end vs south end bus",
+          "intent": "Choose bridge-side access",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-12",
+          "query": "san francisco ferry day trip without a car",
+          "intent": "Plan separate ferry and onward transport",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-13",
+          "query": "how to get to alcatraz departure pier public transport",
+          "intent": "Reach a booked departure pier",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-14",
+          "query": "golden gate park museums public transport no car",
+          "intent": "Choose a museum entrance and transit stop",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-15",
+          "query": "ocean beach san francisco public transport from downtown",
+          "intent": "Plan a beach outing and return",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-16",
+          "query": "san francisco rainy day itinerary without a car",
+          "intent": "Create a weather-flexible neighborhood plan",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-17",
+          "query": "san francisco airport transit family separate clipper cards",
+          "intent": "Plan payment per eligible rider",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-18",
+          "query": "san francisco historic streetcar accessible boarding stops",
+          "intent": "Check exact stop and vehicle access",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-19",
+          "query": "muir woods without a car shuttle reservation",
+          "intent": "Verify seasonal transport and booking boundaries",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "san-francisco-without-a-car-20",
+          "query": "ferry building to golden gate bridge one day without car",
+          "intent": "Compare achievable day combinations",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        }
+      ]
+    },
+    {
+      "id": "southwest-national-parks",
+      "title": "Southwest national parks",
+      "scores": {
+        "demandEvidence": 2,
+        "contentGap": 2,
+        "independentValue": 3,
+        "officialVerifiability": 5,
+        "maintenanceEase": 2,
+        "adReadingFit": 3
+      },
+      "weightedScore": 2.9,
+      "keywords": [
+        {
+          "id": "southwest-national-parks-01",
+          "query": "zion canyon shuttle vs springdale shuttle",
+          "intent": "Distinguish the two shuttle systems",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-02",
+          "query": "zion national park without a car from springdale",
+          "intent": "Connect town lodging and park entry",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-03",
+          "query": "zion shuttle last bus return planning",
+          "intent": "Plan a return with seasonal service",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-04",
+          "query": "zion shuttle reservation vs park entrance fee",
+          "intent": "Separate entry and shuttle requirements",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-05",
+          "query": "zion one day itinerary shuttle only no car",
+          "intent": "Group stops without excess backtracking",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-06",
+          "query": "zion winter without shuttle transport options",
+          "intent": "Verify off-season access",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-07",
+          "query": "zion lodge shuttle boarding directions",
+          "intent": "Plan lodging-to-shuttle access",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-08",
+          "query": "zion stroller shuttle boarding rules",
+          "intent": "Verify equipment and boarding policies",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-09",
+          "query": "grand canyon south rim without a car village shuttle",
+          "intent": "Choose a South Rim base and routes",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-10",
+          "query": "grand canyon village blue route vs orange route",
+          "intent": "Distinguish shuttle coverage",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-11",
+          "query": "grand canyon hermit road shuttle season rules",
+          "intent": "Check seasonal access",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-12",
+          "query": "grand canyon visitor center to village shuttle",
+          "intent": "Connect arrival point and lodging",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-13",
+          "query": "grand canyon south rim one day shuttle itinerary",
+          "intent": "Choose stops and a return plan",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-14",
+          "query": "grand canyon south rim tusayan shuttle season",
+          "intent": "Check town-to-park service dates",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-15",
+          "query": "bryce canyon shuttle vs own car itinerary",
+          "intent": "Compare park transport options",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-16",
+          "query": "bryce canyon shuttle operating season stops",
+          "intent": "Identify current shuttle coverage",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-17",
+          "query": "bryce canyon visitor center to sunset point shuttle",
+          "intent": "Plan a specific viewpoint connection",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-18",
+          "query": "arches timed entry vs entrance pass reservation",
+          "intent": "Separate reservation and entry products",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-19",
+          "query": "southwest national parks pass vs timed entry fees",
+          "intent": "Build a per-park cost checklist",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "southwest-national-parks-20",
+          "query": "zion bryce grand canyon without rental car connections",
+          "intent": "Assess inter-park transfer feasibility",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        }
+      ]
+    },
+    {
+      "id": "new-york-budget-first-visit",
+      "title": "New York on a budget for a first visit",
+      "scores": {
+        "demandEvidence": 2,
+        "contentGap": 2,
+        "independentValue": 3,
+        "officialVerifiability": 4,
+        "maintenanceEase": 2,
+        "adReadingFit": 3
+      },
+      "weightedScore": 2.7,
+      "keywords": [
+        {
+          "id": "new-york-budget-first-visit-01",
+          "query": "new york first time budget three day itinerary",
+          "intent": "Group free and paid visits by area",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-02",
+          "query": "nyc free museums tourists vs residents",
+          "intent": "Separate visitor eligibility from resident benefits",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-03",
+          "query": "new york museum pay what you wish residency rules",
+          "intent": "Check exact admission conditions",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-04",
+          "query": "staten island ferry vs statue of liberty ferry tickets",
+          "intent": "Separate two distinct visits",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-05",
+          "query": "nyc ferry vs staten island ferry cost difference",
+          "intent": "Distinguish ferry systems",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-06",
+          "query": "omny fare cap first time visitor how it works",
+          "intent": "Check payment consistency and fare rules",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-07",
+          "query": "jfk to manhattan airtrain subway cost comparison",
+          "intent": "Compare full airport journey cost",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-08",
+          "query": "laguardia to manhattan bus subway luggage",
+          "intent": "Choose an airport transfer",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-09",
+          "query": "newark to manhattan train vs bus budget",
+          "intent": "Compare inter-operator airport options",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-10",
+          "query": "new york subway vs express bus fare visitor",
+          "intent": "Distinguish service fare categories",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-11",
+          "query": "roosevelt island tram subway fare transfer visitors",
+          "intent": "Check transfer and payment conditions",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-12",
+          "query": "brooklyn bridge dumbo walking itinerary subway return",
+          "intent": "Plan a linear outing and return",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-13",
+          "query": "central park free itinerary subway entrance",
+          "intent": "Choose a manageable park segment",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-14",
+          "query": "lower manhattan free sights walking route",
+          "intent": "Group walkable visits",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-15",
+          "query": "nyc free skyline views without observation deck",
+          "intent": "Compare public viewing alternatives",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-16",
+          "query": "nyc free museum days reservation required tourists",
+          "intent": "Separate free dates from booking conditions",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-17",
+          "query": "nyc rainy day free activities museum eligibility",
+          "intent": "Plan an indoor fallback",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-18",
+          "query": "nyc attraction pass worth it two attractions a day",
+          "intent": "Calculate a realistic pass comparison",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-19",
+          "query": "nyc family subway child fare height rules visitors",
+          "intent": "Verify group fare eligibility",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        },
+        {
+          "id": "new-york-budget-first-visit-20",
+          "query": "where to stay new york budget subway airport total cost",
+          "intent": "Compare room and transport totals",
+          "status": "candidate",
+          "searchVolume": null,
+          "keywordDifficulty": null,
+          "validation": "Representative topic sampling only; this query has not received individual demand or SERP validation."
+        }
+      ]
+    }
+  ]
+}

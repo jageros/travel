@@ -1,0 +1,18 @@
+---
+import type { Photo } from '../lib/photos';
+interface Props {
+  photo: Photo;
+  priority?: boolean;
+  sizes?: string;
+  caption?: boolean;
+  class?: string;
+}
+const { photo, priority = false, sizes = '(max-width: 760px) 100vw, 800px', caption = true, class: className = '' } = Astro.props;
+---
+<figure class:list={['photo', className]}>
+  <picture>
+    <source type="image/webp" srcset={photo.srcSet} sizes={sizes} />
+    <img src={photo.fallbackSrc} alt={photo.alt} width={photo.width} height={photo.height} loading={priority ? 'eager' : 'lazy'} decoding="async" fetchpriority={priority ? 'high' : undefined} />
+  </picture>
+  {caption && <figcaption class="photo-caption">{photo.caption} Photo: <a href={photo.sourceUrl} rel="noopener">{photo.author}</a> · <a href={photo.licenseUrl} rel="license noopener">{photo.license}</a>. <a href={`/photo-credits/#${photo.id}`}>Resized; may be cropped</a>.</figcaption>}
+</figure>

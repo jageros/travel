@@ -1,0 +1,9 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Search from '../../components/Search';
+import {visibleArticles,articleHref,topic} from '../../lib/content';
+import { getArticlePhoto } from '../../lib/photos';
+const articles=await visibleArticles();
+const items=await Promise.all(articles.map(async article=>({title:article.data.title,description:article.data.description,href:articleHref(article),topic:topic.title,type:article.data.type,image:await getArticlePhoto(article.data.hero)})));
+---
+<BaseLayout title="Practical travel guides — US Travel Guide" description="Find clear guides to US travel connections, tickets, routes and attractions, with official sources to help check changing details." path="/guides/" noindex={articles.length===0} breadcrumbs={[{name:'Home',url:'/'},{name:'Guides',url:'/guides/'}]}><section class="container section-block"><div class="page-intro"><p class="eyebrow">Useful details, in one place</p><h1>Find your next guide.</h1><p>Browse by the decision you need to make.</p></div>{articles.length>0 && <Search items={items} client:load/>}</section></BaseLayout>

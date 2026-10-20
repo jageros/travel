@@ -1,0 +1,11 @@
+---
+import { adsenseClient, adsenseSlots, isIndexable } from '../lib/site';
+interface Props { position: 'midArticle' | 'endArticle'; }
+const { position } = Astro.props;
+const slot = adsenseSlots[position];
+const enabled = isIndexable && /^ca-pub-\d{16}$/.test(adsenseClient) && /^\d+$/.test(slot);
+---
+{enabled && <aside class="ad-slot" aria-label="Advertisement" data-ad-container hidden>
+  <span class="ad-label">Advertisement</span>
+  <ins class="adsbygoogle" style="display:block" data-ad-client={adsenseClient} data-ad-slot={slot} data-ad-format="auto" data-full-width-responsive="true"></ins>
+</aside>}

@@ -1,0 +1,83 @@
+---
+import '../styles/global.css';
+import Consent from '../components/Consent.astro';
+import { getPhoto } from '../lib/photos';
+import { SITE_URL, SITE_NAME, isReviewPreview, isIndexable, googleSiteVerification } from '../lib/site';
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  noindex?: boolean;
+  article?: Record<string, unknown>;
+  breadcrumbs?: Array<{ name: string; url: string }>;
+  socialImage?: { src: string; width: number; height: number; alt: string };
+}
+const { title, description, path = Astro.url.pathname, noindex = false, article, breadcrumbs = [], socialImage } = Astro.props;
+const defaultPhoto = socialImage ? null : await getPhoto('golden-gate');
+const share = socialImage ?? {...defaultPhoto!.share,alt:defaultPhoto!.alt};
+const canonical = new URL(path, SITE_URL).href;
+const pageTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
+const excluded = noindex || !isIndexable || isReviewPreview;
+const json = (value: unknown) => JSON.stringify(value).replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026');
+const schema: Record<string, unknown>[] = [{ '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: SITE_URL, inLanguage: 'en-US' }];
+if (article) schema.push({ '@context': 'https://schema.org', ...article });
+if (breadcrumbs.length) schema.push({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: breadcrumbs.map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.name, item: new URL(item.url, SITE_URL).href })) });
+const navigation = [{ href: '/topics/', label: 'Explore topics' }, { href: '/guides/', label: 'All guides' }, { href: '/about/', label: 'About us' }];
+---
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#174b46" />
+    <meta name="description" content={description} />
+    {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
+    <meta name="robots" content={excluded ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{pageTitle}</title>
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content={new URL(share.src, SITE_URL).href} />
+    <meta property="og:image:width" content={String(share.width)} />
+    <meta property="og:image:height" content={String(share.height)} />
+    <meta property="og:image:alt" content={share.alt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={new URL(share.src, SITE_URL).href} />
+    <meta name="twitter:image:alt" content={share.alt} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    {schema.map((item) => <script type="application/ld+json" set:html={json(item)} />)}
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    {isReviewPreview && <div class="review-banner">Editorial preview · Content is awaiting review and is excluded from search indexing.</div>}
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="wordmark" href="/" aria-label={`${SITE_NAME} home`}>
+          <span class="brand-icon" aria-hidden="true"><svg width="29" height="29" viewBox="0 0 32 32" fill="none"><path d="M5 25V12l11-6 11 6v13L16 19 5 25Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M16 6v13M5 12l11 6 11-6" stroke="currentColor" stroke-width="1.7"/><path d="m12 11 4-2 4 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
+          <span>US Travel <strong>Guide</strong><span class="brand-tagline">LESS GUESSWORK. MORE GOING.</span></span>
+        </a>
+        <nav aria-label="Main navigation">{navigation.map((item) => <a href={item.href} aria-current={path === item.href || path.startsWith(item.href) ? 'page' : undefined}>{item.label}</a>)}</nav>
+      </div>
+    </header>
+    <main id="main" tabindex="-1">
+      {breadcrumbs.length > 1 && <nav class="container" aria-label="Breadcrumb"><ol class="breadcrumb">{breadcrumbs.map((item, index) => <li>{index === breadcrumbs.length - 1 ? <span aria-current="page">{item.name}</span> : <a href={item.url}>{item.name}</a>}</li>)}</ol></nav>}
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="container footer-main">
+        <div class="footer-brand"><a href="/" class="footer-wordmark">US Travel Guide<span aria-hidden="true">↗</span></a><p>Practical answers for your next American adventure. Built around real questions, with sources you can check.</p></div>
+        <div><h2>Start planning</h2><a href="/topics/">Explore topics</a><a href="/guides/">All guides</a><a href="/about/">About this site</a></div>
+        <div><h2>How we work</h2><a href="/editorial-policy/">Editorial policy</a><a href="/photo-credits/">Photo credits</a><a href="/contact/">Contact & corrections</a><a href="/advertising/">Advertising</a><a href="/privacy/">Privacy & cookies</a><button type="button" class="text-button" data-consent-settings hidden>Cookie preferences</button></div>
+      </div>
+      <div class="container footer-bottom"><p>© {new Date().getUTCFullYear()} {SITE_NAME}.</p><p>Independent planning guides. Confirm changing details with the official provider.</p></div>
+    </footer>
+    <Consent />
+  </body>
+</html>

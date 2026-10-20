@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Card from '../../components/Card.astro';
+import { topic, visibleArticles, articleHref } from '../../lib/content';
+import { getArticlePhoto } from '../../lib/photos';
+export function getStaticPaths() {return [{params:{slug:topic.slug}}];}
+const articles = (await visibleArticles()).filter(article=>article.data.topic===topic.slug);
+const articleCards = await Promise.all(articles.map(async article=>({article,image:await getArticlePhoto(article.data.hero)})));
+---
+<BaseLayout title={`${topic.title}: transport & trip planning — US Travel Guide`} description={topic.description} path={`/topics/${topic.slug}/`} breadcrumbs={[{name:'Home',url:'/'},{name:'Topics',url:'/topics/'},{name:topic.title,url:`/topics/${topic.slug}/`}] } noindex={articles.length===0}>
+<section class="container section-block"><div class="page-intro"><p class="eyebrow">California · A connected planning guide</p><h1>{topic.title}</h1><p>{topic.description}</p></div><div class="topic-editorial prose"><h2>Plan the journey, then the day.</h2><p>San Francisco is served by several transport systems, with different routes, tickets and coverage. Start by identifying your arrival point and where you are staying, then work out the last leg to each attraction. A payment card and a travel pass serve different purposes.</p><p>For current service and fares, begin with <a href="https://www.sfmta.com/getting-around/muni" rel="noopener">SFMTA’s Muni guide</a> and <a href="https://www.bart.gov/guide/airport/sfo" rel="noopener">BART’s SFO guide</a>. Check the date and service notices before relying on a connection.</p></div>{articles.length>0 && <div class="cards-grid">{articleCards.map(({article,image},index)=><Card title={article.data.title} description={article.data.description} href={articleHref(article)} type={article.data.type} topic={topic.title} number={index+1} image={image}/>)}</div>}</section>
+</BaseLayout>

@@ -1,0 +1,158 @@
+---
+import { gaMeasurementId, adsenseClient, isIndexable, isReviewPreview } from '../lib/site';
+const analyticsId = isIndexable && !isReviewPreview && /^G-[A-Z0-9]+$/.test(gaMeasurementId) ? gaMeasurementId : '';
+const advertisingId = isIndexable && !isReviewPreview && /^ca-pub-\d{16}$/.test(adsenseClient) ? adsenseClient : '';
+function trustedCmpUrl(value?: string): string {
+  try {
+    const url = new URL(value || '');
+    const publisher = advertisingId.replace(/^ca-/, '');
+    if (url.origin !== 'https://fundingchoicesmessages.google.com' || ![`/i/${advertisingId}`, `/i/${publisher}`].includes(url.pathname) || url.username || url.password) return '';
+    if ([...url.searchParams.keys()].some(key => key !== 'ers')) return '';
+    return url.href;
+  } catch { return ''; }
+}
+const cmpScriptUrl = advertisingId ? trustedCmpUrl(import.meta.env.PUBLIC_CMP_SCRIPT_URL) : '';
+const enabled = Boolean(analyticsId || advertisingId);
+---
+{enabled && <div class="consent-banner" role="region" aria-label="Cookie preferences" data-consent-banner data-analytics-id={analyticsId} data-advertising-id={advertisingId} data-cmp-script-url={cmpScriptUrl} hidden>
+  <div class="consent-copy"><h2>Your trip. Your privacy.</h2><p>With your permission, we use cookies to understand which guides help readers{advertisingId ? ' and to show advertising' : ''}. Essential site features work without them. <a href="/privacy/">Read our privacy policy</a>.</p></div>
+  <div class="consent-options" data-consent-options hidden>
+    {analyticsId && <label><input type="checkbox" name="analytics" /> Analytics cookies</label>}
+    {advertisingId && <label><input type="checkbox" name="advertising" /> Advertising cookies</label>}
+  </div>
+  <div class="consent-actions"><button class="button button-small" type="button" data-consent-accept>Accept optional cookies</button><button class="button button-small button-secondary" type="button" data-consent-reject>Reject optional cookies</button><button class="text-button" type="button" data-consent-customize>Choose cookies</button><button class="button button-small" type="button" data-consent-save hidden>Save preferences</button></div>
+</div>}
+<script>
+  type ConsentChoice = { analytics: boolean; advertising: boolean; savedAt: number };
+  type TcfData = { gdprApplies?: boolean; eventStatus?: string; cmpStatus?: string; tcString?: string; vendor?: { consents?: Record<string, boolean> }; purpose?: { consents?: Record<string, boolean> } };
+  type DataWindow = Window & { dataLayer?: unknown[]; gtag?: (...args: unknown[]) => void; adsbygoogle?: unknown[]; __tcfapi?: (command: string, version: number, callback: (data: TcfData, success: boolean) => void) => void };
+  const banner = document.querySelector<HTMLElement>('[data-consent-banner]');
+  if (banner) {
+    const browserWindow = window as DataWindow;
+    const key = 'travel-consent-v1';
+    const analyticsId = banner.dataset.analyticsId || '';
+    const advertisingId = banner.dataset.advertisingId || '';
+    const settingsButtons = document.querySelectorAll<HTMLButtonElement>('[data-consent-settings]');
+    let current: ConsentChoice = { analytics: false, advertising: false, savedAt: 0 };
+    let analyticsLoaded = false;
+    let adsLoaded = false;
+    let cmpLoaded = false;
+    let cmpListening = false;
+    let cmpAllowsAds = false;
+
+    function analyticsEvent(name: string, params: Record<string, unknown>) {
+      if (current.analytics && analyticsLoaded) browserWindow.gtag?.('event', name, params);
+    }
+    function showEligibleAds() {
+      const containers = document.querySelectorAll<HTMLElement>('[data-ad-container]');
+      containers.forEach((container) => { container.hidden = !current.advertising || !cmpAllowsAds; });
+      if (!current.advertising || !advertisingId || !cmpAllowsAds || !containers.length) return;
+      if (!adsLoaded) {
+        const script = document.createElement('script');
+        script.async = true;
+        script.crossOrigin = 'anonymous';
+        script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${encodeURIComponent(advertisingId)}`;
+        document.head.append(script);
+        adsLoaded = true;
+      }
+      document.querySelectorAll<HTMLElement>('ins.adsbygoogle:not([data-travel-initialized])').forEach((slot) => {
+        slot.dataset.travelInitialized = 'true';
+        try { (browserWindow.adsbygoogle = browserWindow.adsbygoogle || []).push({}); } catch { /* A blocked ad must never interrupt reading. */ }
+      });
+    }
+    function connectCmp() {
+      if (!current.advertising || !advertisingId || !document.querySelector('[data-ad-container]')) return;
+      if (browserWindow.__tcfapi && !cmpListening) {
+        cmpListening = true;
+        browserWindow.__tcfapi('addEventListener', 2, (data, success) => {
+          const ready = success && data.cmpStatus === 'loaded' && (data.eventStatus === 'tcloaded' || data.eventStatus === 'useractioncomplete');
+          const validString = typeof data.tcString === 'string' && data.tcString.length >= 20 && /^[A-Za-z0-9_-]+(?:\.[A-Za-z0-9_-]+)*$/.test(data.tcString);
+          const allowed = Boolean(ready && (data.gdprApplies === false || (data.gdprApplies === true && validString && data.vendor?.consents?.['755'] && data.purpose?.consents?.['1'])));
+          const withdrawn = cmpAllowsAds && !allowed && adsLoaded;
+          cmpAllowsAds = allowed;
+          showEligibleAds();
+          if (withdrawn) window.location.reload();
+        });
+      } else if (!browserWindow.__tcfapi && !cmpLoaded && banner?.dataset.cmpScriptUrl) {
+        cmpLoaded = true;
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = banner.dataset.cmpScriptUrl;
+        script.addEventListener('load', connectCmp);
+        document.head.append(script);
+      }
+    }
+    function applyConsent() {
+      if (!banner) return;
+      if (current.analytics && analyticsId && !analyticsLoaded) {
+        browserWindow.dataLayer = browserWindow.dataLayer || [];
+        browserWindow.gtag = function (..._args: unknown[]) { browserWindow.dataLayer?.push(arguments); };
+        browserWindow.gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'granted' });
+        browserWindow.gtag('js', new Date());
+        browserWindow.gtag('config', analyticsId, { anonymize_ip: true, allow_google_signals: false, allow_ad_personalization_signals: false });
+        const script = document.createElement('script');
+        script.async = true;
+        script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(analyticsId)}`;
+        document.head.append(script);
+        analyticsLoaded = true;
+      }
+      if (analyticsLoaded && !current.analytics) browserWindow.gtag?.('consent', 'update', { analytics_storage: 'denied' });
+      if (analyticsLoaded && current.analytics) browserWindow.gtag?.('consent', 'update', { analytics_storage: 'granted' });
+      connectCmp();
+      showEligibleAds();
+      window.dispatchEvent(new CustomEvent('travel:consent', { detail: { analytics: current.analytics, advertising: current.advertising } }));
+    }
+    function save(choice: Pick<ConsentChoice, 'analytics' | 'advertising'>) {
+      current = { analytics: Boolean(analyticsId) && choice.analytics, advertising: Boolean(advertisingId) && choice.advertising, savedAt: Date.now() };
+      try { localStorage.setItem(key, JSON.stringify(current)); } catch { /* Consent still applies for this page when storage is disabled. */ }
+      if (banner) banner.hidden = true;
+      // Reload on withdrawal to stop scripts already loaded under previous consent.
+      if ((analyticsLoaded && !current.analytics) || (adsLoaded && !current.advertising)) { window.location.reload(); return; }
+      applyConsent();
+    }
+    function customize() {
+      if (!banner) return;
+      banner.hidden = false;
+      const options = banner.querySelector<HTMLElement>('[data-consent-options]');
+      if (options) options.hidden = false;
+      const analytics = banner.querySelector<HTMLInputElement>('[name="analytics"]');
+      const advertising = banner.querySelector<HTMLInputElement>('[name="advertising"]');
+      if (analytics) analytics.checked = current.analytics;
+      if (advertising) advertising.checked = current.advertising;
+      const saveButton = banner.querySelector<HTMLButtonElement>('[data-consent-save]');
+      if (saveButton) saveButton.hidden = false;
+      const customizeButton = banner.querySelector<HTMLButtonElement>('[data-consent-customize]');
+      if (customizeButton) customizeButton.hidden = true;
+    }
+    try {
+      const saved = JSON.parse(localStorage.getItem(key) || 'null') as Partial<ConsentChoice> | null;
+      if (saved && typeof saved.analytics === 'boolean' && typeof saved.advertising === 'boolean' && typeof saved.savedAt === 'number' && saved.savedAt <= Date.now() && Date.now() - saved.savedAt < 180 * 24 * 60 * 60 * 1000) {
+        current = { analytics: Boolean(analyticsId) && saved.analytics, advertising: Boolean(advertisingId) && saved.advertising, savedAt: saved.savedAt };
+      }
+    } catch { /* Invalid or unavailable storage uses the privacy-preserving default. */ }
+    if (current.savedAt) applyConsent(); else banner.hidden = false;
+    settingsButtons.forEach((button) => { button.hidden = false; button.addEventListener('click', customize); });
+    banner.querySelector('[data-consent-accept]')?.addEventListener('click', () => save({ analytics: true, advertising: true }));
+    banner.querySelector('[data-consent-reject]')?.addEventListener('click', () => save({ analytics: false, advertising: false }));
+    banner.querySelector('[data-consent-customize]')?.addEventListener('click', customize);
+    banner.querySelector('[data-consent-save]')?.addEventListener('click', () => save({ analytics: banner.querySelector<HTMLInputElement>('[name="analytics"]')?.checked || false, advertising: banner.querySelector<HTMLInputElement>('[name="advertising"]')?.checked || false }));
+    window.addEventListener('travel:search', ((event: CustomEvent<{ query_length: number; result_count: number }>) => analyticsEvent('view_search_results', { query_length: Math.max(0, Math.min(100, Number(event.detail.query_length) || 0)), result_count: Math.max(0, Number(event.detail.result_count) || 0) })) as EventListener);
+    window.addEventListener('travel:cmp-ready', connectCmp);
+    document.addEventListener('click', (event) => {
+      const link = (event.target as Element)?.closest?.('a[data-analytics="internal-link"]') as HTMLAnchorElement | null;
+      if (link) analyticsEvent('internal_navigation', { link_url: link.pathname, link_text: link.textContent?.trim().slice(0, 100) });
+    });
+    const depths = new Set<number>();
+    let ticking = false;
+    document.addEventListener('scroll', () => {
+      if (ticking || !current.analytics) return;
+      ticking = true;
+      window.requestAnimationFrame(() => {
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const depth = scrollable > 0 ? Math.min(100, Math.round(window.scrollY / scrollable * 100)) : 100;
+        [25, 50, 75, 100].forEach((threshold) => { if (depth >= threshold && !depths.has(threshold)) { depths.add(threshold); analyticsEvent('reading_depth', { percent_scrolled: threshold }); } });
+        ticking = false;
+      });
+    }, { passive: true });
+  }
+</script>
