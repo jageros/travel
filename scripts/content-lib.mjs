@@ -61,6 +61,7 @@ export function validateRegistry(registry) {
     ids.add(source.id);
     assertOfficialUrl(source.url, registry.allowedHosts);
     if (!source.title || !source.publisher || !isDay(source.checkedAt)) throw new Error(`${source.id}: provenance is incomplete`);
+    if (source.contentHash !== undefined && !/^[a-f0-9]{64}$/.test(source.contentHash)) throw new Error(`${source.id}: invalid approved source hash`);
     for (const fact of source.facts ?? []) {
       if (!isSlug(fact.id) || facts.has(fact.id) || !fact.statement || !isDay(fact.checkedAt)) throw new Error(`${source.id}: invalid or duplicate fact`);
       if (fact.dynamic && !isDay(fact.expiresAt)) throw new Error(`${fact.id}: dynamic fact needs expiresAt`);
@@ -133,6 +134,11 @@ export function validateArticle(article, registry, { now = new Date(), publishin
     if (publishing && (Date.parse(isoDay(now)) - Date.parse(source.checkedAt)) / 86400000 > 30) errors.push(`Stale source: ${id}`);
     const current = sourceReport?.sources?.find((item) => item.id === id);
     if (publishing && sourceReport && current?.status !== 'unchanged') errors.push(`Source requires review: ${id} (${current?.status ?? 'missing'})`);
+    if (publishing && sourceReport) {
+      const checked = Date.parse(current?.checkedAt);
+      if (!Number.isFinite(checked) || checked > now.getTime() || now.getTime() - checked > 24 * 3600000) errors.push(`Source health is not current: ${id}`);
+      if (!/^[a-f0-9]{64}$/.test(source.contentHash ?? '') || current?.contentHash !== source.contentHash) errors.push(`Source health does not match the approved baseline: ${id}`);
+    }
   }
   if (publishing && !data.facts?.length) errors.push('Publication requires a fact record');
   for (const id of data.facts ?? []) {
@@ -182,12 +188,24 @@ export function findDuplicates(article, others) {
   return results;
 }
 
+export function manualReleaseCount(state, { now = new Date() } = {}) {
+  const verified = new Set();
+  for (const publication of state.publications ?? []) {
+    const published = Date.parse(publication.publishedAt);
+    if (publication.manualApproval !== true || !isSlug(publication.slug) || !/^[a-f0-9]{64}$/.test(publication.contentSha256 ?? '') || !Number.isFinite(published) || published > now.getTime()) continue;
+    const approved = (state.approvals ?? []).some((approval) => approval.slug === publication.slug && approval.contentSha256 === publication.contentSha256 && approval.reviewer && approval.reviewer === publication.reviewer && isDay(approval.reviewedAt) && approval.reviewedAt <= isoDay(new Date(published)));
+    if (approved) verified.add(publication.slug);
+  }
+  return verified.size;
+}
+
 export function publicationDecision(article, state, { now = new Date(), manualOnly = false } = {}) {
+  if (state.publications.some((item) => !Number.isFinite(Date.parse(item.publishedAt)) || Date.parse(item.publishedAt) > now.getTime())) return { allowed: false, reason: 'Invalid or future-dated publication ledger requires review' };
   const recent = state.publications.filter((item) => Date.parse(item.publishedAt) > now.getTime() - 7 * 86400000);
   if (recent.length >= 3) return { allowed: false, reason: 'Weekly publication cap reached (3 in rolling 7 days)' };
-  const approval = state.approvals.find((item) => item.slug === article.data.slug && item.contentSha256 === article.digest && item.reviewer && isDay(item.reviewedAt));
-  const reviewedPublications = state.publications.filter((item) => item.manualApproval === true).length;
-  if (reviewedPublications < state.requiredManualApprovals || manualOnly || !state.autoPublishEnabled) {
+  const approval = state.approvals.find((item) => item.slug === article.data.slug && item.contentSha256 === article.digest && item.reviewer && isDay(item.reviewedAt) && item.reviewedAt <= isoDay(now));
+  const reviewedPublications = manualReleaseCount(state, { now });
+  if (reviewedPublications < state.requiredManualApprovals || manualOnly || state.autoPublishEnabled !== true) {
     return approval ? { allowed: true, manualApproval: true, approval } : { allowed: false, reason: 'Named editorial approval required for this exact content' };
   }
   return { allowed: true, manualApproval: Boolean(approval), approval };

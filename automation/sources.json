@@ -1,47 +1,189 @@
 {
   "version": 1,
-  "allowedHosts": ["www.bart.gov", "www.sfmta.com", "www.goldengate.org", "www.clippercard.com"],
+  "allowedHosts": [
+    "www.bart.gov",
+    "www.sfmta.com",
+    "www.goldengate.org",
+    "www.clippercard.com"
+  ],
   "sources": [
     {
-      "id": "bart-sfo", "url": "https://www.bart.gov/guide/airport/sfo", "title": "San Francisco International Airport (SFO)", "publisher": "Bay Area Rapid Transit", "checkedAt": "2026-10-19",
-      "facts": [{"id": "bart-sfo-station", "statement": "SFO’s BART station is in the International Terminal; AirTrain connects airport terminals to BART.", "checkedAt": "2026-10-19", "expiresAt": "2026-10-26", "dynamic": true, "evidence": "The BART station is located in the International Terminal"}]
-    },
-    {
-      "id": "sfmta-fares", "url": "https://www.sfmta.com/getting-around/muni/fares", "title": "Muni Fares", "publisher": "San Francisco Municipal Transportation Agency", "checkedAt": "2026-10-19", "facts": []
-    },
-    {
-      "id": "sfmta-adult-single", "url": "https://www.sfmta.com/fares/single-ride-adult-ages-19-64", "title": "Single Ride - Adult (ages 19-64)", "publisher": "San Francisco Municipal Transportation Agency", "checkedAt": "2026-10-19",
+      "id": "bart-sfo",
+      "url": "https://www.bart.gov/guide/airport/sfo",
+      "title": "Airport Connections (SFO & OAK)",
+      "publisher": "Bay Area Rapid Transit",
+      "checkedAt": "2026-10-20",
       "facts": [
-        {"id": "muni-adult-clipper-fare", "statement": "Adult Muni single-ride fare paid with Clipper is listed as $2.85.", "checkedAt": "2026-10-19", "expiresAt": "2026-10-26", "dynamic": true, "evidence": "$2.85"},
-        {"id": "muni-transfer-window", "statement": "An adult Muni single-ride fare covers 120 minutes of travel, subject to SFMTA conditions.", "checkedAt": "2026-10-19", "expiresAt": "2026-10-26", "dynamic": true, "evidence": "good for 120 minutes of travel"}
+        {
+          "id": "bart-sfo-station",
+          "statement": "SFO’s BART station is in the International Terminal; the free AirTrain connects airport terminals to the station.",
+          "checkedAt": "2026-10-20",
+          "expiresAt": "2026-10-27",
+          "dynamic": true,
+          "evidence": "The BART station is located in the International Terminal"
+        }
       ]
     },
     {
-      "id": "sfmta-day-pass", "url": "https://www.sfmta.com/fares/day-pass", "title": "Day Pass", "publisher": "San Francisco Municipal Transportation Agency", "checkedAt": "2026-10-19",
-      "facts": [{"id": "muni-day-pass-fare", "statement": "The Muni-only Day Pass is listed at $5.70 and covers Muni buses, trains and historic streetcars.", "checkedAt": "2026-10-19", "expiresAt": "2026-10-26", "dynamic": true, "evidence": "$5.70"}]
+      "id": "sfmta-fares",
+      "url": "https://www.sfmta.com/getting-around/muni/fares",
+      "title": "Fares",
+      "publisher": "San Francisco Municipal Transportation Agency",
+      "checkedAt": "2026-10-20",
+      "facts": [],
+      "contentHash": "c90f547a90c703350bd9ebfd10e3253e9edf95f0f12e693b40dcc4872f65ca58"
     },
     {
-      "id": "sfmta-visitor-passport", "url": "https://www.sfmta.com/fares/1-day-visitor-passport", "title": "1-Day Visitor Passport", "publisher": "San Francisco Municipal Transportation Agency", "checkedAt": "2026-10-19",
-      "facts": [{"id": "muni-passport-fare", "statement": "The one-day Visitor Passport is listed at $15.00; it includes Muni cable cars but excludes BART and SFO airport transportation.", "checkedAt": "2026-10-19", "expiresAt": "2026-10-26", "dynamic": true, "evidence": "$15.00"}]
+      "id": "sfmta-adult-single",
+      "url": "https://www.sfmta.com/fares/single-ride-adult-ages-19-64",
+      "title": "Single Ride - Adult (ages 19-64)",
+      "publisher": "San Francisco Municipal Transportation Agency",
+      "checkedAt": "2026-10-20",
+      "facts": [
+        {
+          "id": "muni-adult-clipper-fare",
+          "statement": "The SFMTA adult single-ride page lists a $2.85 Clipper fare for adults ages 19–64. The same fare table lists contactless credit/debit payment at $2.85; this is not a promise of discounted-program eligibility.",
+          "checkedAt": "2026-10-20",
+          "expiresAt": "2026-10-27",
+          "dynamic": true,
+          "evidence": "$2.85"
+        },
+        {
+          "id": "muni-transfer-window",
+          "statement": "The adult ordinary Muni single-ride fare covers 120 minutes across buses and light rail under SFMTA’s transfer conditions; this does not establish cable-car or other-operator coverage.",
+          "checkedAt": "2026-10-20",
+          "expiresAt": "2026-10-27",
+          "dynamic": true,
+          "evidence": "good for 120 minutes of travel"
+        }
+      ],
+      "contentHash": "565f7fb5d275fa41e6012fbcf740253dc56cdf3f248ee400d2b10b6b71254897"
     },
     {
-      "id": "sfmta-f-line", "url": "https://www.sfmta.com/routes/f-market-wharves", "title": "F Market & Wharves", "publisher": "San Francisco Municipal Transportation Agency", "checkedAt": "2026-10-19",
-      "facts": [{"id": "muni-f-waterfront", "statement": "The F Market & Wharves route lists stops at the Ferry Building and in Fisherman’s Wharf.", "checkedAt": "2026-10-19", "expiresAt": "2026-10-26", "dynamic": true, "evidence": "The Embarcadero/Ferry Bldg"}]
+      "id": "sfmta-day-pass",
+      "url": "https://www.sfmta.com/fares/day-pass",
+      "title": "Day Pass",
+      "publisher": "San Francisco Municipal Transportation Agency",
+      "checkedAt": "2026-10-20",
+      "facts": [
+        {
+          "id": "muni-day-pass-fare",
+          "statement": "SFMTA lists the Muni-Only Day Pass at $5.70 for unlimited Muni buses, trains and historic streetcars through 11:59 p.m. It lists MuniMobile and Clipper pre-purchase, or cash at a vehicle farebox after notifying the operator; cable cars are not included in this listed coverage.",
+          "checkedAt": "2026-10-20",
+          "expiresAt": "2026-10-27",
+          "dynamic": true,
+          "evidence": "$5.70"
+        }
+      ],
+      "contentHash": "59e0f03b2ef8dbb7f203e7c45b63be6e4004c9707c6f93fdb6a44008fb7ef1d6"
     },
     {
-      "id": "sfmta-f-access", "url": "https://www.sfmta.com/getting-around/accessibility/muni-accessibility/muni-access-guide/access-historic-streetcars", "title": "Access on Historic Streetcars", "publisher": "San Francisco Municipal Transportation Agency", "checkedAt": "2026-10-19", "facts": []
+      "id": "sfmta-visitor-passport",
+      "url": "https://www.sfmta.com/fares/1-day-visitor-passport",
+      "title": "1-Day Visitor Passport",
+      "publisher": "San Francisco Municipal Transportation Agency",
+      "checkedAt": "2026-10-20",
+      "facts": [
+        {
+          "id": "muni-passport-fare",
+          "statement": "The one-day Visitor Passport fare table lists $15.00 for MuniMobile, Paper Passport and Clipper. The Muni-only product includes cable cars but excludes BART, other transit systems and SFO airport transportation; no channel-specific discount is promised here.",
+          "checkedAt": "2026-10-20",
+          "expiresAt": "2026-10-27",
+          "dynamic": true,
+          "evidence": "$15.00"
+        }
+      ],
+      "contentHash": "51eb2206b07fb7f60b1a03b4ab21ea86a51dc750949c391b0bcb0db60b320dac"
     },
     {
-      "id": "golden-gate-transit", "url": "https://www.goldengate.org/bridge/visiting-the-bridge/public-transit/", "title": "Public Transit - Visiting the Bridge", "publisher": "Golden Gate Bridge, Highway and Transportation District", "checkedAt": "2026-10-19",
-      "facts": [{"id": "bridge-transit-option", "statement": "Golden Gate Transit’s bridge visitor guide identifies transit access to both bridge ends.", "checkedAt": "2026-10-19", "expiresAt": "2026-10-26", "dynamic": true, "evidence": "Accessing the South End of the Bridge"}]
+      "id": "sfmta-f-line",
+      "url": "https://www.sfmta.com/routes/f-market-wharves",
+      "title": "F Market & Wharves",
+      "publisher": "San Francisco Municipal Transportation Agency",
+      "checkedAt": "2026-10-20",
+      "facts": [
+        {
+          "id": "muni-f-waterfront",
+          "statement": "The F Market & Wharves stop list includes the Ferry Building, Pier 39 and Fisherman’s Wharf stops. Opposite directions use different stops; this is not a live-service or step-free-access guarantee.",
+          "checkedAt": "2026-10-20",
+          "expiresAt": "2026-10-27",
+          "dynamic": true,
+          "evidence": "The Embarcadero/Ferry Bldg"
+        }
+      ],
+      "contentHash": "69d5a9022c93b696d1a7e8966306a2314228e54a0b2e25419e1effc7385c2237"
     },
     {
-      "id": "golden-gate-sidewalks", "url": "https://www.goldengate.org/bridge/visiting-the-bridge/bikes-pedestrians/", "title": "Bikes & Pedestrians - Visiting the Bridge", "publisher": "Golden Gate Bridge, Highway and Transportation District", "checkedAt": "2026-10-19",
-      "facts": [{"id": "bridge-pedestrian-east", "statement": "Pedestrians use the Golden Gate Bridge’s east sidewalk; access hours and temporary closures must be checked before travel.", "checkedAt": "2026-10-19", "expiresAt": "2026-10-26", "dynamic": true, "evidence": "Pedestrians - Daily Access on the EAST Sidewalk"}]
+      "id": "sfmta-f-access",
+      "url": "https://www.sfmta.com/getting-around/accessibility/muni-accessibility/muni-access-guide/access-historic-streetcars",
+      "title": "Access on Historic Streetcars",
+      "publisher": "San Francisco Municipal Transportation Agency",
+      "checkedAt": "2026-10-20",
+      "facts": [],
+      "contentHash": "0a9ae8ead93491f93b90e6ed88cc3d7c8003c04815fe7c40660f9a26f8828a13"
     },
     {
-      "id": "clipper-contactless", "url": "https://www.clippercard.com/contactless-payments", "title": "Tap to Pay with a Contactless Bank Card", "publisher": "Metropolitan Transportation Commission / Clipper", "checkedAt": "2026-10-19",
-      "facts": [{"id": "clipper-separate-riders", "statement": "Each rider using contactless bank-card payment needs their own card or device and must use the same one to enter and exit.", "checkedAt": "2026-10-19", "expiresAt": "2026-10-26", "dynamic": true, "evidence": "Each rider must pay with their own card or mobile device"}]
+      "id": "golden-gate-transit",
+      "url": "https://www.goldengate.org/bridge/visiting-the-bridge/public-transit/",
+      "title": "Public Transit - Visiting the Bridge",
+      "publisher": "Golden Gate Bridge, Highway and Transportation District",
+      "checkedAt": "2026-10-20",
+      "facts": [
+        {
+          "id": "bridge-transit-option",
+          "statement": "Golden Gate Transit’s bridge visitor guide describes transit access at the south and north bridge ends. Use current timetables for routes and stops; older route-number examples in the visitor guide are not current-service authority.",
+          "checkedAt": "2026-10-20",
+          "expiresAt": "2026-10-27",
+          "dynamic": true,
+          "evidence": "Accessing the South End of the Bridge"
+        }
+      ],
+      "contentHash": "f23813f0fee46d9da31b01c0911a67d64183c7b4cdf5d3cd5453adbd4d2ea754"
+    },
+    {
+      "id": "golden-gate-sidewalks",
+      "url": "https://www.goldengate.org/bridge/visiting-the-bridge/bikes-pedestrians/",
+      "title": "Bikes & Pedestrians - Visiting the Bridge",
+      "publisher": "Golden Gate Bridge, Highway and Transportation District",
+      "checkedAt": "2026-10-20",
+      "facts": [
+        {
+          "id": "bridge-pedestrian-east",
+          "statement": "Golden Gate Bridge pedestrians, including wheelchair users, are restricted to the east sidewalk. Seasonal hours, dated alerts and temporary closures need checking for the travel date; this is not confirmation of uninterrupted current access.",
+          "checkedAt": "2026-10-20",
+          "expiresAt": "2026-10-27",
+          "dynamic": true,
+          "evidence": "Pedestrians - Daily Access on the EAST Sidewalk"
+        }
+      ],
+      "contentHash": "b5c077d24f49d8ef729f048924a152d013ee48c416952245340a0466a6381e9b"
+    },
+    {
+      "id": "clipper-contactless",
+      "url": "https://www.clippercard.com/contactless-payments",
+      "title": "Tap to Pay with a Contactless Bank Card",
+      "publisher": "Metropolitan Transportation Commission / Clipper",
+      "checkedAt": "2026-10-20",
+      "facts": [
+        {
+          "id": "clipper-separate-riders",
+          "statement": "For contactless bank-card payment, each rider needs their own card or mobile device. On services requiring both entry and exit taps, use the same card or device for both; this does not mean that every operator requires an exit tap.",
+          "checkedAt": "2026-10-20",
+          "expiresAt": "2026-10-27",
+          "dynamic": true,
+          "evidence": "Each rider must pay with their own card or mobile device"
+        }
+      ],
+      "contentHash": "81e0a7cb572eaedc1bdecfd58c0154ee235efbc05105e92a79d31480146ba21a"
+    },
+    {
+      "id": "golden-gate-current-schedules",
+      "url": "https://www.goldengate.org/bus/schedules-maps/",
+      "title": "Golden Gate Transit Bus Schedules",
+      "publisher": "Golden Gate Bridge, Highway and Transportation District",
+      "checkedAt": "2026-10-20",
+      "facts": [],
+      "contentHash": "08d34b7944f1007ebc368e77a04a1f086f0acf80df239a31914b01f991ed27fa"
     }
   ]
 }

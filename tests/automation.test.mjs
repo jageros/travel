@@ -3,21 +3,27 @@ import test from 'node:test';
 import { promises as fs } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { articleDigest, assertOfficialUrl, findDuplicates, parseArticle, publicationDecision, readArticles, readJson, serializeArticle, sha256, validateArticle, writeJson } from '../scripts/content-lib.mjs';
+import { articleDigest, assertOfficialUrl, findDuplicates, manualReleaseCount, parseArticle, publicationDecision, readArticles, readJson, serializeArticle, sha256, validateArticle, writeJson } from '../scripts/content-lib.mjs';
 import { checkSources, extractText, fetchOfficialText } from '../scripts/check-sources.mjs';
-import { approveArticle, generateDraft, publishCandidates, runPipeline } from '../scripts/content-pipeline.mjs';
+import { approveArticle, generateDraft, publishCandidates, runPipeline, topicPreflight } from '../scripts/content-pipeline.mjs';
 import { importQueries } from '../scripts/import-gsc.mjs';
 
 const now = new Date('2026-10-19T09:00:00.000Z');
 const html = `<main>${'Official transit material with station access and public fare guidance. '.repeat(5)}</main>`;
 const officialText = extractText(html);
 const registry = () => ({ version: 1, allowedHosts: ['www.bart.gov'], sources: [{ id: 'official-transit', url: 'https://www.bart.gov/guide/airport/sfo', title: 'Official transit guide', publisher: 'BART', checkedAt: '2026-10-19', contentHash: sha256(officialText), facts: [{ id: 'station-fact', statement: 'Use the official station access instructions.', checkedAt: '2026-10-19', expiresAt: '2026-10-26', dynamic: true, evidence: 'station access' }] }] });
-const report = () => ({ checkedAt: now.toISOString(), sources: [{ id: 'official-transit', status: 'unchanged', checkedAt: now.toISOString() }], conflicts: [] });
+const report = () => ({ checkedAt: now.toISOString(), sources: [{ id: 'official-transit', status: 'unchanged', checkedAt: now.toISOString(), contentHash: sha256(officialText) }], conflicts: [] });
 const data = (slug = 'airport-checklist') => ({ title: 'An airport arrival checklist', description: 'Compare practical arrival decisions before leaving home.', slug, type: 'guide', topic: 'san-francisco-without-a-car', status: 'review', author: 'editorial-team', updatedAt: '2026-10-19', checkedAt: '2026-10-19', primaryIntent: `How should I plan ${slug}?`, sources: ['official-transit'], facts: ['station-fact'], related: [] });
 const body = (seed = 'luggage') => `## Plan your arrival\n\n${Array.from({ length: 190 }, (_, i) => `${seed}${i} decision${i}`).join(' ')}\n\n## Check the return\n\nReview your route and official service information before travel.`;
 const article = (slug, seed) => parseArticle(serializeArticle(data(slug), body(seed)), `${slug ?? 'airport-checklist'}.md`);
 const state = () => ({ version: 1, requiredManualApprovals: 5, autoPublishEnabled: true, approvals: [], publications: [] });
 const sourceFetch = async () => new Response(html, { status: 200, headers: { 'content-type': 'text/html' } });
+
+function reviewedHistory(size = 5) {
+  const publications = Array.from({ length: size }, (_, i) => ({ slug: `approved-${i}`, publishedAt: '2026-10-01T00:00:00Z', contentSha256: sha256(`reviewed-${i}`), manualApproval: true, reviewer: 'human-editor' }));
+  const approvals = publications.map((item) => ({ slug: item.slug, contentSha256: item.contentSha256, reviewer: item.reviewer, reviewedAt: '2026-09-30' }));
+  return { publications, approvals };
+}
 
 async function fixture(t, articles = [article()]) {
   const root = await fs.mkdtemp(path.join(os.tmpdir(), 'travel-automation-'));
@@ -145,7 +151,7 @@ test('first five releases need named approval bound to exact content; later rele
   assert.equal(publicationDecision(a, editorial, { now }).manualApproval, true);
   const changed = parseArticle(serializeArticle(a.data, `${a.body}\nNew content.`));
   assert.equal(publicationDecision(changed, editorial, { now }).allowed, false);
-  editorial.publications = Array.from({ length: 5 }, (_, i) => ({ slug: `approved-${i}`, publishedAt: '2026-10-01T00:00:00Z', manualApproval: true }));
+  Object.assign(editorial, reviewedHistory());
   assert.equal(publicationDecision(changed, editorial, { now }).allowed, true);
   editorial.autoPublishEnabled = false;
   assert.equal(publicationDecision(changed, editorial, { now }).allowed, false);
@@ -157,12 +163,31 @@ test('rolling seven-day cap applies to manually approved and automatic releases'
   const result = publicationDecision(article(), editorial, { now });
   assert.equal(result.allowed, false);
   assert.match(result.reason, /cap/);
+  const a = article();
+  editorial.approvals.push({ slug: a.data.slug, contentSha256: a.digest, reviewer: 'human-editor', reviewedAt: '2026-10-19' });
+  assert.equal(publicationDecision(a, editorial, { now: new Date('2026-10-23T09:00:00Z') }).allowed, true, 'a release exactly seven days old leaves the rolling window');
+});
+
+test('only distinct past releases with matching named approval evidence unlock automation', () => {
+  const editorial = { ...state(), ...reviewedHistory() };
+  assert.equal(manualReleaseCount(editorial, { now }), 5);
+  editorial.approvals.pop();
+  assert.equal(manualReleaseCount(editorial, { now }), 4);
+  assert.equal(publicationDecision(article(), editorial, { now }).allowed, false);
+  editorial.publications.push(editorial.publications[0]);
+  assert.equal(manualReleaseCount(editorial, { now }), 4, 'duplicate records cannot advance the gate');
+  editorial.approvals[0].reviewedAt = '2026-10-20';
+  assert.equal(manualReleaseCount(editorial, { now }), 3, 'a later approval cannot prove a prior release was reviewed');
+  editorial.publications[0].publishedAt = '2027-10-19T09:00:00Z';
+  assert.match(publicationDecision(article(), editorial, { now }).reason, /future-dated/);
 });
 
 test('approval and successful release preserve prose, record provenance, and never republish', async (t) => {
   const root = await fixture(t);
   await assert.rejects(approveArticle(root, 'airport-checklist', '--approve', { now }), /named reviewer/);
-  await approveArticle(root, 'airport-checklist', 'human-editor', { now });
+  await assert.rejects(approveArticle(root, 'airport-checklist', 'human-editor', { now }), /exact reviewed/);
+  await assert.rejects(approveArticle(root, 'airport-checklist', 'human-editor', { now, expectedSha256: sha256('a different version') }), /no longer matches/);
+  await approveArticle(root, 'airport-checklist', 'human-editor', { now, expectedSha256: article().digest });
   const result = await publishCandidates(root, registry(), report(), { now });
   assert.equal(result[0].status, 'published');
   const [published] = await readArticles(root);
@@ -180,7 +205,7 @@ test('unavailable source holds release, writes failure queue, and leaves publish
   existing.raw = serializeArticle(existing.data, existing.body);
   const root = await fixture(t, [article(), existing]);
   const before = await fs.readFile(path.join(root, 'src/content/articles/live-article.md'), 'utf8');
-  await approveArticle(root, 'airport-checklist', 'human-editor', { now });
+  await approveArticle(root, 'airport-checklist', 'human-editor', { now, expectedSha256: article().digest });
   const failedReport = report(); failedReport.sources[0].status = 'unavailable';
   const result = await publishCandidates(root, registry(), failedReport, { now });
   assert.equal(result[0].status, 'held');
@@ -193,6 +218,65 @@ test('publication refuses old health reports', async (t) => {
   await assert.rejects(publishCandidates(root, registry(), old, { now }), /current source check/);
   old.checkedAt = 'not-a-date';
   await assert.rejects(publishCandidates(root, registry(), old, { now }), /current source check/);
+});
+
+test('fresh report envelopes cannot hide stale individual source checks or another baseline hash', async (t) => {
+  const root = await fixture(t);
+  await approveArticle(root, 'airport-checklist', 'human-editor', { now, expectedSha256: article().digest });
+  const stale = report();
+  stale.sources[0].checkedAt = new Date(now.getTime() - 24 * 3600000 - 1).toISOString();
+  assert.ok((await publishCandidates(root, registry(), stale, { now }))[0].errors.some((error) => error.startsWith('Source health is not current')));
+  const wrong = report(); wrong.sources[0].contentHash = sha256('another official page revision');
+  assert.ok((await publishCandidates(root, registry(), wrong, { now }))[0].errors.some((error) => error.includes('approved baseline')));
+  const future = report(); future.sources[0].checkedAt = new Date(now.getTime() + 1).toISOString();
+  assert.ok((await publishCandidates(root, registry(), future, { now }))[0].errors.some((error) => error.startsWith('Source health is not current')));
+  assert.equal((await readArticles(root))[0].data.status, 'review');
+});
+
+test('monitoring without credentials writes source-health and review queue without approving or publishing', async (t) => {
+  const root = await fixture(t);
+  const initial = registry(); delete initial.sources[0].contentHash;
+  await writeJson(path.join(root, 'automation/sources.json'), initial);
+  const beforeLedger = await fs.readFile(path.join(root, 'automation/editorial.json'), 'utf8');
+  const beforeArticle = (await readArticles(root))[0].raw;
+  const result = await runPipeline(root, { now, env: {}, fetcher: async (url) => { assert.equal(new URL(url).hostname, 'www.bart.gov'); return sourceFetch(); } });
+  assert.deepEqual(result.generated, []);
+  assert.deepEqual(result.publications, []);
+  assert.equal((await readJson(path.join(root, 'automation/source-health.json'))).sources[0].status, 'baseline-missing');
+  assert.equal((await readJson(path.join(root, 'automation/sources.json'))).sources[0].contentHash, undefined);
+  assert.equal(await fs.readFile(path.join(root, 'automation/editorial.json'), 'utf8'), beforeLedger);
+  assert.equal((await readArticles(root))[0].raw, beforeArticle);
+  assert.equal((await readJson(path.join(root, 'automation/review-queue.json')))[0].stage, 'source-check');
+});
+
+test('an unavailable ready brief does not starve the next independent source-covered brief', async (t) => {
+  const root = await fixture(t, []);
+  const common = { type: 'guide', topic: 'san-francisco-without-a-car', status: 'ready', brief: 'Compare independent travel decisions', sources: ['official-transit'], facts: ['station-fact'], related: [] };
+  await writeJson(path.join(root, 'automation/topics.json'), { topics: [
+    { ...common, slug: 'source-held', primaryIntent: 'A first independent problem', sources: ['unregistered-source'] },
+    { ...common, slug: 'source-covered', primaryIntent: 'A second independent problem' },
+  ] });
+  let paidCalls = 0;
+  const fetcher = async (url) => {
+    if (!String(url).includes('api.openai.com')) return sourceFetch();
+    paidCalls += 1;
+    return Response.json({ choices: [{ message: { content: JSON.stringify({ title: 'Independent arrival decisions', description: 'A useful comparison guide.', body: body('second') }) } }] });
+  };
+  const result = await runPipeline(root, { draft: true, now, fetcher, env: { DRAFT_API_KEY: 'fixture', DRAFT_MODEL: 'fixture' } });
+  assert.deepEqual(result.generated, ['source-covered']);
+  assert.equal(result.heldDrafts[0].slug, 'source-held');
+  assert.equal(paidCalls, 1);
+});
+
+test('duplicate-intent preflight prevents a model request and records the hold', async (t) => {
+  const root = await fixture(t);
+  const topic = { slug: 'another-title', topic: 'san-francisco-without-a-car', status: 'ready', primaryIntent: article().data.primaryIntent, brief: 'An overlapping intent', sources: ['official-transit'], facts: ['station-fact'], related: [] };
+  assert.ok(topicPreflight(topic, registry(), report(), [article()], { now }).some((error) => error.includes('already covered')));
+  await writeJson(path.join(root, 'automation/topics.json'), { topics: [topic] });
+  const result = await runPipeline(root, { draft: true, now, env: { DRAFT_API_KEY: 'fixture', DRAFT_MODEL: 'fixture' }, fetcher: async (url) => { assert.equal(new URL(url).hostname, 'www.bart.gov'); return sourceFetch(); } });
+  assert.deepEqual(result.generated, []);
+  assert.equal(result.heldDrafts.length, 1);
+  assert.equal((await readArticles(root)).length, 1);
 });
 
 test('model cannot choose filenames, metadata, scripts or arbitrary API endpoints', async () => {
