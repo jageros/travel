@@ -76,7 +76,7 @@ No configured account means no ad slot or advertising script. No visitor consent
 
 The optional CMP loader accepts only the configured publisher's HTTPS Funding Choices path on `fundingchoicesmessages.google.com`; an independently installed certified CMP may signal readiness with `travel:cmp-ready`. If CMP readiness is absent, advertising stays off. Confirm the exact script path generated in your publisher account.
 
-`/ads.txt` is generated from an enabled, validated publisher ID. Also check the registrable domain `mumasir.com/ads.txt`; that separate domain's configuration is not managed by this repository. If a separate subdomain seller file is needed, configure the corresponding main-domain delegation and verify the publisher dashboard.
+`/ads.txt` is generated from an enabled, validated publisher ID. Verify both `https://cedartrips.com/ads.txt` and `https://www.cedartrips.com/ads.txt`, including the apex redirect, and confirm the publisher dashboard recognizes the authorized seller.
 
 Analytics sends result count and query length, not typed search text. It records optional reading-depth and selected internal-navigation events only after consent. Configure and verify GA4/Search Console in the real accounts; no credentials, earnings or account linkage are fabricated here.
 
