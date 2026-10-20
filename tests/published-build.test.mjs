@@ -28,6 +28,16 @@ test('a staged production release has static content, working links, metadata an
  try {
   await fs.cp(source,root,{recursive:true,filter:(file)=>!path.relative(source,file).split(path.sep).some(segment=>['node_modules','.git','.astro','dist','reports','artifacts'].includes(segment))});
   await fs.symlink(path.join(source,'node_modules'),path.join(root,'node_modules'),'dir');
+  // Own the fixture's release state so live editorial releases cannot turn the
+  // unpublished-link and sitemap assertions into assertions about current data.
+  const articlesDir=path.join(root,'src/content/articles');
+  for(const name of await fs.readdir(articlesDir)){
+   if(!name.endsWith('.md'))continue;
+   const target=path.join(articlesDir,name);
+   const parts=/^---\n([\s\S]*?)\n---\n([\s\S]*)$/.exec(await fs.readFile(target,'utf8'));
+   const data=parse(parts[1]);data.status='review';delete data.publishedAt;
+   await fs.writeFile(target,`---\n${stringify(data,{defaultStringType:'QUOTE_DOUBLE'})}---\n${parts[2]}`);
+  }
   const file=path.join(root,'src/content/articles/is-muni-pass-worth-it.md');
   const raw=await fs.readFile(file,'utf8');
   const parts=/^---\n([\s\S]*?)\n---\n([\s\S]*)$/.exec(raw);

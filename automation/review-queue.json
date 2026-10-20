@@ -1,1 +1,18 @@
-[]
+[
+  {
+    "slug": "is-muni-pass-worth-it",
+    "stage": "publish",
+    "errors": [
+      "Weekly publication cap reached (3 in rolling 7 days)"
+    ],
+    "detectedAt": "2026-10-20T12:18:20.786Z"
+  },
+  {
+    "slug": "golden-gate-bridge-without-a-car",
+    "stage": "publish",
+    "errors": [
+      "Weekly publication cap reached (3 in rolling 7 days)"
+    ],
+    "detectedAt": "2026-10-20T12:18:20.787Z"
+  }
+]

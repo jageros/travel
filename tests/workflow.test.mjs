@@ -6,7 +6,7 @@ import path from 'node:path';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { parse } from 'yaml';
-import { openEditorialPullRequest } from '../scripts/editorial-pr.mjs';
+import { classifySourceStateUpdate, openEditorialPullRequest } from '../scripts/editorial-pr.mjs';
 import { sha256, writeJson } from '../scripts/content-lib.mjs';
 
 const exec = promisify(execFile);
@@ -22,7 +22,7 @@ async function setup(t, manualCount = 0, autoPublishEnabled = true) {
   return root;
 }
 
-function fakeRunner({ existing = false, changed = ['automation/source-health.json'], noDiff = false, conclusion = 'success', pending = false, prHead = head } = {}) {
+function fakeRunner({ existing = false, changed = ['src/content/articles/new-guide.md'], noDiff = false, conclusion = 'success', pending = false, prHead = head } = {}) {
   const calls = [];
   let open = existing;
   let dispatched = false;
@@ -34,6 +34,7 @@ function fakeRunner({ existing = false, changed = ['automation/source-health.jso
     }
     if (command === 'git' && args[1] === '--name-only') return { stdout: changed.join('\n') };
     if (command === 'git' && args[0] === 'rev-parse') return { stdout: `${head}\n` };
+    if (command === 'git' && args[0] === 'ls-remote') return { stdout: `${head}\trefs/heads/main\n` };
     if (command === 'gh' && args[0] === 'pr' && args[1] === 'list') {
       assert.ok(args.includes('open'), 'only open PRs can be reused');
       return { stdout: JSON.stringify(open ? [{ number: 42, headRefOid: prHead, url: 'https://github.com/jageros/travel/pull/42' }] : []) };
@@ -50,7 +51,7 @@ function fakeRunner({ existing = false, changed = ['automation/source-health.jso
   return { run, calls };
 }
 
-test('a new health-only PR is created after the prior branch PR was merged or closed', async (t) => {
+test('a new content PR is created after the prior branch PR was merged or closed', async (t) => {
   const root = await setup(t);
   const runner = fakeRunner();
   const result = await openEditorialPullRequest({ root, run: runner.run, now });
@@ -158,4 +159,179 @@ test('missing source baselines require an explicit manual request after official
   assert.match(capture.run, /node scripts\/check-sources\.mjs --accept-baseline/);
   assert.ok(steps.indexOf(capture) < steps.findIndex((step) => step.id === 'pipeline'));
   assert.ok(!steps.find((step) => step.id === 'pipeline').run.includes('--accept-baseline'));
+});
+
+function sourceStateFixture() {
+  const changed = ['automation/source-health.json', 'automation/sources.json', 'automation/review-queue.json'];
+  const approvedHash = sha256('Verified official station text');
+  const base = {
+    registry: { version: 1, allowedHosts: ['www.bart.gov'], sources: [{ id: 'bart-sfo', url: 'https://www.bart.gov/guide/airport/sfo', title: 'SFO airport', publisher: 'BART', checkedAt: '2026-10-18', contentHash: approvedHash, facts: [{ id: 'bart-station', statement: 'The airport has a station.', checkedAt: '2026-10-18', dynamic: true, expiresAt: '2026-10-25', evidence: 'station' }] }] },
+    health: { checkedAt: '2026-10-18T09:00:00.000Z', sources: [{ id: 'bart-sfo', status: 'unchanged', checkedAt: '2026-10-18T09:00:00.000Z', contentHash: approvedHash }], conflicts: [] },
+    queue: [],
+  };
+  const latest = structuredClone(base);
+  latest.registry.sources[0].checkedAt = '2026-10-19';
+  latest.registry.sources[0].facts[0].checkedAt = '2026-10-19';
+  latest.registry.sources[0].facts[0].expiresAt = '2026-10-26';
+  latest.health.checkedAt = now.toISOString();
+  latest.health.sources[0].checkedAt = now.toISOString();
+  latest.queue.push({ slug: 'remaining-guide', stage: 'publish', errors: ['Weekly publication cap reached (3 in rolling 7 days)'], detectedAt: now.toISOString() });
+  const readVersion = async (ref, file) => {
+    assert.ok(ref === 'origin/main' || ref === 'HEAD' || ref === head, 'read only the base or snapshotted head');
+    const key = { 'automation/sources.json': 'registry', 'automation/source-health.json': 'health', 'automation/review-queue.json': 'queue' }[file];
+    assert.ok(key);
+    return structuredClone((ref === 'origin/main' ? base : latest)[key]);
+  };
+  const readChanges = async () => changed.map((file) => `:100644 100644 ${'b'.repeat(40)} ${'c'.repeat(40)} M\t${file}`).join('\n');
+  return { changed, base, latest, readVersion, readChanges };
+}
+
+test('strict health renewals and non-authorizing failure queue can merge before five releases', async (t) => {
+  const fixture = sourceStateFixture();
+  assert.equal((await classifySourceStateUpdate({ ...fixture, now })).eligible, true);
+  const root = await setup(t, 3);
+  const runner = fakeRunner({ changed: fixture.changed });
+  const result = await openEditorialPullRequest({ root, run: runner.run, ...fixture, now });
+  assert.equal(result.status, 'auto-merge-requested');
+  assert.equal(result.mergeChannel, 'source-state');
+  assert.equal(result.manualReleases, 3);
+  assert.deepEqual(runner.calls.find((call) => call.args[0] === 'pr' && call.args[1] === 'merge').args, ['pr', 'merge', '42', '--auto', '--squash', '--match-head-commit', head]);
+});
+
+test('the default classifier reads committed base and exact head JSON rather than working files', async (t) => {
+  const root = await setup(t, 0);
+  const fixture = sourceStateFixture();
+  const runner = fakeRunner({ changed: fixture.changed });
+  const snapshots = [];
+  const run = async (command, args) => {
+    if (command === 'git' && args[0] === 'show') {
+      snapshots.push(args[1]);
+      const separator = args[1].indexOf(':');
+      return { stdout: JSON.stringify(await fixture.readVersion(args[1].slice(0, separator), args[1].slice(separator + 1))) };
+    }
+    if (command === 'git' && args[0] === 'diff' && args[1] === '--raw') {
+      assert.ok(args.includes(`origin/main..${head}`));
+      return { stdout: await fixture.readChanges() };
+    }
+    return runner.run(command, args);
+  };
+  assert.equal((await openEditorialPullRequest({ root, run, now })).mergeChannel, 'source-state');
+  assert.equal(snapshots.length, 6);
+  assert.ok(snapshots.every((value) => value.startsWith('origin/main:') || value.startsWith(`${head}:`)));
+});
+
+test('health channel still stops on disabled automation or unsuccessful current-SHA CI', async (t) => {
+  const fixture = sourceStateFixture();
+  const disabled = await setup(t, 0, false);
+  const runner = fakeRunner({ changed: fixture.changed });
+  assert.equal((await openEditorialPullRequest({ root: disabled, run: runner.run, ...fixture, now })).status, 'manual-review');
+  assert.ok(!runner.calls.some((call) => call.args[0] === 'pr' && call.args[1] === 'merge'));
+  const enabled = await setup(t, 0);
+  const failing = fakeRunner({ changed: fixture.changed, conclusion: 'failure' });
+  await assert.rejects(openEditorialPullRequest({ root: enabled, run: failing.run, ...fixture, now, attempts: 1 }), /CI did not pass/);
+  assert.ok(!failing.calls.some((call) => call.args[0] === 'pr' && call.args[1] === 'merge'));
+});
+
+test('a newer remote main after validation holds automatic health merging', async (t) => {
+  const root = await setup(t, 0);
+  const fixture = sourceStateFixture();
+  const runner = fakeRunner({ changed: fixture.changed });
+  const run = async (command, args) => command === 'git' && args[0] === 'ls-remote' ? { stdout: `${'d'.repeat(40)}\trefs/heads/main\n` } : runner.run(command, args);
+  await assert.rejects(openEditorialPullRequest({ root, run, ...fixture, now }), /Main changed/);
+  assert.ok(!runner.calls.some((call) => call.args[0] === 'pr' && call.args[1] === 'merge'));
+});
+
+test('changed, unavailable and conflicting sources can suppress claims without renewing them', async () => {
+  for (const status of ['changed', 'unavailable', 'unchanged']) {
+    const fixture = sourceStateFixture();
+    fixture.latest.registry = structuredClone(fixture.base.registry);
+    const row = fixture.latest.health.sources[0];
+    row.status = status;
+    if (status === 'changed') row.contentHash = sha256('Changed official page');
+    if (status === 'unavailable') { delete row.contentHash; row.error = 'Official source returned HTTP 503'; }
+    if (status === 'unchanged') fixture.latest.health.conflicts = ['bart-station'];
+    assert.equal((await classifySourceStateUpdate({ ...fixture, now })).eligible, true, status);
+  }
+});
+
+test('sensitive source, provenance, date, health and queue mutations stay held', async () => {
+  const cases = [
+    ['baseline', (f) => { f.latest.registry.sources[0].contentHash = sha256('New unreviewed baseline'); f.latest.health.sources[0].contentHash = f.latest.registry.sources[0].contentHash; }],
+    ['URL', (f) => { f.latest.registry.sources[0].url = 'https://www.bart.gov/other'; }],
+    ['statement', (f) => { f.latest.registry.sources[0].facts[0].statement = 'A different claim.'; }],
+    ['evidence', (f) => { f.latest.registry.sources[0].facts[0].evidence = 'Different evidence'; }],
+    ['initial baseline acceptance', (f) => { delete f.base.registry.sources[0].contentHash; f.base.health.sources[0].status = 'baseline-missing'; }],
+    ['root schema', (f) => { f.latest.registry.approved = true; }],
+    ['source schema', (f) => { f.latest.registry.sources[0].approved = true; }],
+    ['fact schema', (f) => { f.latest.registry.sources[0].facts[0].verified = true; }],
+    ['source removal', (f) => { f.latest.registry.sources = []; }],
+    ['fact removal', (f) => { f.latest.registry.sources[0].facts = []; }],
+    ['future source day', (f) => { f.latest.registry.sources[0].checkedAt = '2026-10-20'; }],
+    ['backwards source day', (f) => { f.latest.registry.sources[0].checkedAt = '2026-10-17'; }],
+    ['future fact day', (f) => { f.latest.registry.sources[0].facts[0].checkedAt = '2026-10-20'; }],
+    ['backwards fact day', (f) => { f.latest.registry.sources[0].facts[0].checkedAt = '2026-10-17'; }],
+    ['overlong expiry', (f) => { f.latest.registry.sources[0].facts[0].expiresAt = '2026-10-27'; }],
+    ['expired renewal', (f) => { f.latest.registry.sources[0].facts[0].expiresAt = '2026-10-19'; }],
+    ['invalid day', (f) => { f.latest.registry.sources[0].facts[0].checkedAt = '2026-02-31'; }],
+    ['no evidence', (f) => { delete f.base.registry.sources[0].facts[0].evidence; delete f.latest.registry.sources[0].facts[0].evidence; }],
+    ['conflicting renewal', (f) => { f.latest.health.conflicts = ['bart-station']; }],
+    ['changed renewal', (f) => { f.latest.health.sources[0].status = 'changed'; f.latest.health.sources[0].contentHash = sha256('Different source text'); }],
+    ['unavailable renewal', (f) => { f.latest.health.sources[0] = { id: 'bart-sfo', status: 'unavailable', error: 'Network failed', checkedAt: now.toISOString() }; }],
+    ['wrong observed hash', (f) => { f.latest.health.sources[0].contentHash = sha256('Not approved'); }],
+    ['stale report', (f) => { f.latest.health.checkedAt = '2026-10-18T08:59:59.000Z'; f.latest.health.sources[0].checkedAt = f.latest.health.checkedAt; }],
+    ['future report', (f) => { f.latest.health.checkedAt = '2026-10-19T09:00:01.000Z'; f.latest.health.sources[0].checkedAt = f.latest.health.checkedAt; }],
+    ['invalid report', (f) => { f.latest.health.checkedAt = 'not-a-date'; }],
+    ['stale individual row', (f) => { f.latest.health.sources[0].checkedAt = '2026-10-18T08:59:59.000Z'; }],
+    ['unknown health field', (f) => { f.latest.health.sources[0].verified = true; }],
+    ['unknown report field', (f) => { f.latest.health.verified = true; }],
+    ['unknown source', (f) => { f.latest.health.sources[0].id = 'unknown'; }],
+    ['duplicate source', (f) => { f.latest.health.sources.push(structuredClone(f.latest.health.sources[0])); }],
+    ['missing source report', (f) => { f.latest.health.sources = []; }],
+    ['unknown conflict', (f) => { f.latest.health.conflicts = ['unknown-fact']; }],
+    ['queue authorization field', (f) => { f.latest.queue[0].approved = true; }],
+    ['queue unknown stage', (f) => { f.latest.queue[0].stage = 'publish-approved'; }],
+    ['queue errors shape', (f) => { f.latest.queue[0].errors = [{ approved: true }]; }],
+    ['queue future time', (f) => { f.latest.queue[0].detectedAt = '2026-10-20T09:00:00.000Z'; }],
+    ['queue cap', (f) => { f.latest.queue = Array.from({ length: 201 }, (_, i) => ({ ...f.latest.queue[0], slug: `held-${i}` })); }],
+  ];
+  for (const [label, mutate] of cases) {
+    const fixture = sourceStateFixture(); mutate(fixture);
+    assert.equal((await classifySourceStateUpdate({ ...fixture, now })).eligible, false, label);
+  }
+});
+
+test('source channel refuses article, ledger, file creation, deletion and mode changes', async () => {
+  for (const file of ['automation/editorial.json', 'src/content/articles/guide.md', 'scripts/check-sources.mjs']) {
+    const fixture = sourceStateFixture(); fixture.changed.push(file);
+    assert.equal((await classifySourceStateUpdate({ ...fixture, now })).eligible, false, file);
+  }
+  for (const [oldMode, newMode, status] of [['100644', '120000', 'M'], ['100644', '100755', 'M'], ['000000', '100644', 'A'], ['100644', '000000', 'D']]) {
+    const fixture = sourceStateFixture();
+    fixture.readChanges = async () => fixture.changed.map((file) => `:${oldMode} ${newMode} ${'b'.repeat(40)} ${'c'.repeat(40)} ${status}\t${file}`).join('\n');
+    assert.equal((await classifySourceStateUpdate({ ...fixture, now })).eligible, false, `${oldMode} ${newMode} ${status}`);
+  }
+});
+
+test('five releases cannot bypass sensitive sources in health-only or mixed content PRs', async (t) => {
+  const root = await setup(t, 5);
+  for (const mixed of [false, true]) {
+    const fixture = sourceStateFixture();
+    fixture.latest.registry.sources[0].facts[0].statement = 'An unreviewed replacement claim.';
+    const changed = [...fixture.changed, ...(mixed ? ['src/content/articles/guide.md'] : [])];
+    const runner = fakeRunner({ changed });
+    const result = await openEditorialPullRequest({ root, run: runner.run, ...fixture, now });
+    assert.equal(result.status, 'manual-review');
+    assert.ok(!runner.calls.some((call) => call.args[0] === 'pr' && call.args[1] === 'merge'));
+  }
+});
+
+test('mixed content and strict provenance renewals still require five verified releases', async (t) => {
+  for (const count of [3, 5]) {
+    const root = await setup(t, count);
+    const fixture = sourceStateFixture();
+    const runner = fakeRunner({ changed: [...fixture.changed, 'src/content/articles/guide.md'] });
+    const result = await openEditorialPullRequest({ root, run: runner.run, ...fixture, now });
+    assert.equal(result.status, count === 5 ? 'auto-merge-requested' : 'manual-review');
+    if (count === 5) assert.equal(result.mergeChannel, 'content');
+  }
 });
