@@ -4,6 +4,8 @@
 
 本包先把完整成果交给用户阅读确认。下列路径需要在开启 `CONTENT_REVIEW_PREVIEW=true` 的预览站点访问；它们不是已经公开上线的页面。预览统一 noindex，具体预览域名由部署结果提供。
 
+本轮实际部署预览：[查看五篇稿件](https://travel-git-codex-first-content-launch-jageros-projects.vercel.app/guides/)。独立 GitHub runner 后续已完成 11 / 11 来源抓取和基线检查，来源健康 PR #4 已合并；当前五篇的质量与重复检查均无错误，剩余发布条件是用户对下列精确稿件版本的确认。该来源更新没有修改文章指纹。
+
 ## 阅读顺序与每篇新增价值
 
 | 顺序 | 英文标题与预览相对路径 | 回答的读者问题 | 本轮完成的主要决策增量 |
