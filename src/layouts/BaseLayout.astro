@@ -61,7 +61,7 @@ const navigation = [{ href: '/topics/', label: 'Explore topics' }, { href: '/gui
       <div class="container header-inner">
         <a class="wordmark" href="/" aria-label={`${SITE_NAME} home`}>
           <span class="brand-icon" aria-hidden="true"><svg width="29" height="29" viewBox="0 0 32 32" fill="none"><path d="M5 25V12l11-6 11 6v13L16 19 5 25Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M16 6v13M5 12l11 6 11-6" stroke="currentColor" stroke-width="1.7"/><path d="m12 11 4-2 4 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
-          <span>US Travel <strong>Guide</strong><span class="brand-tagline">LESS GUESSWORK. MORE GOING.</span></span>
+          <span>Cedar <strong>Trips</strong><span class="brand-tagline">LESS GUESSWORK. MORE GOING.</span></span>
         </a>
         <nav aria-label="Main navigation">{navigation.map((item) => <a href={item.href} aria-current={path === item.href || path.startsWith(item.href) ? 'page' : undefined}>{item.label}</a>)}</nav>
       </div>
@@ -72,7 +72,7 @@ const navigation = [{ href: '/topics/', label: 'Explore topics' }, { href: '/gui
     </main>
     <footer class="site-footer">
       <div class="container footer-main">
-        <div class="footer-brand"><a href="/" class="footer-wordmark">US Travel Guide<span aria-hidden="true">↗</span></a><p>Practical answers for your next American adventure. Built around real questions, with sources you can check.</p></div>
+        <div class="footer-brand"><a href="/" class="footer-wordmark">{SITE_NAME}<span aria-hidden="true">↗</span></a><p>Practical answers for your next American adventure. Built around real questions, with sources you can check.</p></div>
         <div><h2>Start planning</h2><a href="/topics/">Explore topics</a><a href="/guides/">All guides</a><a href="/about/">About this site</a></div>
         <div><h2>How we work</h2><a href="/editorial-policy/">Editorial policy</a><a href="/photo-credits/">Photo credits</a><a href="/contact/">Contact & corrections</a><a href="/advertising/">Advertising</a><a href="/privacy/">Privacy & cookies</a><button type="button" class="text-button" data-consent-settings hidden>Cookie preferences</button></div>
       </div>

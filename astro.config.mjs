@@ -4,9 +4,10 @@ import { unified } from '@astrojs/markdown-remark';
 import visibleLinks from './src/lib/remark-visible-links.mjs';
 import midArticleAd from './src/lib/remark-mid-ad.mjs';
 import {isReviewBuild} from './src/lib/build-mode.mjs';
+import {resolveSiteUrl} from './src/lib/site-config.mjs';
 
 export default defineConfig({
-  site: 'https://travel.mumasir.com',
+  site: resolveSiteUrl(process.env.PUBLIC_SITE_URL),
   output: 'static',
   trailingSlash: 'always',
   integrations: [react()],

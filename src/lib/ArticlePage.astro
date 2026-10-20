@@ -8,7 +8,7 @@ import Photo from '../components/Photo.astro';
 import { getArticlePhoto } from './photos';
 import { type Article, articleHref, visibleArticles, formatDate, topic } from './content';
 import { articleSources, articleFacts } from './sources';
-import { SITE_URL } from './site';
+import { SITE_URL, SITE_NAME, SITE_EDITORIAL_TEAM } from './site';
 interface Props { article: Article }
 const {article}=Astro.props;
 const {Content,headings}=await render(article);
@@ -23,15 +23,15 @@ const isPublished=article.data.status==='published';
 const articleData=isPublished?{
   '@context':'https://schema.org','@type':'Article',headline:article.data.title,description:article.data.description,
   datePublished:article.data.publishedAt,dateModified:article.data.updatedAt,
-  author:{'@type':'Organization',name:'US Travel Guide Editorial Team',url:`${SITE_URL}/editorial-policy/`},
-  publisher:{'@type':'Organization',name:'US Travel Guide',url:SITE_URL},
+  author:{'@type':'Organization',name:SITE_EDITORIAL_TEAM,url:`${SITE_URL}/editorial-policy/`},
+  publisher:{'@type':'Organization',name:SITE_NAME,url:SITE_URL},
   mainEntityOfPage:`${SITE_URL}${path}`,
   ...(heroPhoto?{image:new URL(heroPhoto.share.src,SITE_URL).href}:legacyHero?{image:new URL(legacyHero.src,SITE_URL).href}:{})
 }:undefined;
 ---
-<BaseLayout title={`${article.data.title} — US Travel Guide`} description={article.data.description} path={path} noindex={!isPublished} article={articleData} socialImage={heroPhoto?{...heroPhoto.share,alt:heroPhoto.alt}:undefined} breadcrumbs={[{name:'Home',url:'/'},{name:topic.title,url:`/topics/${article.data.topic}/`},{name:article.data.title,url:path}]}>
+<BaseLayout title={`${article.data.title} — ${SITE_NAME}`} description={article.data.description} path={path} noindex={!isPublished} article={articleData} socialImage={heroPhoto?{...heroPhoto.share,alt:heroPhoto.alt}:undefined} breadcrumbs={[{name:'Home',url:'/'},{name:topic.title,url:`/topics/${article.data.topic}/`},{name:article.data.title,url:path}]}>
 <article class="container article-shell">
-  <header class="article-header"><a class="eyebrow" href={`/topics/${article.data.topic}/`}>{topic.title}</a><h1>{article.data.title}</h1><p class="article-deck">{article.data.description}</p><div class="article-meta"><a href="/editorial-policy/">US Travel Guide Editorial Team</a><span>Sources checked {formatDate(article.data.checkedAt)}</span></div>{!isPublished&&<aside class="notice review-notice"><strong>Editorial review copy</strong><p>This draft is provided for review. It is excluded from the public sitemap and search indexing.</p></aside>}</header>
+  <header class="article-header"><a class="eyebrow" href={`/topics/${article.data.topic}/`}>{topic.title}</a><h1>{article.data.title}</h1><p class="article-deck">{article.data.description}</p><div class="article-meta"><a href="/editorial-policy/">{SITE_EDITORIAL_TEAM}</a><span>Sources checked {formatDate(article.data.checkedAt)}</span></div>{!isPublished&&<aside class="notice review-notice"><strong>Editorial review copy</strong><p>This draft is provided for review. It is excluded from the public sitemap and search indexing.</p></aside>}</header>
   <aside class="article-sidebar" aria-label="On this page"><p class="eyebrow">On this page</p><nav><ul>{headings.filter(heading=>heading.depth===2).map(heading=><li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}<li><a href="#official-sources">Official sources</a></li></ul></nav><p class="source-note">Transport services and ticket rules can change. Check the linked operator before travelling.</p></aside>
   <div class="article-body">
     {heroPhoto?<Photo photo={heroPhoto} priority sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) 70vw, 740px" caption class="article-figure"/>:legacyHero&&<figure class="article-figure"><img src={legacyHero.src} alt={legacyHero.alt} width="800" height="800" fetchpriority="high"/><figcaption>Illustration: {legacyHero.credit} · {legacyHero.license}</figcaption></figure>}

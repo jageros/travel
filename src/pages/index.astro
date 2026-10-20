@@ -1,4 +1,5 @@
 ---
+import { SITE_NAME } from '../lib/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Search from '../components/Search';
 import Photo from '../components/Photo.astro';
@@ -8,7 +9,7 @@ const articles = await visibleArticles();
 const items = await Promise.all(articles.map(async article=>({title:article.data.title,description:article.data.description,href:articleHref(article),topic:topic.title,type:article.data.type,image:await getArticlePhoto(article.data.hero)})));
 const heroPhoto = await getPhoto('golden-gate');
 ---
-<BaseLayout title="Practical US travel guides — US Travel Guide" description="Plan the details that make a trip work. Clear US travel guides with official sources, useful comparisons and thoughtfully connected itineraries." path="/" socialImage={{...heroPhoto.share,alt:heroPhoto.alt}}>
+<BaseLayout title={`Practical US travel guides — ${SITE_NAME}`} description="Plan the details that make a trip work. Clear US travel guides with official sources, useful comparisons and thoughtfully connected itineraries." path="/" socialImage={{...heroPhoto.share,alt:heroPhoto.alt}}>
   <section class="hero container">
     <div class="hero-copy"><p class="eyebrow">A little planning. A better trip.</p><h1>Go beyond<br/>the sightseeing list.</h1><p>Find your way from “I’d like to go” to a plan that works. Start with the transport, tickets and small decisions that shape a good day out.</p><div class="hero-actions"><a class="button" href="/topics/">Explore destinations <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="/editorial-policy/">How we research</a></div><p class="hero-footnote">Clear comparisons. Official sources. No invented firsthand stories.</p></div>
     <div class="hero-art"><Photo photo={heroPhoto} priority sizes="(max-width: 760px) 100vw, 560px" caption class="hero-photo" /></div>

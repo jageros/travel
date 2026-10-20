@@ -1,10 +1,11 @@
 ---
+import { SITE_NAME } from '../lib/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Photo from '../components/Photo.astro';
 import { getPhoto, photoRecords } from '../lib/photos';
 const photos = await Promise.all(photoRecords.map(record => getPhoto(record.id)));
 ---
-<BaseLayout title="Photo credits — US Travel Guide" description="Authors, original sources and reuse licenses for the real destination and transport photographs used in our travel guides." path="/photo-credits/" breadcrumbs={[{name:'Home',url:'/'},{name:'Photo credits',url:'/photo-credits/'}]}>
+<BaseLayout title={`Photo credits — ${SITE_NAME}`} description="Authors, original sources and reuse licenses for the real destination and transport photographs used in our travel guides." path="/photo-credits/" breadcrumbs={[{name:'Home',url:'/'},{name:'Photo credits',url:'/photo-credits/'}]}>
   <section class="container section-block">
     <div class="page-intro"><p class="eyebrow">The places behind the planning</p><h1>Photo credits.</h1><p>Real photographs, with their authors and original sources. These images illustrate places and transport; they are not evidence of a service running today.</p></div>
     <p>We resize and compress the originals for this site. Card thumbnails and social previews may be cropped. Each adapted image retains the original photograph's license linked below, including the ShareAlike license where indicated. Follow each source link for the original photograph and its license record. The licenses apply to the photographs; they do not imply an endorsement by the photographer or transport operator.</p>

@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800" role="img" aria-labelledby="title desc">
   <title id="title">San Francisco, one connection at a time</title>
   <desc id="desc">An original stylized illustration of a red suspension bridge, green hills, a city street, and a teal transit vehicle. It is an illustration, not a photograph or a route map.</desc>
-  <metadata>Original vector illustration created for US Travel Guide. Dedicated to the public domain under CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/</metadata>
+  <metadata>Original vector illustration created for Cedar Trips. Dedicated to the public domain under CC0 1.0: https://creativecommons.org/publicdomain/zero/1.0/</metadata>
   <defs><clipPath id="frame"><rect width="800" height="800" rx="14"/></clipPath><pattern id="windows" width="24" height="29" patternUnits="userSpaceOnUse"><rect x="4" y="6" width="6" height="12" rx="1" fill="#f9f3da"/></pattern></defs>
   <g clip-path="url(#frame)">
     <rect width="800" height="800" fill="#e9ede0"/>
