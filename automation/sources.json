@@ -22,7 +22,8 @@
           "dynamic": true,
           "evidence": "The BART station is located in the International Terminal"
         }
-      ]
+      ],
+      "contentHash": "6e47386934ab24578646995df7f4d9551c949f7860f31fa66822f532db7d4edb"
     },
     {
       "id": "sfmta-fares",
