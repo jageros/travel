@@ -1,70 +1,70 @@
 {
-  "checkedAt": "2026-10-20T10:10:19.878Z",
+  "checkedAt": "2026-10-20T10:27:18.071Z",
   "sources": [
     {
       "id": "bart-sfo",
-      "status": "unavailable",
-      "checkedAt": "2026-10-20T10:10:19.878Z",
-      "error": "fetch failed"
+      "status": "unchanged",
+      "checkedAt": "2026-10-20T10:27:18.071Z",
+      "contentHash": "6e47386934ab24578646995df7f4d9551c949f7860f31fa66822f532db7d4edb"
     },
     {
       "id": "sfmta-fares",
       "status": "unchanged",
-      "checkedAt": "2026-10-20T10:07:48.578Z",
+      "checkedAt": "2026-10-20T10:27:18.071Z",
       "contentHash": "c90f547a90c703350bd9ebfd10e3253e9edf95f0f12e693b40dcc4872f65ca58"
     },
     {
       "id": "sfmta-adult-single",
       "status": "unchanged",
-      "checkedAt": "2026-10-20T10:07:48.578Z",
+      "checkedAt": "2026-10-20T10:27:18.071Z",
       "contentHash": "565f7fb5d275fa41e6012fbcf740253dc56cdf3f248ee400d2b10b6b71254897"
     },
     {
       "id": "sfmta-day-pass",
       "status": "unchanged",
-      "checkedAt": "2026-10-20T10:07:48.578Z",
+      "checkedAt": "2026-10-20T10:27:18.071Z",
       "contentHash": "59e0f03b2ef8dbb7f203e7c45b63be6e4004c9707c6f93fdb6a44008fb7ef1d6"
     },
     {
       "id": "sfmta-visitor-passport",
       "status": "unchanged",
-      "checkedAt": "2026-10-20T10:07:48.578Z",
+      "checkedAt": "2026-10-20T10:27:18.071Z",
       "contentHash": "51eb2206b07fb7f60b1a03b4ab21ea86a51dc750949c391b0bcb0db60b320dac"
     },
     {
       "id": "sfmta-f-line",
       "status": "unchanged",
-      "checkedAt": "2026-10-20T10:07:48.578Z",
+      "checkedAt": "2026-10-20T10:27:18.071Z",
       "contentHash": "69d5a9022c93b696d1a7e8966306a2314228e54a0b2e25419e1effc7385c2237"
     },
     {
       "id": "sfmta-f-access",
       "status": "unchanged",
-      "checkedAt": "2026-10-20T10:07:48.578Z",
+      "checkedAt": "2026-10-20T10:27:18.071Z",
       "contentHash": "0a9ae8ead93491f93b90e6ed88cc3d7c8003c04815fe7c40660f9a26f8828a13"
     },
     {
       "id": "golden-gate-transit",
       "status": "unchanged",
-      "checkedAt": "2026-10-20T10:10:19.878Z",
+      "checkedAt": "2026-10-20T10:27:18.071Z",
       "contentHash": "f23813f0fee46d9da31b01c0911a67d64183c7b4cdf5d3cd5453adbd4d2ea754"
     },
     {
       "id": "golden-gate-sidewalks",
       "status": "unchanged",
-      "checkedAt": "2026-10-20T10:07:48.578Z",
+      "checkedAt": "2026-10-20T10:27:18.071Z",
       "contentHash": "b5c077d24f49d8ef729f048924a152d013ee48c416952245340a0466a6381e9b"
     },
     {
       "id": "clipper-contactless",
       "status": "unchanged",
-      "checkedAt": "2026-10-20T10:07:48.578Z",
+      "checkedAt": "2026-10-20T10:27:18.071Z",
       "contentHash": "81e0a7cb572eaedc1bdecfd58c0154ee235efbc05105e92a79d31480146ba21a"
     },
     {
       "id": "golden-gate-current-schedules",
       "status": "unchanged",
-      "checkedAt": "2026-10-20T10:07:48.578Z",
+      "checkedAt": "2026-10-20T10:27:18.071Z",
       "contentHash": "08d34b7944f1007ebc368e77a04a1f086f0acf80df239a31914b01f991ed27fa"
     }
   ],
