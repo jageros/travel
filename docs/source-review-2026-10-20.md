@@ -55,3 +55,9 @@ BART 的只读 Node 诊断得到 `ECONNRESET`，含义是 TLS 安全连接建立
 完整最终报告另写入 `automation/reports/source-check.json`，定向重试原结果保存为 `automation/reports/targeted-source-retry-2026-10-20.json`（reports 为运行产物，不作为网页内容）。检查器还按原有行为记录了真实失败队列；历史失败项不等于最终仍有六源失效，解决队列时应以当前 source-health 和本记录复核，不抹去真实尚存的 BART 失败。
 
 本轮 `node scripts/validate-content.mjs` 通过，覆盖当前 5 篇审核稿。没有创建文章批准或发布记录。末次定向重试已完成，没有留待轮询的进程；此后停止本机来源重试，避免与独立 runner 的结果竞写。
+
+## 独立 runner 复核与问题关闭
+
+随后在 GitHub Actions 的正常 Node 网络环境运行了[来源监测任务](https://github.com/jageros/travel/actions/runs/39408017360)，仅明确启用缺失基线采集，未请求生成、批准或发布文章。`2026-10-20T10:27:18.071Z` 的报告为 **11 / 11 unchanged、conflicts=[]**；BART 原文成功采集，其初始 SHA-256 为 `6e47386934ab24578646995df7f4d9551c949f7860f31fa66822f532db7d4edb`。其余十个已接受的基线没有被替换。
+
+任务实际创建了[来源健康 PR #4](https://github.com/jageros/travel/pull/4)，[显式触发的 CI](https://github.com/jageros/travel/actions/runs/39408088331)成功，原 PR 事件的工作流经维护者批准后也成功。PR #4 已合并；当前版本化来源健康以该完整 runner 结果为准，前文的本机失败保留为诊断历史。相关七条网络失败待审项据此关闭，不将它们继续显示为尚未解决的来源故障。文章人工批准仍是独立条件。
