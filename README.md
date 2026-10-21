@@ -33,35 +33,44 @@ A normal production build excludes draft/review articles. Current named approval
 - Optional current-fact panels use registered facts, source health and expiry. Precise claims are hidden by default in static HTML. A browser checks the date before revealing them and hides them at expiry; without JavaScript, readers get the official reference instead. Guide prose and links remain readable without JavaScript.
 - Internal Markdown links to unreleased guides degrade to readable text and become links once the destination is published. Related cards only include visible articles.
 
-## Production and Vercel
+## Cloudflare deployment
 
-The previous `Makefile push` used SSH to replace a different domain. It has been disabled. Do not run an old copy to deploy this project.
+Deploy the existing Astro static output with **Workers Static Assets**, using the `cedar-trips` Worker, `dist` directory and Node 24. No SSR adapter, Worker script, database or runtime binding is required. Wrangler is pinned in the npm lockfile. The old SSH `Makefile push` remains disabled.
 
-The new `vercel.json` uses Astro, `npm ci`, the verified build command and `dist` output. The implementation PR triggered a Vercel Git preview for project `jageros-projects/travel`, confirming repository integration. Production account settings and real service identifiers still need verification. Before publishing:
+Connect only `jageros/travel` through Workers Builds. Set the production branch to `main`, enable Worker Previews for other branches, and use these commands:
 
-1. Confirm the Vercel project belongs to this site, Git repository `jageros/travel`, root directory, production branch `main`, domain, and Node 24. Use a feature-branch Preview first.
-2. Vercel Preview deployments automatically include review copies unless explicitly overridden with `CONTENT_REVIEW_PREVIEW=false`. Use `CONTENT_REVIEW_PREVIEW=true` for local review builds. Keep `SITE_INDEXING_ENABLED=false` while initial content is being reviewed. `VERCEL_ENV=preview` independently forces noindex and disables optional services.
-3. Review the five guides and source baselines; release through the approval ledger. Confirm article URLs, canonical/JSON-LD, keyboard/mobile behavior, source links, robots/sitemap and real 404 responses on the deployment.
-4. After approved content is available, set `SITE_INDEXING_ENABLED=true` in Production and rebuild. Submit `https://www.cedartrips.com/sitemap.xml` in the verified Search Console property.
-5. Verify the deployed result and retain the previous deployment for rollback. Local builds do not prove production deployment, indexing or real-user Core Web Vitals.
+| Setting | Value |
+| --- | --- |
+| Build command | `npm ci && npm run build:cloudflare` |
+| Production command | `npx wrangler deploy` |
+| Preview command | `npx wrangler preview` |
+| Build variable | `SKIP_DEPENDENCY_INSTALL=1` |
+| Node version | `24` (also recorded in `.nvmrc`) |
 
-### Cedar Trips domain migration
+Configure public values as **build variables**, not runtime bindings. Set `PUBLIC_SITE_URL=https://www.cedartrips.com`, `SITE_INDEXING_ENABLED=true`, `PUBLIC_GA_MEASUREMENT_ID=G-QDDLYW7WRF` and `ADSENSE_READY=false`. The build wrapper derives production/preview from Cloudflare's `WORKERS_CI_BRANCH`; every non-main branch forces review mode, noindex, empty GA and disabled advertising even if shared build settings contain production values. Missing Cloudflare branch metadata stops the build. No model or editorial App secrets belong in Cloudflare.
+
+For local production verification, explicitly set `DEPLOYMENT_ENV=production SITE_INDEXING_ENABLED=true`. Without deployment intent, local builds remain noindex. Preview builds include review copies by default; hiding copies cannot make a preview indexable. Production rejects review mode. The required GitHub `verify` job builds and checks both production and a preview deliberately supplied with the indexing switch enabled.
+
+Static routing preserves directory URLs and uses `404.html` with a real 404 status. `_headers` preserves security protections, makes fingerprinted Astro assets immutable and leaves other responses on Cloudflare's default revalidation policy. Production `workers.dev` and Version URLs are disabled; independent Worker Previews are configured separately.
+
+### Canonical domain and cutover
 
 The only canonical origin is `https://www.cedartrips.com`. Set the Production `PUBLIC_SITE_URL` to this value before deploying. The shared identity in `src/lib/site-config.mjs` is used by Astro, page metadata and editorial monitoring. A bare Cedar Trips URL is normalized to `www`; retired or unrelated origins fail the build instead of silently emitting incorrect canonical URLs.
 
-`vercel.json` contains a host-scoped permanent redirect from `cedartrips.com` to the same path at the canonical origin. Query parameters are retained. An existing Vercel domain redirect must target the same canonical hostname to avoid loops. The owner has chosen to retire the unused `travel.mumasir.com` hostname without a redirect: remove its specific DNS record and Vercel custom-domain binding. No rule or retirement step targets the unrelated `mumasir.com` root site or its other services.
+First deploy and verify an independent Worker Preview without binding the production hostname. Once the Cloudflare zone and certificates are active, bind `www.cedartrips.com` as the Worker's Custom Domain, then configure a host-scoped 308 redirect from `cedartrips.com` to the same path on www with query-string preservation. A same-name CNAME must be removed before Custom Domain binding; Cloudflare creates its own DNS record. Preserve the existing Search Console TXT and all unrelated DNS records.
 
-The owner has added the Search Console Domain property `cedartrips.com`, which includes `www`. New reports can initially show processing; adding a property does not itself index pages. Keep the current noindex and editorial gates until the first guides have been reviewed and released. Then submit `https://www.cedartrips.com/sitemap.xml` in that existing property. This launch does not include an old-site Change of Address workflow.
+The existing Search Console Domain property and sitemap URL are unchanged. This hosting move does not require Change of Address. Three articles are published, two remain approved review copies; content approval and release limits are independent of hosting. The retired `travel.mumasir.com` remains outside this site's routing; no rules target other mumasir services.
 
-After deployment, check the Cedar Trips homepage and deep-path redirects (including query parameters), canonical/OG/JSON-LD, robots/sitemap, real HTTP 404s, and Preview noindex. Confirm the retired hostname no longer serves the site. Do not enable indexing, advertising, model calls or article approvals merely because the domain changed.
+After cutover, verify canonical/OG/JSON-LD, redirects, real HTTP statuses, robots/sitemap, consent-based GA events and one actual source-monitor PR through Cloudflare production deployment. Only then retire the old travel Vercel project and its bindings, without a retention period or changes to other projects. During cutover its legacy environment compatibility remains temporarily supported. Historical acceptance documents preserve what was true at their recorded time. Rollbacks must use Cloudflare and retain current article approvals and source health; rebuild older code with current state if an old static version would restore unsafe facts.
 
 ## Optional site configuration
 
-Copy `.env.example` to a local `.env` for local-only configuration. Set deployment values in Vercel. Never prefix model/GSC credentials with `PUBLIC_`.
+Copy `.env.example` to a local `.env` for local-only configuration. Set deployment values in Cloudflare Build variables. Never prefix model/GSC credentials with `PUBLIC_`.
 
 | Setting | Purpose |
 | --- | --- |
 | `PUBLIC_SITE_URL` | Canonical origin, default `https://www.cedartrips.com` |
+| `DEPLOYMENT_ENV` | `production`, `preview` or `local`; local is the default |
 | `SITE_INDEXING_ENABLED` | Explicit production indexing opt-in; default false |
 | `CONTENT_REVIEW_PREVIEW` | Include review copies only in noindex preview |
 | `PUBLIC_GOOGLE_SITE_VERIFICATION` | Search Console verification token |

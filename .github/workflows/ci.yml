@@ -17,12 +17,19 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run verify
+        env:
+          DEPLOYMENT_ENV: production
+          SITE_INDEXING_ENABLED: 'true'
       - run: npm run build
         env:
+          DEPLOYMENT_ENV: preview
           CONTENT_REVIEW_PREVIEW: 'true'
+          SITE_INDEXING_ENABLED: 'true'
       - run: node scripts/verify-build.mjs
         env:
+          DEPLOYMENT_ENV: preview
           CONTENT_REVIEW_PREVIEW: 'true'
+          SITE_INDEXING_ENABLED: 'true'
       - uses: actions/upload-artifact@v4
         if: always()
         with:

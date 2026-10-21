@@ -51,7 +51,7 @@ test('a staged production release has static content, working links, metadata an
   for(const source of registry.sources)for(const fact of source.facts){fact.checkedAt=today;if(fact.dynamic)fact.expiresAt=tomorrow;}
   await fs.writeFile(path.join(root,'automation/sources.json'),JSON.stringify(registry));
   await fs.writeFile(healthFile,JSON.stringify({checkedAt:new Date().toISOString(),sources:registry.sources.map(source=>({id:source.id,status:'unchanged'})),conflicts:[]}));
-  const env={...process.env,PUBLIC_SITE_URL:CANONICAL_SITE_URL,ASTRO_TELEMETRY_DISABLED:'1',CONTENT_REVIEW_PREVIEW:'false',SITE_INDEXING_ENABLED:'true',VERCEL_ENV:'production',ADSENSE_READY:'true',PUBLIC_ADSENSE_CLIENT:'ca-pub-1234567890123456',PUBLIC_ADSENSE_SLOT_MID_ARTICLE:'1234567890',PUBLIC_ADSENSE_SLOT_END_ARTICLE:'9876543210'};
+  const env={...process.env,PUBLIC_SITE_URL:CANONICAL_SITE_URL,ASTRO_TELEMETRY_DISABLED:'1',CONTENT_REVIEW_PREVIEW:'false',SITE_INDEXING_ENABLED:'true',DEPLOYMENT_ENV:'production',WORKERS_CI_BRANCH:'main',PUBLIC_GA_MEASUREMENT_ID:'G-FIXTURE123',ADSENSE_READY:'true',PUBLIC_ADSENSE_CLIENT:'ca-pub-1234567890123456',PUBLIC_ADSENSE_SLOT_MID_ARTICLE:'1234567890',PUBLIC_ADSENSE_SLOT_END_ARTICLE:'9876543210'};
   const options={cwd:root,env,encoding:'utf8',timeout:90000,maxBuffer:3_000_000};
   try {execFileSync(process.execPath,[path.join(source,'node_modules/astro/bin/astro.mjs'),'build'],options);}
   catch(error){throw new Error(error.stdout+'\n'+error.stderr);}
@@ -75,6 +75,7 @@ test('a staged production release has static content, working links, metadata an
   assert.match(html,/Count fare windows/);
   assert.match(html,/https:\/\/www\.sfmta\.com/);
   assert.equal((html.match(/data-ad-container/g)||[]).length,2,'middle and end slots are present only in enabled published guide');
+  assert.match(html,/data-analytics-id="G-FIXTURE123"/,'production keeps consent-gated analytics');
   assert.doesNotMatch(html,/<script[^>]+src="https:/,'no thirdparty request before consent');
   assert.match(html,/data-current-fact[^>]*hidden/,'precise facts stay hidden without a runtime freshness check');
   assert.match(html,/data-fact-fallback/,'official-source fallback is in static HTML');
@@ -84,7 +85,7 @@ test('a staged production release has static content, working links, metadata an
   for(const [,url]of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g))assert.equal(new URL(url).origin,CANONICAL_SITE_URL);
   const robots=await fs.readFile(path.join(root,'dist/robots.txt'),'utf8');
   assert.ok(robots.includes(`Sitemap: ${CANONICAL_SITE_URL}/sitemap.xml`));
-  const previewEnv={...env,VERCEL_ENV:'preview'};
+  const previewEnv={...env,DEPLOYMENT_ENV:'preview',WORKERS_CI_BRANCH:'feature/review',VERCEL_ENV:'production'};
   delete previewEnv.CONTENT_REVIEW_PREVIEW;
   const previewOptions={...options,env:previewEnv};
   execFileSync(process.execPath,[path.join(source,'node_modules/astro/bin/astro.mjs'),'build'],previewOptions);
@@ -93,8 +94,19 @@ test('a staged production release has static content, working links, metadata an
   const previewMetadata=pageMetadata(previewHtml);
   assert.equal(previewMetadata.canonical,`${CANONICAL_SITE_URL}/guides/sfo-to-fishermans-wharf-with-luggage/`);
   assert.equal(previewMetadata.value('og:url'),previewMetadata.canonical);
-  assert.match(previewHtml,/Editorial review copy/,'Vercel Preview automatically includes review copies');
+  assert.match(previewHtml,/Editorial review copy/,'Cloudflare previews automatically include review copies');
   assert.match(previewHtml,/<meta name="robots" content="noindex/);
   assert.doesNotMatch(previewHtml,/data-ad-container/,'no ads in review deployments even with configured IDs');
+  assert.doesNotMatch(previewHtml,/data-analytics-id="G-FIXTURE123"/,'no analytics in review deployments even with indexing enabled');
+  // A preview with only published content is still a preview: the content
+  // visibility switch must not authorize indexing, analytics or advertising.
+  const publicPreviewOptions={...options,env:{...previewEnv,CONTENT_REVIEW_PREVIEW:'false'}};
+  execFileSync(process.execPath,[path.join(source,'node_modules/astro/bin/astro.mjs'),'build'],publicPreviewOptions);
+  execFileSync(process.execPath,['scripts/verify-build.mjs'],publicPreviewOptions);
+  const publicPreviewHtml=await fs.readFile(path.join(root,'dist/guides/is-muni-pass-worth-it/index.html'),'utf8');
+  assert.match(publicPreviewHtml,/<meta name="robots" content="noindex/);
+  assert.doesNotMatch(publicPreviewHtml,/data-ad-container|data-analytics-id="G-FIXTURE123"/,'published-only preview cannot enable ads or analytics');
+  await assert.rejects(fs.stat(path.join(root,'dist/guides/sfo-to-fishermans-wharf-with-luggage/index.html')),{code:'ENOENT'});
+  assert.doesNotMatch(await fs.readFile(path.join(root,'dist/sitemap.xml'),'utf8'),/<loc>/,'preview sitemap stays empty');
  }finally{await fs.rm(temporary,{recursive:true,force:true});}
 });
