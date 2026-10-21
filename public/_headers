@@ -11,3 +11,7 @@
 
 /images/*
   Cache-Control: public, max-age=86400
+
+# Custom-domain Worker Previews do not receive Cloudflare's automatic noindex.
+https://:preview.previews.cedartrips.com/*
+  X-Robots-Tag: noindex

@@ -8,19 +8,29 @@ The owner approved Workers Static Assets with Workers Builds, deployment and pre
 - Wrangler pinned to `4.151.3`; independent Worker Previews configured, production `workers.dev` and Version URLs disabled. No formal custom domain is in the initial configuration.
 - Node 24; Workers Builds command `npm ci && npm run build:cloudflare`, with `SKIP_DEPENDENCY_INSTALL=1`. Main deploys with `npx wrangler deploy`; other branches use `npx wrangler preview`.
 - Build-time public settings: canonical www origin, existing GA measurement ID `G-QDDLYW7WRF`, explicit production indexing, advertising off. The wrapper uses actual Cloudflare branch metadata to force preview noindex and remove GA/advertising even when shared settings contain production values.
-- Editorial App and model credentials remain in GitHub; no key was copied to Cloudflare or the repository.
+- Editorial App and model credentials remain in GitHub. Cloudflare has its own dedicated build credential; no credential value was committed to the repository.
 
 ## Local validation
 
-The full production `npm run verify` passed: all automated tests, Astro checks (59 files, zero errors/warnings/hints), five-article content validation and fourteen-page static-output verification. Actual isolated production and preview builds cover consent/analytics, preview review copies, hidden-review previews, erroneous preview indexing/advertising settings and true draft exclusion.
+The full production `npm run verify` passed: 125 automated tests, Astro checks (59 files, zero errors/warnings/hints), five-article content validation and fourteen-page static-output verification. Actual isolated production and preview builds cover consent/analytics, preview review copies, hidden-review previews, erroneous preview indexing/advertising settings and true draft exclusion. [PR #14](https://github.com/jageros/travel/pull/14) passed CI and was merged into main at `3437a023`.
 
 `wrangler deploy --dry-run` passed with the pinned CLI: 72 static assets discovered and no bindings. The command used task-specific temporary configuration/log directories, sent no telemetry, and performed no upload or deployment. This is configuration evidence, not proof of a remote deployment.
 
 ## External state and remaining acceptance
 
-Cloudflare's domain overview reports the domain is protected and uses full DNS setup. Its DNS list currently contains only the retained Google verification TXT; no apex/www web record was added by this migration. Cached NS and SOA responses differed during planning, so production binding requires an active zone and a valid certificate rather than inference from one resolver.
+Cloudflare's domain overview reports the domain is protected and uses full DNS setup. Google and Cloudflare public DNS-over-HTTPS now consistently return the assigned Cloudflare nameservers, `karsyn` and `ridge`. The retained Google verification TXT remains present; apex/www web records are still missing. No production web record has been added by this migration.
 
-The official Cloudflare Workers and Pages GitHub App installation form is prepared with **Only select repositories → `jageros/travel`**. Its fixed permission request includes Metadata read and Administration/Code/Checks/Deployments/Pull requests write. Installation awaits the owner's specific security-access confirmation. No installation, Cloudflare project creation, production DNS change or Vercel deletion is claimed here.
+The Cloudflare dashboard shows an active Universal SSL certificate covering `*.cedartrips.com` and `cedartrips.com`, valid through **2027-01-19**. This confirms certificate readiness in the dashboard; HTTPS routing still requires a real deployed site and domain acceptance.
+
+The official Cloudflare Workers and Pages GitHub App is installed with **Only select repositories → `jageros/travel`**. Its fixed permission request includes Metadata read and Administration/Code/Checks/Deployments/Pull requests write.
+
+The dedicated **Cedar Trips Builds** user token was registered successfully. Temporary Workers CI permission has been removed; its current account permissions are **Workers Scripts: Edit** and **Account Settings: Read**. The local temporary token file has been deleted, and no token or other secret was added to the repository.
+
+The first noindex `migration-check` preview was built and uploaded successfully by Workers Builds (`5a534883-b6cc-47fb-81ae-69feb908697d`) from main on Node 24.22.0 with the reduced token. It initially had no active URL: the top-level `preview_urls: false` disables both old Version URLs and the new workers.dev Preview URLs. An isolated custom preview host is therefore being configured in the dashboard, with a host-specific `X-Robots-Tag: noindex` header in static assets. Neither formal web domain has been bound yet.
+
+Production and preview custom domains are managed exclusively in the dashboard. Keep both `route` and `routes` absent from Wrangler configuration: adding a partial domain list would let Wrangler replace dashboard-managed domains and would require additional zone permissions for the build token.
+
+Remote preview acceptance, production binding, production HTTP/analytics checks and Vercel retirement remain outstanding. The migration is not complete; transitional Vercel compatibility remains in place until cutover.
 
 After a real preview passes, bind www and configure the apex 308 redirect preserving path/query. Confirm three published guides return 200, two review URLs and unknown paths return 404, the sitemap has nine canonical URLs, robots allows production crawling, preview remains noindex, GA receives consented events, Search Console verification survives, and an editorial monitor PR reaches a Cloudflare production deployment at its exact merged SHA.
 

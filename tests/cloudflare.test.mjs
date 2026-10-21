@@ -21,11 +21,8 @@ test('production default hostnames are disabled while isolated Worker Previews a
  assert.equal(config.workers_dev,false);
  assert.equal(config.preview_urls,false);
  assert.deepEqual(config.previews,{},'a separate Previews configuration is required even for a static-only Worker');
- for(const route of config.routes||[]){
-  assert.equal(route.pattern,'www.cedartrips.com');
-  assert.equal(route.custom_domain,true,'any eventual route must use the sole canonical custom domain');
- }
- assert.ok(!config.route,'no extra singular route or unrelated domain');
+ assert.ok(!Object.hasOwn(config,'routes'),'production and preview custom domains are managed only in the Cloudflare dashboard');
+ assert.ok(!Object.hasOwn(config,'route'),'Wrangler must not replace the dashboard domain configuration');
 });
 
 test('all static responses retain the existing browser security protections',()=>{
@@ -43,4 +40,10 @@ test('only fingerprinted Astro assets are immutable without conflicting cache di
  assert.equal(cacheRules.find(rule=>rule.pattern==='/images/*').headers['cache-control'],'public, max-age=86400');
  assert.ok(!headerRules.find(rule=>rule.pattern==='/*').headers['cache-control'],'other assets use the Cloudflare default revalidation policy without duplicate headers');
  assert.doesNotMatch(headerText,/!\s*Cache-Control/i,'cache policy does not depend on detach/reattach ordering');
+});
+
+test('custom-domain previews are noindex without marking the production domain noindex',()=>{
+ const robotsRules=headerRules.filter(rule=>'x-robots-tag' in rule.headers);
+ assert.deepEqual(robotsRules,[{pattern:'https://:preview.previews.cedartrips.com/*',headers:{'x-robots-tag':'noindex'}}]);
+ assert.ok(!Object.hasOwn(headerRules.find(rule=>rule.pattern==='/*').headers,'x-robots-tag'),'the production site remains eligible for indexing');
 });
