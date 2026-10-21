@@ -76,6 +76,43 @@ test('baseline acceptance initializes only missing hashes and never accepts chan
   assert.equal(changed.report.sources[0].status, 'changed');
 });
 
+test('unchanged source health cannot renew manual facts without evidence or bypass their expiry gate', async (t) => {
+  const current = registry();
+  const source = current.sources[0];
+  const manualFact = source.facts[0];
+  delete manualFact.evidence;
+  manualFact.expiresAt = '2026-10-21';
+  const verifiedManualFact = structuredClone(manualFact);
+  source.facts.push({ ...manualFact, id: 'evidence-backed-control', evidence: 'station access' });
+  const root = await fixture(t);
+  await writeJson(path.join(root, 'automation/sources.json'), current);
+  await approveArticle(root, 'airport-checklist', 'human-editor', { now, expectedSha256: article().digest });
+
+  const beforeExpiry = new Date('2026-10-20T09:00:00Z');
+  const first = await checkSources(current, { fetcher: sourceFetch, now: beforeExpiry });
+  assert.equal(first.report.sources[0].status, 'unchanged');
+  assert.equal(first.report.sources[0].contentHash, sha256(officialText));
+  assert.equal(source.checkedAt, '2026-10-20');
+  assert.deepEqual(manualFact, verifiedManualFact, 'a healthy unchanged source cannot reverify a manually checked fact');
+  assert.equal(source.facts[1].checkedAt, '2026-10-20');
+  assert.equal(source.facts[1].expiresAt, '2026-10-27', 'the evidence-backed control proves automatic renewal ran');
+  assert.deepEqual(validateArticle(article(), current, { now: beforeExpiry, publishing: true, sourceReport: first.report }), []);
+
+  const atExpiry = new Date('2026-10-21T00:00:00Z');
+  const fresh = await checkSources(current, { fetcher: sourceFetch, now: atExpiry });
+  assert.equal(fresh.report.sources[0].status, 'unchanged');
+  assert.equal(fresh.report.sources[0].checkedAt, atExpiry.toISOString());
+  assert.equal(source.checkedAt, '2026-10-21');
+  assert.deepEqual(manualFact, verifiedManualFact, 'another fresh report must preserve the manual verification and expiry dates');
+  const beforeArticle = (await readArticles(root))[0].raw;
+  const beforeLedger = await fs.readFile(path.join(root, 'automation/editorial.json'), 'utf8');
+  const [result] = await publishCandidates(root, current, fresh.report, { now: atExpiry });
+  assert.equal(result.status, 'held');
+  assert.deepEqual(result.errors, ['Expired fact: station-fact']);
+  assert.equal((await readArticles(root))[0].raw, beforeArticle);
+  assert.equal(await fs.readFile(path.join(root, 'automation/editorial.json'), 'utf8'), beforeLedger);
+});
+
 test('unsafe HTML, MDX, script links and remote images fail content quality gates', () => {
   for (const unsafe of ['<script>alert(1)</script>', '<iframe src="https://evil.example"></iframe>', '[link](javascript:alert)', 'import thing from "x"', '![image](https://evil.example/img.jpg)', '![image](//evil.example/img.jpg)', '![image][remote]\n[remote]: https://evil.example/img.jpg']) {
     assert.ok(validateArticle(parseArticle(serializeArticle(data(), `${body()}\n${unsafe}`)), registry(), { now }).length > 0, unsafe);

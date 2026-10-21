@@ -307,7 +307,8 @@
           "dynamic": true,
           "evidence": "accessible alternatives"
         }
-      ]
+      ],
+      "contentHash": "ca4f176f86c84eadd1509c4bfa4dda92d31ff95c55e4d37d6d64e067278ad9ac"
     },
     {
       "id": "sfmta-free-muni-youth",
@@ -358,7 +359,8 @@
           "dynamic": true,
           "evidence": "All stations have Clipper vending machines"
         }
-      ]
+      ],
+      "contentHash": "1382a97f3ce5039caa30a67d7698c2803649ad93461e7f6886ab27fa7382d9d4"
     },
     {
       "id": "clipper-youth-senior",
@@ -375,7 +377,8 @@
           "dynamic": true,
           "evidence": "Birth certificate or passport"
         }
-      ]
+      ],
+      "contentHash": "a7e57fd7afc45f3157f12c00f40fdebc44738c1abc5d325d320818b9ba7c079c"
     },
     {
       "id": "clipper-ways-to-pay",
@@ -400,7 +403,8 @@
           "dynamic": true,
           "evidence": "card reader errors"
         }
-      ]
+      ],
+      "contentHash": "d2df786fb5651f486cae8a4f102ee9de45abd2f57b4d72444dca2818411b1733"
     },
     {
       "id": "bart-tap-and-ride",
@@ -417,7 +421,8 @@
           "dynamic": true,
           "evidence": "confirm tapping activity"
         }
-      ]
+      ],
+      "contentHash": "3d170b08b742c9f33d3ef7b6d307e2be7062ae696de8d20ec940e1c076be143f"
     },
     {
       "id": "bart-schedules",
@@ -434,7 +439,8 @@
           "dynamic": true,
           "evidence": "includes planned delays"
         }
-      ]
+      ],
+      "contentHash": "5c2865ef412d2a3113a3e6377ad240a42852717e2527b56a992438fe33328e11"
     },
     {
       "id": "bart-official-app",
@@ -451,7 +457,8 @@
           "dynamic": true,
           "evidence": "last train of the evening by station"
         }
-      ]
+      ],
+      "contentHash": "1286193aa37fea5773dedb011ed1d0eb47df37954b816d761ef056add0c013d3"
     },
     {
       "id": "sfo-taxis",
@@ -532,6 +539,40 @@
         }
       ],
       "contentHash": "c3dda5316c623247ee98dce8be8f9902b04de4daa55f941fd5039bacd71afb40"
+    },
+    {
+      "id": "golden-gate-route120-rendered",
+      "url": "https://www.goldengate.org/bus/route-schedule/strawberry-san-francisco-120/?backurl=%2Fbus%2Fschedules-maps%2F",
+      "title": "Route 120: Strawberry–San Francisco",
+      "publisher": "Golden Gate Bridge, Highway and Transportation District",
+      "facts": [
+        {
+          "id": "sausalito-bus-return-manual",
+          "statement": "An editorial check of the rendered Route 120 timetable found Bridgeway & El Portal as a southbound Sausalito timepoint toward San Francisco in the weekday and weekend views; the checked northbound weekday view used Bridgeway & Bay St. This manual observation is not a live departure, stop-relocation or accessible-walking-path guarantee. Reopen the current route and direction before travel.",
+          "checkedAt": "2026-10-21",
+          "expiresAt": "2026-10-24",
+          "dynamic": true
+        }
+      ],
+      "checkedAt": "2026-10-21",
+      "contentHash": "89a85a2221253144bfb5a390f5195a79de45cbea31b7ec98f254a5491610af38"
+    },
+    {
+      "id": "golden-gate-sausalito-rendered",
+      "url": "https://www.goldengate.org/ferry/route-schedule/sausalito-san-francisco/",
+      "title": "Sausalito–San Francisco ferry route and service categories",
+      "publisher": "Golden Gate Bridge, Highway and Transportation District",
+      "facts": [
+        {
+          "id": "sausalito-ferry-daytype-manual",
+          "statement": "An editorial check of the rendered Golden Gate Ferry route found Sausalito Ferry Landing and San Francisco Ferry Building, with weekday and weekend/holiday views. Check the holiday calendar and current route alerts before selecting a view: temporary notices may override the regular table. This is a manually checked lookup method, not confirmation of a particular date, departure, boarding gate or available capacity.",
+          "checkedAt": "2026-10-21",
+          "expiresAt": "2026-10-24",
+          "dynamic": true
+        }
+      ],
+      "checkedAt": "2026-10-21",
+      "contentHash": "85d2581adf1e62861aa93e42c2a80041ced04e591e620f0bf362d40841d1823b"
     }
   ]
 }

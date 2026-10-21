@@ -142,7 +142,7 @@
       "slug": "sf-transit-with-children-fare-planning",
       "type": "guide",
       "topic": "san-francisco-without-a-car",
-      "status": "needs-source-verification",
+      "status": "ready",
       "primaryIntent": "How should a family check child and youth fare eligibility separately for BART and Muni?",
       "brief": "Provide a family planning worksheet that records each rider's age category, operator, required payment credential and evidence to confirm eligibility. Compare verification steps rather than inventing a universal family ticket. Explicitly separate adult contactless payment from discount programs. Do not infer child eligibility from adult fare records, promise free travel, or invent an age threshold or application requirement.",
       "sources": [
@@ -160,17 +160,15 @@
         "bart-vs-muni-clipper",
         "sf-adult-group-contactless-payments"
       ],
-      "sourceGaps": [
-        "BART Paying Your Fare and Clipper Youth/Senior pages were semantically reviewed, but the standard machine fetch returned HTTP 403 locally; independently capture and manually adopt their real monitor baselines before making ready."
-      ],
+      "sourceGaps": [],
       "distinctness": "Family eligibility and credential preparation, not an adult pass comparison or a repeat of the operator overview.",
-      "reviewNote": "SFMTA youth conditions and its machine baseline were verified on 2026-10-21. Keep regular Muni universal youth travel separate from cable-car/residency exceptions; ID for 16+ is encouraged, not mandatory. BART requires a qualifying Youth Clipper credential for the listed discount; do not promise airport issuance, overseas delivery or an adult bank-tap discount."
+      "reviewNote": "SFMTA youth conditions and its machine baseline were verified on 2026-10-21. Keep regular Muni universal youth travel separate from cable-car/residency exceptions; ID for 16+ is encouraged, not mandatory. BART requires a qualifying Youth Clipper credential for the listed discount; do not promise airport issuance, overseas delivery or an adult bank-tap discount. The missing machine baselines were captured by real GitHub runner run 39603328748 and reviewed in PR #21; the local 403 limitation no longer leaves these source hashes missing."
     },
     {
       "slug": "sfo-late-arrival-transit-fallbacks",
       "type": "guide",
       "topic": "san-francisco-without-a-car",
-      "status": "needs-source-verification",
+      "status": "ready",
       "primaryIntent": "What should I verify if my SFO arrival is too late for my planned BART connection?",
       "brief": "Build an after-a-delay decision flow based on actual arrival readiness, official journey planners and verified airport ground-transport options. Explain how to abandon a missed connection and select a qualified alternative without declaring a timetable guarantee. Include a worksheet for the correct travel date and destination. Do not copy the normal airport-to-Wharf luggage route, invent last-train times, promise overnight service, or give unverified pickup locations and prices.",
       "sources": [
@@ -191,17 +189,15 @@
         "sfo-to-fishermans-wharf-with-luggage",
         "bart-vs-muni-clipper"
       ],
-      "sourceGaps": [
-        "BART Schedules and BART Apps were semantically reviewed, but their standard machine fetch returned HTTP 403 locally; independently capture and manually adopt those baselines before making ready."
-      ],
+      "sourceGaps": [],
       "distinctness": "Recover from a disrupted late arrival; the existing airport guide covers a planned routine transfer.",
-      "reviewNote": "Official SFO pickup pages and candidate machine hashes were verified on 2026-10-21. Use the actual travel date, readiness time and destination in BART tools; no specific last departure or interchange was queried. Do not add an unverified overnight bus or guarantee taxi/ride-app supply, cost, child seats or wait time."
+      "reviewNote": "Official SFO pickup pages and candidate machine hashes were verified on 2026-10-21. Use the actual travel date, readiness time and destination in BART tools; no specific last departure or interchange was queried. Do not add an unverified overnight bus or guarantee taxi/ride-app supply, cost, child seats or wait time. The missing machine baselines were captured by real GitHub runner run 39603328748 and reviewed in PR #21; the local 403 limitation no longer leaves these source hashes missing."
     },
     {
       "slug": "sf-contactless-transit-payment-declined",
       "type": "guide",
       "topic": "san-francisco-without-a-car",
-      "status": "needs-source-verification",
+      "status": "ready",
       "primaryIntent": "What official checks should I make when my transit contactless payment is declined?",
       "brief": "Create a bounded troubleshooting decision table using operator and payment-program guidance: distinguish a credential mismatch, an operator instruction and a bank-related issue only where official documentation supports that distinction. Explain when to stop retrying and contact the responsible provider. Do not diagnose an account as blocked from a single failed tap, promise a reversal/refund, invent bank-card compatibility rules, or recommend bypassing gates.",
       "sources": [
@@ -221,45 +217,44 @@
         "sf-adult-group-contactless-payments",
         "bart-vs-muni-clipper"
       ],
-      "sourceGaps": [
-        "Clipper Ways to Pay, BART Tap and Ride and BART Paying Your Fare were semantically reviewed, but their standard machine fetch returned HTTP 403 locally; independently capture and manually adopt their real monitor baselines before making ready."
-      ],
+      "sourceGaps": [],
       "distinctness": "Recover from a failed payment, rather than explain operator coverage or ordinary tap preparation.",
-      "reviewNote": "Separate a failed tap from the specific documented issuer-rejected pre-authorization condition; do not diagnose bank blocking from one red light or apply Auto-Reload BAD DEBT instructions to bank contactless. Staff/Clipper support and pre-journey Clipper alternatives are documented; no general promise of bank resolution, refunds or a recovery time was verified. An existing paid-area journey must be resolved with staff before changing credentials."
+      "reviewNote": "Separate a failed tap from the specific documented issuer-rejected pre-authorization condition; do not diagnose bank blocking from one red light or apply Auto-Reload BAD DEBT instructions to bank contactless. Staff/Clipper support and pre-journey Clipper alternatives are documented; no general promise of bank resolution, refunds or a recovery time was verified. An existing paid-area journey must be resolved with staff before changing credentials. The missing machine baselines were captured by real GitHub runner run 39603328748 and reviewed in PR #21; the local 403 limitation no longer leaves these source hashes missing."
     },
     {
       "slug": "sausalito-without-car-return-ferry-or-bus",
       "type": "guide",
       "topic": "san-francisco-without-a-car",
-      "status": "needs-source-verification",
+      "status": "ready",
       "primaryIntent": "How should I compare the ferry and bus return before a car-free Sausalito day trip?",
-      "brief": "Start with the return journey and compare which terminal/stop, operator, travel date and ticket conditions a visitor must check. Give a decision worksheet for a shorter or longer visit and a fallback if the chosen return no longer works. Do not promise boarding capacity, invent a combined ticket, copy the Golden Gate Bridge walk guide, or quote unverified schedules, fares or reservation rules.",
+      "brief": "Start with the return journey and compare which terminal/stop, operator, travel date and ticket conditions a visitor must check. Give a decision worksheet for a shorter or longer visit and a fallback if the chosen return no longer works. Do not promise boarding capacity, invent a combined ticket, copy the Golden Gate Bridge walk guide, or quote unverified schedules, fares or reservation rules. Use the registered direction-specific bus and ferry lookup facts only while their short manual validity remains current. Do not copy the temporary October timetable or promise a date-specific final return; the official travel-date and alert check is a required reader step.",
       "sources": [
         "golden-gate-ferry-schedules",
         "golden-gate-ferry-fares",
-        "golden-gate-current-schedules"
+        "golden-gate-current-schedules",
+        "golden-gate-route120-rendered",
+        "golden-gate-sausalito-rendered"
       ],
       "facts": [
         "golden-gate-sausalito-schedule-entry",
         "golden-gate-ferry-one-way-products",
-        "golden-gate-ferry-paper-ticket-conditions"
+        "golden-gate-ferry-paper-ticket-conditions",
+        "sausalito-bus-return-manual",
+        "sausalito-ferry-daytype-manual"
       ],
       "related": [
         "san-francisco-without-a-car",
         "golden-gate-bridge-without-a-car"
       ],
-      "sourceGaps": [
-        "Register an explicit manual-rendered-page fact and conservative expiry for the observed current Route 120 southbound Sausalito stop and ferry terminal/day-type lookup. The static HTML monitor cannot verify these rendered data, so do not invent matching evidence or allow automatic renewal.",
-        "Recheck the current ferry temporary-service notice and holiday category before any travel-date recommendation. The interactive review did not establish a last feasible departure, boarding capacity or accessible walking path."
-      ],
+      "sourceGaps": [],
       "distinctness": "A town day-trip return-mode decision, separate from bridge access and walking.",
-      "reviewNote": "The independent 2026-10-21 rendered-page review verified Route 120 direction-specific stops and ferry terminals/day types, but also found a temporary weekday ferry schedule alongside the regular table. See docs/sausalito-source-review-2026-10-21.md. Keep held until the manual-only fact/provenance policy and current source report are recorded; shell hashes do not establish live timetable data."
+      "reviewNote": "Rendered official bus direction/stop and ferry terminal/day-type lookup were manually checked on 2026-10-21. Two dynamic facts deliberately omit machine evidence and expire at 2026-10-24 00:00 UTC; normal monitoring cannot renew them. Draft the comparison worksheet only while these records are current, and manually recheck before a later release. Temporary ferry notices override the regular table; no last departure, capacity, boarding gate or accessible walking path is certified. See docs/sausalito-source-review-2026-10-21.md."
     },
     {
       "slug": "sf-transit-disruption-backup-plan",
       "type": "guide",
       "topic": "san-francisco-without-a-car",
-      "status": "needs-source-verification",
+      "status": "ready",
       "primaryIntent": "How should I use official BART and Muni alerts to revise a disrupted sightseeing journey?",
       "brief": "Develop an alert-to-action worksheet: identify the affected operator and segment, distinguish a station/stop issue from a whole-route disruption when official guidance allows it, re-plan the journey and recheck the return. Verify the advisory's issue/update date and applicable time range; an official page can still link to an expired incident. Link the live advisory index and represent any necessary precise date in expiring fact records instead of copying temporary incidents into evergreen prose. Do not invent a detour, promise replacement transport or accessibility, or present a historical advisory as current.",
       "sources": [
@@ -281,11 +276,9 @@
         "bart-vs-muni-clipper",
         "sf-waterfront-transit-itinerary"
       ],
-      "sourceGaps": [
-        "BART Alerts and Advisories and BART Schedules were semantically reviewed, but the standard machine fetch returned HTTP 403 locally; independently capture and manually adopt their real monitor baselines before making ready."
-      ],
+      "sourceGaps": [],
       "distinctness": "A current service-disruption response workflow, not another general route overview or payment guide.",
-      "reviewNote": "Current SFMTA advisory/relocation/planner entry points and example notices were reviewed on 2026-10-21. Read each notice's update date, affected segment, direction and effective period: official indexes can retain old incidents. No current incident, accessible detour or replacement bus is certified by a stable page hash; a specific substitute must be checked with its operator. The SFMTA elevator page concerns Muni Metro, not every F-line wayside lift."
+      "reviewNote": "Current SFMTA advisory/relocation/planner entry points and example notices were reviewed on 2026-10-21. Read each notice's update date, affected segment, direction and effective period: official indexes can retain old incidents. No current incident, accessible detour or replacement bus is certified by a stable page hash; a specific substitute must be checked with its operator. The SFMTA elevator page concerns Muni Metro, not every F-line wayside lift. The missing machine baselines were captured by real GitHub runner run 39603328748 and reviewed in PR #21; the local 403 limitation no longer leaves these source hashes missing."
     }
   ]
 }
