@@ -4,7 +4,7 @@
 
 ## 结论与当前边界
 
-原来的来源缺口已经取得实质证据：现行 Sausalito 公交候选是 **Route 120**，回 San Francisco 应核对 **Southbound**，其 Sausalito timepoint 为 **Bridgeway & El Portal**。去程 Northbound 的 timepoint 是 **Bridgeway & Bay St**，不能照搬为回程站。
+原来的来源缺口已经取得实质证据：现行 Sausalito 公交候选是 **Route 120**，回 San Francisco 应核对 **Southbound**，其已核对工作日与周末视图中的 Sausalito timepoint 为 **Bridgeway & El Portal**。已核对的去程 Northbound **工作日视图**使用 **Bridgeway & Bay St**，不能照搬为回程站；没有据此推断所有北向日型。
 
 渡轮页面实际加载了 **Sausalito Ferry Landing ↔ San Francisco Ferry Building** 以及工作日／周末与假日视图。该工具没有任意旅行日期的日历输入；应先判定旅行日期适用的服务类别，再查假日和临时通知。目前工作日存在机械问题临时表，不能直接将同页常规时刻表当作当前执行表。
 

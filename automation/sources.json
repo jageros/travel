@@ -548,7 +548,7 @@
       "facts": [
         {
           "id": "sausalito-bus-return-manual",
-          "statement": "An editorial check of the rendered Route 120 timetable found Bridgeway & El Portal as a southbound Sausalito timepoint toward San Francisco; the opposite direction used Bridgeway & Bay St. This manual observation is not a live departure, stop-relocation or accessible-walking-path guarantee. Reopen the current route and direction before travel.",
+          "statement": "An editorial check of the rendered Route 120 timetable found Bridgeway & El Portal as a southbound Sausalito timepoint toward San Francisco in the weekday and weekend views; the checked northbound weekday view used Bridgeway & Bay St. This manual observation is not a live departure, stop-relocation or accessible-walking-path guarantee. Reopen the current route and direction before travel.",
           "checkedAt": "2026-10-21",
           "expiresAt": "2026-10-24",
           "dynamic": true
