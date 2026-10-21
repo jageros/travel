@@ -12,7 +12,7 @@ npm run verify
 CONTENT_REVIEW_PREVIEW=true npm run dev
 ```
 
-The local review site opens at `http://127.0.0.1:4321`. It includes the first five editorial review copies. All preview pages are `noindex`, optional analytics/ads remain disabled, and review articles never enter the sitemap. To inspect generated output instead:
+The local review site opens at `http://127.0.0.1:4321`. It includes editorial review copies, including the new waterfront itinerary. All preview pages are `noindex`, optional analytics/ads remain disabled, and review articles never enter the sitemap. To inspect generated output instead:
 
 ```sh
 CONTENT_REVIEW_PREVIEW=true npm run build
@@ -97,6 +97,8 @@ Analytics sends result count and query length, not typed search text. It records
 - [Automation operations](docs/automation.md): source hashes, source-health, daily Actions PR, first-five exact-content approvals, three releases per rolling seven days and optional model setup.
 - [Editorial review](docs/editorial-review.md): first-five approval checklist.
 - [Metrics](docs/metrics.md): actual-data CSV reports for search/reading/ad revenue and costs.
+- [Next-stage operations](docs/growth-operations-2026-10-21.md): follow-up content, actual analytics baseline, release follow-up and weekly review.
+- [Mobile performance](docs/mobile-performance-2026-10-21.md): reproducible lab baseline and measured responsive-image improvement.
 
 Model-generated content is restricted to plain Markdown with registered topic/source/fact IDs. It cannot choose files, execute code, alter registries or approve itself. Missing credentials, source changes, expired facts, conflicting evidence, unsafe output and duplicates are held for review. The model interface was checked against official OpenAI documentation; no paid requests are made during build or tests.
 
