@@ -1,7 +1,6 @@
 /** Resolve deployment intent once for page rendering, Markdown and build checks. */
 export function resolveDeploymentEnv(env = process.env) {
- // Preserve the current host only until the Cloudflare domain cutover is complete.
- const mode=env.DEPLOYMENT_ENV===undefined?(env.VERCEL_ENV==='production'?'production':env.VERCEL_ENV==='preview'?'preview':'local'):env.DEPLOYMENT_ENV;
+ const mode=env.DEPLOYMENT_ENV===undefined?'local':env.DEPLOYMENT_ENV;
  if(!['production','preview','local'].includes(mode))throw new Error('DEPLOYMENT_ENV must be production, preview or local');
  if(mode==='production'&&env.WORKERS_CI_BRANCH&&env.WORKERS_CI_BRANCH!=='main')throw new Error('Cloudflare production builds must use the main branch');
  if(mode==='production'&&env.CONTENT_REVIEW_PREVIEW==='true')throw new Error('Production builds cannot include editorial review copies');

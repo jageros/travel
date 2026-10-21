@@ -6,8 +6,7 @@ const buildEnv = {
   DEPLOYMENT_ENV:import.meta.env.DEPLOYMENT_ENV,
   WORKERS_CI_BRANCH:import.meta.env.WORKERS_CI_BRANCH,
   CONTENT_REVIEW_PREVIEW:import.meta.env.CONTENT_REVIEW_PREVIEW,
-  SITE_INDEXING_ENABLED:import.meta.env.SITE_INDEXING_ENABLED,
-  VERCEL_ENV:import.meta.env.VERCEL_ENV
+  SITE_INDEXING_ENABLED:import.meta.env.SITE_INDEXING_ENABLED
 };
 export const isReviewPreview = isReviewBuild(buildEnv);
 export const isIndexable = isIndexableBuild(buildEnv);

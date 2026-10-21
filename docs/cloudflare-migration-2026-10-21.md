@@ -16,22 +16,46 @@ The full production `npm run verify` passed: 125 automated tests, Astro checks (
 
 `wrangler deploy --dry-run` passed with the pinned CLI: 72 static assets discovered and no bindings. The command used task-specific temporary configuration/log directories, sent no telemetry, and performed no upload or deployment. This is configuration evidence, not proof of a remote deployment.
 
-## External state and remaining acceptance
+## Cloudflare access and isolated preview
 
-Cloudflare's domain overview reports the domain is protected and uses full DNS setup. Google and Cloudflare public DNS-over-HTTPS now consistently return the assigned Cloudflare nameservers, `karsyn` and `ridge`. The retained Google verification TXT remains present; apex/www web records are still missing. No production web record has been added by this migration.
+The official Cloudflare Workers and Pages GitHub App is installed with **Only select repositories → `jageros/travel`**. Its fixed request includes Metadata read and Administration/Code/Checks/Deployments/Pull requests write. The dedicated **Cedar Trips Builds** user token is registered with only **Workers Scripts: Edit** and **Account Settings: Read** on the selected account. Temporary Workers CI permission and the local credential file were removed after registration. No secret was committed.
 
-The Cloudflare dashboard shows an active Universal SSL certificate covering `*.cedartrips.com` and `cedartrips.com`, valid through **2027-01-19**. This confirms certificate readiness in the dashboard; HTTPS routing still requires a real deployed site and domain acceptance.
+The first isolated upload succeeded on Node 24.22.0 (`5a534883-b6cc-47fb-81ae-69feb908697d`), but `preview_urls: false` also disabled the new workers.dev preview URLs. The dashboard now manages `previews.cedartrips.com` for **Preview only**, and `www.cedartrips.com` for **Production only**. Both workers.dev switches remain off. Keep `route` and `routes` absent from Wrangler: a partial configured domain list can replace dashboard-managed domains and would require extra zone permissions.
 
-The official Cloudflare Workers and Pages GitHub App is installed with **Only select repositories → `jageros/travel`**. Its fixed permission request includes Metadata read and Administration/Code/Checks/Deployments/Pull requests write.
+[PR #16](https://github.com/jageros/travel/pull/16) added host-specific noindex headers. Its branch preview and unique deployment URL at head `38e9fbf2` passed twenty strict HTTPS checks: review copies are readable, HTML and headers are noindex, sitemap is empty, canonical points to www, and GA, advertising and external scripts are absent. Unknown paths are real 404; the new Preview service uses its default short error body. The production service separately passed the custom 404 checks below.
 
-The dedicated **Cedar Trips Builds** user token was registered successfully. Temporary Workers CI permission has been removed; its current account permissions are **Workers Scripts: Edit** and **Account Settings: Read**. The local temporary token file has been deleted, and no token or other secret was added to the repository.
+Cloudflare's zone-level RUM was disabled after discovering automatically injected analytics. It is absent from the verified preview and production HTML. Other zones and account-wide analytics were not changed.
 
-The first noindex `migration-check` preview was built and uploaded successfully by Workers Builds (`5a534883-b6cc-47fb-81ae-69feb908697d`) from main on Node 24.22.0 with the reduced token. It initially had no active URL: the top-level `preview_urls: false` disables both old Version URLs and the new workers.dev Preview URLs. An isolated custom preview host is therefore being configured in the dashboard, with a host-specific `X-Robots-Tag: noindex` header in static assets. Neither formal web domain has been bound yet.
+## Production cutover and HTTP acceptance
 
-Production and preview custom domains are managed exclusively in the dashboard. Keep both `route` and `routes` absent from Wrangler configuration: adding a partial domain list would let Wrangler replace dashboard-managed domains and would require additional zone permissions for the build token.
+The active Cloudflare zone uses `karsyn.ns.cloudflare.com` and `ridge.ns.cloudflare.com`, confirmed by two public resolvers. Google verification TXT remains intact. Universal SSL for the apex and wildcard is active through **2027-01-19**; public HTTPS checks independently passed certificate verification.
 
-Remote preview acceptance, production binding, production HTTP/analytics checks and Vercel retirement remain outstanding. The migration is not complete; transitional Vercel compatibility remains in place until cutover.
+The first accepted production deployment used main `02a1bdca5f7dcc0f019de7e09f152296a77bcb10`, build `76bb87fa-e7ab-4b13-bd0f-5481bd1a0eaf`, active version **`1d1d48da-82bf-4a30-a06a-d785425596b6` at 100%**. Its real log confirms the standard build wrapper, reduced token and fourteen-page public-output verification.
 
-After a real preview passes, bind www and configure the apex 308 redirect preserving path/query. Confirm three published guides return 200, two review URLs and unknown paths return 404, the sitemap has nine canonical URLs, robots allows production crawling, preview remains noindex, GA receives consented events, Search Console verification survives, and an editorial monitor PR reaches a Cloudflare production deployment at its exact merged SHA.
+The apex uses one proxied, originless A record (`192.0.2.0`). Two narrowly scoped redirect rules send the apex and HTTP www directly to HTTPS www using 308, retaining the original path and query. The www domain binding created its Worker record; preview DNS and Google TXT were preserved.
 
-Only after those checks, delete the travel Vercel project and project bindings, remove transitional Vercel code/configuration, and record the Cloudflare deployment/version and Git SHA. Do not uninstall account-wide integrations shared by unrelated projects. Future rollback uses Cloudflare; old static versions must not restore unsafe source facts or roll back the editorial ledger. If source state differs, rebuild the chosen code with current content and provenance instead.
+Production acceptance at **2026-10-21 17:24–17:25 Asia/Shanghai** passed with no failures or warnings:
+
+- Fourteen public HTML outputs, canonical/OG/JSON-LD, static article prose and three security headers.
+- Three published guides return 200; two review URLs and unknown paths return 404 with the site's own HTML and security headers.
+- Nine canonical sitemap URLs, original robots text, twenty-eight referenced assets and responsive images; fingerprinted assets cache for one year and HTML revalidates.
+- Twelve HTTP/HTTPS, apex/www, homepage/deep/unknown combinations retain encoded query values, redirect exactly once when needed, and end in the expected 200 or 404.
+- No Cloudflare beacon or advertising code. TLS verification was enabled throughout. An initial local proxy-route failure was resolved without changing the site or disabling certificate checks.
+
+Local evidence is in ignored `artifacts/cloudflare-production-http-2026-10-21T09-24-56-730Z/report.json`. Artifacts contain public responses and verification output, not credentials.
+
+## Analytics, Google and editorial automation
+
+Rejecting optional cookies and reloading produced no external script. After opting in, the existing GA4 property **559805493** / **G-QDDLYW7WRF** actually received the test session: `page_view`, `internal_navigation`, `view_search_results` and `reading_depth`. These are test events, not organic traffic or revenue.
+
+Search Console's existing domain property remains accessible. The San Francisco car-free guide is reported as indexed; a fresh live test at **17:27 Asia/Shanghai** passed indexability and detected valid breadcrumbs. No Change of Address was submitted because the URL is unchanged.
+
+The first observed scheduled source monitor was run [#6](https://github.com/jageros/travel/actions/runs/39552640836), event `schedule`, at 13:58:54 Asia/Shanghai. The post-cutover monitor-only run [#7](https://github.com/jageros/travel/actions/runs/39576782311) created [App PR #17](https://github.com/jageros/travel/pull/17), passed required PR-event CI at exact head `16d98fb9e060952f8eff14d528e83b8b7ae8cc56`, and automatically merged to **`d18f319ede96591e5e91aea0c5873ad5bede9807`**. Its Cloudflare production build **`c5bec699-06d9-4da1-91cd-7a3d2ea32825`** succeeded. Eleven source hashes are unchanged, conflicts are empty, article/approval ledgers are untouched, and the short-lived App token was revoked. No human approval, merge or rerun was needed for this monitor.
+
+## Provider retirement and recovery
+
+The final cleanup removes `vercel.json`, legacy environment fallback and current Vercel operations instructions. Its local production verification passed **125 tests**, Astro checks on sixty files with zero diagnostics, and the fourteen-page static-output checks. Production indexing still requires an explicit production environment and opt-in; previews remain isolated.
+
+The remaining external operation is deletion of only Vercel project **`jageros-projects/travel`** (`prj_fL9D4WBu6AoXIS7ohMONMM080Ze5`) after the cleanup PR and final deployment are accepted. This deletes that project's deployments, domain bindings, variables and settings; account-wide integrations and unrelated projects are outside scope. The browser's irreversible-deletion confirmation is a separate final action.
+
+Recovery uses Cloudflare. An older static version must not restore expired source claims or roll back the approval ledger. When source state differs, rebuild the chosen code with current content and provenance rather than rolling back stale assets. Historical acceptance documents retain their original provider evidence.

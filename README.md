@@ -53,15 +53,17 @@ For local production verification, explicitly set `DEPLOYMENT_ENV=production SIT
 
 Static routing preserves directory URLs and uses `404.html` with a real 404 status. `_headers` preserves security protections, makes fingerprinted Astro assets immutable and leaves other responses on Cloudflare's default revalidation policy. Production `workers.dev` and Version URLs are disabled; independent Worker Previews are configured separately.
 
-### Canonical domain and cutover
+The dashboard enables `previews.cedartrips.com` for Preview traffic only. Branch previews use `https://<normalized-branch>.previews.cedartrips.com`; the host-specific `_headers` rule adds `X-Robots-Tag: noindex`. Keep the production and preview `workers.dev` switches disabled. The top-level `preview_urls` setting controls both older Version URLs and newer workers.dev Preview URLs, so custom preview hosts are required with the current configuration. Preview builds also exclude optional analytics and advertising independently of the hostname settings.
+
+### Canonical domain and recovery
 
 The only canonical origin is `https://www.cedartrips.com`. Set the Production `PUBLIC_SITE_URL` to this value before deploying. The shared identity in `src/lib/site-config.mjs` is used by Astro, page metadata and editorial monitoring. A bare Cedar Trips URL is normalized to `www`; retired or unrelated origins fail the build instead of silently emitting incorrect canonical URLs.
 
-First deploy and verify an independent Worker Preview without binding the production hostname. Once the Cloudflare zone and certificates are active, bind `www.cedartrips.com` as the Worker's Custom Domain, then configure a host-scoped 308 redirect from `cedartrips.com` to the same path on www with query-string preservation. A same-name CNAME must be removed before Custom Domain binding; Cloudflare creates its own DNS record. Preserve the existing Search Console TXT and all unrelated DNS records.
+Manage `www.cedartrips.com` as the Worker's Custom Domain in the Cloudflare dashboard. Keep the apex redirect scoped to `cedartrips.com`, using 308 to the same path on www with query-string preservation. Dashboard domain settings are deliberately absent from `wrangler.jsonc` so ordinary builds cannot replace them or require zone-edit permissions. Preserve the existing Search Console TXT and all unrelated DNS records.
 
 The existing Search Console Domain property and sitemap URL are unchanged. This hosting move does not require Change of Address. Three articles are published, two remain approved review copies; content approval and release limits are independent of hosting. The retired `travel.mumasir.com` remains outside this site's routing; no rules target other mumasir services.
 
-After cutover, verify canonical/OG/JSON-LD, redirects, real HTTP statuses, robots/sitemap, consent-based GA events and one actual source-monitor PR through Cloudflare production deployment. Only then retire the old travel Vercel project and its bindings, without a retention period or changes to other projects. During cutover its legacy environment compatibility remains temporarily supported. Historical acceptance documents preserve what was true at their recorded time. Rollbacks must use Cloudflare and retain current article approvals and source health; rebuild older code with current state if an old static version would restore unsafe facts.
+For deployment acceptance, verify canonical/OG/JSON-LD, redirects, real HTTP statuses, robots/sitemap, consent-based GA events and the merged Git SHA in Cloudflare. Source-monitor PRs must reach an actual Cloudflare production deployment; a successful CI artifact alone does not prove the live site changed. Historical acceptance documents preserve what was true at their recorded time. Recovery uses Cloudflare deployment versions and retains current article approvals and source health; rebuild older code with current state if an old static version would restore unsafe facts.
 
 ## Optional site configuration
 

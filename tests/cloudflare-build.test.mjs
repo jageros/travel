@@ -21,7 +21,7 @@ test('Cloudflare main builds override shared mode and review settings but indexi
 
 test('every non-main branch is a safe review preview even with production variables',()=>{
  for(const branch of ['codex/cloudflare-migration','automation/editorial','main-copy','MAIN','发布预览']) {
-  const env=resolveCloudflareBuildEnv({WORKERS_CI:'1',WORKERS_CI_BRANCH:branch,DEPLOYMENT_ENV:'production',CONTENT_REVIEW_PREVIEW:'false',SITE_INDEXING_ENABLED:'true',PUBLIC_GA_MEASUREMENT_ID:'G-QDDLYW7WRF',ADSENSE_READY:'true',VERCEL_ENV:'production'});
+  const env=resolveCloudflareBuildEnv({WORKERS_CI:'1',WORKERS_CI_BRANCH:branch,DEPLOYMENT_ENV:'production',CONTENT_REVIEW_PREVIEW:'false',SITE_INDEXING_ENABLED:'true',PUBLIC_GA_MEASUREMENT_ID:'G-QDDLYW7WRF',ADSENSE_READY:'true'});
   assert.equal(resolveDeploymentEnv(env),'preview');
   assert.equal(isReviewBuild(env),true);
   assert.equal(isIndexableBuild(env),false);
@@ -36,8 +36,8 @@ test('Cloudflare refuses missing or malformed branch metadata before launching b
  }
 });
 
-test('local usage requires explicit deployment intent and never inherits Vercel production',()=>{
- const common={VERCEL_ENV:'production',SITE_INDEXING_ENABLED:'true',ADSENSE_READY:'true',PUBLIC_GA_MEASUREMENT_ID:'G-QDDLYW7WRF'};
+test('local usage requires explicit deployment intent before enabling production features',()=>{
+ const common={SITE_INDEXING_ENABLED:'true',ADSENSE_READY:'true',PUBLIC_GA_MEASUREMENT_ID:'G-QDDLYW7WRF'};
  const local=resolveCloudflareBuildEnv(common);
  assert.equal(resolveDeploymentEnv(local),'local');
  assert.equal(isIndexableBuild(local),false);
