@@ -40,6 +40,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
       - name: Continue the existing editorial review branch
         run: |
           if git ls-remote --exit-code --heads origin automation/editorial > /dev/null; then
@@ -95,19 +96,49 @@ jobs:
           node scripts/content-pipeline.mjs "${args[@]}"
       - run: npm run verify
         if: success()
-      - name: Publish a reviewable content and source-health PR
+      - name: Prepare the editorial state commit
         if: success()
-        env:
-          GH_TOKEN: ${{ github.token }}
-          GH_REPO: ${{ github.repository }}
         run: |
           git config user.name 'travel-editorial[bot]'
           git config user.email 'travel-editorial@users.noreply.github.com'
           git add src/content/articles automation/editorial.json automation/review-queue.json automation/source-health.json automation/sources.json
           if ! git diff --cached --quiet; then
             git commit -m 'chore(content): refresh source health and editorial queue'
-            git push origin HEAD:automation/editorial
           fi
+      - name: Select editorial PR authentication
+        id: editorial-auth
+        if: success()
+        env:
+          APP_CLIENT_ID: ${{ vars.EDITORIAL_APP_CLIENT_ID }}
+          APP_KEY_CONFIGURED: ${{ secrets.EDITORIAL_APP_PRIVATE_KEY != '' }}
+        run: |
+          if [ -n "$APP_CLIENT_ID" ] && [ "$APP_KEY_CONFIGURED" = true ]; then
+            echo 'configured=true' >> "$GITHUB_OUTPUT"
+            echo 'GitHub App mode: branch pushes and PR creation use a repository-scoped installation token.'
+          else
+            echo 'configured=false' >> "$GITHUB_OUTPUT"
+            echo 'GITHUB_TOKEN mode: bot-created or updated PR workflows require human approval; dispatched CI alone cannot satisfy required PR checks.'
+          fi
+      - name: Create repository-scoped editorial App token
+        id: editorial-app-token
+        if: steps.editorial-auth.outputs.configured == 'true'
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3
+        with:
+          client-id: ${{ vars.EDITORIAL_APP_CLIENT_ID }}
+          private-key: ${{ secrets.EDITORIAL_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.repository }}
+          permission-contents: write
+          permission-pull-requests: write
+          skip-token-revoke: false
+      - name: Publish a reviewable content and source-health PR
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          EDITORIAL_APP_TOKEN: ${{ steps.editorial-app-token.outputs.token }}
+        run: |
+          node scripts/editorial-pr.mjs --push-branch
           node scripts/editorial-pr.mjs
       - uses: actions/upload-artifact@v4
         if: always()

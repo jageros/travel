@@ -6,7 +6,7 @@ import path from 'node:path';
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { parse } from 'yaml';
-import { classifySourceStateUpdate, openEditorialPullRequest } from '../scripts/editorial-pr.mjs';
+import { classifySourceStateUpdate, createEditorialRunner, openEditorialPullRequest, pushEditorialBranch } from '../scripts/editorial-pr.mjs';
 import { sha256, writeJson } from '../scripts/content-lib.mjs';
 
 const exec = promisify(execFile);
@@ -334,4 +334,125 @@ test('mixed content and strict provenance renewals still require five verified r
     assert.equal(result.status, count === 5 ? 'auto-merge-requested' : 'manual-review');
     if (count === 5) assert.equal(result.mergeChannel, 'content');
   }
+});
+
+test('App credentials are used only for branch pushes and PR creation or edits', async (t) => {
+  const root = await setup(t, 5);
+  const fixture = fakeRunner();
+  const env = { GH_TOKEN: 'workflow-fixture-token', GITHUB_TOKEN: 'unused-alias', EDITORIAL_APP_TOKEN: 'app-fixture-token', EDITORIAL_APP_PRIVATE_KEY: 'fixture-not-a-private-key' };
+  const calls = [];
+  const run = createEditorialRunner({ root, env, execute: async (command, args, options) => {
+    calls.push({ command, args, env: options.env });
+    return fixture.run(command, args);
+  } });
+  const result = await openEditorialPullRequest({ root, env, run, now });
+  assert.equal(result.prAuthMode, 'github-app');
+  assert.equal(result.status, 'auto-merge-requested');
+  for (const call of calls) {
+    assert.ok(!Object.hasOwn(call.env, 'EDITORIAL_APP_TOKEN'));
+    assert.ok(!Object.hasOwn(call.env, 'EDITORIAL_APP_PRIVATE_KEY'));
+    assert.ok(!Object.hasOwn(call.env, 'GITHUB_TOKEN'));
+    assert.ok(!call.args.some((arg) => arg.includes('fixture-token')));
+    if (call.command === 'gh') assert.equal(call.env.GH_TOKEN, call.args[0] === 'pr' && call.args[1] === 'create' ? env.EDITORIAL_APP_TOKEN : env.GH_TOKEN);
+  }
+  assert.ok(calls.some((call) => call.args[0] === 'pr' && call.args[1] === 'create'));
+  assert.ok(calls.some((call) => call.args[0] === 'workflow'));
+  assert.ok(calls.some((call) => call.args[0] === 'run'));
+  assert.ok(calls.some((call) => call.args[0] === 'pr' && call.args[1] === 'merge'));
+  const authCalls = [];
+  const writer = createEditorialRunner({ env, execute: async (command, args, options) => { authCalls.push({ command, args, env: options.env }); return { stdout: '' }; } });
+  await writer('git', ['push', 'origin', 'HEAD:automation/editorial']);
+  await writer('gh', ['pr', 'edit', '42', '--title', 'Content queue']);
+  assert.equal(authCalls[1].env.GH_TOKEN, env.EDITORIAL_APP_TOKEN);
+  assert.equal(Buffer.from(authCalls[0].env.GIT_CONFIG_VALUE_1.split(' ').at(-1), 'base64').toString(), `x-access-token:${env.EDITORIAL_APP_TOKEN}`);
+  assert.equal(authCalls[0].env.GIT_CONFIG_KEY_0, 'credential.helper');
+  assert.equal(authCalls[0].env.GIT_CONFIG_VALUE_0, '');
+  assert.equal(authCalls[0].env.GIT_TRACE_CURL, '0');
+  assert.ok(!Object.hasOwn(authCalls[0].env, 'GH_TOKEN'));
+});
+
+test('missing App configuration falls back explicitly while App never replaces the CI or merge credential', async (t) => {
+  const root = await setup(t);
+  const fixture = fakeRunner();
+  const env = { GH_TOKEN: 'workflow-fixture-token' };
+  const calls = [];
+  const run = createEditorialRunner({ root, env, execute: async (command, args, options) => { calls.push({ command, args, env: options.env }); return fixture.run(command, args); } });
+  assert.equal((await openEditorialPullRequest({ root, env, run, now })).prAuthMode, 'github-token-human-workflow-approval');
+  assert.ok(calls.filter((call) => call.command === 'gh').every((call) => call.env.GH_TOKEN === env.GH_TOKEN));
+  let writes = 0;
+  const fallback = createEditorialRunner({ env, execute: async (_command, _args, options) => {
+    writes += 1;
+    assert.equal(Buffer.from(options.env.GIT_CONFIG_VALUE_1.split(' ').at(-1), 'base64').toString(), `x-access-token:${env.GH_TOKEN}`);
+    return { stdout: '' };
+  } });
+  await fallback('git', ['push', 'origin', 'HEAD:automation/editorial']);
+  assert.equal(writes, 1);
+  const appOnly = createEditorialRunner({ env: { EDITORIAL_APP_TOKEN: 'app-fixture-token' }, execute: async () => { throw new Error('must not execute'); } });
+  await assert.rejects(appOnly('gh', ['workflow', 'run', 'ci.yml']), /workflow credential/);
+  await assert.rejects(appOnly('gh', ['run', 'list']), /workflow credential/);
+  await assert.rejects(appOnly('gh', ['pr', 'merge', '42', '--auto']), /workflow credential/);
+  const malformed = createEditorialRunner({ env: { GH_TOKEN: 'valid-fixture', EDITORIAL_APP_TOKEN: 'invalid\ntoken' }, execute: async () => { throw new Error('must not execute'); } });
+  await assert.rejects(malformed('git', ['push', 'origin', 'HEAD:automation/editorial']), /workflow credential/);
+});
+
+test('the push command restricts branch and content paths before using any write credential', async () => {
+  for (const env of [{ GH_TOKEN: 'workflow-fixture' }, { GH_TOKEN: 'workflow-fixture', EDITORIAL_APP_TOKEN: 'app-fixture' }]) {
+    const commands = [];
+    const run = async (_command, args) => {
+      commands.push(args);
+      if (args[0] === 'branch') return { stdout: 'automation/editorial\n' };
+      if (args[0] === 'diff') return { stdout: 'automation/source-health.json\n' };
+      if (args[0] === 'push') return { stdout: '' };
+      throw new Error('Unexpected command');
+    };
+    assert.equal((await pushEditorialBranch({ env, run })).prAuthMode, env.EDITORIAL_APP_TOKEN ? 'github-app' : 'github-token-human-workflow-approval');
+    assert.deepEqual(commands.at(-1), ['push', 'origin', 'HEAD:automation/editorial']);
+  }
+  for (const [branch, file] of [['main', 'automation/source-health.json'], ['automation/editorial', 'scripts/content-pipeline.mjs']]) {
+    const commands = [];
+    await assert.rejects(pushEditorialBranch({ run: async (_command, args) => {
+      commands.push(args);
+      return { stdout: args[0] === 'branch' ? branch : file };
+    } }), /restricted|allowlist/);
+    assert.ok(!commands.some((args) => args[0] === 'push'));
+  }
+});
+
+test('workflow creates a narrowly scoped App token only when both configuration values exist', async (t) => {
+  const root = await setup(t);
+  const workflow = parse(await fs.readFile(new URL('../.github/workflows/editorial.yml', import.meta.url), 'utf8'));
+  const steps = workflow.jobs.editorial.steps;
+  const selector = steps.find((step) => step.id === 'editorial-auth');
+  assert.equal(selector.env.APP_KEY_CONFIGURED, "${{ secrets.EDITORIAL_APP_PRIVATE_KEY != '' }}");
+  assert.ok(!Object.hasOwn(selector.env, 'EDITORIAL_APP_PRIVATE_KEY'));
+  for (const [client, key, enabled] of [['', 'false', false], ['configured-client', 'false', false], ['', 'true', false], ['configured-client', 'true', true]]) {
+    const output = path.join(root, 'auth-output.txt');
+    await fs.writeFile(output, '');
+    const result = await exec('bash', ['-c', selector.run], { env: { PATH: process.env.PATH, GITHUB_OUTPUT: output, APP_CLIENT_ID: client, APP_KEY_CONFIGURED: key } });
+    assert.equal((await fs.readFile(output, 'utf8')).trim(), `configured=${enabled}`);
+    assert.match(result.stdout, enabled ? /repository-scoped installation token/ : /human approval.*required PR checks/);
+  }
+  const token = steps.find((step) => step.id === 'editorial-app-token');
+  assert.equal(token.if, "steps.editorial-auth.outputs.configured == 'true'");
+  assert.match(token.uses, /^actions\/create-github-app-token@[a-f0-9]{40}$/);
+  assert.equal(token.with.owner, '${{ github.repository_owner }}');
+  assert.equal(token.with.repositories, '${{ github.repository }}');
+  assert.equal(token.with['client-id'], '${{ vars.EDITORIAL_APP_CLIENT_ID }}');
+  assert.equal(token.with['private-key'], '${{ secrets.EDITORIAL_APP_PRIVATE_KEY }}');
+  assert.equal(token.with['skip-token-revoke'], false);
+  assert.deepEqual(Object.keys(token.with).filter((key) => key.startsWith('permission-')).sort(), ['permission-contents', 'permission-pull-requests']);
+  assert.equal(token.with['permission-contents'], 'write');
+  assert.equal(token.with['permission-pull-requests'], 'write');
+  assert.equal(steps.find((step) => step.uses === 'actions/checkout@v4').with['persist-credentials'], false);
+  const publish = steps.find((step) => step.name === 'Publish a reviewable content and source-health PR');
+  assert.equal(publish.env.GH_TOKEN, '${{ github.token }}');
+  assert.equal(publish.env.EDITORIAL_APP_TOKEN, '${{ steps.editorial-app-token.outputs.token }}');
+  assert.match(publish.run, /node scripts\/editorial-pr\.mjs --push-branch/);
+  assert.ok(!publish.run.includes('git push'));
+  assert.ok(!publish.run.includes('git commit'));
+  assert.ok(steps.indexOf(token) > steps.findIndex((step) => step.run === 'npm run verify'));
+  assert.ok(steps.indexOf(token) > steps.findIndex((step) => step.name === 'Prepare the editorial state commit'));
+  assert.ok(steps.slice(0, steps.indexOf(token)).every((step) => !Object.hasOwn(step.env ?? {}, 'EDITORIAL_APP_TOKEN')));
+  const ci = await fs.readFile(new URL('../.github/workflows/ci.yml', import.meta.url), 'utf8');
+  assert.ok(!ci.includes('EDITORIAL_APP'));
 });
