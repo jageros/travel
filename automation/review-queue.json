@@ -5,7 +5,7 @@
     "errors": [
       "Weekly publication cap reached (3 in rolling 7 days)"
     ],
-    "detectedAt": "2026-10-20T12:18:20.786Z"
+    "detectedAt": "2026-10-21T05:59:15.005Z"
   },
   {
     "slug": "golden-gate-bridge-without-a-car",
@@ -13,6 +13,6 @@
     "errors": [
       "Weekly publication cap reached (3 in rolling 7 days)"
     ],
-    "detectedAt": "2026-10-20T12:18:20.787Z"
+    "detectedAt": "2026-10-21T05:59:15.005Z"
   }
 ]
