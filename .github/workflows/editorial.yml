@@ -41,23 +41,19 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-      - name: Continue the existing editorial review branch
-        run: |
-          if git ls-remote --exit-code --heads origin automation/editorial > /dev/null; then
-            git checkout -B automation/editorial origin/automation/editorial
-            git merge --no-edit origin/main
-          else
-            git checkout -b automation/editorial
-          fi
-        env:
-          GIT_AUTHOR_NAME: travel-editorial[bot]
-          GIT_AUTHOR_EMAIL: travel-editorial@users.noreply.github.com
-          GIT_COMMITTER_NAME: travel-editorial[bot]
-          GIT_COMMITTER_EMAIL: travel-editorial@users.noreply.github.com
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
+      - name: Safely prepare the editorial review branch
+        run: node scripts/editorial-branch.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          GIT_AUTHOR_NAME: travel-editorial[bot]
+          GIT_AUTHOR_EMAIL: travel-editorial@users.noreply.github.com
+          GIT_COMMITTER_NAME: travel-editorial[bot]
+          GIT_COMMITTER_EMAIL: travel-editorial@users.noreply.github.com
       - run: npm ci
       - name: Capture explicitly reviewed missing source baselines
         id: source-baselines
