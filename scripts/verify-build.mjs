@@ -1,4 +1,4 @@
-import {isReviewBuild} from '../src/lib/build-mode.mjs';
+import {isReviewBuild,isIndexableBuild} from '../src/lib/build-mode.mjs';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import assert from 'node:assert/strict';
@@ -9,7 +9,7 @@ import {CANONICAL_SITE_URL,SITE_NAME,SITE_EDITORIAL_TEAM} from '../src/lib/site-
 const root=process.cwd();
 const dist=path.join(root,'dist');
 const review=isReviewBuild(process.env);
-const indexable=process.env.SITE_INDEXING_ENABLED==='true'&&!review&&(!process.env.VERCEL_ENV||process.env.VERCEL_ENV==='production');
+const indexable=isIndexableBuild(process.env);
 async function walk(dir) {
   const entries=await fs.readdir(dir,{withFileTypes:true});
   return (await Promise.all(entries.map(entry=>entry.isDirectory()?walk(path.join(dir,entry.name)):path.join(dir,entry.name)))).flat();
@@ -89,7 +89,10 @@ for(const file of htmlFiles) {
     assert.match(html,/<title>[^<]+<\/title>/,'page title');
     assert.match(html,/<meta name="description" content="[^"]+"/,'page description');
     assert.match(html,/<link rel="canonical" href="https:\/\/[^\"]+"/,'absolute canonical');
-    if(!indexable) assert.match(html,/<meta name="robots" content="noindex/,'nonproduction must be noindex');
+    if(!indexable) {
+      assert.match(html,/<meta name="robots" content="noindex/,'nonproduction must be noindex');
+      assert.ok(!nodes.some(node=>['data-consent-banner','data-analytics-id','data-advertising-id','data-ad-container'].some(key=>Object.hasOwn(attributes(node),key))),'nonindexable builds cannot enable analytics or ads');
+    }
     assert.doesNotMatch(html,/kulroakonsu|madurird|data-zone=|_kpopg|window\.open\(/,'legacy click-ad chain removed');
     const schemas=nodes.filter(node=>node.tagName==='script'&&attributes(node).type==='application/ld+json').map(node=>JSON.parse((node.childNodes||[]).map(child=>child.value||'').join('')));
     assert.ok(schemas.some(schema=>schema['@type']==='WebSite'&&schema.name===SITE_NAME),'current brand WebSite schema');

@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "ASTRO_TELEMETRY_DISABLED=1 astro dev --host 127.0.0.1",
     "build": "ASTRO_TELEMETRY_DISABLED=1 astro build",
+    "build:cloudflare": "node scripts/cloudflare-build.mjs",
     "preview": "ASTRO_TELEMETRY_DISABLED=1 astro preview --host 127.0.0.1",
     "check": "ASTRO_TELEMETRY_DISABLED=1 astro check",
     "lint": "ASTRO_TELEMETRY_DISABLED=1 astro check",
@@ -36,8 +37,9 @@
     "@types/node": "^24.0.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",
+    "parse5": "7.3.0",
     "typescript": "^5.9.3",
-    "parse5": "7.3.0"
+    "wrangler": "4.151.3"
   },
   "overrides": {
     "@astrojs/react": {

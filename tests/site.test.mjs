@@ -42,10 +42,34 @@ test('fare calculator compares paid windows with integer cents and clear break-e
  for(const values of [[0,3,6],[3,1.5,6],[3,101,6],[NaN,3,6],[3,3,-1]])assert.equal(compareFares(...values),null);
 });
 
-import {isReviewBuild} from '../src/lib/build-mode.mjs';
-test('Vercel previews automatically show review copies and production requires an explicit review flag',()=>{
- assert.equal(isReviewBuild({VERCEL_ENV:'preview'}),true);
- assert.equal(isReviewBuild({VERCEL_ENV:'preview',CONTENT_REVIEW_PREVIEW:'false'}),false);
- assert.equal(isReviewBuild({VERCEL_ENV:'production'}),false);
- assert.equal(isReviewBuild({CONTENT_REVIEW_PREVIEW:'true'}),true);
+import {resolveDeploymentEnv,isReviewBuild,isIndexableBuild} from '../src/lib/build-mode.mjs';
+test('deployment environment defaults to local and rejects invalid explicit values',()=>{
+ assert.equal(resolveDeploymentEnv({}),'local');
+ for(const mode of ['production','preview','local'])assert.equal(resolveDeploymentEnv({DEPLOYMENT_ENV:mode}),mode);
+ for(const mode of ['', 'Production','staging',null])assert.throws(()=>resolveDeploymentEnv({DEPLOYMENT_ENV:mode}),/DEPLOYMENT_ENV/);
+});
+test('explicit deployment environment takes precedence over transitional Vercel values',()=>{
+ assert.equal(resolveDeploymentEnv({VERCEL_ENV:'production'}),'production');
+ assert.equal(resolveDeploymentEnv({VERCEL_ENV:'preview'}),'preview');
+ assert.equal(resolveDeploymentEnv({VERCEL_ENV:'development'}),'local');
+ assert.equal(resolveDeploymentEnv({DEPLOYMENT_ENV:'preview',VERCEL_ENV:'production'}),'preview');
+ assert.equal(resolveDeploymentEnv({DEPLOYMENT_ENV:'local',VERCEL_ENV:'production'}),'local');
+ assert.throws(()=>resolveDeploymentEnv({DEPLOYMENT_ENV:'invalid',VERCEL_ENV:'production'}),/DEPLOYMENT_ENV/);
+});
+test('Cloudflare production builds require main and cannot include review articles',()=>{
+ assert.equal(resolveDeploymentEnv({DEPLOYMENT_ENV:'production',WORKERS_CI_BRANCH:'main'}),'production');
+ assert.throws(()=>resolveDeploymentEnv({DEPLOYMENT_ENV:'production',WORKERS_CI_BRANCH:'feature/new-page'}),/main branch/);
+ assert.throws(()=>isReviewBuild({DEPLOYMENT_ENV:'production',CONTENT_REVIEW_PREVIEW:'true'}),/cannot include editorial review/);
+ assert.equal(isReviewBuild({DEPLOYMENT_ENV:'local',CONTENT_REVIEW_PREVIEW:'true'}),true);
+ assert.equal(isReviewBuild({DEPLOYMENT_ENV:'local'}),false);
+});
+test('hiding review copies cannot enable indexing on a preview or local build',()=>{
+ for(const mode of ['preview','local'])for(const flag of [undefined,'false','true']){
+  const env={DEPLOYMENT_ENV:mode,SITE_INDEXING_ENABLED:'true',CONTENT_REVIEW_PREVIEW:flag};
+  assert.equal(isIndexableBuild(env),false);
+  assert.equal(isReviewBuild(env),mode==='preview'?flag!=='false':flag==='true');
+ }
+ assert.equal(isIndexableBuild({DEPLOYMENT_ENV:'production',SITE_INDEXING_ENABLED:'true'}),true);
+ assert.equal(isIndexableBuild({DEPLOYMENT_ENV:'production',SITE_INDEXING_ENABLED:'false'}),false);
+ assert.equal(isIndexableBuild({SITE_INDEXING_ENABLED:'true'}),false);
 });
