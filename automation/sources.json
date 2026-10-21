@@ -307,7 +307,8 @@
           "dynamic": true,
           "evidence": "accessible alternatives"
         }
-      ]
+      ],
+      "contentHash": "ca4f176f86c84eadd1509c4bfa4dda92d31ff95c55e4d37d6d64e067278ad9ac"
     },
     {
       "id": "sfmta-free-muni-youth",
@@ -358,7 +359,8 @@
           "dynamic": true,
           "evidence": "All stations have Clipper vending machines"
         }
-      ]
+      ],
+      "contentHash": "1382a97f3ce5039caa30a67d7698c2803649ad93461e7f6886ab27fa7382d9d4"
     },
     {
       "id": "clipper-youth-senior",
@@ -375,7 +377,8 @@
           "dynamic": true,
           "evidence": "Birth certificate or passport"
         }
-      ]
+      ],
+      "contentHash": "a7e57fd7afc45f3157f12c00f40fdebc44738c1abc5d325d320818b9ba7c079c"
     },
     {
       "id": "clipper-ways-to-pay",
@@ -400,7 +403,8 @@
           "dynamic": true,
           "evidence": "card reader errors"
         }
-      ]
+      ],
+      "contentHash": "d2df786fb5651f486cae8a4f102ee9de45abd2f57b4d72444dca2818411b1733"
     },
     {
       "id": "bart-tap-and-ride",
@@ -417,7 +421,8 @@
           "dynamic": true,
           "evidence": "confirm tapping activity"
         }
-      ]
+      ],
+      "contentHash": "3d170b08b742c9f33d3ef7b6d307e2be7062ae696de8d20ec940e1c076be143f"
     },
     {
       "id": "bart-schedules",
@@ -434,7 +439,8 @@
           "dynamic": true,
           "evidence": "includes planned delays"
         }
-      ]
+      ],
+      "contentHash": "5c2865ef412d2a3113a3e6377ad240a42852717e2527b56a992438fe33328e11"
     },
     {
       "id": "bart-official-app",
@@ -451,7 +457,8 @@
           "dynamic": true,
           "evidence": "last train of the evening by station"
         }
-      ]
+      ],
+      "contentHash": "1286193aa37fea5773dedb011ed1d0eb47df37954b816d761ef056add0c013d3"
     },
     {
       "id": "sfo-taxis",
