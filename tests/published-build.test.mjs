@@ -85,7 +85,7 @@ test('a staged production release has static content, working links, metadata an
   for(const [,url]of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g))assert.equal(new URL(url).origin,CANONICAL_SITE_URL);
   const robots=await fs.readFile(path.join(root,'dist/robots.txt'),'utf8');
   assert.ok(robots.includes(`Sitemap: ${CANONICAL_SITE_URL}/sitemap.xml`));
-  const previewEnv={...env,DEPLOYMENT_ENV:'preview',WORKERS_CI_BRANCH:'feature/review',VERCEL_ENV:'production'};
+  const previewEnv={...env,DEPLOYMENT_ENV:'preview',WORKERS_CI_BRANCH:'feature/review'};
   delete previewEnv.CONTENT_REVIEW_PREVIEW;
   const previewOptions={...options,env:previewEnv};
   execFileSync(process.execPath,[path.join(source,'node_modules/astro/bin/astro.mjs'),'build'],previewOptions);

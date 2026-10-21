@@ -9,5 +9,5 @@ build:
 preview:
 	npm run preview
 push:
-	@echo "Deploy through the verified Vercel Git integration after preview checks. See README.md."
+	@echo "Deploy through Cloudflare Workers Builds after preview checks. See README.md."
 	@exit 1

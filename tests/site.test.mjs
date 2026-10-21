@@ -48,13 +48,11 @@ test('deployment environment defaults to local and rejects invalid explicit valu
  for(const mode of ['production','preview','local'])assert.equal(resolveDeploymentEnv({DEPLOYMENT_ENV:mode}),mode);
  for(const mode of ['', 'Production','staging',null])assert.throws(()=>resolveDeploymentEnv({DEPLOYMENT_ENV:mode}),/DEPLOYMENT_ENV/);
 });
-test('explicit deployment environment takes precedence over transitional Vercel values',()=>{
- assert.equal(resolveDeploymentEnv({VERCEL_ENV:'production'}),'production');
- assert.equal(resolveDeploymentEnv({VERCEL_ENV:'preview'}),'preview');
- assert.equal(resolveDeploymentEnv({VERCEL_ENV:'development'}),'local');
- assert.equal(resolveDeploymentEnv({DEPLOYMENT_ENV:'preview',VERCEL_ENV:'production'}),'preview');
- assert.equal(resolveDeploymentEnv({DEPLOYMENT_ENV:'local',VERCEL_ENV:'production'}),'local');
- assert.throws(()=>resolveDeploymentEnv({DEPLOYMENT_ENV:'invalid',VERCEL_ENV:'production'}),/DEPLOYMENT_ENV/);
+test('branch metadata cannot authorize indexing without explicit deployment intent',()=>{
+ const env={WORKERS_CI_BRANCH:'main',SITE_INDEXING_ENABLED:'true'};
+ assert.equal(resolveDeploymentEnv(env),'local');
+ assert.equal(isIndexableBuild(env),false);
+ assert.equal(isReviewBuild(env),false);
 });
 test('Cloudflare production builds require main and cannot include review articles',()=>{
  assert.equal(resolveDeploymentEnv({DEPLOYMENT_ENV:'production',WORKERS_CI_BRANCH:'main'}),'production');

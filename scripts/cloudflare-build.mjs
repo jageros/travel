@@ -14,8 +14,7 @@ export function resolveCloudflareBuildEnv(input=process.env) {
   if(typeof branch!=='string'||!branch||branch.trim()!==branch)throw new Error('Workers Builds requires a nonempty WORKERS_CI_BRANCH');
   mode=branch==='main'?'production':'preview';
  }else {
-  // A developer can explicitly exercise production or preview locally. The
-  // former host's variables must not silently turn a local build into production.
+  // Local production and preview checks require explicit deployment intent.
   mode=resolveDeploymentEnv({...env,DEPLOYMENT_ENV:env.DEPLOYMENT_ENV??'local'});
  }
  env.DEPLOYMENT_ENV=mode;
