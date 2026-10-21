@@ -28,7 +28,7 @@ export async function getPhoto(id: string): Promise<Photo> {
   if (!original) throw new Error(`Missing photo original: ${record.file}`);
   const width = Math.min(1200, original.width);
   const [responsive, fallback, share] = await Promise.all([
-    getImage({ src: original, width, widths: [400, 800, 1200, 1600].filter(value => value <= original.width), format: 'webp', quality: 78 }),
+    getImage({ src: original, width, widths: [400, 680, 800, 1200, 1600].filter(value => value <= original.width), format: 'webp', quality: 78 }),
     getImage({ src: original, width, format: 'jpeg', quality: 80 }),
     getImage({ src: original, width: 1200, height: 630, fit: 'cover', position: 'center', format: 'jpeg', quality: 82 })
   ]);
