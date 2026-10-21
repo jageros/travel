@@ -59,4 +59,16 @@
 
 新增分支回归测试 40 项全部通过，其中真实本地 Git 场景分别验证旧 squash 分支在 main 后续修改后安全重建，以及远端提交在删除瞬间变化时被精确 lease 拒绝、保留新提交。首次整套检查发现的是 macOS 临时目录 `/var` 与 `/private/var` 的测试夹具入口差异，导致无依赖 CLI 测试未执行入口；夹具改为真实路径后通过，生产 helper 无需修改。
 
-修复后的 `npm run verify` 完整通过：111 项测试、Astro 56 文件零错误/警告/提示、5 篇内容校验，以及 14 页生产静态输出的内链、元数据、结构化数据、草稿排除和旧广告清理检查均成功。下一步通过正常受保护 PR 合并，再以完整监测运行验证实际分支清理、App PR、CI、合并及部署结果；本记录此处不预先声明运行成功。
+修复后的 `npm run verify` 完整通过：111 项测试、Astro 56 文件零错误/警告/提示、5 篇内容校验，以及 14 页生产静态输出的内链、元数据、结构化数据、草稿排除和旧广告清理检查均成功。以上为修复提交时的本地检查结果，其后实际完整运行记录如下。
+
+## 修复后完整运行与部署结果
+
+[修复 PR #11](https://github.com/jageros/travel/pull/11) 的必过 PR 事件 `verify` 首次成功，随后通过普通维护操作合并为 `9745a34a78b33b0edeb682d4caf7450332a4b2b9`，没有绕过保护。[监测运行 #5](https://github.com/jageros/travel/actions/runs/39535279741) 从该 main 手动启动，五项可选输入仍全部为空或 false，实际成功完成。
+
+准备步骤报告 `status=recreated-after-merged-pr`、`prNumber=9`、`cleanup=true`，旧 head 精确为 `37cdc87e1ef5a15dd3bd67b0043aa5406a611bf7`。它在 `npm ci` 前使用精确 lease 清理已合并专用分支，从当前 main 重建；没有重放或覆盖人工基线。新报告真实时间为 `2026-10-21T02:51:13.712Z`，11 个来源全部 unchanged，`conflicts=[]`；9 条动态事实有效至北京时间 10 月 28 日 08:00。
+
+[PR #12](https://github.com/jageros/travel/pull/12) 由 `cedar-trips-editorial[bot]` 创建，只修改 `automation/source-health.json` 的报告时间，没有修改来源批准 hash、事实、正文、批准、账本或待审队列。[必过 PR 事件 CI](https://github.com/jageros/travel/actions/runs/39535347593) 在精确 head `a34e7e55a4ea165c2ff8453fd790601c484c07e3` 首次成功；推送 CI `39535342941` 与额外调度 CI `39535347608` 也成功。`github-actions[bot]` 于北京时间 **10:52:24** 自动合并为 `fa6950e589a7710ecb22a0ba5254c2a5c795530d`。日志确认 `prAuthMode=github-app`、`mergeChannel=source-state`、`manualReleases=3` 和 `Token revoked`；本轮无人手动批准工作流、重新运行检查或点击合并。
+
+[对应生产部署](https://vercel.com/jageros-projects/travel/7euNTUMKmUSxNSu6z7ogr6PS9mni) 已在 Vercel 生产总览确认 Ready，域名 `www.cedartrips.com`，main 源码 SHA 与 PR #12 的合并提交一致。此结果证明修复后的手动启动链路完整成功，仍不代表已观测到 schedule 事件、Google 实际收录或自然搜索流量。3+2 发布安排、滚动七天上限及后续来源/CI 门槛保持不变。
+
+北京时间 **10:56:59** 再次只读请求 8 个正式域名 URL：3 篇已发指南均 200，静态正文、唯一 www canonical 及 index/follow 正常，没有禁止索引的响应头；两篇 review 和未知路径均 404；sitemap 为 200、9 个正确地址且排除审核稿，robots 为 200、允许抓取并声明正式 sitemap。相较 PR #10，五个批准指纹仍全部匹配，文章和审批账本逐字未变。本轮网页可访问性与索引配置验收不代表 Google 已经收录。
