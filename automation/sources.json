@@ -13,13 +13,13 @@
       "url": "https://www.bart.gov/guide/airport/sfo",
       "title": "Airport Connections (SFO & OAK)",
       "publisher": "Bay Area Rapid Transit",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "bart-sfo-station",
           "statement": "SFO’s BART station is in the International Terminal; the free AirTrain connects airport terminals to the station.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "The BART station is located in the International Terminal"
         }
@@ -31,7 +31,7 @@
       "url": "https://www.sfmta.com/getting-around/muni/fares",
       "title": "Fares",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [],
       "contentHash": "e519e560d8a5c3f802677cb799387f9420a56ce26385a1a079002290fbf7cfb4"
     },
@@ -40,21 +40,21 @@
       "url": "https://www.sfmta.com/fares/single-ride-adult-ages-19-64",
       "title": "Single Ride - Adult (ages 19-64)",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "muni-adult-clipper-fare",
           "statement": "The SFMTA adult single-ride page lists a $2.85 Clipper fare for adults ages 19–64. The same fare table lists contactless credit/debit payment at $2.85; this is not a promise of discounted-program eligibility.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "$2.85"
         },
         {
           "id": "muni-transfer-window",
           "statement": "The adult ordinary Muni single-ride fare covers 120 minutes across buses and light rail under SFMTA’s transfer conditions; this does not establish cable-car or other-operator coverage.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "good for 120 minutes of travel"
         }
@@ -66,13 +66,13 @@
       "url": "https://www.sfmta.com/fares/day-pass",
       "title": "Day Pass",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "muni-day-pass-fare",
           "statement": "SFMTA lists the Muni-Only Day Pass at $5.70 for unlimited Muni buses, trains and historic streetcars through 11:59 p.m. It lists MuniMobile and Clipper pre-purchase, or cash at a vehicle farebox after notifying the operator; cable cars are not included in this listed coverage.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "$5.70"
         }
@@ -84,13 +84,13 @@
       "url": "https://www.sfmta.com/fares/1-day-visitor-passport",
       "title": "1-Day Visitor Passport",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "muni-passport-fare",
           "statement": "The one-day Visitor Passport fare table lists $15.00 for MuniMobile, Paper Passport and Clipper. The Muni-only product includes cable cars but excludes BART, other transit systems and SFO airport transportation; no channel-specific discount is promised here.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "$15.00"
         }
@@ -102,13 +102,13 @@
       "url": "https://www.sfmta.com/routes/f-market-wharves",
       "title": "F Market & Wharves",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "muni-f-waterfront",
           "statement": "The F Market & Wharves stop list includes the Ferry Building, Pier 39 and Fisherman’s Wharf stops. Opposite directions use different stops; this is not a live-service or step-free-access guarantee.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "The Embarcadero/Ferry Bldg"
         }
@@ -120,21 +120,21 @@
       "url": "https://www.sfmta.com/getting-around/accessibility/muni-accessibility/muni-access-guide/access-historic-streetcars",
       "title": "Access on Historic Streetcars",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "muni-f-platform-boarding",
           "statement": "For a historic streetcar stop with a wayside platform, SFMTA instructs riders to use its ramp and wait; the operator deploys a portable bridge plate. Tell the operator the destination stop and whether securement help is needed. This describes the boarding procedure, not a guarantee that today's stop or equipment is available.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "Operator will deploy a portable bridge plate"
         },
         {
           "id": "muni-f-accessible-stop-pattern",
           "statement": "SFMTA describes accessible wayside platforms along The Embarcadero and Market between Van Ness and Castro, but only selected accessible stops on lower Market. Check the named stop, direction and current notices; the guide does not establish that every stop has identical boarding arrangements or that the full journey is step-free.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "accessible stops are located at key locations along lower Market Street"
         }
@@ -146,13 +146,13 @@
       "url": "https://www.goldengate.org/bridge/visiting-the-bridge/public-transit/",
       "title": "Public Transit - Visiting the Bridge",
       "publisher": "Golden Gate Bridge, Highway and Transportation District",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "bridge-transit-option",
           "statement": "Golden Gate Transit’s bridge visitor guide describes transit access at the south and north bridge ends. Use current timetables for routes and stops; older route-number examples in the visitor guide are not current-service authority.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "Accessing the South End of the Bridge"
         }
@@ -164,13 +164,13 @@
       "url": "https://www.goldengate.org/bridge/visiting-the-bridge/bikes-pedestrians/",
       "title": "Bikes & Pedestrians - Visiting the Bridge",
       "publisher": "Golden Gate Bridge, Highway and Transportation District",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "bridge-pedestrian-east",
           "statement": "Golden Gate Bridge pedestrians, including wheelchair users, are restricted to the east sidewalk. Seasonal hours, dated alerts and temporary closures need checking for the travel date; this is not confirmation of uninterrupted current access.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "Pedestrians - Daily Access on the EAST Sidewalk"
         }
@@ -200,7 +200,7 @@
       "url": "https://www.goldengate.org/bus/schedules-maps/",
       "title": "Golden Gate Transit Bus Schedules",
       "publisher": "Golden Gate Bridge, Highway and Transportation District",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [],
       "contentHash": "08d34b7944f1007ebc368e77a04a1f086f0acf80df239a31914b01f991ed27fa"
     },
@@ -209,21 +209,21 @@
       "url": "https://www.sfmta.com/getting-around/muni/cable-cars",
       "title": "Cable Cars",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "muni-cable-car-system",
           "statement": "SFMTA describes cable cars as vehicles pulled by cables beneath the street and identifies three lines: California, Powell/Hyde and Powell/Mason. These are the cable-car system, separate from the F Market & Wharves historic streetcar.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "cables running beneath"
         },
         {
           "id": "muni-cable-car-boarding",
           "statement": "SFMTA directs riders to cable-car turntables or brown-and-white cable-car signposts and states that cable cars are not equipped with accessible boarding. This does not promise a queue length, a particular vehicle or an available boarding place.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "brown-and-white cable car sign post"
         }
@@ -235,13 +235,13 @@
       "url": "https://www.sfmta.com/travel-updates/temporary-stop-relocations",
       "title": "Temporary Stop Relocations",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "muni-temporary-stop-lookup",
           "statement": "SFMTA publishes a temporary-stop map and table for construction or other activities, with nearby alternative stops where applicable, and links separate event-related travel updates. A listed alternative is not automatically verified as accessible for the rider or identical to the usual stop.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "When a temporary stop is not available"
         }
@@ -271,13 +271,13 @@
       "url": "https://www.sfmta.com/trip-planner",
       "title": "Trip Planner",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "muni-official-trip-planner",
           "statement": "SFMTA offers an official trip-planning entry form with starting location, ending location and travel-mode controls. Checking the form does not validate a particular dated itinerary, an accessible connection or a live service result.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "Starting Location"
         }
@@ -315,21 +315,21 @@
       "url": "https://www.sfmta.com/fares/free-muni-all-youth-18-years-and-younger",
       "title": "Free Muni for All Youth (18 years and younger)",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "muni-youth-eligibility",
           "statement": "SFMTA makes regular Muni travel free for riders 18 and younger regardless of income or residency, without an application or proof of payment/Clipper card. Cable cars are an exception governed by separate conditions; the universal benefit must not be extended to visiting youths on cable cars.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "No application or proof of payment/Clipper card is required"
         },
         {
           "id": "muni-youth-age-id-guidance",
           "statement": "SFMTA encourages riders 16 and above to carry student or other identification for age verification. The page describes this as encouraged, not a universal mandatory document requirement.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "Youth 16 and above are encouraged"
         }
@@ -341,21 +341,21 @@
       "url": "https://www.bart.gov/tickets",
       "title": "Paying Your Fare",
       "publisher": "Bay Area Rapid Transit",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "bart-youth-fare-eligibility",
           "statement": "BART lists free travel for children 4 and under and a 50% youth discount for ages 5–18 using a Youth Clipper card. Discount cards require proof of eligibility and are not issued by station vending machines; direct bank-card Tap and Ride charges adult fares.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "50% off with a youth Clipper card"
         },
         {
           "id": "bart-clipper-payment-alternative",
           "statement": "BART accepts Clipper as well as bank-card Tap and Ride and states that all stations have Clipper vending machines. The page tells riders needing to exit without riding a train to see a station agent first. A new credential must not be presented as an automatic fix for an unresolved journey.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "All stations have Clipper vending machines"
         }
@@ -411,13 +411,13 @@
       "url": "https://www.bart.gov/tickets/contactless",
       "title": "Tap and Ride",
       "publisher": "Bay Area Rapid Transit",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "bart-contactless-agent-help",
           "statement": "BART station agents can help identify which contactless bank card was used or confirm tapping activity. BART requires the same card or device at entry and exit; seek staff help with an unresolved journey rather than substituting a credential at the exit gate.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "confirm tapping activity"
         }
@@ -429,13 +429,13 @@
       "url": "https://www.bart.gov/schedules",
       "title": "Schedules",
       "publisher": "Bay Area Rapid Transit",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "bart-planner-planned-delays",
           "statement": "BART recommends its official Trip Planner and says it includes planned delays. Its system-wide service-hour summary does not establish the last feasible SFO departure, a specific connection or service on the reader's travel date.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "includes planned delays"
         }
@@ -447,13 +447,13 @@
       "url": "https://www.bart.gov/guide/apps",
       "title": "BART Apps",
       "publisher": "Bay Area Rapid Transit",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "bart-app-last-train-lookup",
           "statement": "BART describes official-app tools for real-time departures, cancelled-run indicators and viewing the last evening train by station. This verifies the tool's documented capability, not any date-specific last train, transfer feasibility or connection guarantee.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "last train of the evening by station"
         }
@@ -465,13 +465,13 @@
       "url": "https://www.flysfo.com/passengers/ground-transportation/taxis",
       "title": "Taxis",
       "publisher": "San Francisco International Airport",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "sfo-official-taxi-zone",
           "statement": "SFO places designated taxi zones at roadway center islands on the Arrivals/Baggage Claim level of all terminals. This identifies the official pickup area; no wait time, vehicle availability, child-seat provision or overnight supply is guaranteed.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "roadway center islands"
         }
@@ -483,13 +483,13 @@
       "url": "https://www.flysfo.com/passengers/ground-transportation/lyft-uber-rides",
       "title": "Lyft/Uber/Wingz Rides",
       "publisher": "San Francisco International Airport",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "sfo-standard-ride-app-pickup",
           "statement": "SFO places standard domestic Lyft/Uber pickups on Domestic Garage Level 5 and international Lyft/Uber/Wingz pickups at Departures/Ticketing roadway center-island zones 12–17. Domestic Wingz, limousine/Assist products and wheelchair-accessible arrangements have separate instructions; confirm the actual product and terminal.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "Level 5 of the Domestic Garage"
         }
@@ -501,13 +501,13 @@
       "url": "https://www.goldengate.org/ferry/schedules-maps/",
       "title": "Golden Gate Ferry Schedules",
       "publisher": "Golden Gate Bridge, Highway and Transportation District",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "golden-gate-sausalito-schedule-entry",
           "statement": "Golden Gate Ferry's schedule index lists a Sausalito–San Francisco service with a timetable effective date and a holiday-calendar link. Open the applicable route, direction and travel-date view; the static index does not verify an actual departure or final return.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "Sausalito-San Francisco"
         }
@@ -519,21 +519,21 @@
       "url": "https://www.goldengate.org/ferry/ferry-fares-payment/",
       "title": "Ferry Fares & Payment",
       "publisher": "Golden Gate Bridge, Highway and Transportation District",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "facts": [
         {
           "id": "golden-gate-ferry-one-way-products",
           "statement": "Golden Gate Ferry lists fares for one-way travel and requires each passenger's own ticket, contactless bank card or Clipper account. This is not a combined bus/ferry product or a boarding-capacity guarantee.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "Fares are for one-way travel"
         },
         {
           "id": "golden-gate-ferry-paper-ticket-conditions",
           "statement": "Golden Gate Ferry says its paper tickets are usable on ordinary departures except Giants Ferry, valid for 90 days, nonrefundable and not replaceable if lost or stolen. A valid ticket is not evidence that a particular return departure has available boarding capacity.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-23",
+          "expiresAt": "2026-10-30",
           "dynamic": true,
           "evidence": "Tickets are valid for 90 days"
         }
@@ -554,7 +554,7 @@
           "dynamic": true
         }
       ],
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "contentHash": "89a85a2221253144bfb5a390f5195a79de45cbea31b7ec98f254a5491610af38"
     },
     {
@@ -571,7 +571,7 @@
           "dynamic": true
         }
       ],
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-23",
       "contentHash": "85d2581adf1e62861aa93e42c2a80041ced04e591e620f0bf362d40841d1823b"
     }
   ]

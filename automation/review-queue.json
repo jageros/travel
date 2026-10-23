@@ -5,7 +5,7 @@
     "errors": [
       "Weekly publication cap reached (3 in rolling 7 days)"
     ],
-    "detectedAt": "2026-10-22T06:05:58.744Z"
+    "detectedAt": "2026-10-23T06:00:41.475Z"
   },
   {
     "slug": "golden-gate-bridge-without-a-car",
@@ -13,7 +13,7 @@
     "errors": [
       "Weekly publication cap reached (3 in rolling 7 days)"
     ],
-    "detectedAt": "2026-10-22T06:05:58.744Z"
+    "detectedAt": "2026-10-23T06:00:41.475Z"
   },
   {
     "slug": "source-monitor",
@@ -21,7 +21,7 @@
     "errors": [
       "clipper-contactless: changed"
     ],
-    "detectedAt": "2026-10-22T06:05:58.744Z"
+    "detectedAt": "2026-10-23T06:00:41.475Z"
   },
   {
     "slug": "source-monitor",
@@ -29,7 +29,7 @@
     "errors": [
       "clipper-youth-senior: changed"
     ],
-    "detectedAt": "2026-10-22T06:05:58.744Z"
+    "detectedAt": "2026-10-23T06:00:41.475Z"
   },
   {
     "slug": "source-monitor",
@@ -37,7 +37,7 @@
     "errors": [
       "clipper-ways-to-pay: changed"
     ],
-    "detectedAt": "2026-10-22T06:05:58.744Z"
+    "detectedAt": "2026-10-23T06:00:41.475Z"
   },
   {
     "slug": "sf-waterfront-transit-itinerary",
@@ -45,6 +45,22 @@
     "errors": [
       "Weekly publication cap reached (3 in rolling 7 days)"
     ],
-    "detectedAt": "2026-10-22T06:05:58.744Z"
+    "detectedAt": "2026-10-23T06:00:41.475Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "sfmta-travel-updates: changed"
+    ],
+    "detectedAt": "2026-10-23T06:00:41.475Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-advisories: changed"
+    ],
+    "detectedAt": "2026-10-23T06:00:41.475Z"
   }
 ]
