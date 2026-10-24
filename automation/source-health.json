@@ -1,178 +1,178 @@
 {
-  "checkedAt": "2026-10-23T06:00:41.475Z",
+  "checkedAt": "2026-10-24T05:47:14.552Z",
   "sources": [
     {
       "id": "bart-sfo",
-      "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
-      "contentHash": "6e47386934ab24578646995df7f4d9551c949f7860f31fa66822f532db7d4edb"
+      "status": "changed",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
+      "contentHash": "eb07be9ef24dbc0f337095a61c6c8b26b1250e92ddcdd54be7549613820fbab5"
     },
     {
       "id": "sfmta-fares",
-      "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
-      "contentHash": "e519e560d8a5c3f802677cb799387f9420a56ce26385a1a079002290fbf7cfb4"
+      "status": "changed",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
+      "contentHash": "65e0940ff5d58664eb86f9030c34409d2d012d886414301661619bf742c482cb"
     },
     {
       "id": "sfmta-adult-single",
       "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "565f7fb5d275fa41e6012fbcf740253dc56cdf3f248ee400d2b10b6b71254897"
     },
     {
       "id": "sfmta-day-pass",
       "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "59e0f03b2ef8dbb7f203e7c45b63be6e4004c9707c6f93fdb6a44008fb7ef1d6"
     },
     {
       "id": "sfmta-visitor-passport",
       "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "51eb2206b07fb7f60b1a03b4ab21ea86a51dc750949c391b0bcb0db60b320dac"
     },
     {
       "id": "sfmta-f-line",
       "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "69d5a9022c93b696d1a7e8966306a2314228e54a0b2e25419e1effc7385c2237"
     },
     {
       "id": "sfmta-f-access",
       "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "0a9ae8ead93491f93b90e6ed88cc3d7c8003c04815fe7c40660f9a26f8828a13"
     },
     {
       "id": "golden-gate-transit",
       "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "f23813f0fee46d9da31b01c0911a67d64183c7b4cdf5d3cd5453adbd4d2ea754"
     },
     {
       "id": "golden-gate-sidewalks",
       "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "b5c077d24f49d8ef729f048924a152d013ee48c416952245340a0466a6381e9b"
     },
     {
       "id": "clipper-contactless",
       "status": "changed",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "9f9295f0cffead9cb4da00e358713beda72390467ec18cf7d4bc414573c4b481"
     },
     {
       "id": "golden-gate-current-schedules",
       "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "08d34b7944f1007ebc368e77a04a1f086f0acf80df239a31914b01f991ed27fa"
     },
     {
       "id": "sfmta-cable-cars",
       "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "cb5fe4cfab4543dd5ba65bfab118ab77972e4eae5303530f145e829aad75b6fb"
     },
     {
       "id": "sfmta-stop-relocations",
       "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "b9a9e3e9fc0534603143a41f6e838b491355e25a3b62a3f22c8711034813f61a"
     },
     {
       "id": "sfmta-travel-updates",
       "status": "changed",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
-      "contentHash": "eec3de5087880278a10f4029f6ca6b9a29e0bf22325e564f52c8d1a295d49fe8"
+      "checkedAt": "2026-10-24T05:47:14.552Z",
+      "contentHash": "532f2b95b40090e36ff4dafea0cf0c903eb212e9ad157cd117f50beb5cdfdd1f"
     },
     {
       "id": "sfmta-trip-planner",
       "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "214ea7a166dc0c3fe2f1943c58d3e7913c8705dcd037c301941ea0f76b993050"
     },
     {
       "id": "bart-advisories",
       "status": "changed",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
-      "contentHash": "a9ed010681c44f8cfc200e86862ef1864b0441a0d7f7fa72a066eb265fbf1e1b"
+      "checkedAt": "2026-10-24T05:47:14.552Z",
+      "contentHash": "a7c69d9f0753114ceb58c2896c3fc08aed2ac3014bb0a46bdaf95641f5b76ddd"
     },
     {
       "id": "sfmta-free-muni-youth",
       "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "597df52cff3f97ec2f9a0167cad48452e67d3d709db37834e4043d4bee5b2bd0"
     },
     {
       "id": "bart-paying-fare",
-      "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
-      "contentHash": "1382a97f3ce5039caa30a67d7698c2803649ad93461e7f6886ab27fa7382d9d4"
+      "status": "changed",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
+      "contentHash": "40a697577f3ae5ad64a47bee6d612ffd7e7ee159913192e074e90b694710c54e"
     },
     {
       "id": "clipper-youth-senior",
       "status": "changed",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "663bc7cd575e4b79437e182eeb1921983a02075a0aac1e2e0b02741258561382"
     },
     {
       "id": "clipper-ways-to-pay",
       "status": "changed",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "513ee8f08e6b4d279203e962f13b48c21d103f882300039f7e553016f47f8e40"
     },
     {
       "id": "bart-tap-and-ride",
-      "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
-      "contentHash": "3d170b08b742c9f33d3ef7b6d307e2be7062ae696de8d20ec940e1c076be143f"
+      "status": "changed",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
+      "contentHash": "ee88797733d6a9f189df011ff5f4cbb8d645e04360bbca2cd7d497e3743dbdb8"
     },
     {
       "id": "bart-schedules",
-      "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
-      "contentHash": "5c2865ef412d2a3113a3e6377ad240a42852717e2527b56a992438fe33328e11"
+      "status": "changed",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
+      "contentHash": "3d03c8dd86c3c0265941ed37f519503bbd85a8936dd1c492a8243546b417a048"
     },
     {
       "id": "bart-official-app",
-      "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
-      "contentHash": "1286193aa37fea5773dedb011ed1d0eb47df37954b816d761ef056add0c013d3"
+      "status": "changed",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
+      "contentHash": "1e3eb5dfba98e9bb4ba041d4a2e09afd7162cb9ab0baf74e5fcf9142bbf2c732"
     },
     {
       "id": "sfo-taxis",
       "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "d99f6f6d347170d9e6801f285871737269b120929e429439707b8b9b1c4a4d49"
     },
     {
       "id": "sfo-ride-app-pickup",
       "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "01105f1ee762d1ff0cff9572e91a2d847ee7c76a77aa2087b9996b2d5d315d90"
     },
     {
       "id": "golden-gate-ferry-schedules",
       "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "57350931c05f6b06eb556424499b054a4ed549d7486cbd8224ed8e2a8a4b4e01"
     },
     {
       "id": "golden-gate-ferry-fares",
       "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "c3dda5316c623247ee98dce8be8f9902b04de4daa55f941fd5039bacd71afb40"
     },
     {
       "id": "golden-gate-route120-rendered",
       "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "89a85a2221253144bfb5a390f5195a79de45cbea31b7ec98f254a5491610af38"
     },
     {
       "id": "golden-gate-sausalito-rendered",
       "status": "unchanged",
-      "checkedAt": "2026-10-23T06:00:41.475Z",
+      "checkedAt": "2026-10-24T05:47:14.552Z",
       "contentHash": "85d2581adf1e62861aa93e42c2a80041ced04e591e620f0bf362d40841d1823b"
     }
   ],
