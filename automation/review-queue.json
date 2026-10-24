@@ -5,7 +5,7 @@
     "errors": [
       "Weekly publication cap reached (3 in rolling 7 days)"
     ],
-    "detectedAt": "2026-10-21T05:59:15.005Z"
+    "detectedAt": "2026-10-23T06:00:41.475Z"
   },
   {
     "slug": "golden-gate-bridge-without-a-car",
@@ -13,6 +13,122 @@
     "errors": [
       "Weekly publication cap reached (3 in rolling 7 days)"
     ],
-    "detectedAt": "2026-10-21T05:59:15.005Z"
+    "detectedAt": "2026-10-23T06:00:41.475Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "clipper-contactless: changed"
+    ],
+    "detectedAt": "2026-10-24T05:47:14.552Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "clipper-youth-senior: changed"
+    ],
+    "detectedAt": "2026-10-24T05:47:14.552Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "clipper-ways-to-pay: changed"
+    ],
+    "detectedAt": "2026-10-24T05:47:14.552Z"
+  },
+  {
+    "slug": "sf-waterfront-transit-itinerary",
+    "stage": "publish",
+    "errors": [
+      "Weekly publication cap reached (3 in rolling 7 days)"
+    ],
+    "detectedAt": "2026-10-24T05:47:14.552Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "sfmta-travel-updates: changed"
+    ],
+    "detectedAt": "2026-10-24T05:47:14.552Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-advisories: changed"
+    ],
+    "detectedAt": "2026-10-24T05:47:14.552Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-sfo: changed"
+    ],
+    "detectedAt": "2026-10-24T05:47:14.552Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "sfmta-fares: changed"
+    ],
+    "detectedAt": "2026-10-24T05:47:14.552Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-paying-fare: changed"
+    ],
+    "detectedAt": "2026-10-24T05:47:14.552Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-tap-and-ride: changed"
+    ],
+    "detectedAt": "2026-10-24T05:47:14.552Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-schedules: changed"
+    ],
+    "detectedAt": "2026-10-24T05:47:14.552Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-official-app: changed"
+    ],
+    "detectedAt": "2026-10-24T05:47:14.552Z"
+  },
+  {
+    "slug": "golden-gate-bridge-without-a-car",
+    "stage": "publish",
+    "errors": [
+      "Source requires review: sfmta-fares (changed)",
+      "Source health does not match the approved baseline: sfmta-fares",
+      "Weekly publication cap reached (3 in rolling 7 days)"
+    ],
+    "detectedAt": "2026-10-24T05:47:14.552Z"
+  },
+  {
+    "slug": "is-muni-pass-worth-it",
+    "stage": "publish",
+    "errors": [
+      "Source requires review: sfmta-fares (changed)",
+      "Source health does not match the approved baseline: sfmta-fares",
+      "Weekly publication cap reached (3 in rolling 7 days)"
+    ],
+    "detectedAt": "2026-10-24T05:47:14.552Z"
   }
 ]
