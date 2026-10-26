@@ -34,8 +34,9 @@ export function importQueries(csv, articles = []) {
   const [headers, ...rows] = parseCsv(csv.replace(/^\uFEFF/, ''));
   if (!headers) throw new Error('Empty Search Console CSV');
   const columns = headers.map((header) => header.toLowerCase().trim());
-  const queryIndex = columns.findIndex((header) => ['query', 'queries', 'top queries'].includes(header));
-  const impressionsIndex = columns.indexOf('impressions'), clicksIndex = columns.indexOf('clicks'), positionIndex = columns.indexOf('position');
+  const columnIndex = (...aliases) => columns.findIndex((header) => aliases.includes(header));
+  const queryIndex = columnIndex('query', 'queries', 'top queries', '热门查询');
+  const impressionsIndex = columnIndex('impressions', '展示'), clicksIndex = columnIndex('clicks', '点击次数'), positionIndex = columnIndex('position', '排名');
   if (queryIndex < 0 || impressionsIndex < 0 || clicksIndex < 0) throw new Error('Expected Search Console Query, Clicks and Impressions columns');
   return rows.filter((row) => row[queryIndex]?.trim()).map((row) => {
     const query = row[queryIndex].trim().slice(0, 500);

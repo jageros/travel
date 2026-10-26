@@ -34,7 +34,7 @@ function fakeRunner({ existing = false, changed = ['src/content/articles/new-gui
     }
     if (command === 'git' && args[1] === '--name-only') return { stdout: changed.join('\n') };
     if (command === 'git' && args[0] === 'rev-parse') return { stdout: `${head}\n` };
-    if (command === 'git' && args[0] === 'ls-remote') return { stdout: `${head}\trefs/heads/main\n` };
+    if (command === 'git' && args[0] === 'ls-remote') return { stdout: `${head}\t${args.at(-1)}\n` };
     if (command === 'gh' && args[0] === 'pr' && args[1] === 'list') {
       assert.ok(args.includes('open'), 'only open PRs can be reused');
       return { stdout: JSON.stringify(open ? [{ number: 42, headRefOid: prHead, url: 'https://github.com/jageros/travel/pull/42' }] : []) };
@@ -84,6 +84,88 @@ test('failed or missing CI, changed PR head and unexpected executable files cann
     await assert.rejects(openEditorialPullRequest({ root, run: runner.run, now, attempts: 2, delayMs: 0, sleep: async () => {} }), /held|head changed|allowlist/);
     assert.ok(!runner.calls.some((call) => call.args[0] === 'pr' && call.args[1] === 'merge'));
   }
+});
+
+test('a briefly stale PR head is reread only while the remote branch remains exact', async (t) => {
+  for (const existing of [true, false]) {
+    const root = await setup(t, 5);
+    const runner = fakeRunner({ existing });
+    let reads = 0;
+    let waits = 0;
+    const run = async (command, args) => {
+      const result = await runner.run(command, args);
+      if (command === 'gh' && args[0] === 'pr' && args[1] === 'list') {
+        const prs = JSON.parse(result.stdout);
+        if (prs.length && ++reads === 1) prs[0].headRefOid = 'b'.repeat(40);
+        return { stdout: JSON.stringify(prs) };
+      }
+      return result;
+    };
+    const result = await openEditorialPullRequest({ root, run, now, sleep: async (ms) => {
+      assert.equal(ms, 2000);
+      assert.ok(!runner.calls.some((call) => call.command === 'gh' && ['workflow', 'run'].includes(call.args[0])));
+      assert.ok(!runner.calls.some((call) => call.args.includes('merge')));
+      waits += 1;
+    } });
+    assert.equal(result.status, 'auto-merge-requested');
+    assert.equal(reads, 2);
+    assert.equal(waits, 1);
+    assert.ok(runner.calls.filter((call) => call.command === 'git' && call.args[0] === 'ls-remote' && call.args.at(-1) === 'refs/heads/automation/editorial').length >= 2);
+    assert.deepEqual(runner.calls.find((call) => call.args[0] === 'pr' && call.args[1] === 'merge').args, ['pr', 'merge', '42', '--auto', '--squash', '--match-head-commit', head]);
+  }
+});
+
+test('a persistently different PR head stops after a bounded wait without dispatch or merge', async (t) => {
+  const root = await setup(t, 5);
+  const runner = fakeRunner({ existing: true, prHead: 'b'.repeat(40) });
+  let waits = 0;
+  await assert.rejects(openEditorialPullRequest({ root, run: runner.run, now, sleep: async () => { waits += 1; } }), /PR head changed/);
+  assert.equal(waits, 5);
+  assert.equal(runner.calls.filter((call) => call.args[0] === 'pr' && call.args[1] === 'list').length, 6);
+  assert.ok(!runner.calls.some((call) => call.command === 'gh' && ['workflow', 'run'].includes(call.args[0])));
+  assert.ok(!runner.calls.some((call) => call.args.includes('merge')));
+});
+
+test('remote branch movement stops both PR visibility polling and merge after exact-SHA CI', async (t) => {
+  for (const moveAt of [2, 3]) {
+    const root = await setup(t, 5);
+    const runner = fakeRunner({ existing: true });
+    let branchReads = 0;
+    let prReads = 0;
+    const run = async (command, args) => {
+      if (command === 'git' && args[0] === 'ls-remote' && args.at(-1) === 'refs/heads/automation/editorial' && ++branchReads === moveAt) return { stdout: `${'d'.repeat(40)}\t${args.at(-1)}\n` };
+      const result = await runner.run(command, args);
+      if (moveAt === 2 && command === 'gh' && args[0] === 'pr' && args[1] === 'list' && ++prReads === 1) return { stdout: JSON.stringify([{ number: 42, headRefOid: 'b'.repeat(40), url: 'https://github.com/jageros/travel/pull/42' }]) };
+      return result;
+    };
+    await assert.rejects(openEditorialPullRequest({ root, run, now, sleep: async () => {} }), /Editorial branch head changed/);
+    assert.ok(!runner.calls.some((call) => call.args.includes('merge')));
+    if (moveAt === 2) assert.ok(!runner.calls.some((call) => call.args[0] === 'workflow'));
+    else assert.ok(runner.calls.some((call) => call.args[0] === 'run' && call.args[1] === 'list'));
+  }
+});
+
+test('a replaced, closed or ambiguous PR cannot become the target during visibility polling', async (t) => {
+  for (const next of [[{ number: 43, headRefOid: head, url: 'https://github.com/jageros/travel/pull/43' }], [], [{ number: 42, headRefOid: head }, { number: 43, headRefOid: head }]]) {
+    const root = await setup(t, 5);
+    const runner = fakeRunner({ existing: true, prHead: 'b'.repeat(40) });
+    let reads = 0;
+    const run = async (command, args) => command === 'gh' && args[0] === 'pr' && args[1] === 'list' && ++reads > 1 ? { stdout: JSON.stringify(next) } : runner.run(command, args);
+    await assert.rejects(openEditorialPullRequest({ root, run, now, sleep: async () => {} }), /identity changed|Ambiguous/);
+    assert.ok(!runner.calls.some((call) => call.args[0] === 'workflow' || call.args.includes('merge')));
+  }
+});
+
+test('a PR read failure during visibility polling stops without dispatch or merge', async (t) => {
+  const root = await setup(t, 5);
+  const runner = fakeRunner({ existing: true, prHead: 'b'.repeat(40) });
+  let reads = 0;
+  const run = async (command, args) => {
+    if (command === 'gh' && args[0] === 'pr' && args[1] === 'list' && ++reads > 1) throw new Error('PR API unavailable');
+    return runner.run(command, args);
+  };
+  await assert.rejects(openEditorialPullRequest({ root, run, now, sleep: async () => {} }), /PR API unavailable/);
+  assert.ok(!runner.calls.some((call) => call.args[0] === 'workflow' || call.args.includes('merge')));
 });
 
 test('a stale CI run at the same SHA cannot satisfy or fail a new dispatch', async (t) => {
@@ -198,6 +280,37 @@ test('strict health renewals and non-authorizing failure queue can merge before 
   assert.deepEqual(runner.calls.find((call) => call.args[0] === 'pr' && call.args[1] === 'merge').args, ['pr', 'merge', '42', '--auto', '--squash', '--match-head-commit', head]);
 });
 
+test('historical mixed-time health preserves actual checks while a new uniform run can renew', async () => {
+  const fixture = sourceStateFixture();
+  for (const version of [fixture.base, fixture.latest]) {
+    const source = structuredClone(version.registry.sources[0]);
+    source.id = 'bart-transfer';
+    source.url = 'https://www.bart.gov/guide/transfers';
+    source.facts[0].id = 'bart-transfer-station';
+    version.registry.sources.push(source);
+    version.health.sources.push({ ...version.health.sources[0], id: source.id });
+  }
+  fixture.base.health.checkedAt = '2026-10-18T10:00:00.000Z';
+  fixture.base.health.sources[1].checkedAt = '2026-10-18T09:30:00.000Z';
+  const before = JSON.stringify(fixture.base);
+  assert.equal((await classifySourceStateUpdate({ ...fixture, now })).eligible, true);
+  assert.equal(JSON.stringify(fixture.base), before, 'historical timestamps are not rewritten as a new check');
+  for (const mutate of [
+    (f) => { f.base.health.sources[0].checkedAt = '2026-10-18T10:00:01.000Z'; },
+    (f) => { f.base.health.sources.push(structuredClone(f.base.health.sources[0])); },
+    (f) => { f.base.health.sources.pop(); },
+    (f) => { f.base.health.sources[0].contentHash = sha256('Unknown old baseline'); },
+    (f) => { f.latest.health.sources[0].checkedAt = '2026-10-19T08:59:59.000Z'; },
+  ]) {
+    const oldBase = structuredClone(fixture.base);
+    const oldLatest = structuredClone(fixture.latest);
+    mutate(fixture);
+    assert.equal((await classifySourceStateUpdate({ ...fixture, now })).eligible, false);
+    Object.assign(fixture.base, oldBase);
+    Object.assign(fixture.latest, oldLatest);
+  }
+});
+
 test('the default classifier reads committed base and exact head JSON rather than working files', async (t) => {
   const root = await setup(t, 0);
   const fixture = sourceStateFixture();
@@ -236,7 +349,7 @@ test('a newer remote main after validation holds automatic health merging', asyn
   const root = await setup(t, 0);
   const fixture = sourceStateFixture();
   const runner = fakeRunner({ changed: fixture.changed });
-  const run = async (command, args) => command === 'git' && args[0] === 'ls-remote' ? { stdout: `${'d'.repeat(40)}\trefs/heads/main\n` } : runner.run(command, args);
+  const run = async (command, args) => command === 'git' && args[0] === 'ls-remote' && args.at(-1) === 'refs/heads/main' ? { stdout: `${'d'.repeat(40)}\trefs/heads/main\n` } : runner.run(command, args);
   await assert.rejects(openEditorialPullRequest({ root, run, ...fixture, now }), /Main changed/);
   assert.ok(!runner.calls.some((call) => call.args[0] === 'pr' && call.args[1] === 'merge'));
 });

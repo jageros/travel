@@ -103,7 +103,7 @@ Publication checks both the report and each cited source's check from the preced
 
 Failures are deduplicated into `automation/review-queue.json`; human review can resolve and remove those entries after correcting the cause. Existing published Markdown is not overwritten by draft generation or failed source checks. A published article is never regenerated in place. Intent and shingle checks cannot detect every paraphrased duplicate, and syntax checks cannot prove helpfulness, fact completeness or an image's legal status. After the first five releases, inspect at least one published article each week and disable `autoPublishEnabled` if the pipeline starts drifting.
 
-Reports live in `automation/reports/source-check.json` and `automation/reports/pipeline.json`; they are workflow artifacts rather than website content. `automation/source-health.json` is the compact build input. `automation/editorial.json` is the approval and publication ledger. Keep these versioned state files and source baselines during deployments and branch merges.
+Reports live in `automation/reports/source-check.json` and `automation/reports/pipeline.json`; they are workflow artifacts rather than website content. `automation/reports/source-snapshots.json` retains each current-run successful normalized official text with its observed hash for manual source review; failed sources never inherit an old text. This ignored artifact does not approve new baselines. `automation/source-health.json` is the compact build input. `automation/editorial.json` is the approval and publication ledger. Keep these versioned state files and source baselines during deployments and branch merges.
 
 ## Search feedback and operational checks
 
