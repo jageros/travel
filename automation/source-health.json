@@ -3,13 +3,13 @@
   "sources": [
     {
       "id": "bart-sfo",
-      "status": "changed",
+      "status": "unchanged",
       "checkedAt": "2026-10-26T03:04:18.235Z",
       "contentHash": "eb07be9ef24dbc0f337095a61c6c8b26b1250e92ddcdd54be7549613820fbab5"
     },
     {
       "id": "sfmta-fares",
-      "status": "changed",
+      "status": "unchanged",
       "checkedAt": "2026-10-26T03:04:18.235Z",
       "contentHash": "133f1b6c93fd9be0e361b1de2b1d199656cd26a28c1c83e35bbc42e7512c237a"
     },
@@ -81,7 +81,7 @@
     },
     {
       "id": "sfmta-travel-updates",
-      "status": "changed",
+      "status": "unchanged",
       "checkedAt": "2026-10-26T03:04:18.235Z",
       "contentHash": "056d30a9115b00b8dd08f6a2756a3fbe0d20ebaa1daa40dc5ac8d906cfc3157d"
     },
@@ -93,7 +93,7 @@
     },
     {
       "id": "bart-advisories",
-      "status": "changed",
+      "status": "unchanged",
       "checkedAt": "2026-10-26T03:04:18.235Z",
       "contentHash": "a7c69d9f0753114ceb58c2896c3fc08aed2ac3014bb0a46bdaf95641f5b76ddd"
     },
@@ -105,7 +105,7 @@
     },
     {
       "id": "bart-paying-fare",
-      "status": "changed",
+      "status": "unchanged",
       "checkedAt": "2026-10-26T03:04:18.235Z",
       "contentHash": "40a697577f3ae5ad64a47bee6d612ffd7e7ee159913192e074e90b694710c54e"
     },
@@ -123,19 +123,19 @@
     },
     {
       "id": "bart-tap-and-ride",
-      "status": "changed",
+      "status": "unchanged",
       "checkedAt": "2026-10-26T03:04:18.235Z",
       "contentHash": "ee88797733d6a9f189df011ff5f4cbb8d645e04360bbca2cd7d497e3743dbdb8"
     },
     {
       "id": "bart-schedules",
-      "status": "changed",
+      "status": "unchanged",
       "checkedAt": "2026-10-26T03:04:18.235Z",
       "contentHash": "3d03c8dd86c3c0265941ed37f519503bbd85a8936dd1c492a8243546b417a048"
     },
     {
       "id": "bart-official-app",
-      "status": "changed",
+      "status": "unchanged",
       "checkedAt": "2026-10-26T03:04:18.235Z",
       "contentHash": "1e3eb5dfba98e9bb4ba041d4a2e09afd7162cb9ab0baf74e5fcf9142bbf2c732"
     },
