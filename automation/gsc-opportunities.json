@@ -1,0 +1,62 @@
+{
+  "importedAt": "2026-10-26T02:45:33.996Z",
+  "source": "Search Console export supplied by editor",
+  "opportunities": [
+    {
+      "query": "how to get around san francisco without a car",
+      "impressions": 5,
+      "clicks": 0,
+      "position": 79.2,
+      "matchingIntent": null,
+      "status": "needs-editorial-assessment"
+    },
+    {
+      "query": "clipper muni",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 7,
+      "matchingIntent": null,
+      "status": "needs-editorial-assessment"
+    },
+    {
+      "query": "getting around san francisco without a car",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 8,
+      "matchingIntent": null,
+      "status": "needs-editorial-assessment"
+    },
+    {
+      "query": "muni vs clipper",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 10,
+      "matchingIntent": null,
+      "status": "needs-editorial-assessment"
+    },
+    {
+      "query": "how to travel in san francisco without a car",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 11,
+      "matchingIntent": null,
+      "status": "needs-editorial-assessment"
+    },
+    {
+      "query": "fisherman's wharf bart station",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 31,
+      "matchingIntent": null,
+      "status": "needs-editorial-assessment"
+    },
+    {
+      "query": "bart to muni transfer",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 32,
+      "matchingIntent": null,
+      "status": "needs-editorial-assessment"
+    }
+  ]
+}

@@ -89,7 +89,7 @@ function strictRegistry(registry, now) {
 
 function strictHealth(report, registry, now, fresh) {
   requireKeys(report, ['checkedAt', 'sources', 'conflicts']);
-  checkedTimestamp(report.checkedAt, now, fresh);
+  const reportTime = checkedTimestamp(report.checkedAt, now, fresh);
   if (!Array.isArray(report.sources) || !Array.isArray(report.conflicts)) throw new Error('Invalid health arrays');
   const registrySources = new Map(registry.sources.map((source) => [source.id, source]));
   const factIds = new Set(registry.sources.flatMap((source) => source.facts.map((fact) => fact.id)));
@@ -97,8 +97,10 @@ function strictHealth(report, registry, now, fresh) {
   for (const row of report.sources) {
     const failed = row.status === 'unavailable';
     requireKeys(row, ['id', 'status', 'checkedAt', failed ? 'error' : 'contentHash']);
-    checkedTimestamp(row.checkedAt, now, fresh);
-    if (row.checkedAt !== report.checkedAt || !registrySources.has(row.id) || rows.has(row.id)) throw new Error('Health must cover each registered source once at the report time');
+    const rowTime = checkedTimestamp(row.checkedAt, now, fresh);
+    // Historical reports may assemble independently checked rows. A new report
+    // still needs one fresh run; its envelope cannot refresh an older row.
+    if ((fresh ? rowTime !== reportTime : rowTime > reportTime) || !registrySources.has(row.id) || rows.has(row.id)) throw new Error('Health must cover each registered source once with valid report times');
     const source = registrySources.get(row.id);
     if (!['unchanged', 'changed', 'unavailable', 'baseline-missing'].includes(row.status)) throw new Error('Unknown source health status');
     if (failed) {
@@ -194,7 +196,22 @@ export async function openEditorialPullRequest({ root = process.cwd(), env = pro
     await run('gh', ['pr', 'create', '--base', 'main', '--head', 'automation/editorial', '--title', 'Content and official-source review queue', '--body-file', '.github/editorial-pr.md']);
     pr = await listOpen();
   }
-  if (!pr || !Number.isSafeInteger(pr.number) || pr.number <= 0 || pr.headRefOid !== sha) throw new Error('Editorial PR head changed; re-run checks before merging');
+  const number = pr?.number;
+  const verifyRemoteHead = async () => {
+    const ref = 'refs/heads/automation/editorial';
+    const remote = (await run('git', ['ls-remote', '--heads', 'origin', ref])).stdout.trim();
+    if (remote !== `${sha}\t${ref}`) throw new Error('Editorial branch head changed; re-run checks before merging');
+  };
+  // PR metadata can lag a successful push. Only wait while the actual branch
+  // still has our exact commit and the same open PR retains its identity.
+  for (let attempt = 0; attempt < 6; attempt += 1) {
+    await verifyRemoteHead();
+    if (!Number.isSafeInteger(number) || number <= 0 || !pr || pr.number !== number || !/^[a-f0-9]{40}$/.test(pr.headRefOid ?? '')) throw new Error('Editorial PR identity changed; re-run checks before merging');
+    if (pr.headRefOid === sha) break;
+    if (attempt === 5) throw new Error('Editorial PR head changed; re-run checks before merging');
+    await sleep(2000);
+    pr = await listOpen();
+  }
 
   const state = await readJson(path.join(root, 'automation/editorial.json'));
   if (state.version !== 1 || state.requiredManualApprovals !== 5 || typeof state.autoPublishEnabled !== 'boolean' || !Array.isArray(state.publications) || !Array.isArray(state.approvals)) throw new Error('Invalid editorial approval state; PR remains held for review');
@@ -206,6 +223,7 @@ export async function openEditorialPullRequest({ root = process.cwd(), env = pro
   const listRuns = async () => JSON.parse((await run('gh', ['run', 'list', '--workflow', 'ci.yml', '--event', 'workflow_dispatch', '--branch', 'automation/editorial', '--commit', sha, '--limit', '10', '--json', 'databaseId,status,conclusion,headSha'])).stdout);
   const priorRuns = new Set(autoEligible ? (await listRuns()).map((item) => item.databaseId) : []);
   // This extra exact-SHA dispatch is distinct from the required PR-event CI.
+  await verifyRemoteHead();
   await run('gh', ['workflow', 'run', 'ci.yml', '--ref', 'automation/editorial']);
   const prAuthMode = env.EDITORIAL_APP_TOKEN ? 'github-app' : 'github-token-human-workflow-approval';
   if (!autoEligible) return { status: 'manual-review', number: pr.number, url: pr.url, sha, manualReleases: manualCount, sourceState: sourceState.reason, prAuthMode };
@@ -226,6 +244,7 @@ export async function openEditorialPullRequest({ root = process.cwd(), env = pro
   const checkedBase = (await run('git', ['rev-parse', 'origin/main'])).stdout.trim();
   const remoteBase = (await run('git', ['ls-remote', 'origin', 'refs/heads/main'])).stdout.trim();
   if (!/^[a-f0-9]{40}$/.test(checkedBase) || remoteBase !== `${checkedBase}\trefs/heads/main`) throw new Error('Main changed after checkout; refresh the editorial branch and rerun validation before merging');
+  await verifyRemoteHead();
   await run('gh', ['pr', 'merge', String(pr.number), '--auto', '--squash', '--match-head-commit', sha]);
   return { status: 'auto-merge-requested', number: pr.number, url: pr.url, sha, manualReleases: manualCount, mergeChannel: healthOnly ? 'source-state' : 'content', prAuthMode };
 }

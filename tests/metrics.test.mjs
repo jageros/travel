@@ -4,6 +4,7 @@ import { promises as fs } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { createMetricsReport, metricColumns, parseMetricRows, reportMetrics } from '../scripts/report-metrics.mjs';
+import { importQueries } from '../scripts/import-gsc.mjs';
 
 const header = metricColumns.join(',');
 const row = (overrides = {}) => {
@@ -69,4 +70,30 @@ test('report writes only measured output to ignored reports path', async (t) => 
   const result = JSON.parse(await fs.readFile(path.join(root, 'reports/metrics.json'), 'utf8'));
   assert.equal(result.cohort_rows, 1);
   assert.equal(result.totals.ad_revenue, 3);
+});
+
+test('English and Chinese Search Console headers preserve identical queries, metrics and editorial state', () => {
+  const observations = 'bart to muni transfer,0,5,0%,32\n"Muni, Clipper",2,"1,234",0.16%,7.25';
+  const articles = [{ data: { slug: 'muni-clipper-guide', primaryIntent: 'Muni Clipper' } }];
+  const expected = [
+    { query: 'Muni, Clipper', impressions: 1234, clicks: 2, position: 7.25, matchingIntent: 'muni-clipper-guide', status: 'needs-editorial-assessment' },
+    { query: 'bart to muni transfer', impressions: 5, clicks: 0, position: 32, matchingIntent: null, status: 'needs-editorial-assessment' },
+  ];
+  for (const queryHeader of ['Query', 'Queries', 'Top queries']) {
+    assert.deepEqual(importQueries(`${queryHeader},Clicks,Impressions,CTR,Position\n${observations}`, articles), expected);
+  }
+  const chinese = `\uFEFF热门查询,点击次数,展示,点击率,排名\r\n${observations.replaceAll('\n', '\r\n')}\r\n`;
+  assert.deepEqual(importQueries(chinese, articles), expected);
+});
+
+test('localized Search Console exports still require query, clicks and impressions while position remains optional', () => {
+  for (const fields of [['Query', 'Clicks', 'Impressions'], ['热门查询', '点击次数', '展示']]) {
+    for (let missing = 0; missing < fields.length; missing += 1) {
+      const remaining = fields.filter((_, index) => index !== missing);
+      assert.throws(() => importQueries(`${remaining.join(',')}\n`), /Expected Search Console Query, Clicks and Impressions columns/);
+    }
+    assert.deepEqual(importQueries(`${fields.join(',')}\nclipper muni,0,1\n`), [
+      { query: 'clipper muni', impressions: 1, clicks: 0, position: null, matchingIntent: null, status: 'needs-editorial-assessment' },
+    ]);
+  }
 });

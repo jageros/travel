@@ -83,6 +83,18 @@ export async function runSourceCheck(root, options = {}) {
   }
   for (const id of result.report.conflicts) await queueFailure(root, { slug: 'source-monitor', stage: 'fact-evidence', errors: [`${id}: registered evidence was not found in the current source`] }, options.now);
   await writeJson(path.join(root, 'automation/reports/source-check.json'), result.report);
+  const sourceUrls = new Map(registry.sources.map((source) => [source.id, source.url]));
+  // Review evidence for this run only; observed hashes never approve a new baseline.
+  await writeJson(path.join(root, 'automation/reports/source-snapshots.json'), {
+    checkedAt: result.report.checkedAt,
+    sources: result.report.sources.map((source) => ({
+      id: source.id,
+      url: sourceUrls.get(source.id),
+      status: source.status,
+      contentHash: source.contentHash ?? null,
+      ...(source.status !== 'unavailable' && result.texts.has(source.id) ? { text: result.texts.get(source.id) } : {}),
+    })),
+  });
   return { ...result, registry };
 }
 

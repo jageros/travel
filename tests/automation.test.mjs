@@ -4,7 +4,7 @@ import { promises as fs } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { articleDigest, assertOfficialUrl, findDuplicates, manualReleaseCount, parseArticle, publicationDecision, readArticles, readJson, serializeArticle, sha256, validateArticle, writeJson } from '../scripts/content-lib.mjs';
-import { checkSources, extractText, fetchOfficialText } from '../scripts/check-sources.mjs';
+import { checkSources, extractText, fetchOfficialText, runSourceCheck } from '../scripts/check-sources.mjs';
 import { approveArticle, generateDraft, publishCandidates, runPipeline, topicPreflight } from '../scripts/content-pipeline.mjs';
 import { importQueries } from '../scripts/import-gsc.mjs';
 
@@ -74,6 +74,39 @@ test('baseline acceptance initializes only missing hashes and never accepts chan
   assert.equal(initial.sources[0].contentHash, sha256(officialText));
   const changed = await checkSources(initial, { fetcher: async () => new Response(`<main>${'Changed source page. '.repeat(20)}</main>`, { headers: { 'content-type': 'text/html' } }), now, acceptBaseline: true });
   assert.equal(changed.report.sources[0].status, 'changed');
+});
+
+test('source snapshots capture exact current-run normalized text and overwrite unavailable sources without accepting baselines', async (t) => {
+  const root = await fixture(t);
+  const initial = registry();
+  initial.sources.push({ ...structuredClone(initial.sources[0]), id: 'changed-transit', url: 'https://www.bart.gov/guide/changed', facts: [] });
+  await writeJson(path.join(root, 'automation/sources.json'), initial);
+  const baselineHashes = initial.sources.map(({ id, contentHash }) => ({ id, contentHash }));
+  const changedHtml = `<header>Excluded navigation</header><main>${'Revised official transit information for public journeys. '.repeat(8)}</main>`;
+  const first = await runSourceCheck(root, { now, fetcher: async (url) => String(url).endsWith('/guide/changed')
+    ? new Response(changedHtml, { headers: { 'content-type': 'text/html' } }) : sourceFetch() });
+  const snapshotFile = path.join(root, 'automation/reports/source-snapshots.json');
+  const snapshots = await readJson(snapshotFile);
+  assert.equal(snapshots.checkedAt, first.report.checkedAt);
+  assert.deepEqual(snapshots.sources.map((source) => source.status), ['unchanged', 'changed']);
+  assert.deepEqual(snapshots.sources.map((source) => source.text), [officialText, extractText(changedHtml)]);
+  for (const snapshot of snapshots.sources) {
+    const health = first.report.sources.find((source) => source.id === snapshot.id);
+    assert.equal(snapshot.url, initial.sources.find((source) => source.id === snapshot.id).url);
+    assert.equal(snapshot.contentHash, health.contentHash);
+    assert.equal(sha256(snapshot.text), health.contentHash, 'the review artifact must contain the exact text that was hashed');
+  }
+  assert.notEqual(snapshots.sources[1].contentHash, initial.sources[1].contentHash, 'changed text is evidence, not baseline acceptance');
+  const savedHashes = async () => (await readJson(path.join(root, 'automation/sources.json'))).sources.map(({ id, contentHash }) => ({ id, contentHash }));
+  assert.deepEqual(await savedHashes(), baselineHashes);
+
+  const nextCheck = new Date('2026-10-20T09:00:00Z');
+  await runSourceCheck(root, { now: nextCheck, fetcher: async () => new Response(null, { status: 403 }) });
+  const unavailable = await readJson(snapshotFile);
+  assert.equal(unavailable.checkedAt, nextCheck.toISOString());
+  assert.deepEqual(unavailable.sources, initial.sources.map(({ id, url }) => ({ id, url, status: 'unavailable', contentHash: null })));
+  assert.ok(unavailable.sources.every((source) => !Object.hasOwn(source, 'text')), 'failed checks cannot retain any prior normalized text');
+  assert.deepEqual(await savedHashes(), baselineHashes);
 });
 
 test('unchanged source health cannot renew manual facts without evidence or bypass their expiry gate', async (t) => {
