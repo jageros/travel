@@ -38,3 +38,11 @@ The five named approvals, original article digests and three publication records
 The two manually verified Sausalito facts expired **October 24 at 08:00 Asia/Shanghai** and remain unrenewed. A static shell hash or `ready` brief label cannot revalidate their rendered route controls. Hold that topic until a new manual review. No external model, payment credential, advertisement or new permission was configured. The first-five publication follow-up and weekly review remain useful; this audit does not claim the October 28 release has occurred.
 
 Raw exports, browser observations, source captures, workflow-log evidence and HTTP responses are retained under ignored artifacts for this dated review. Current search signals favor maintaining the existing cluster while resolving the source queue; they do not establish demand volume, durable rankings or ad income.
+
+## Follow-up acceptance
+
+[PR #23](https://github.com/jageros/travel/pull/23) passed **135/135 tests**, zero Astro diagnostics and both build modes before normal merge as `211fb45`. The subsequent monitor-only **run #13** left baseline acceptance, article approval, drafting and publication unset. It produced the new exact-body artifact, passed current-head CI and automatically merged source-state **PR #24** as `48e39d4`, restoring the real automatic update chain. This run does not prove that PR metadata actually lagged during this particular execution; the bounded-retry and historical mixed-time cases are covered by regression tests.
+
+Cloudflare's production check for `48e39d4` succeeded: Build `3d12df4d-483f-4241-9f05-d52a3fa1bb25`, Version `cf134860-d77e-4b74-bbe1-a33574d3ae9c`. The connected check contains no traffic-allocation field. The Cloudflare UI currently requires sign-in and displays a terms-acceptance notice; no new terms were accepted during this audit. Therefore 100% traffic allocation was not independently rechecked in the UI, rather than inferred from public HTML.
+
+The [individual changed-source review proposal](source-review-2026-10-26.md) binds all eight candidates to the complete run13 bodies and preserves their original capture time. Its nine statements need no correction; adoption remains a separate source-baseline approval. No new article was released during this weekly review.

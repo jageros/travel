@@ -13,27 +13,27 @@
       "url": "https://www.bart.gov/guide/airport/sfo",
       "title": "Airport Connections (SFO & OAK)",
       "publisher": "Bay Area Rapid Transit",
-      "checkedAt": "2026-10-23",
+      "checkedAt": "2026-10-26",
       "facts": [
         {
           "id": "bart-sfo-station",
           "statement": "SFO’s BART station is in the International Terminal; the free AirTrain connects airport terminals to the station.",
-          "checkedAt": "2026-10-23",
-          "expiresAt": "2026-10-30",
+          "checkedAt": "2026-10-26",
+          "expiresAt": "2026-11-02",
           "dynamic": true,
           "evidence": "The BART station is located in the International Terminal"
         }
       ],
-      "contentHash": "6e47386934ab24578646995df7f4d9551c949f7860f31fa66822f532db7d4edb"
+      "contentHash": "eb07be9ef24dbc0f337095a61c6c8b26b1250e92ddcdd54be7549613820fbab5"
     },
     {
       "id": "sfmta-fares",
       "url": "https://www.sfmta.com/getting-around/muni/fares",
       "title": "Fares",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-10-23",
+      "checkedAt": "2026-10-26",
       "facts": [],
-      "contentHash": "e519e560d8a5c3f802677cb799387f9420a56ce26385a1a079002290fbf7cfb4"
+      "contentHash": "133f1b6c93fd9be0e361b1de2b1d199656cd26a28c1c83e35bbc42e7512c237a"
     },
     {
       "id": "sfmta-adult-single",
@@ -253,18 +253,18 @@
       "url": "https://www.sfmta.com/travel-transit-updates",
       "title": "Travel & Transit Updates",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-26",
       "facts": [
         {
           "id": "muni-current-advisory-lookup",
           "statement": "The SFMTA travel-updates index lists dated advisories and links the Muni Metro elevator-status and temporary-stop-relocation tools. Open the specific notice to check its route, direction and effective period; presence on this index is not proof that an incident is active today.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-26",
+          "expiresAt": "2026-11-02",
           "dynamic": true,
           "evidence": "Muni Metro Elevator Status"
         }
       ],
-      "contentHash": "de4e31862d06a03304cf23db7b26d01a551b38d972b2fe0969d59c49523c3d5e"
+      "contentHash": "056d30a9115b00b8dd08f6a2756a3fbe0d20ebaa1daa40dc5ac8d906cfc3157d"
     },
     {
       "id": "sfmta-trip-planner",
@@ -289,26 +289,26 @@
       "url": "https://www.bart.gov/schedules/advisories",
       "title": "Alerts and Advisories",
       "publisher": "Bay Area Rapid Transit",
-      "checkedAt": "2026-10-22",
+      "checkedAt": "2026-10-26",
       "facts": [
         {
           "id": "bart-cancelled-train-lookup",
           "statement": "BART explains that cancelled trains appear in station-specific real-time departures, schedules by station and the Trip Planner. A general service-advisory banner is not a complete list of individual cancelled trains.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-26",
+          "expiresAt": "2026-11-02",
           "dynamic": true,
           "evidence": "station specific"
         },
         {
           "id": "bart-elevator-alternative-lookup",
           "statement": "BART directs readers to click the station name for accessible alternatives when checking station elevator information. Recheck the named station and current route; this does not guarantee that a substitute journey or replacement bus is accessible.",
-          "checkedAt": "2026-10-22",
-          "expiresAt": "2026-10-29",
+          "checkedAt": "2026-10-26",
+          "expiresAt": "2026-11-02",
           "dynamic": true,
           "evidence": "accessible alternatives"
         }
       ],
-      "contentHash": "ca4f176f86c84eadd1509c4bfa4dda92d31ff95c55e4d37d6d64e067278ad9ac"
+      "contentHash": "a7c69d9f0753114ceb58c2896c3fc08aed2ac3014bb0a46bdaf95641f5b76ddd"
     },
     {
       "id": "sfmta-free-muni-youth",
@@ -341,26 +341,26 @@
       "url": "https://www.bart.gov/tickets",
       "title": "Paying Your Fare",
       "publisher": "Bay Area Rapid Transit",
-      "checkedAt": "2026-10-23",
+      "checkedAt": "2026-10-26",
       "facts": [
         {
           "id": "bart-youth-fare-eligibility",
           "statement": "BART lists free travel for children 4 and under and a 50% youth discount for ages 5–18 using a Youth Clipper card. Discount cards require proof of eligibility and are not issued by station vending machines; direct bank-card Tap and Ride charges adult fares.",
-          "checkedAt": "2026-10-23",
-          "expiresAt": "2026-10-30",
+          "checkedAt": "2026-10-26",
+          "expiresAt": "2026-11-02",
           "dynamic": true,
           "evidence": "50% off with a youth Clipper card"
         },
         {
           "id": "bart-clipper-payment-alternative",
           "statement": "BART accepts Clipper as well as bank-card Tap and Ride and states that all stations have Clipper vending machines. The page tells riders needing to exit without riding a train to see a station agent first. A new credential must not be presented as an automatic fix for an unresolved journey.",
-          "checkedAt": "2026-10-23",
-          "expiresAt": "2026-10-30",
+          "checkedAt": "2026-10-26",
+          "expiresAt": "2026-11-02",
           "dynamic": true,
           "evidence": "All stations have Clipper vending machines"
         }
       ],
-      "contentHash": "1382a97f3ce5039caa30a67d7698c2803649ad93461e7f6886ab27fa7382d9d4"
+      "contentHash": "40a697577f3ae5ad64a47bee6d612ffd7e7ee159913192e074e90b694710c54e"
     },
     {
       "id": "clipper-youth-senior",
@@ -411,54 +411,54 @@
       "url": "https://www.bart.gov/tickets/contactless",
       "title": "Tap and Ride",
       "publisher": "Bay Area Rapid Transit",
-      "checkedAt": "2026-10-23",
+      "checkedAt": "2026-10-26",
       "facts": [
         {
           "id": "bart-contactless-agent-help",
           "statement": "BART station agents can help identify which contactless bank card was used or confirm tapping activity. BART requires the same card or device at entry and exit; seek staff help with an unresolved journey rather than substituting a credential at the exit gate.",
-          "checkedAt": "2026-10-23",
-          "expiresAt": "2026-10-30",
+          "checkedAt": "2026-10-26",
+          "expiresAt": "2026-11-02",
           "dynamic": true,
           "evidence": "confirm tapping activity"
         }
       ],
-      "contentHash": "3d170b08b742c9f33d3ef7b6d307e2be7062ae696de8d20ec940e1c076be143f"
+      "contentHash": "ee88797733d6a9f189df011ff5f4cbb8d645e04360bbca2cd7d497e3743dbdb8"
     },
     {
       "id": "bart-schedules",
       "url": "https://www.bart.gov/schedules",
       "title": "Schedules",
       "publisher": "Bay Area Rapid Transit",
-      "checkedAt": "2026-10-23",
+      "checkedAt": "2026-10-26",
       "facts": [
         {
           "id": "bart-planner-planned-delays",
           "statement": "BART recommends its official Trip Planner and says it includes planned delays. Its system-wide service-hour summary does not establish the last feasible SFO departure, a specific connection or service on the reader's travel date.",
-          "checkedAt": "2026-10-23",
-          "expiresAt": "2026-10-30",
+          "checkedAt": "2026-10-26",
+          "expiresAt": "2026-11-02",
           "dynamic": true,
           "evidence": "includes planned delays"
         }
       ],
-      "contentHash": "5c2865ef412d2a3113a3e6377ad240a42852717e2527b56a992438fe33328e11"
+      "contentHash": "3d03c8dd86c3c0265941ed37f519503bbd85a8936dd1c492a8243546b417a048"
     },
     {
       "id": "bart-official-app",
       "url": "https://www.bart.gov/guide/apps",
       "title": "BART Apps",
       "publisher": "Bay Area Rapid Transit",
-      "checkedAt": "2026-10-23",
+      "checkedAt": "2026-10-26",
       "facts": [
         {
           "id": "bart-app-last-train-lookup",
           "statement": "BART describes official-app tools for real-time departures, cancelled-run indicators and viewing the last evening train by station. This verifies the tool's documented capability, not any date-specific last train, transfer feasibility or connection guarantee.",
-          "checkedAt": "2026-10-23",
-          "expiresAt": "2026-10-30",
+          "checkedAt": "2026-10-26",
+          "expiresAt": "2026-11-02",
           "dynamic": true,
           "evidence": "last train of the evening by station"
         }
       ],
-      "contentHash": "1286193aa37fea5773dedb011ed1d0eb47df37954b816d761ef056add0c013d3"
+      "contentHash": "1e3eb5dfba98e9bb4ba041d4a2e09afd7162cb9ab0baf74e5fcf9142bbf2c732"
     },
     {
       "id": "sfo-taxis",
