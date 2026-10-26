@@ -53,7 +53,7 @@
     "errors": [
       "sfmta-travel-updates: changed"
     ],
-    "detectedAt": "2026-10-25T06:02:52.320Z"
+    "detectedAt": "2026-10-26T03:04:18.235Z"
   },
   {
     "slug": "source-monitor",
@@ -61,7 +61,7 @@
     "errors": [
       "bart-advisories: changed"
     ],
-    "detectedAt": "2026-10-25T06:02:52.320Z"
+    "detectedAt": "2026-10-26T03:04:18.235Z"
   },
   {
     "slug": "source-monitor",
@@ -69,7 +69,7 @@
     "errors": [
       "bart-sfo: changed"
     ],
-    "detectedAt": "2026-10-25T06:02:52.320Z"
+    "detectedAt": "2026-10-26T03:04:18.235Z"
   },
   {
     "slug": "source-monitor",
@@ -77,7 +77,7 @@
     "errors": [
       "sfmta-fares: changed"
     ],
-    "detectedAt": "2026-10-25T06:02:52.320Z"
+    "detectedAt": "2026-10-26T03:04:18.235Z"
   },
   {
     "slug": "source-monitor",
@@ -85,7 +85,7 @@
     "errors": [
       "bart-paying-fare: changed"
     ],
-    "detectedAt": "2026-10-25T06:02:52.320Z"
+    "detectedAt": "2026-10-26T03:04:18.235Z"
   },
   {
     "slug": "source-monitor",
@@ -93,7 +93,7 @@
     "errors": [
       "bart-tap-and-ride: changed"
     ],
-    "detectedAt": "2026-10-25T06:02:52.320Z"
+    "detectedAt": "2026-10-26T03:04:18.235Z"
   },
   {
     "slug": "source-monitor",
@@ -101,7 +101,7 @@
     "errors": [
       "bart-schedules: changed"
     ],
-    "detectedAt": "2026-10-25T06:02:52.320Z"
+    "detectedAt": "2026-10-26T03:04:18.235Z"
   },
   {
     "slug": "source-monitor",
@@ -109,7 +109,7 @@
     "errors": [
       "bart-official-app: changed"
     ],
-    "detectedAt": "2026-10-25T06:02:52.320Z"
+    "detectedAt": "2026-10-26T03:04:18.235Z"
   },
   {
     "slug": "golden-gate-bridge-without-a-car",
