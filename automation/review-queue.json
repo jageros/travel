@@ -5,7 +5,7 @@
     "errors": [
       "Weekly publication cap reached (3 in rolling 7 days)"
     ],
-    "detectedAt": "2026-10-23T06:00:41.475Z"
+    "detectedAt": "2026-10-26T06:07:05.801Z"
   },
   {
     "slug": "golden-gate-bridge-without-a-car",
@@ -13,7 +13,7 @@
     "errors": [
       "Weekly publication cap reached (3 in rolling 7 days)"
     ],
-    "detectedAt": "2026-10-23T06:00:41.475Z"
+    "detectedAt": "2026-10-26T06:07:05.801Z"
   },
   {
     "slug": "sf-waterfront-transit-itinerary",
@@ -21,6 +21,6 @@
     "errors": [
       "Weekly publication cap reached (3 in rolling 7 days)"
     ],
-    "detectedAt": "2026-10-25T06:02:52.320Z"
+    "detectedAt": "2026-10-26T06:07:05.801Z"
   }
 ]
