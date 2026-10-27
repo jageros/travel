@@ -5,7 +5,7 @@
     "errors": [
       "Weekly publication cap reached (3 in rolling 7 days)"
     ],
-    "detectedAt": "2026-10-26T06:07:05.801Z"
+    "detectedAt": "2026-10-27T06:14:18.256Z"
   },
   {
     "slug": "golden-gate-bridge-without-a-car",
@@ -13,7 +13,7 @@
     "errors": [
       "Weekly publication cap reached (3 in rolling 7 days)"
     ],
-    "detectedAt": "2026-10-26T06:07:05.801Z"
+    "detectedAt": "2026-10-27T06:14:18.256Z"
   },
   {
     "slug": "sf-waterfront-transit-itinerary",
@@ -21,6 +21,62 @@
     "errors": [
       "Weekly publication cap reached (3 in rolling 7 days)"
     ],
-    "detectedAt": "2026-10-26T06:07:05.801Z"
+    "detectedAt": "2026-10-27T06:14:18.256Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-sfo: changed"
+    ],
+    "detectedAt": "2026-10-27T06:14:18.256Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "sfmta-travel-updates: changed"
+    ],
+    "detectedAt": "2026-10-27T06:14:18.256Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-advisories: changed"
+    ],
+    "detectedAt": "2026-10-27T06:14:18.256Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-paying-fare: changed"
+    ],
+    "detectedAt": "2026-10-27T06:14:18.256Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-tap-and-ride: changed"
+    ],
+    "detectedAt": "2026-10-27T06:14:18.256Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-schedules: changed"
+    ],
+    "detectedAt": "2026-10-27T06:14:18.256Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-official-app: changed"
+    ],
+    "detectedAt": "2026-10-27T06:14:18.256Z"
   }
 ]
