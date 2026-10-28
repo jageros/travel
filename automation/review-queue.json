@@ -29,7 +29,7 @@
     "errors": [
       "bart-sfo: changed"
     ],
-    "detectedAt": "2026-10-27T06:14:18.256Z"
+    "detectedAt": "2026-10-28T06:50:14.538Z"
   },
   {
     "slug": "source-monitor",
@@ -37,7 +37,7 @@
     "errors": [
       "sfmta-travel-updates: changed"
     ],
-    "detectedAt": "2026-10-27T06:14:18.256Z"
+    "detectedAt": "2026-10-28T06:50:14.538Z"
   },
   {
     "slug": "source-monitor",
@@ -45,7 +45,7 @@
     "errors": [
       "bart-advisories: changed"
     ],
-    "detectedAt": "2026-10-27T06:14:18.256Z"
+    "detectedAt": "2026-10-28T06:50:14.538Z"
   },
   {
     "slug": "source-monitor",
@@ -53,7 +53,7 @@
     "errors": [
       "bart-paying-fare: changed"
     ],
-    "detectedAt": "2026-10-27T06:14:18.256Z"
+    "detectedAt": "2026-10-28T06:50:14.538Z"
   },
   {
     "slug": "source-monitor",
@@ -61,7 +61,7 @@
     "errors": [
       "bart-tap-and-ride: changed"
     ],
-    "detectedAt": "2026-10-27T06:14:18.256Z"
+    "detectedAt": "2026-10-28T06:50:14.538Z"
   },
   {
     "slug": "source-monitor",
@@ -69,7 +69,7 @@
     "errors": [
       "bart-schedules: changed"
     ],
-    "detectedAt": "2026-10-27T06:14:18.256Z"
+    "detectedAt": "2026-10-28T06:50:14.538Z"
   },
   {
     "slug": "source-monitor",
@@ -77,6 +77,40 @@
     "errors": [
       "bart-official-app: changed"
     ],
-    "detectedAt": "2026-10-27T06:14:18.256Z"
+    "detectedAt": "2026-10-28T06:50:14.538Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "sfmta-fares: changed"
+    ],
+    "detectedAt": "2026-10-28T06:50:14.538Z"
+  },
+  {
+    "slug": "golden-gate-bridge-without-a-car",
+    "stage": "publish",
+    "errors": [
+      "Source requires review: sfmta-fares (changed)",
+      "Source health does not match the approved baseline: sfmta-fares"
+    ],
+    "detectedAt": "2026-10-28T06:50:14.538Z"
+  },
+  {
+    "slug": "is-muni-pass-worth-it",
+    "stage": "publish",
+    "errors": [
+      "Source requires review: sfmta-fares (changed)",
+      "Source health does not match the approved baseline: sfmta-fares"
+    ],
+    "detectedAt": "2026-10-28T06:50:14.538Z"
+  },
+  {
+    "slug": "sf-waterfront-transit-itinerary",
+    "stage": "publish",
+    "errors": [
+      "Named editorial approval required for this exact content"
+    ],
+    "detectedAt": "2026-10-28T06:50:14.538Z"
   }
 ]
