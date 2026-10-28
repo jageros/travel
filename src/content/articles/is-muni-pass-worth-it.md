@@ -1,19 +1,31 @@
 ---
-title: "Is a Muni pass worth it? Count fare windows, then compare"
-description: "Use a clear formula to compare Muni single rides, a Muni-only day product and a Visitor Passport, with cable cars and airport costs kept explicit."
-slug: "is-muni-pass-worth-it"
-type: "guide"
-topic: "san-francisco-without-a-car"
-status: "review"
-author: "editorial-team"
-updatedAt: "2026-10-20"
-checkedAt: "2026-10-20"
-primaryIntent: "Calculate whether a Muni pass fits the actual journeys in a visitor's day"
-sources: ["sfmta-fares", "sfmta-adult-single", "sfmta-day-pass", "sfmta-visitor-passport"]
-facts: ["muni-adult-clipper-fare", "muni-transfer-window", "muni-day-pass-fare", "muni-passport-fare"]
-related: ["bart-vs-muni-clipper", "san-francisco-without-a-car", "golden-gate-bridge-without-a-car"]
-hero:
-  photoId: "muni-streetcar"
+"title": "Is a Muni pass worth it? Count fare windows, then compare"
+"description": "Use a clear formula to compare Muni single rides, a Muni-only day product and a Visitor Passport, with cable cars and airport costs kept explicit."
+"slug": "is-muni-pass-worth-it"
+"type": "guide"
+"topic": "san-francisco-without-a-car"
+"status": "published"
+"author": "editorial-team"
+"updatedAt": "2026-10-20"
+"checkedAt": "2026-10-20"
+"primaryIntent": "Calculate whether a Muni pass fits the actual journeys in a visitor's day"
+"sources":
+  - "sfmta-fares"
+  - "sfmta-adult-single"
+  - "sfmta-day-pass"
+  - "sfmta-visitor-passport"
+"facts":
+  - "muni-adult-clipper-fare"
+  - "muni-transfer-window"
+  - "muni-day-pass-fare"
+  - "muni-passport-fare"
+"related":
+  - "bart-vs-muni-clipper"
+  - "san-francisco-without-a-car"
+  - "golden-gate-bridge-without-a-car"
+"hero":
+  "photoId": "muni-streetcar"
+"publishedAt": "2026-10-28"
 ---
 
 A Muni pass is worth considering when it covers journeys you are likely to make for less than the applicable individual fares. Count paid fare windows first, then separate cable cars and other operators. Counting every boarding as another full fare can make a pass look better than it is.

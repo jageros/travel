@@ -4,7 +4,7 @@
 "slug": "sf-waterfront-transit-itinerary"
 "type": "guide"
 "topic": "san-francisco-without-a-car"
-"status": "review"
+"status": "published"
 "author": "editorial-team"
 "updatedAt": "2026-10-21"
 "checkedAt": "2026-10-21"
@@ -21,6 +21,7 @@
   - "is-muni-pass-worth-it"
 "hero":
   "photoId": "muni-streetcar"
+"publishedAt": "2026-10-28"
 ---
 
 For a flexible waterfront outing, start with the Ferry Building and choose either Pier 39 or Fisherman's Wharf as your main destination. Make the other stop optional. Use the F-line historic streetcar for a leg you want to ride, then decide how much walking suits your group before committing to the return.

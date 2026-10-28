@@ -55,6 +55,26 @@
       "contentSha256": "7721e4a80be04978e8bf9ef89d97954c8116bce45363562f08aef88b9cfd9104",
       "manualApproval": true,
       "reviewer": "jageros"
+    },
+    {
+      "slug": "golden-gate-bridge-without-a-car",
+      "publishedAt": "2026-10-28T08:54:28.653Z",
+      "contentSha256": "513707150908b0f95ff03c49897f05b7f5bddd2c823c78c9b5af00a80363a627",
+      "manualApproval": true,
+      "reviewer": "jageros"
+    },
+    {
+      "slug": "is-muni-pass-worth-it",
+      "publishedAt": "2026-10-28T08:54:28.653Z",
+      "contentSha256": "73bc716399151dcba26a5dad80f9941cfca8ee52d72565f6ca7b9188283a284a",
+      "manualApproval": true,
+      "reviewer": "jageros"
+    },
+    {
+      "slug": "sf-waterfront-transit-itinerary",
+      "publishedAt": "2026-10-28T08:54:28.653Z",
+      "contentSha256": "8c70de85b51ed9f9e07f35fb4e095529de36eb83e2411cd629311b3260e8960d",
+      "manualApproval": false
     }
   ]
 }

@@ -1,19 +1,29 @@
 ---
-title: "Golden Gate Bridge without a car: choose a viewpoint or a crossing"
-description: "Plan a Golden Gate Bridge visit around the end you want to reach, your walking choice and a checked return journey, using official transport sources."
-slug: "golden-gate-bridge-without-a-car"
-type: "destination"
-topic: "san-francisco-without-a-car"
-status: "review"
-author: "editorial-team"
-updatedAt: "2026-10-20"
-checkedAt: "2026-10-20"
-primaryIntent: "Choose a transit and walking plan for visiting the Golden Gate Bridge without a car"
-sources: ["golden-gate-transit", "golden-gate-current-schedules", "golden-gate-sidewalks", "sfmta-fares"]
-facts: ["bridge-transit-option", "bridge-pedestrian-east"]
-related: ["san-francisco-without-a-car", "bart-vs-muni-clipper", "is-muni-pass-worth-it"]
-hero:
-  photoId: "golden-gate"
+"title": "Golden Gate Bridge without a car: choose a viewpoint or a crossing"
+"description": "Plan a Golden Gate Bridge visit around the end you want to reach, your walking choice and a checked return journey, using official transport sources."
+"slug": "golden-gate-bridge-without-a-car"
+"type": "destination"
+"topic": "san-francisco-without-a-car"
+"status": "published"
+"author": "editorial-team"
+"updatedAt": "2026-10-20"
+"checkedAt": "2026-10-20"
+"primaryIntent": "Choose a transit and walking plan for visiting the Golden Gate Bridge without a car"
+"sources":
+  - "golden-gate-transit"
+  - "golden-gate-current-schedules"
+  - "golden-gate-sidewalks"
+  - "sfmta-fares"
+"facts":
+  - "bridge-transit-option"
+  - "bridge-pedestrian-east"
+"related":
+  - "san-francisco-without-a-car"
+  - "bart-vs-muni-clipper"
+  - "is-muni-pass-worth-it"
+"hero":
+  "photoId": "golden-gate"
+"publishedAt": "2026-10-28"
 ---
 
 Choose the end of the bridge and the return journey before choosing a bus. A south-side viewpoint visit, a partial walk and a full crossing are different outings. The best option is the one your group can complete without relying on an unplanned connection at the far end.
