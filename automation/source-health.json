@@ -3,13 +3,13 @@
   "sources": [
     {
       "id": "bart-sfo",
-      "status": "changed",
+      "status": "unchanged",
       "checkedAt": "2026-10-28T06:50:14.538Z",
       "contentHash": "6e47386934ab24578646995df7f4d9551c949f7860f31fa66822f532db7d4edb"
     },
     {
       "id": "sfmta-fares",
-      "status": "changed",
+      "status": "unchanged",
       "checkedAt": "2026-10-28T06:50:14.538Z",
       "contentHash": "850feb3eda1c73800504e088c83b0d3a349e52b75d313d5bb77e707012f0a714"
     },
@@ -81,7 +81,7 @@
     },
     {
       "id": "sfmta-travel-updates",
-      "status": "changed",
+      "status": "unchanged",
       "checkedAt": "2026-10-28T06:50:14.538Z",
       "contentHash": "6c7c5c9682d411a619c2d7373adc450c5ecf59ba5737a4702ffed38736f6cc7d"
     },
@@ -93,7 +93,7 @@
     },
     {
       "id": "bart-advisories",
-      "status": "changed",
+      "status": "unchanged",
       "checkedAt": "2026-10-28T06:50:14.538Z",
       "contentHash": "2aeaad11266a9ac34492fc19efdaf553f7c0d11dd07f348002d54dc922ab6c6d"
     },
@@ -105,7 +105,7 @@
     },
     {
       "id": "bart-paying-fare",
-      "status": "changed",
+      "status": "unchanged",
       "checkedAt": "2026-10-28T06:50:14.538Z",
       "contentHash": "1382a97f3ce5039caa30a67d7698c2803649ad93461e7f6886ab27fa7382d9d4"
     },
@@ -123,19 +123,19 @@
     },
     {
       "id": "bart-tap-and-ride",
-      "status": "changed",
+      "status": "unchanged",
       "checkedAt": "2026-10-28T06:50:14.538Z",
       "contentHash": "3d170b08b742c9f33d3ef7b6d307e2be7062ae696de8d20ec940e1c076be143f"
     },
     {
       "id": "bart-schedules",
-      "status": "changed",
+      "status": "unchanged",
       "checkedAt": "2026-10-28T06:50:14.538Z",
       "contentHash": "5c2865ef412d2a3113a3e6377ad240a42852717e2527b56a992438fe33328e11"
     },
     {
       "id": "bart-official-app",
-      "status": "changed",
+      "status": "unchanged",
       "checkedAt": "2026-10-28T06:50:14.538Z",
       "contentHash": "1286193aa37fea5773dedb011ed1d0eb47df37954b816d761ef056add0c013d3"
     },
