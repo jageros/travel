@@ -6,5 +6,21 @@
       "Named editorial approval required for this exact content"
     ],
     "detectedAt": "2026-10-28T06:50:14.538Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "sfmta-travel-updates: changed"
+    ],
+    "detectedAt": "2026-10-30T07:03:33.094Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "sfmta-trip-planner: changed"
+    ],
+    "detectedAt": "2026-10-30T07:03:33.094Z"
   }
 ]
