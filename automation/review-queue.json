@@ -13,7 +13,7 @@
     "errors": [
       "sfmta-travel-updates: changed"
     ],
-    "detectedAt": "2026-10-31T06:57:17.370Z"
+    "detectedAt": "2026-11-01T07:28:51.569Z"
   },
   {
     "slug": "source-monitor",
@@ -21,7 +21,7 @@
     "errors": [
       "sfmta-trip-planner: changed"
     ],
-    "detectedAt": "2026-10-31T06:57:17.370Z"
+    "detectedAt": "2026-11-01T07:28:51.569Z"
   },
   {
     "slug": "source-monitor",
@@ -29,7 +29,7 @@
     "errors": [
       "sfmta-fares: changed"
     ],
-    "detectedAt": "2026-10-31T06:57:17.370Z"
+    "detectedAt": "2026-11-01T07:28:51.569Z"
   },
   {
     "slug": "source-monitor",
@@ -37,6 +37,6 @@
     "errors": [
       "bart-advisories: changed"
     ],
-    "detectedAt": "2026-10-31T06:57:17.370Z"
+    "detectedAt": "2026-11-01T07:28:51.569Z"
   }
 ]
