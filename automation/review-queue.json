@@ -13,7 +13,7 @@
     "errors": [
       "sfmta-travel-updates: changed"
     ],
-    "detectedAt": "2026-11-02T07:37:59.530Z"
+    "detectedAt": "2026-11-03T07:52:53.992Z"
   },
   {
     "slug": "source-monitor",
@@ -21,7 +21,7 @@
     "errors": [
       "sfmta-trip-planner: changed"
     ],
-    "detectedAt": "2026-11-02T07:37:59.530Z"
+    "detectedAt": "2026-11-03T07:52:53.992Z"
   },
   {
     "slug": "source-monitor",
@@ -29,7 +29,7 @@
     "errors": [
       "sfmta-fares: changed"
     ],
-    "detectedAt": "2026-11-02T07:37:59.530Z"
+    "detectedAt": "2026-11-03T07:52:53.992Z"
   },
   {
     "slug": "source-monitor",
@@ -37,7 +37,7 @@
     "errors": [
       "bart-advisories: changed"
     ],
-    "detectedAt": "2026-11-02T07:37:59.530Z"
+    "detectedAt": "2026-11-03T07:52:53.992Z"
   },
   {
     "slug": "source-monitor",
@@ -45,7 +45,7 @@
     "errors": [
       "bart-sfo: changed"
     ],
-    "detectedAt": "2026-11-02T07:37:59.530Z"
+    "detectedAt": "2026-11-03T07:52:53.992Z"
   },
   {
     "slug": "source-monitor",
@@ -53,7 +53,7 @@
     "errors": [
       "bart-paying-fare: changed"
     ],
-    "detectedAt": "2026-11-02T07:37:59.530Z"
+    "detectedAt": "2026-11-03T07:52:53.992Z"
   },
   {
     "slug": "source-monitor",
@@ -61,7 +61,7 @@
     "errors": [
       "bart-tap-and-ride: changed"
     ],
-    "detectedAt": "2026-11-02T07:37:59.530Z"
+    "detectedAt": "2026-11-03T07:52:53.992Z"
   },
   {
     "slug": "source-monitor",
@@ -69,7 +69,7 @@
     "errors": [
       "bart-schedules: changed"
     ],
-    "detectedAt": "2026-11-02T07:37:59.530Z"
+    "detectedAt": "2026-11-03T07:52:53.992Z"
   },
   {
     "slug": "source-monitor",
@@ -77,6 +77,6 @@
     "errors": [
       "bart-official-app: changed"
     ],
-    "detectedAt": "2026-11-02T07:37:59.530Z"
+    "detectedAt": "2026-11-03T07:52:53.992Z"
   }
 ]
