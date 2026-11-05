@@ -60,3 +60,11 @@
 - 只读核对远端 main `7db90ca`、来源 19 unchanged/10 changed/0 conflict、账本仍 6 篇/5 批准、open PR 为空、Cloudflare 对应 build check success；没有把它称为今日生产 HTTP/活动分流验收。
 - 本次不更改文章、事实基线、事实日期、发布账本、广告或部署。交接文件的提交/远端同步结果以最终实际 Git/PR 记录为准；仅本机保存不意味着另机已可 clone。
 - 本次通过既有连接器尝试创建 `codex/project-handoff-2026-11-05` 分支仍返回 403，未创建远端分支或 PR；没有改用其他访问通道绕过。文件先保存在本地受版本管理的独立提交，远端同步待完成。
+
+## 2026-11-05（后续）：本地分支合并与清理
+
+- 用户要求核对所有本地改动、合并至 main 并只保留 main。开始时主工作区 clean，20 个本地分支中 18 个非 main 分支均已成为 main 的真实祖先；没有需要重新应用的旧内容。
+- 唯一未合入分支是 `codex/project-handoff-2026-11-05`，提交 `e5ee3a48a46e043082fcec8e779bf572978bd996`。本地 main 从 `2b5cec0` 快进到该提交，保存全部项目交接文件和非生产候选文本。
+- 对照清理前快照验证全部分支 tip 均可从 main 到达，且六篇现有文章、照片许可登记、批准/发布账本、来源/健康/待审状态共 11 个 Git blob 未变。使用安全的 `git branch -d` 删除全部 19 个已合并本地分支，只保留 main；不丢弃提交历史。
+- 保留 detached worktree、ignored 原始证据和已有本地配置。本轮无网络 Git 操作，不修改或删除远端分支，不部署、不发布文章，也不把本地旧 `origin/main` 当作服务器最新状态。
+- 完整分支名和清理前 tip 清单保留于 ignored `artifacts/local-branch-consolidation-2026-11-05/`。本记录随本地 main 保存；远端同步仍走正常受保护流程。

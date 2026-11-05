@@ -8,6 +8,7 @@
 | --- | --- |
 | 远端 main | 11 月 5 日通过 GitHub 连接器读取为 `7db90ca2d220a3497dac0d966e29c4bce528ac10`，即 11 月 4 日合并的来源状态 PR [#37](https://github.com/jageros/travel/pull/37) |
 | 本地起点 | 整理前当前 worktree 为 detached `2b5cec0`。远端比它多 7 个来源监测提交，只改 `sources.json`、`source-health.json`、`review-queue.json`；不能用这个本地起点判断最新健康状态 |
+| 本地分支整理 | 同日按用户要求审计 20 个本地分支：18 个非 main 分支已是 main 的祖先，唯一未合入的交接提交 `e5ee3a4` 已快进并入本地 main；随后用 `git branch -d` 删除全部 19 个已合并本地分支，只保留 main。未同步或删除远端分支，未触发部署；本地最新 SHA 以 `git log -1` 为准 |
 | 正式内容 | 最新远端账本仍有 **6 篇发布记录、5 次人工批准**；正文和原批准未在上述 7 个提交中变化 |
 | 来源 | 最新报告捕获于 `2026-11-04T07:28:34.307Z`（北京时间 15:28:34）：29 来源，19 unchanged、10 changed、0 conflict；登记 35 条事实 |
 | 工作流 | 11 月 4 日 [来源监测 run 41792468825](https://github.com/jageros/travel/actions/runs/41792468825) success；PR #37 head `e791ea5` 的三个检查运行均 success |
