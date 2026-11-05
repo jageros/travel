@@ -1,6 +1,6 @@
 # Editorial automation operations
 
-The repository contains a working draft → validate → review → publish pipeline. The platform started with five review articles and no approvals or release records. Current authority is `automation/editorial.json`: the owner explicitly confirmed the five exact article digests on 2026-10-20, and three passed release gates for the first batch. No model credentials have been supplied. Building or merging code does not approve articles. Production excludes review and draft articles; `CONTENT_REVIEW_PREVIEW=true npm run build` creates an unindexed review preview.
+The repository contains a working draft → validate → review → publish pipeline. The platform started with five review articles and no approvals or release records. Current authority is `automation/editorial.json`: the owner confirmed the five exact article digests on 2026-10-20; three were released that day, the remaining two and the subsequent automatic waterfront guide on 2026-10-28. Later status belongs in the ledger and the dated [project handoff](handoff/README.md). No paid drafting credentials have been configured. Building or merging code does not approve articles. Production excludes review and draft articles; `CONTENT_REVIEW_PREVIEW=true npm run build` creates an unindexed review preview.
 
 ## Local commands
 

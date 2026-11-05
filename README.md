@@ -2,6 +2,10 @@
 
 A source-led English travel site for https://www.cedartrips.com. Astro generates readable static HTML; React progressively enhances guide search. No account, database or CMS is required.
 
+## Continue this project on another computer
+
+Start with [AGENTS.md](AGENTS.md) and the [current handoff](docs/handoff/README.md). The handoff includes the [project history](docs/handoff/history.md), [next-stage plan](docs/handoff/roadmap.md) and [portable, unapplied review candidates](docs/handoff/pending/README.md). It records dated evidence and remaining work without requiring the original chat, local memory or ignored artifacts. Recheck the current remote state before acting; credentials and Codex account automations do not travel with a clone.
+
 ## Run and review
 
 Use Node 24 (`.nvmrc`). The npm lockfile is the single dependency source.
@@ -61,7 +65,7 @@ The only canonical origin is `https://www.cedartrips.com`. Set the Production `P
 
 Manage `www.cedartrips.com` as the Worker's Custom Domain in the Cloudflare dashboard. Keep the apex redirect scoped to `cedartrips.com`, using 308 to the same path on www with query-string preservation. Dashboard domain settings are deliberately absent from `wrangler.jsonc` so ordinary builds cannot replace them or require zone-edit permissions. Preserve the existing Search Console TXT and all unrelated DNS records.
 
-The existing Search Console Domain property and sitemap URL are unchanged. This hosting move does not require Change of Address. Three articles are published, two remain approved review copies; content approval and release limits are independent of hosting. The retired `travel.mumasir.com` remains outside this site's routing; no rules target other mumasir services.
+The existing Search Console Domain property and sitemap URL are unchanged. This hosting move does not require Change of Address. The five initial approved articles and the subsequent waterfront guide have release records in `automation/editorial.json`; use that ledger and the dated [handoff](docs/handoff/README.md) for current status. Content approval and release limits remain independent of hosting. The retired `travel.mumasir.com` remains outside this site's routing; no rules target other mumasir services.
 
 For deployment acceptance, verify canonical/OG/JSON-LD, redirects, real HTTP statuses, robots/sitemap, consent-based GA events and the merged Git SHA in Cloudflare. Source-monitor PRs must reach an actual Cloudflare production deployment; a successful CI artifact alone does not prove the live site changed. Historical acceptance documents preserve what was true at their recorded time. Recovery uses Cloudflare deployment versions and retains current article approvals and source health; rebuild older code with current state if an old static version would restore unsafe facts.
 

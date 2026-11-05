@@ -1,6 +1,6 @@
 # First five articles: required human review
 
-Initial articles enter `status: review` and stay excluded from production article routes and the sitemap until explicitly approved and released. The owner confirmed all five exact digests on 2026-10-20; the overview, operator/payment and SFO transfer guides are the first release batch, while the other two remain approved review copies until the rolling quota allows release. The local review-preview mode renders review content with `noindex`; a preview itself is not publication approval. Current authority is the versioned editorial ledger.
+Initial articles enter `status: review` and stay excluded from production article routes and the sitemap until explicitly approved and released. The owner confirmed all five exact digests on 2026-10-20; the overview, operator/payment and SFO transfer guides were released that day, and the other two on 2026-10-28 after the rolling quota recovered. The waterfront guide was then automatically released under the existing after-five rules without a fabricated manual approval. The local review-preview mode renders review content with `noindex`; a preview itself is not publication approval. Current authority is the versioned editorial ledger; dated status and remaining work are in the [project handoff](handoff/README.md).
 
 ## Review queue
 
@@ -28,7 +28,7 @@ Initial articles enter `status: review` and stay excluded from production articl
 
 ## Drafting and fact policy
 
-Official content was checked on **2026-10-19**. Exact amounts and live service conditions belong in the source registry with expiry, and relevant fact IDs are referenced by article frontmatter. Markdown explains the decision process and links to operator checks. If a dynamic fact expires or its source changes, the site should withhold its exact current assertion and direct readers to the official source.
+Initial official-source research began on **2026-10-19**; current verification dates belong in `automation/sources.json` and `automation/source-health.json`, rather than this historical starting date. Exact amounts and live service conditions belong in the source registry with expiry, and relevant fact IDs are referenced by article frontmatter. Markdown explains the decision process and links to operator checks. If a dynamic fact expires or its source changes, the site should withhold its exact current assertion and direct readers to the official source.
 
 Routine planning advice is editorial reasoning, not a claim of personal travel. No interview, on-site visit, accessibility audit, fare purchase or end-to-end transfer was performed. Reviewers must not replace that boundary with a fabricated author biography or a claim that staff tested the route.
 

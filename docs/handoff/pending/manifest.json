@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "preparedOn": "2026-11-02",
+  "preservedOn": "2026-11-05",
+  "state": "unapplied-handoff-candidate",
+  "historicalValidationBase": "61f196f6af734d6c5f9195fce696b58157bcffb0",
+  "historicalValidation": {
+    "date": "2026-11-02",
+    "scope": "isolated local candidate only",
+    "articles": 7,
+    "astroFiles": 61,
+    "astroDiagnostics": 0,
+    "testsPassed": 135,
+    "testsTotal": 135,
+    "productionAndPreviewStaticChecksPassed": true,
+    "currentMainRevalidationRequired": true
+  },
+  "article": {
+    "slug": "sf-cable-car-vs-historic-streetcar",
+    "status": "review",
+    "contentSha256": "98e258c6b66870fc3c09d657a7076d4162975cb4c32fa830436d44268410c72d",
+    "digestAlgorithm": "scripts/content-lib.mjs articleDigest, not raw file bytes",
+    "approved": false,
+    "published": false
+  },
+  "queries": {
+    "source": "actual authorized Search Console ZIP export on 2026-11-02",
+    "measuredFrom": "2026-10-19",
+    "measuredThrough": "2026-10-30",
+    "rows": 10,
+    "disclosedImpressions": 16,
+    "disclosedClicks": 0,
+    "rawStatisticsIncluded": false
+  },
+  "remoteAcceptanceForCandidate": {
+    "branchCreated": false,
+    "pullRequestCreated": false,
+    "requiredCiPassed": false,
+    "actualCloudflarePreviewVerified": false
+  },
+  "originalIgnoredZipSha256": "2434bd36092e30ccdf876d612d9f86e061918534d132201c7642f524bd3a3958",
+  "files": [
+    {
+      "path": "src/content/articles/sf-cable-car-vs-historic-streetcar.md",
+      "intendedRepositoryPath": "src/content/articles/sf-cable-car-vs-historic-streetcar.md",
+      "fileSha256": "4ed1bb7ec3f092655a21e780ddeab30fba9f4411213c2c44c18ffdfdbb844219"
+    },
+    {
+      "path": "automation/gsc-opportunities.json",
+      "intendedRepositoryPath": "automation/gsc-opportunities.json",
+      "fileSha256": "2ffd43d7d6b6a03640bd0e134d4da29ac608eef060ece68d08bfac2f160bcc33"
+    }
+  ]
+}
