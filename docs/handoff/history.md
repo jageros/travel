@@ -68,3 +68,15 @@
 - 对照清理前快照验证全部分支 tip 均可从 main 到达，且六篇现有文章、照片许可登记、批准/发布账本、来源/健康/待审状态共 11 个 Git blob 未变。使用安全的 `git branch -d` 删除全部 19 个已合并本地分支，只保留 main；不丢弃提交历史。
 - 保留 detached worktree、ignored 原始证据和已有本地配置。本轮无网络 Git 操作，不修改或删除远端分支，不部署、不发布文章，也不把本地旧 `origin/main` 当作服务器最新状态。
 - 完整分支名和清理前 tip 清单保留于 ignored `artifacts/local-branch-consolidation-2026-11-05/`。本记录随本地 main 保存；远端同步仍走正常受保护流程。
+
+## 2026-11-05（新电脑接续）：来源复核与候选接入
+
+- 按用户给定的 `jageros/travel` 克隆到 `/mnt/d/workspace/travel`。当前 main 为 `b4b6249ce13c211d08c31f18d3b44dd86367541a`，交接和原本地分支整理记录已可取得。22 端口连接失败，公开仓库 HTTPS clone 成功；origin 保留 SSH 地址，并仅对本仓库配置 GitHub 官方 443 SSH 入口，没有用它绕过连接器写拒绝。
+- 阅读入口、历史、路线图、源码、自动化及测试。今天的监测 PR #38 已合并，报告 25 unchanged/4 changed/0 conflict；F-line 等六项回到已接受 hash。账本仍六篇发布/五次人工批准，没有重复 dispatch。
+- 经连接器下载 10 月 28 日 artifact 12797996153，字节数与 ZIP SHA-256 符合旧记录；完整旧文本 hash 匹配已接受基线。16:39 重抓三项 SFMTA，观测 hash 与今天 main 一致；完成全文语义比较，整理 [三项精确基线建议](../source-review-2026-11-05.md)，未应用、未续期。BART 官方抓取 403，无法核对完整当前捕获，继续 hold。
+- 在本地 `codex/resume-2026-11-05` 接入原 cable-car / historic-streetcar review 和保存的十条真实查询词输入，保留原稿 digest、日期及查询词真实观测窗口。两个官方页、三条登记事实及照片许可重审，无需修订原稿；六篇已发布正文和批准/发布账本均未改。
+- Node 24.21.0、npm ci、七篇内容验证、Astro 60 文件零诊断、135/135 测试、正式 17 页及预览 18 页静态检查全部通过。正式排除候选；预览包含 review 且 noindex、无 GA/广告、空 sitemap。没有把历史检查当成本次执行。
+- 16:40–16:42 只读 HTTP 抽验首页、SFO 正文/内链/本地图片、署名与许可链接、canonical/OG/JSON-LD、308 路径/参数、sitemap 12 项和真实 404 通过，未执行 GA 事件。Cloudflare 最新活动 SHA/分流未确认；正常连接器读得 PR #38 head 的 CI run 41990481650 success，但它不是候选 CI。
+- 创建远程 `codex/resume-2026-11-05` 的正常连接器请求仍返回 403 Resource not accessible by integration；无候选远端分支/PR/必过 CI/真实 Cloudflare 预览，未换写通道。公共 REST 补读因出口 IP 限额 403 停止；不将不同 403 混作同一原因。
+- npm audit 记录四个开发依赖节点（3 moderate/1 high），对应 fast-uri 与 Wrangler/Miniflare/Undici 链，未改锁文件；已排入技术维护。另记录已发布稿 digest 守卫和真实分支预览验收的待补强边界，没有声称本次修复。
+- 本轮原始证据保存在 ignored `artifacts/resume-2026-11-05/`，可跨机器的审阅结论及下一步留在版本管理文档。未发布新文章、未采纳新基线、未部署或开启广告。
