@@ -1,18 +1,19 @@
 # Cedar Trips 当前交接
 
-整理日期：**2026-11-05，Asia/Shanghai，本机接续后**。具体核验时间见下表及本次审阅；下次必须重新核对。先读根目录 [AGENTS.md](../../AGENTS.md)，再按本页接续。项目决策见 [推进历史](history.md)，执行优先级见 [后续计划](roadmap.md)，本次全文来源比较与验收见 [11 月 5 日审阅](../source-review-2026-11-05.md)。
+整理日期：**2026-11-06，Asia/Shanghai，权限与远程交付复核**。源码/来源及生产 HTTP 的最近核验仍是 11 月 5 日；具体时间与边界见下表及 [11 月 5 日审阅](../source-review-2026-11-05.md)。先读根目录 [AGENTS.md](../../AGENTS.md)，再按本页接续。项目决策见 [推进历史](history.md)，执行优先级见 [后续计划](roadmap.md)。
 
 ## 本次核对到的状态
 
 | 项目 | 已核对事实与时间 |
 | --- | --- |
 | 远端 main / clone 起点 | 本机已克隆到 `/mnt/d/workspace/travel`；main 为 `b4b6249ce13c211d08c31f18d3b44dd86367541a`，对应 11 月 5 日合并的来源状态 PR [#38](https://github.com/jageros/travel/pull/38)。交接提交已可随 clone 取得 |
-| 本地工作分支 | `codex/resume-2026-11-05`，从上述 main 开始；已接入 review 候选及保存的真实查询词输入，并保存来源审阅和本次交接。远程创建分支被连接器 403 拒绝，本地变更不等于已同步 |
+| 接续分支 | 远程 `codex/resume-2026-11-05` 已于 11 月 6 日成功创建并交付原候选；初始提交 `655cb6497db079dca20bbc70c6eacd165156d9e6` 的 Git tree 与原本地 `90cc52d` 完全一致。当前本地 `codex/resume-delivery-2026-11-06` 跟踪该远程分支；原本地提交保留 |
 | 正式内容 | **6 篇发布记录、5 次人工批准**，原六篇正文、来源登记、健康报告及批准/发布账本未修改；新稿仍 review |
 | 来源 | main 报告捕获于 `2026-11-05T07:53:22.497Z`（北京时间 15:53:22）：29 来源，25 unchanged、4 changed、0 conflict，登记 35 条事实。16:39 独立重抓三项 SFMTA，hash 与报告相同；BART 本机抓取 403 |
 | 工作流 | PR #38 head `63e2eb00192a8bd3d6600caf9967a8867413d95b` 的 [required CI run 41990481650](https://github.com/jageros/travel/actions/runs/41990481650) success，由连接器读取；这是监测 PR 的证据，不是本次候选 CI |
-| Cloudflare / 线上 | 16:40–16:42 HTTP 抽查首页/攻略/内链/照片、308、404、canonical、sitemap 12 项通过；未核对最新 Cloudflare check、活动版本 SHA/100% 分流。公共 REST 补读遇当前 IP rate limit 403 后已停止，不以 HTTP 推断部署 SHA |
-| PR / 本地验证 | 读取 open PR 为空；候选无远端 PR/CI/实际 Cloudflare 预览。本地 Node 24.21.0、npm ci、7 篇内容、Astro 60 文件零诊断、135/135 测试、生产 17 页/预览 18 页验证通过 |
+| Cloudflare / 线上 | 11 月 5 日 16:40–16:42 HTTP 抽查通过，生产活动 SHA/100% 分流未确认。11 月 6 日候选分支的 Workers Builds check 已启动，尚不能当成预览成功；本次没有部署到 main 或重做生产验收 |
+| PR / 验证 | 草稿 [PR #39](https://github.com/jageros/travel/pull/39) 已创建；初始 head `655cb64` 的 [verify run 42062370321](https://github.com/jageros/travel/actions/runs/42062370321) 与 Cloudflare check 已启动。本页更新会再产生新 head，合并前必须查最终 head 的检查和实际预览。本地 11 月 5 日验证：Astro 60 文件零诊断、135/135 测试、生产 17 页/预览 18 页通过 |
+| 仓库保护 | 11 月 6 日连接器读取 `rulesets=[]`、`main.protected=false`、required checks 为空，与历史受保护设置不同。尚未网页复核或修改；草稿 PR 不请求 auto-merge，合并前需用户处理保护状态并验收最终 head |
 | 广告/扩稿 | 广告关闭，无付费调用。未改基线/事实日期/发布状态，未触发部署或重复 dispatch |
 
 main 来源报告满 24 小时的时间为 **11 月 6 日 15:53:22 北京时间**；本机三项独立抓取不刷新整份报告或账本。超过后不能继续沿用其新鲜度。即使尚在 24 小时内，changed 来源也不能发布。事实的 `expiresAt` 与抓取新鲜度是两个独立条件。
@@ -36,16 +37,16 @@ main 来源报告满 24 小时的时间为 **11 月 6 日 15:53:22 北京时间*
 
 ## 可接续的实际成果
 
-### 已接入本地 review 的候选稿
+### 已交付草稿 PR 的 review 候选
 
-[pending/](pending/README.md) 保存了 11 月 2 日完成的原始候选快照。本次在上述本地分支接入两项文本：
+[pending/](pending/README.md) 保存了 11 月 2 日完成的原始候选快照。11 月 5 日本地接入下列两项，11 月 6 日已交付草稿 PR #39：
 
 1. [review 稿](../../src/content/articles/sf-cable-car-vs-historic-streetcar.md)：区分 cable car 与 F-line historic streetcar，提供选车和核对上车点的方法。复用已登记 `muni-streetcar` 真实照片，两官方页和照片许可重审通过，未改原稿日期或正文。
 2. [真实查询词输入](../../automation/gsc-opportunities.json)：采用保存的 11 月 2 日导出，10 月 19–30 日十行、16 展示、零点击，保留真实日期和编辑状态；未重建原始 CSV，也未把它写成今天的新导出。
 
 原稿与本地 review 的 `articleDigest` 均为 `98e258c6b66870fc3c09d657a7076d4162975cb4c32fa830436d44268410c72d`。**src 中的 review 只进入本地预览，不进入正式构建或 sitemap；未有新人工批准/发布记录。** docs 下原件与 manifest 保留原貌。普通受保护 PR 合并后，现有自动流程才可能在所有当前门禁通过时发布；不需伪造第六次人工批准。
 
-11 月 5 日本机在 `b4b6249` 加上述候选的基线上重新完成内容、类型、135/135 测试及双构建。正式 17 页排除候选，预览 18 页包含候选并验证 noindex、无 GA/广告、空 sitemap。F-line 今日恢复 unchanged，候选两来源均匹配原接受基线，但这仍不等于远程必过 CI、真实 Cloudflare 预览或发布验收。
+11 月 5 日本机在 `b4b6249` 加上述候选的基线上重新完成内容、类型、135/135 测试及双构建。正式 17 页排除候选，预览 18 页包含候选并验证 noindex、无 GA/广告、空 sitemap。F-line 在该报告恢复 unchanged；11 月 6 日没有伪造新的来源抓取。远程检查及实际预览必须以 PR 最终 head 为准，不能用本地结果代替。
 
 ### 搜索和阅读数据：最新已实际读取的窗口
 
@@ -97,7 +98,9 @@ CONTENT_REVIEW_PREVIEW=true npm run dev
 
 ## 访问与部署接续
 
-- 11 月 5 日本机重新验证：GitHub 连接器读取成功，但创建 `codex/resume-2026-11-05` 仍返回 `403 Resource not accessible by integration`，未创建远端分支/PR，未转用 Git SSH 写入。SSH 22 端口网络不通，公开仓库通过 HTTPS clone 成功；origin 保留用户给定的 SSH 地址，并仅对本仓库配置 GitHub 官方 443 SSH 入口。该传输配置不是绕过连接器拒绝的写权限授权。
+- 11 月 6 日同一正常 GitHub 连接器成功创建分支、tree/commit、更新 ref 和创建草稿 PR #39，前一天的写入 403 当前未复现。读取确认当前用户 jageros 为 admin；安装 `131554876` 的 selected repositories 确实包含 travel。工具未返回该安装的名称或 Contents 权限值，不能反推昨日具体原因，也没有修改授权。GitHub 配置页为 `https://github.com/settings/installations/131554876`；勿与单独的 Editorial App 混淆。
+- Chrome 控制工具于 11 月 5–6 日在执行 UI 前报 `sandboxCwd is not a local file URI: file:///mnt/d/workspace/travel`，重置后仍失败；未打开或修改 Chrome、Cookie、GitHub 网页权限。它是独立的本地路径/工具初始化错误，不是已证实的 GitHub 403 原因。GitHub 插件应用内权限仍继承默认 Allow low-risk actions。
+- SSH 22 端口网络不通，公开仓库通过 HTTPS clone 成功；origin 保留用户给定的 SSH 地址，仅对本仓库配置 GitHub 官方 443 SSH 入口。本次交付通过已恢复的原连接器完成，没有改用 SSH 写入。
 - 不把 public/private、个人浏览器已登录、连接器写权限混为一谈。明确拒绝后不以 SSH 凭证、raw CDP、其他浏览器或新 token 绕过。不扩大权限，保留普通 PR 交付。
 - 既有专用 Editorial GitHub App 仅装到此仓库；`EDITORIAL_APP_PRIVATE_KEY` 只在 Actions Secret。新电脑无需取出私钥。Cloudflare 构建凭证也不导出、不写入交接。
 - Cloudflare Build：`npm ci && npm run build:cloudflare`；生产命令 `npx wrangler deploy`；预览命令 `npx wrangler preview`；Node 24，Wrangler 由锁文件固定。build wrapper 根据 `WORKERS_CI_BRANCH` 隔离生产/预览。

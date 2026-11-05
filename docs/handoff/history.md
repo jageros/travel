@@ -80,3 +80,11 @@
 - 创建远程 `codex/resume-2026-11-05` 的正常连接器请求仍返回 403 Resource not accessible by integration；无候选远端分支/PR/必过 CI/真实 Cloudflare 预览，未换写通道。公共 REST 补读因出口 IP 限额 403 停止；不将不同 403 混作同一原因。
 - npm audit 记录四个开发依赖节点（3 moderate/1 high），对应 fast-uri 与 Wrangler/Miniflare/Undici 链，未改锁文件；已排入技术维护。另记录已发布稿 digest 守卫和真实分支预览验收的待补强边界，没有声称本次修复。
 - 本轮原始证据保存在 ignored `artifacts/resume-2026-11-05/`，可跨机器的审阅结论及下一步留在版本管理文档。未发布新文章、未采纳新基线、未部署或开启广告。
+
+## 2026-11-06：连接器写入恢复，创建候选草稿 PR
+
+- 用户要求继续检查 Chrome/GitHub 设置。电脑控制仍在 UI 执行前因 WSL 路径 `sandboxCwd` 校验失败，未操作 Chrome 或修改浏览器/仓库授权。
+- 正常连接器确认 jageros 对 travel 是 admin，安装 131554876 的 selected repositories 包含 travel；实际 App 名称及 Contents 权限没有可读字段，未据用户权限虚称已读得应用权限。
+- 通过同一连接器成功创建原接续分支、写入 tree/commit、更新 ref 和创建草稿 [PR #39](https://github.com/jageros/travel/pull/39)。初始远程提交 `655cb6497db079dca20bbc70c6eacd165156d9e6` 与原本地 `90cc52d` 的 tree 相同，保留原作者的本地提交。前一天 403 当前未再出现，具体恢复原因未知；没有绕过拒绝的写通道。
+- 远程初始 head 的 verify run 42062370321 和 Workers Builds check 已启动，尚未据此声称已通过或已实际验收预览；最终 head 必须重新读取。未发布文章、采纳基线或合并 main。
+- 当前读取的仓库规则集为空，main 显示未受保护、required checks 为空，与历史交接不同。没有修改设置或请求 auto-merge；草稿继续等待保护状态处理、最终 head 的检查和实际预览。

@@ -4,6 +4,8 @@
 
 2026-11-05 接续：本地 `codex/resume-2026-11-05` 已采用下列两项到目标路径，文章保持 review，原 dates/digest 不变，并通过本机当前基线的双构建。远端分支创建仍被连接器 403 拒绝，未交付 PR。这里的文件和 manifest 继续保留原候选快照，最新状态以 [当前交接](../README.md) 和 [本次审阅](../../source-review-2026-11-05.md) 为准。
 
+2026-11-06 接续：同一连接器写入恢复，两项已进入草稿 [PR #39](https://github.com/jageros/travel/pull/39)，检查已启动；未合并或发布。这里仍保留原候选快照，manifest 的远程状态是原准备阶段的历史记录，当前验收以 PR 最终 head 及当前交接为准。
+
 | 本目录文件 | 以后普通 PR 的目标路径 | 状态 |
 | --- | --- | --- |
 | [src/content/articles/sf-cable-car-vs-historic-streetcar.md](src/content/articles/sf-cable-car-vs-historic-streetcar.md) | `src/content/articles/sf-cable-car-vs-historic-streetcar.md` | 原候选为 review；需要按新 main 和最新官方资料重新审阅 |

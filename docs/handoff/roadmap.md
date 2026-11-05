@@ -1,32 +1,32 @@
 # Cedar Trips 接下来做什么
 
-计划维护日期：2026-11-05，本机接续后。以 **2026-10-20 首发**为经营起点；先重新核对 [当前交接](README.md) 中的日期快照。以下是计划，不能写成已经完成。
+计划维护日期：2026-11-06，连接器写入恢复后。以 **2026-10-20 首发**为经营起点；先重新核对 [当前交接](README.md) 中的日期快照。以下是计划，不能写成已经完成。
 
 ## 第一优先：来源阻塞和当前部署
 
 1. 每次重读最新 main、editorial run、source snapshots、队列与部署，避免重复 dispatch。11 月 5 日 main `b4b6249` 的报告是 25 unchanged/4 changed；`sfmta-f-line` 等六项回到原基线，不再沿用前一天十项阻塞结论。
 2. 三项 SFMTA 已完成旧/新完整正文比较，精确 hash 和两个完整登记事实的语义处置见 [11 月 5 日审阅](../source-review-2026-11-05.md)。下一步由用户明确采纳后，以普通受保护 PR 应用；当前来源/日期/健康状态未改，两个 lookup 事实已于 11 月 5 日到期。不能把文档建议或采纳其他版本当成此次批准。
 3. `bart-advisories` 继续 hold：本机官方抓取 403，需通过已授权工具取回 runner 的完整当前捕获，与已接受正文比较后单独提出建议。main 的观测 hash 或另一路页面摘要不能代替该证据。两条 Sausalito 人工事实也继续过期，必须重新操作官方日期/方向控件核验。
-4. 解决当前 GitHub 连接器创建分支的 403 后，再交付现有本地改动的普通 PR；不转用 SSH/新 token 绕过拒绝。源变更、人工事实、文章发布仍分别走已有门禁，不能为消除 queue 而改事实或补造批准。
+4. 11 月 6 日原连接器写入已恢复，候选已交付草稿 PR #39。当前 API 却显示没有规则集、main 未受保护；合并前需用户处理这一与历史不同的设置，再核对最终 head 的 verify 和真实预览。保持草稿，不请求 auto-merge。源变更、人工事实、文章发布仍分别走已有门禁。
 5. 本次生产 HTTP/正文/内链/照片许可链接/308/404/sitemap 已抽验，但最新 Cloudflare 活动版本、部署 SHA/100% 分流仍未验收。公共 REST 已触发当前出口 IP 限额，待正常访问恢复后继续，不把监测 PR 的 CI 或 HTTP 成功当成部署 SHA 证明。
 
 验收：当前来源报告与语义处置有可追溯记录，未采纳的新 hash 继续阻塞；没有未经批准的 baseline/日期变更；实际部署证据与当前 main 对齐。
 
 ## 第二优先：交付已有 review 成果，继续约十三篇的主题集
 
-本地 `codex/resume-2026-11-05` 已接入 [pending](pending/README.md) 的 cable car / historic streetcar review 与查询词 JSON，后续先检查目标文件，避免重复应用：
+草稿 [PR #39](https://github.com/jageros/travel/pull/39) 已接入 [pending](pending/README.md) 的 cable car / historic streetcar review 与查询词 JSON，后续先检查目标文件，避免重复应用：
 
 - 在当前本地分支上重新核对远端 main；有新变动正常合并/修复冲突，保留现有候选与用户改动。
 - 两官方页、三个 factID、独立意图与照片许可已重审；稿件仍 `review`，原 digest/日期不变。若后续修订正文，重算 digest，不转用旧批准。
 - 保存的十条真实查询词已采用，仍是 11 月 2 日导出、观测至 10 月 30 日；有更新真实导出时再导入。小样本不支持竞争/稳定需求判断。
-- 本次内容、类型、135 项测试、生产 17 页/预览 18 页已通过；远程分支创建被拒，候选无 PR、required `verify` 或实际 Cloudflare 预览。权限恢复后提交普通 PR并验收对应 head；若代码/来源/基线变化，重做受影响检查。
+- 11 月 5 日本地内容、类型、135 项测试、生产 17 页/预览 18 页已通过；11 月 6 日远程 PR 已创建且检查已启动，仍须读取最终 head 的实际结果并验收 Cloudflare 预览。代码/来源/基线变化时重做受影响检查；不能把本地验证或已启动 check 标成远程通过。
 - 来源、事实有效期、质量、重复和滚动配额都过关后，依已完成首五篇的现有自动规则逐步发布；发布后检查生产正文/内链/sitemap，而非手改 status。
 
 当前 6 篇 + 下列 7 个独立简报 = 约 13 篇潜在主题集；`ready` 仅说明简报存在，不能覆盖来源门禁：
 
 | 简报 slug | 独立读者任务 | 眼前限制 |
 | --- | --- | --- |
-| `sf-cable-car-vs-historic-streetcar` | 识别想乘的车辆、匹配目的地与上车点 | 已进入本地 review 并通过双构建；F-line 今日 unchanged，等待普通 PR/远程预览 |
+| `sf-cable-car-vs-historic-streetcar` | 识别想乘的车辆、匹配目的地与上车点 | 已交付草稿 PR #39，保持 review；等待最终 head 检查、真实预览及仓库保护处理 |
 | `sf-waterfront-step-free-transit-planning` | 按上下车站、方向和临时站点逐段核对无台阶行程 | 不承诺端到端 accessible；部分来源 changed |
 | `sf-transit-with-children-fare-planning` | 分别核对 BART/Muni 的儿童/青少年资格与证明 | 核对当前官方年龄/身份要求，避免成人公式套全家 |
 | `sfo-late-arrival-transit-fallbacks` | 晚到机场时验证末班连接及官方替代上车区 | 登记来源今日均 unchanged；仍须核对完整末班连接，不给未经核验的时刻或车价 |
