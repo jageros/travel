@@ -1,12 +1,30 @@
 {
-  "importedAt": "2026-10-26T02:45:33.996Z",
-  "source": "Search Console export supplied by editor",
+  "importedAt": "2026-11-02T02:43:26.814Z",
+  "source": "Actual Search Console CSV ZIP exported through authorized UI on 2026-11-02; no reconstructed query rows",
+  "measuredFrom": "2026-10-19",
+  "measuredThrough": "2026-10-30",
   "opportunities": [
     {
       "query": "how to get around san francisco without a car",
       "impressions": 5,
       "clicks": 0,
       "position": 79.2,
+      "matchingIntent": null,
+      "status": "needs-editorial-assessment"
+    },
+    {
+      "query": "getting around san francisco without a car",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 7.5,
+      "matchingIntent": null,
+      "status": "needs-editorial-assessment"
+    },
+    {
+      "query": "how to travel in san francisco without a car",
+      "impressions": 2,
+      "clicks": 0,
+      "position": 11,
       "matchingIntent": null,
       "status": "needs-editorial-assessment"
     },
@@ -19,14 +37,6 @@
       "status": "needs-editorial-assessment"
     },
     {
-      "query": "getting around san francisco without a car",
-      "impressions": 1,
-      "clicks": 0,
-      "position": 8,
-      "matchingIntent": null,
-      "status": "needs-editorial-assessment"
-    },
-    {
       "query": "muni vs clipper",
       "impressions": 1,
       "clicks": 0,
@@ -35,10 +45,18 @@
       "status": "needs-editorial-assessment"
     },
     {
-      "query": "how to travel in san francisco without a car",
+      "query": "sfo to fisherman's wharf",
       "impressions": 1,
       "clicks": 0,
       "position": 11,
+      "matchingIntent": null,
+      "status": "needs-editorial-assessment"
+    },
+    {
+      "query": "san francisco airport to fisherman's wharf",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 26,
       "matchingIntent": null,
       "status": "needs-editorial-assessment"
     },
@@ -55,6 +73,14 @@
       "impressions": 1,
       "clicks": 0,
       "position": 32,
+      "matchingIntent": null,
+      "status": "needs-editorial-assessment"
+    },
+    {
+      "query": "muni bart transfer",
+      "impressions": 1,
+      "clicks": 0,
+      "position": 65,
       "matchingIntent": null,
       "status": "needs-editorial-assessment"
     }
