@@ -1,14 +1,14 @@
 # Cedar Trips 接下来做什么
 
-计划维护日期：2026-11-06，连接器写入恢复后。以 **2026-10-20 首发**为经营起点；先重新核对 [当前交接](README.md) 中的日期快照。以下是计划，不能写成已经完成。
+计划维护日期：2026-11-11，获准使用 GitHub 工具推进 PR #39 后。以 **2026-10-20 首发**为经营起点；先重新核对 [当前交接](README.md) 中的日期快照。以下是计划，不能写成已经完成。
 
 ## 第一优先：来源阻塞和当前部署
 
-1. 每次重读最新 main、editorial run、source snapshots、队列与部署，避免重复 dispatch。11 月 5 日 main `b4b6249` 的报告是 25 unchanged/4 changed；`sfmta-f-line` 等六项回到原基线，不再沿用前一天十项阻塞结论。
-2. 三项 SFMTA 已完成旧/新完整正文比较，精确 hash 和两个完整登记事实的语义处置见 [11 月 5 日审阅](../source-review-2026-11-05.md)。下一步由用户明确采纳后，以普通受保护 PR 应用；当前来源/日期/健康状态未改，两个 lookup 事实已于 11 月 5 日到期。不能把文档建议或采纳其他版本当成此次批准。
-3. `bart-advisories` 继续 hold：本机官方抓取 403，需通过已授权工具取回 runner 的完整当前捕获，与已接受正文比较后单独提出建议。main 的观测 hash 或另一路页面摘要不能代替该证据。两条 Sausalito 人工事实也继续过期，必须重新操作官方日期/方向控件核验。
-4. 11 月 6 日原连接器写入已恢复，候选已交付草稿 PR #39。当前 API 却显示没有规则集、main 未受保护；合并前需用户处理这一与历史不同的设置，再核对最终 head 的 verify 和真实预览。保持草稿，不请求 auto-merge。源变更、人工事实、文章发布仍分别走已有门禁。
-5. 本次生产 HTTP/正文/内链/照片许可链接/308/404/sitemap 已抽验，但最新 Cloudflare 活动版本、部署 SHA/100% 分流仍未验收。公共 REST 已触发当前出口 IP 限额，待正常访问恢复后继续，不把监测 PR 的 CI 或 HTTP 成功当成部署 SHA 证明。
+1. 每次重读最新 main、监测 run、snapshots、队列与部署，避免重复 dispatch。11 月 11 日最新 main `e3aa2c4` 的报告是 20 unchanged/9 changed、捕获于 11 月 10 日；24 小时截止 11 月 11 日 16:23 北京时间，超时后重新获取报告。
+2. 取回最新九项 changed 的完整捕获，逐项比较已接受证据并整理精确建议。三项 SFMTA 的 [11 月 5 日审阅](../source-review-2026-11-05.md) 只适用于旧捕获；不能沿用旧 hash 批准当前版本。新的建议仍需用户明确采纳后通过普通受保护 PR。
+3. `bart-advisories` 继续 hold：11 月 5 日本机官方抓取曾返回 403，11 月 11 日未重新直接抓取。通过已授权工具取回 runner 的完整当前捕获，与已接受正文比较后单独提出建议。main 的观测 hash 或另一路页面摘要不能代替该证据。两条 Sausalito 人工事实也继续过期，必须重新操作官方日期/方向控件核验。
+4. PR #39 分支在本地同步最新 main，仍为 draft、未合并至 main；更新后需要刷新检查。11 月 11 日 API 仍显示没有规则集、main 未受保护。恢复历史的 PR 合并/必过 verify/严格保持分支最新要求后，再核对最终 head 和真实预览。保持草稿，不请求 auto-merge。候选只引用 cable-cars/F-line，不必等待九项无关来源全部采纳；发布由当前流水线另行判断。
+5. 生产 HTTP/正文/内链/照片许可链接/308/404/sitemap 最近实际抽验在 11 月 5 日，11 月 11 日未重验；Cloudflare 当前活动 SHA/100% 分流仍需验收。旧公共 REST 配额限制也只是 11 月 5 日记录，不能作为今日访问失败的证明，不把监测 PR 的 CI 或 HTTP 成功当成部署 SHA 证明。
 
 验收：当前来源报告与语义处置有可追溯记录，未采纳的新 hash 继续阻塞；没有未经批准的 baseline/日期变更；实际部署证据与当前 main 对齐。
 
@@ -29,8 +29,8 @@
 | `sf-cable-car-vs-historic-streetcar` | 识别想乘的车辆、匹配目的地与上车点 | 已交付草稿 PR #39，保持 review；等待最终 head 检查、真实预览及仓库保护处理 |
 | `sf-waterfront-step-free-transit-planning` | 按上下车站、方向和临时站点逐段核对无台阶行程 | 不承诺端到端 accessible；部分来源 changed |
 | `sf-transit-with-children-fare-planning` | 分别核对 BART/Muni 的儿童/青少年资格与证明 | 核对当前官方年龄/身份要求，避免成人公式套全家 |
-| `sfo-late-arrival-transit-fallbacks` | 晚到机场时验证末班连接及官方替代上车区 | 登记来源今日均 unchanged；仍须核对完整末班连接，不给未经核验的时刻或车价 |
-| `sf-contactless-transit-payment-declined` | 支付被拒时按官方步骤排查并找站务协助 | 登记来源今日均 unchanged；仍须区别设备/卡身份与发行行 hold，不能从一次失败诊断原因 |
+| `sfo-late-arrival-transit-fallbacks` | 晚到机场时验证末班连接及官方替代上车区 | BART 机场、时刻与 app 来源当前 changed；仍须核对完整末班连接，不给未经核验的时刻或车价 |
+| `sf-contactless-transit-payment-declined` | 支付被拒时按官方步骤排查并找站务协助 | BART 付款与 Tap and Ride 来源当前 changed；仍须区别设备/卡身份与发行行 hold，不能从一次失败诊断原因 |
 | `sausalito-without-car-return-ferry-or-bus` | 出发前比较渡轮与公交返程 | 两条人工事实已过期；必须重新操作官方方向/日期控件核验 |
 | `sf-transit-disruption-backup-plan` | 用官方公告和 planner 修订中断后的行程 | 当前多个公告/planner 来源 changed，先审来源 |
 
@@ -38,7 +38,7 @@
 
 ## 技术维护：单独验证，不混入来源采纳
 
-- 本次 audit 的开发依赖风险需要更新验证：`fast-uri@3.1.8`（Astro 检查链）及 Wrangler → Miniflare 的 `undici@7.29.1`（high）。Wrangler/Miniflare 另两项继承该风险；audit 当次建议 Wrangler 4.157.0。重新读取当时可用修复，定向更新锁文件并完成双构建和部署命令兼容检查，不盲目运行 `audit fix --force`。生产是静态资源，但开发/部署工具链仍需维护。
+- 11 月 5 日 audit 快照（11 月 11 日未刷新）记录的开发依赖风险需要重新验证：`fast-uri@3.1.8`（Astro 检查链）及 Wrangler → Miniflare 的 `undici@7.29.1`（high）。Wrangler/Miniflare 另两项继承该风险；audit 当次建议 Wrangler 4.157.0。重新读取当前可用修复，定向更新锁文件并完成双构建和部署命令兼容检查，不盲目运行 `audit fix --force`。生产是静态资源，但开发/部署工具链仍需维护。
 - 为已发布人工批准稿补齐自动 digest 守卫：当前 CI 内容验证和 review 发布流程不会检查手动修改后仍为 published 的旧稿。修改前先明确如何容纳真实重新审阅后的版本，用能验证批准版本与篡改失败的测试覆盖，保留原审计记录。
 - 普通合并前仍需验证真实 Cloudflare 分支预览；现有脚本会检查 GitHub CI 并请求受保护 auto-merge，不能替代部署预览验收。
 

@@ -88,3 +88,11 @@
 - 通过同一连接器成功创建原接续分支、写入 tree/commit、更新 ref 和创建草稿 [PR #39](https://github.com/jageros/travel/pull/39)。初始远程提交 `655cb6497db079dca20bbc70c6eacd165156d9e6` 与原本地 `90cc52d` 的 tree 相同，保留原作者的本地提交。前一天 403 当前未再出现，具体恢复原因未知；没有绕过拒绝的写通道。
 - 远程初始 head 的 verify run 42062370321 和 Workers Builds check 已启动，尚未据此声称已通过或已实际验收预览；最终 head 必须重新读取。未发布文章、采纳基线或合并 main。
 - 当前读取的仓库规则集为空，main 显示未受保护、required checks 为空，与历史交接不同。没有修改设置或请求 auto-merge；草稿继续等待保护状态处理、最终 head 的检查和实际预览。
+
+## 2026-11-11：获准使用 GitHub 工具，刷新 PR #39
+
+- 内置浏览器控制仍在初始化前被 WSL 路径错误阻塞，未读取或操作账号页面。用户明确选择允许已连接 GitHub 工具核对并推进 PR #39；没有据此扩展 Google/Cloudflare 后台操作方式。
+- 重新读取 PR #39 为 open/draft，旧 head `e96983a` 的 verify 与 Cloudflare 检查 success。最新 main 为 `e3aa2c4`（来源状态 PR #44），相比原起点新增五个监测提交，仅更新 sources/health/queue。
+- 本地新分支 `codex/pr39-refresh-2026-11-11` 正常合入当前 main，无冲突。当前报告实际捕获于 11 月 10 日 16:23:06.790 北京时间，20 unchanged/9 changed/0 conflict；未人为抓新日期、接受基线或清理队列来通过门禁。
+- 候选只引用 cable-cars/F-line，两源均 unchanged，三条事实有效至 11 月 17 日；账本仍六发布/五次首批人工批准，滚动七天零发布。其他九项 changed 不是此候选的直接门禁，不要求全部采纳才交付候选。
+- main 的保护与规则集复核仍为空，保持草稿、不请求合并；可用工具不支持修改保护。恢复历史的 PR/verify/严格最新分支要求后，仍须验收最终 head 与实际预览。构建和交付的最终结果以 PR 检查及描述为准，不将旧 head 的成功写成本轮成功。
