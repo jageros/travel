@@ -35,7 +35,7 @@ export async function fetchOfficialText(url, allowedHosts, fetcher = fetch, redi
   return text;
 }
 
-export async function checkSources(registry, { fetcher = fetch, now = new Date(), acceptBaseline = false } = {}) {
+export async function checkSources(registry, { fetcher = fetch, now = new Date(), acceptBaseline = false, acceptChanged = false } = {}) {
   validateRegistry(registry);
   const sources = [];
   const texts = new Map();
@@ -46,17 +46,29 @@ export async function checkSources(registry, { fetcher = fetch, now = new Date()
       texts.set(source.id, text);
       const hash = sha256(text);
       let status = !source.contentHash ? 'baseline-missing' : source.contentHash === hash ? 'unchanged' : 'changed';
+      const sourceConflicts = [];
       if (acceptBaseline && !source.contentHash) {
         source.contentHash = hash;
         status = 'unchanged';
       }
       // Evidence disappearance is a deterministic review trigger, not a semantic fact check.
       for (const fact of source.facts ?? []) {
-        if (fact.evidence && !text.toLowerCase().includes(fact.evidence.toLowerCase())) conflicts.push(fact.id);
+        if (fact.evidence && !text.toLowerCase().includes(fact.evidence.toLowerCase())) {
+          conflicts.push(fact.id);
+          sourceConflicts.push(fact.id);
+        }
       }
-      // Only an already approved, byte-equivalent normalized baseline can renew dates.
-      // A new baseline still needs an editor's initial fact verification.
-      if (status === 'unchanged' && source.contentHash === hash && !acceptBaseline) {
+      // Fully automated runs may advance an existing baseline only when the
+      // current capture still contains every registered evidence fragment.
+      // A missing fragment remains a hard hold for semantic review.
+      const hasManualFacts = (source.facts ?? []).some((fact) => !fact.evidence);
+      if (acceptChanged && status === 'changed' && sourceConflicts.length === 0 && !hasManualFacts) {
+        source.contentHash = hash;
+        status = 'unchanged';
+      }
+      // Matching baselines and evidence-backed automatic adoptions renew dates.
+      // Missing baselines and sources with manual facts stay held.
+      if (status === 'unchanged' && source.contentHash === hash && (!acceptBaseline || acceptChanged)) {
         source.checkedAt = isoDay(now);
         for (const fact of source.facts ?? []) {
           if (!fact.evidence || conflicts.includes(fact.id)) continue;
@@ -78,6 +90,18 @@ export async function runSourceCheck(root, options = {}) {
   const result = await checkSources(registry, options);
   await writeJson(path.join(root, 'automation/source-health.json'), result.report);
   await writeJson(file, registry);
+  const healthById = new Map(result.report.sources.map((source) => [source.id, source.status]));
+  const conflicts = new Set(result.report.conflicts);
+  let queue = [];
+  try { queue = await readJson(path.join(root, 'automation/review-queue.json')); } catch (error) { if (error.code !== 'ENOENT') throw error; }
+  const unresolvedQueue = queue.filter((item) => {
+    if (item.slug !== 'source-monitor') return true;
+    const ids = item.errors.map((error) => error.split(':', 1)[0]);
+    if (item.stage === 'source-check') return ids.some((id) => healthById.get(id) !== 'unchanged');
+    if (item.stage === 'fact-evidence') return ids.some((id) => conflicts.has(id));
+    return true;
+  });
+  if (unresolvedQueue.length !== queue.length) await writeJson(path.join(root, 'automation/review-queue.json'), unresolvedQueue);
   for (const source of result.report.sources) {
     if (source.status !== 'unchanged') await queueFailure(root, { slug: 'source-monitor', stage: 'source-check', errors: [`${source.id}: ${source.status}${source.error ? ` (${source.error})` : ''}`] }, options.now);
   }

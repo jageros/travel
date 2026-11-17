@@ -3,13 +3,10 @@ import test from 'node:test';
 import { promises as fs } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { execFile } from 'node:child_process';
-import { promisify } from 'node:util';
 import { parse } from 'yaml';
 import { classifySourceStateUpdate, createEditorialRunner, openEditorialPullRequest, pushEditorialBranch } from '../scripts/editorial-pr.mjs';
 import { sha256, writeJson } from '../scripts/content-lib.mjs';
 
-const exec = promisify(execFile);
 const head = 'a'.repeat(40);
 const now = new Date('2026-10-19T09:00:00Z');
 
@@ -60,7 +57,6 @@ test('a new content PR is created after the prior branch PR was merged or closed
   assert.ok(runner.calls.some((call) => call.args.join(' ') === 'workflow run ci.yml --ref automation/editorial'));
   assert.ok(!runner.calls.some((call) => call.args.includes('merge')));
 });
-
 test('an unchanged branch causes no empty PR or duplicate CI dispatch', async (t) => {
   const root = await setup(t);
   const runner = fakeRunner({ noDiff: true });
@@ -204,43 +200,14 @@ test('an Actions dispatch permission failure leaves a reviewable PR and never re
   assert.ok(!runner.calls.some((call) => call.args[0] === 'pr' && call.args[1] === 'merge'));
 });
 
-test('manual dispatch defaults to monitor-only while scheduled releases stay gated without model credentials', async (t) => {
-  const root = await setup(t);
+test('workflow always runs the complete automatic pipeline', async () => {
   const workflow = parse(await fs.readFile(new URL('../.github/workflows/editorial.yml', import.meta.url), 'utf8'));
-  assert.equal(workflow.on.workflow_dispatch.inputs.publish_approved.default, false);
+  assert.deepEqual(workflow.on.workflow_dispatch, null);
   const step = workflow.jobs.editorial.steps.find((item) => item.id === 'pipeline');
-  const bin = path.join(root, 'bin'); await fs.mkdir(bin);
-  await fs.writeFile(path.join(bin, 'date'), '#!/bin/sh\nprintf "1\\n"\n', { mode: 0o755 });
-  await fs.writeFile(path.join(bin, 'node'), '#!/bin/sh\nprintf "%s\\n" "$@" > "$CALLS_FILE"\n', { mode: 0o755 });
-  for (const [env, expected] of [
-    [{ EVENT_NAME: 'workflow_dispatch' }, []],
-    [{ EVENT_NAME: 'workflow_dispatch', REQUEST_PUBLISH: 'true' }, ['--publish']],
-    [{ EVENT_NAME: 'schedule' }, ['--publish']],
-    [{ EVENT_NAME: 'schedule', DRAFT_API_KEY: 'test-fixture', DRAFT_MODEL: 'fixture' }, ['--draft', '--publish']],
-    [{ EVENT_NAME: 'workflow_dispatch', REQUEST_DRAFT: 'true', DRAFT_API_KEY: 'test-fixture', DRAFT_MODEL: 'fixture' }, ['--draft']],
-  ]) {
-    const log = path.join(root, 'args.txt');
-    await exec('bash', ['-c', step.run], { env: { PATH: `${bin}:${process.env.PATH}`, CALLS_FILE: log, DRAFT_API_KEY: '', DRAFT_MODEL: '', REQUEST_DRAFT: '', REQUEST_PUBLISH: '', ...env } });
-    assert.deepEqual((await fs.readFile(log, 'utf8')).trim().split('\n'), ['scripts/content-pipeline.mjs', ...expected]);
-  }
-});
-
-test('missing source baselines require an explicit manual request after official-source review', async () => {
-  const workflow = parse(await fs.readFile(new URL('../.github/workflows/editorial.yml', import.meta.url), 'utf8'));
-  const input = workflow.on.workflow_dispatch.inputs.accept_missing_baselines;
-  assert.equal(input.type, 'boolean');
-  assert.equal(input.default, false);
-  assert.match(input.description, /official-source review/);
-  const steps = workflow.jobs.editorial.steps;
-  const captures = steps.filter((step) => step.run?.includes('--accept-baseline'));
-  assert.equal(captures.length, 1);
-  const capture = captures[0];
-  assert.equal(capture.if, "github.event_name == 'workflow_dispatch' && inputs.accept_missing_baselines == true");
-  assert.equal(capture['continue-on-error'], true);
-  assert.equal(capture.env.BASELINE_REVIEWER, '${{ github.actor }}');
-  assert.match(capture.run, /node scripts\/check-sources\.mjs --accept-baseline/);
-  assert.ok(steps.indexOf(capture) < steps.findIndex((step) => step.id === 'pipeline'));
-  assert.ok(!steps.find((step) => step.id === 'pipeline').run.includes('--accept-baseline'));
+  assert.equal(step.run, 'node scripts/content-pipeline.mjs --draft --publish --automatic');
+  assert.equal(step['continue-on-error'], true);
+  assert.ok(!step.run.includes('--approve'));
+  assert.ok(!step.run.includes('--accept-baseline'));
 });
 
 function sourceStateFixture() {
@@ -531,41 +498,27 @@ test('the push command restricts branch and content paths before using any write
   }
 });
 
-test('workflow creates a narrowly scoped App token only when both configuration values exist', async (t) => {
-  const root = await setup(t);
+test('workflow runs the automated publisher on main and pushes only after verification', async () => {
   const workflow = parse(await fs.readFile(new URL('../.github/workflows/editorial.yml', import.meta.url), 'utf8'));
-  const steps = workflow.jobs.editorial.steps;
-  const selector = steps.find((step) => step.id === 'editorial-auth');
-  assert.equal(selector.env.APP_KEY_CONFIGURED, "${{ secrets.EDITORIAL_APP_PRIVATE_KEY != '' }}");
-  assert.ok(!Object.hasOwn(selector.env, 'EDITORIAL_APP_PRIVATE_KEY'));
-  for (const [client, key, enabled] of [['', 'false', false], ['configured-client', 'false', false], ['', 'true', false], ['configured-client', 'true', true]]) {
-    const output = path.join(root, 'auth-output.txt');
-    await fs.writeFile(output, '');
-    const result = await exec('bash', ['-c', selector.run], { env: { PATH: process.env.PATH, GITHUB_OUTPUT: output, APP_CLIENT_ID: client, APP_KEY_CONFIGURED: key } });
-    assert.equal((await fs.readFile(output, 'utf8')).trim(), `configured=${enabled}`);
-    assert.match(result.stdout, enabled ? /repository-scoped installation token/ : /human approval.*required PR checks/);
-  }
-  const token = steps.find((step) => step.id === 'editorial-app-token');
-  assert.equal(token.if, "steps.editorial-auth.outputs.configured == 'true'");
-  assert.match(token.uses, /^actions\/create-github-app-token@[a-f0-9]{40}$/);
-  assert.equal(token.with.owner, '${{ github.repository_owner }}');
-  assert.equal(token.with.repositories, '${{ github.repository }}');
-  assert.equal(token.with['client-id'], '${{ vars.EDITORIAL_APP_CLIENT_ID }}');
-  assert.equal(token.with['private-key'], '${{ secrets.EDITORIAL_APP_PRIVATE_KEY }}');
-  assert.equal(token.with['skip-token-revoke'], false);
-  assert.deepEqual(Object.keys(token.with).filter((key) => key.startsWith('permission-')).sort(), ['permission-contents', 'permission-pull-requests']);
-  assert.equal(token.with['permission-contents'], 'write');
-  assert.equal(token.with['permission-pull-requests'], 'write');
-  assert.equal(steps.find((step) => step.uses === 'actions/checkout@v4').with['persist-credentials'], false);
-  const publish = steps.find((step) => step.name === 'Publish a reviewable content and source-health PR');
-  assert.equal(publish.env.GH_TOKEN, '${{ github.token }}');
-  assert.equal(publish.env.EDITORIAL_APP_TOKEN, '${{ steps.editorial-app-token.outputs.token }}');
-  assert.match(publish.run, /node scripts\/editorial-pr\.mjs --push-branch/);
-  assert.ok(!publish.run.includes('git push'));
-  assert.ok(!publish.run.includes('git commit'));
-  assert.ok(steps.indexOf(token) > steps.findIndex((step) => step.run === 'npm run verify'));
-  assert.ok(steps.indexOf(token) > steps.findIndex((step) => step.name === 'Prepare the editorial state commit'));
-  assert.ok(steps.slice(0, steps.indexOf(token)).every((step) => !Object.hasOwn(step.env ?? {}, 'EDITORIAL_APP_TOKEN')));
-  const ci = await fs.readFile(new URL('../.github/workflows/ci.yml', import.meta.url), 'utf8');
-  assert.ok(!ci.includes('EDITORIAL_APP'));
+  assert.deepEqual(workflow.on.workflow_dispatch, null);
+  assert.equal(workflow.permissions.contents, 'write');
+  assert.equal(workflow.jobs.editorial.if, "github.ref == 'refs/heads/main'");
+  const checkout = workflow.jobs.editorial.steps.find((step) => step.uses === 'actions/checkout@v4');
+  assert.equal(checkout.with['persist-credentials'], true);
+  const pipeline = workflow.jobs.editorial.steps.find((step) => step.id === 'pipeline');
+  assert.equal(pipeline.run, 'node scripts/content-pipeline.mjs --draft --publish --automatic');
+  assert.equal(pipeline['continue-on-error'], true);
+  const verify = workflow.jobs.editorial.steps.find((step) => step.id === 'verify');
+  assert.equal(verify.run, 'npm run verify');
+  const commit = workflow.jobs.editorial.steps.find((step) => step.name === 'Commit verified editorial state to main');
+  assert.equal(commit.if, "steps.verify.outcome == 'success'");
+  assert.match(commit.run, /git push origin HEAD:main/);
+  assert.match(commit.run, /git fetch origin main/);
+  assert.match(commit.run, /git rev-parse origin\/main/);
+  assert.ok(!commit.run.includes('HEAD:automation/editorial'));
+  assert.ok(!commit.run.includes('gh pr'));
+  assert.ok(!JSON.stringify(workflow).includes('approve_slug'));
+  assert.ok(!JSON.stringify(workflow).includes('approve_sha256'));
+  assert.ok(!JSON.stringify(workflow).includes('accept_missing_baselines'));
+  assert.ok(!JSON.stringify(workflow).includes('EDITORIAL_APP'));
 });

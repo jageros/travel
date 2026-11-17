@@ -1,6 +1,14 @@
 # Cedar Trips 推进历史
 
-本文件只记已发生的工作和已决定的边界；未来工作见 [roadmap](roadmap.md)，当前日期快照见 [交接](README.md)。截至 2026-11-05；更早的验收链接保留当时状态，不代表今天重新执行。
+本文件只记已发生的工作和已决定的边界；未来工作见 [roadmap](roadmap.md)，当前日期快照见 [交接](README.md)。截至 2026-11-17；更早的验收链接保留当时状态，不代表今天重新执行。
+
+## 2026-11-17：自动发布机制改造
+
+- 按用户决定，将 editorial workflow 从“监测 → review PR → 人工审批/合并”改为 `main` 上的自动流程。workflow 现在抓取登记的官方来源，按 `automation/gsc-opportunities.json` 对 `ready` 主题排序，调用已配置的服务端模型生成一篇文章，运行生产验证，并在成功且 main 未发生竞态时直接提交 `main`。
+- 发布账本改为 `requiredManualApprovals: 0`、`fullyAutomatic: true`。历史五篇人工批准和既有发布记录原样保留，后续自动发布记录 `manualApproval: false` 与精确 `articleDigest`。
+- changed 来源自动推进仅限于抓取成功、登记 evidence 全部存在且来源不含人工事实的情况。证据缺失、人工事实、不可用来源、过期事实、重复、质量或构建失败继续阻止该次发布并进入队列。
+- 增加 Search Console 机会排序、自动来源 baseline 测试、无人工批准发布测试和 main 直写 workflow 测试。清理 Astro/Vite 忽略缓存后，内容校验、Astro 检查、137 个测试、生产构建和静态验证均通过。
+- 本次没有执行远端 fetch、推送、Cloudflare 部署或真实自动 workflow run。工作区改动仍需经过代码变更交付和远端权限验证。
 
 ## 2026-10-19：内容与技术方向
 

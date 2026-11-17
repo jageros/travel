@@ -1,6 +1,7 @@
 {
   "version": 1,
-  "requiredManualApprovals": 5,
+  "requiredManualApprovals": 0,
+  "fullyAutomatic": true,
   "autoPublishEnabled": true,
   "approvals": [
     {

@@ -43,6 +43,9 @@ test('a staged production release has static content, working links, metadata an
   const parts=/^---\n([\s\S]*?)\n---\n([\s\S]*)$/.exec(raw);
   const article=parse(parts[1]);
   article.status='published';article.publishedAt=new Date().toISOString().slice(0,10);
+  // Keep this one-article production fixture internally self-contained after
+  // the other articles are moved to review status.
+  article.related=[];
   await fs.writeFile(file,`---\n${stringify(article,{defaultStringType:'QUOTE_DOUBLE'})}---\n${parts[2]}`);
   const healthFile=path.join(root,'automation/source-health.json');
   const registry=JSON.parse(await fs.readFile(path.join(root,'automation/sources.json'),'utf8'));

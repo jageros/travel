@@ -6,7 +6,7 @@ import { runSourceCheck } from './check-sources.mjs';
 
 export async function generateDraft(topic, registry, texts, { fetcher = fetch, env = process.env, now = new Date() } = {}) {
   if (!isSlug(topic.slug) || !supportedTopics.has(topic.topic)) throw new Error('Topic has no registered site landing page');
-  if (!env.DRAFT_API_KEY || !env.DRAFT_MODEL) throw new Error('DRAFT_API_KEY and DRAFT_MODEL must be configured by an editor');
+  if (!env.DRAFT_API_KEY || !env.DRAFT_MODEL) throw new Error('DRAFT_API_KEY and DRAFT_MODEL must be configured for the automated workflow');
   const base = new URL(env.DRAFT_API_BASE_URL || 'https://api.openai.com/v1/');
   const allowed = (env.DRAFT_API_ALLOWED_HOSTS || 'api.openai.com').split(',').map((host) => host.trim());
   if (base.protocol !== 'https:' || base.username || base.password || base.port || !allowed.includes(base.hostname)) throw new Error('Draft API endpoint is not an approved HTTPS host');
@@ -55,7 +55,7 @@ export async function approveArticle(root, slug, reviewer, { now = new Date(), e
 export async function publishCandidates(root, registry, report, { now = new Date() } = {}) {
   const stateFile = path.join(root, 'automation/editorial.json');
   const state = await readJson(stateFile);
-  if (state.version !== 1 || state.requiredManualApprovals !== 5 || typeof state.autoPublishEnabled !== 'boolean' || !Array.isArray(state.publications) || !Array.isArray(state.approvals)) throw new Error('Invalid editorial approval state');
+  if (state.version !== 1 || !Number.isInteger(state.requiredManualApprovals) || state.requiredManualApprovals < 0 || typeof state.autoPublishEnabled !== 'boolean' || (state.fullyAutomatic !== undefined && typeof state.fullyAutomatic !== 'boolean') || !Array.isArray(state.publications) || !Array.isArray(state.approvals)) throw new Error('Invalid editorial approval state');
   if (!report.checkedAt || !Number.isFinite(Date.parse(report.checkedAt)) || now.getTime() - Date.parse(report.checkedAt) > 24 * 3600000 || Date.parse(report.checkedAt) > now.getTime() || !Array.isArray(report.sources) || !Array.isArray(report.conflicts)) throw new Error('Publication requires a current source check');
   const articles = await readArticles(root);
   const results = [];
@@ -83,15 +83,41 @@ export async function publishCandidates(root, registry, report, { now = new Date
   return results;
 }
 
-export async function runPipeline(root, { draft = false, publish = false, now = new Date(), fetcher = fetch, env = process.env } = {}) {
-  const { registry, report, texts } = await runSourceCheck(root, { now, fetcher });
+export function topicOpportunityScore(topic, opportunities = []) {
+  const intentWords = new Set(normalizedIntent(topic.primaryIntent).split(' ').filter((word) => word.length > 2));
+  return opportunities.reduce((best, opportunity) => {
+    if (!opportunity || typeof opportunity.query !== 'string') return best;
+    const query = normalizedIntent(opportunity.query);
+    const overlap = query.split(' ').filter((word) => intentWords.has(word)).length;
+    const exact = opportunity.matchingIntent === topic.slug ? 1 : 0;
+    const clicks = Number.isFinite(Number(opportunity.clicks)) ? Number(opportunity.clicks) : 0;
+    const impressions = Number.isFinite(Number(opportunity.impressions)) ? Number(opportunity.impressions) : 0;
+    const position = Number.isFinite(Number(opportunity.position)) ? Number(opportunity.position) : 100;
+    const score = exact * 100000 + clicks * 10000 + impressions * 100 + overlap * 10 + Math.max(0, 100 - position);
+    return Math.max(best, score);
+  }, 0);
+}
+
+export function rankTopics(topics, opportunities = [], articles = []) {
+  const existing = new Set(articles.map((article) => article.data.slug));
+  return topics
+    .map((topic, index) => ({ topic, index }))
+    .filter(({ topic }) => topic.status === 'ready' && !existing.has(topic.slug))
+    .sort((a, b) => topicOpportunityScore(b.topic, opportunities) - topicOpportunityScore(a.topic, opportunities) || a.index - b.index)
+    .map(({ topic }) => topic);
+}
+
+export async function runPipeline(root, { draft = false, publish = false, automatic = false, now = new Date(), fetcher = fetch, env = process.env } = {}) {
+  const { registry, report, texts } = await runSourceCheck(root, { now, fetcher, acceptChanged: automatic });
   const output = { checkedAt: now.toISOString(), generated: [], heldDrafts: [], publications: [], errors: [] };
   if (draft) {
     try {
       const articles = await readArticles(root);
       const queue = await readJson(path.join(root, 'automation/topics.json'));
       let topic;
-      for (const candidate of queue.topics.filter((item) => item.status === 'ready' && !articles.some((article) => article.data.slug === item.slug))) {
+      const opportunities = await readJson(path.join(root, 'automation/gsc-opportunities.json')).catch(() => ({ opportunities: [] }));
+      const candidates = rankTopics(queue.topics, Array.isArray(opportunities.opportunities) ? opportunities.opportunities : [], articles);
+      for (const candidate of candidates) {
         const errors = topicPreflight(candidate, registry, report, articles, { now });
         if (errors.length) {
           await queueFailure(root, { slug: candidate.slug, stage: 'draft-preflight', errors }, now);
@@ -163,7 +189,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
       const result = await approveArticle(process.cwd(), args[args.indexOf('--approve') + 1], args[args.indexOf('--reviewer') + 1], { expectedSha256: args[args.indexOf('--sha256') + 1] });
       console.log(`Recorded editorial approval for ${result.slug} by ${result.reviewer}. Publication remains a separate capped step.`);
     } else {
-      const result = await runPipeline(process.cwd(), { draft: args.includes('--draft'), publish: args.includes('--publish') });
+      const result = await runPipeline(process.cwd(), { draft: args.includes('--draft'), publish: args.includes('--publish'), automatic: args.includes('--automatic') });
       console.log(JSON.stringify(result, null, 2));
       if (result.errors.length) process.exitCode = 2;
     }

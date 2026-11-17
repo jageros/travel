@@ -1,8 +1,18 @@
 # Cedar Trips 当前交接
 
-整理日期：**2026-11-05，Asia/Shanghai**。本页记录本次读取与历史证据的边界；下次必须重新核对。先读根目录 [AGENTS.md](../../AGENTS.md)，再按本页接续。项目决策见 [推进历史](history.md)，执行优先级见 [后续计划](roadmap.md)。
+整理日期：**2026-11-17，Asia/Shanghai**。本页同时记录当前自动发布改动和 11 月 5 日历史快照；下次必须重新核对远端、运行记录和部署。先读根目录 [AGENTS.md](../../AGENTS.md)，再按本页接续。项目决策见 [推进历史](history.md)，执行优先级见 [后续计划](roadmap.md)。
 
-## 本次核对到的状态
+## 当前代码工作区
+
+- 当前本地 `main` 和记录中的 `origin/main` 指向 `339836c`。本次 `git fetch origin main` 因本机无法写入 `.git/FETCH_HEAD` 未完成，不能据此断言远端此刻没有更新。
+- 工作区已加入自动 editorial workflow。它在 `main` 上抓取登记的官方来源，按已导入的 Search Console 机会给 `ready` 主题排序，生成一篇合规 Markdown，运行生产验证，并在成功后直接提交 `main`。`automation/editorial.json` 已设为 `requiredManualApprovals: 0` 和 `fullyAutomatic: true`。
+- changed 来源只有在抓取成功、所有登记 evidence 片段仍存在且来源没有人工事实时自动推进 baseline 和证据日期。缺失 evidence、人工事实、不可用来源、过期事实、重复或质量失败会留在队列中，等待下一次自动运行。
+- 本次本地验证在清理 Astro/Vite 忽略缓存后通过。内容校验 6 篇，Astro 检查 60 文件零诊断，137/137 测试，生产构建 17 页和 `verify-build` 均通过。尚未验证远程 CI、Cloudflare 活动版本、生产 HTTP 或真实自动 workflow run。
+- 当前源健康账本来自 2026-11-16 07:56:42Z，记录 11 个 changed 来源。当前 Search Console JSON 仍是 10 月 19–30 日的历史导入，不能当作新的实时窗口。
+
+本节描述的是当前未提交工作区。提交、远端推送和部署完成前，不应把自动发布机制写成已在生产运行。
+
+## 历史快照：2026-11-05
 
 | 项目 | 已核对事实与时间 |
 | --- | --- |
@@ -70,8 +80,8 @@
 2. 读 `AGENTS.md`、本页、history、roadmap。查看 `git status --short --branch` 和 `git log -5 --oneline`；有本地改动先保留。在已获准的 Git 访问条件下 fetch，检查最新 `origin/main`，不覆盖用户改动、不强推 main。
 3. 使用 Node 24（`.nvmrc`），运行 `npm ci`。本地 `.env` 可从 `.env.example` 建立；不要从原聊天复制密钥。
 4. 重新连接所需工具/后台。已有标识：Search Console Domain property **cedartrips.com**；GA4 property **559805493**、measurement ID **G-QDDLYW7WRF**；Cloudflare Worker **cedar-trips**。登录和权限不会随 Git 转移。
-5. 读取本次 main 的账本、sources、health、queue、文章、照片登记与 workflow，重算配额和来源状态。先处理 roadmap 中的来源阻塞，再移用 pending 稿；不从 docs 自动发布。
-6. 普通受保护 PR → 当前 head 必过 CI → 真正的 Cloudflare 分支预览 → 合并 → 对应提交的实际生产部署与 HTTP 验收。不要把“请求 auto-merge”或成功 build check 直接写成生产已验收。
+5. 读取本次 main 的账本、sources、health、queue、文章、照片登记与 workflow，重算配额和来源状态。自动 workflow 只使用登记的官方来源和已导入的真实 Search Console 数据；不要把 docs 下的候选稿直接当成生产文章。
+6. 代码和 workflow 变更走普通受保护 PR。内容和来源状态由自动 workflow 在生产验证和 main 竞态检查通过后直接提交 `main`。提交成功仍需单独核对 Cloudflare 部署、生产 SHA、HTTP 和 sitemap。
 
 本地只读查看待审稿指纹：
 
@@ -90,9 +100,9 @@ CONTENT_REVIEW_PREVIEW=true npm run dev
 
 预览默认 `127.0.0.1:4321`，端口占用时以命令输出为准。刻意给预览传 `SITE_INDEXING_ENABLED=true` 仍必须保持 noindex、无 GA/广告。纯交接文档变更不需要伪造或重跑整套文章验证；应检查链接和 payload 完整性。
 
-**有副作用的命令**：`npm run sources:check`、无参数 `node scripts/content-pipeline.mjs` 都会联网并改写来源/健康/队列或报告；不是只读检查。后者无参数仅监测，`--publish` 才尝试发布，`--draft` 可能调用配置的外部模型，本项目不得为接续而运行付费扩稿。
+**有副作用的命令**：`npm run sources:check`、无参数 `node scripts/content-pipeline.mjs` 都会联网并改写来源/健康/队列或报告；不是只读检查。`node scripts/content-pipeline.mjs --draft --publish --automatic` 会抓取来源、调用已配置模型、写入候选并尝试发布，运行前必须确认当前工作区和账本状态。
 
-手动仅监测：在 [editorial.yml](https://github.com/jageros/travel/actions/workflows/editorial.yml) 选择 main，保持 `publish_approved=false`、`generate_draft=false`、`accept_missing_baselines=false`，审批字段空白。每日 UTC 01:15 / 北京时间 09:15 的 schedule **会尝试发布**，可能延迟；先检查已有 run，不重复 dispatch。自动化细节见 [automation.md](../automation.md)。
+在 [editorial.yml](https://github.com/jageros/travel/actions/workflows/editorial.yml) 手动启动或等待每日 UTC 01:15 / 北京时间 09:15 的 schedule，都会执行完整自动流程。先检查已有 run，避免重复 dispatch。自动化细节见 [automation.md](../automation.md)。
 
 导入新的实际查询词可用 `node scripts/import-gsc.mjs path/to/Queries.csv`，它会改写 `automation/gsc-opportunities.json`。保留真实日期与来源，不为缺失数据造 CSV。
 

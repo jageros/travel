@@ -1,6 +1,6 @@
-# First five articles: required human review
+# First five articles: historical human-review record
 
-Initial articles enter `status: review` and stay excluded from production article routes and the sitemap until explicitly approved and released. The owner confirmed all five exact digests on 2026-10-20; the overview, operator/payment and SFO transfer guides were released that day, and the other two on 2026-10-28 after the rolling quota recovered. The waterfront guide was then automatically released under the existing after-five rules without a fabricated manual approval. The local review-preview mode renders review content with `noindex`; a preview itself is not publication approval. Current authority is the versioned editorial ledger; dated status and remaining work are in the [project handoff](handoff/README.md).
+The initial five articles entered `status: review` and stayed excluded from production routes until their exact versions were approved and released. The owner confirmed all five exact digests on 2026-10-20; the overview, operator/payment and SFO transfer guides were released that day, and the other two on 2026-10-28 after the rolling quota recovered. The waterfront guide was then automatically released under the after-five rules without a fabricated manual approval. This file preserves that historical record. Current publication uses the automatic source, fact, quality, duplicate and build gates in [automation operations](automation.md), with ledger authority in `automation/editorial.json`.
 
 ## Review queue
 
@@ -12,7 +12,7 @@ Initial articles enter `status: review` and stay excluded from production articl
 | 4 | `is-muni-pass-worth-it` | Does a pass fit the planned paid fare windows? | Formula and product coverage are correct; current prices remain in expiring registry facts |
 | 5 | `golden-gate-bridge-without-a-car` | Is the visit a viewpoint, partial walk or crossing? | Bridge end, return stop and pedestrian-access verification are clear |
 
-## Checklist before approval
+## Historical checklist before the first five approvals
 
 - [ ] Open the current official pages; verify every referenced fact and its source, checked date and expiry. A successful HTTP response or an unchanged hash alone does not prove the fact is true.
 - [ ] Resolve material conflicts before adding a definite claim. Current known conflicts are purchase-channel labels and incomplete inter-agency discount guidance; drafts avoid making those promises.
@@ -24,7 +24,7 @@ Initial articles enter `status: review` and stay excluded from production articl
 - [ ] Confirm the registered hero photo matches the actual location and transport discussed. Check the original Commons file page, photographer, capture date and license against `src/data/photos.json`; the downloaded original's checksum must match. A historical photo does not establish today's services, signs or fares.
 - [ ] Confirm the photo credit, license link and resize/crop disclosure are visible, including the original ShareAlike license on adapted photos where required. Do not add unverified image URLs or invent a license.
 - [ ] Confirm title and description accurately describe the content; image alt describes what the photograph shows; no keyword repetition is added solely to target search.
-- [ ] Record a named reviewer and review date using the approval command documented in the operations guide. Do not approve solely to unlock automated publishing.
+- [x] Record the named reviewer, review date and exact digest in the historical editorial ledger.
 
 ## Drafting and fact policy
 
@@ -34,8 +34,8 @@ Routine planning advice is editorial reasoning, not a claim of personal travel. 
 
 External links in draft prose provide attribution and the next official check. Do not automatically replace published prose when a fetch fails. A failed or changed source needs investigation; it does not show that a service was cancelled or a fare changed.
 
-## After the first five approvals
+## Current automatic publication
 
-Passing automated checks permits the configured subsequent workflow; it does not establish editorial truth. Review one published article each week, rotate through high-change facts and any reader reports, and pause the affected publication when a material error is found. Keep the initial weekly cap and treat exceptions as review work, not a reason to publish unrelated volume.
+Passing automated checks permits the configured workflow to publish. The workflow retains the weekly cap, rotates through high-change facts and records failures in the queue. A material source or fact failure holds the affected article until the automatic evidence gate passes again.
 
 Keyword ideas, source hashes and Search Console data are inputs to a decision. They do not authorize duplicate pages or turn an unverified draft into a published article. A new article must add a distinct useful answer and retain source provenance.

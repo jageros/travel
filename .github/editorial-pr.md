@@ -1,5 +1,3 @@
-Updates official-source health, reviewable drafts, or articles that passed publication gates.
+The scheduled editorial workflow no longer creates a pull request. It runs the source monitor and automatic pipeline on `main`, verifies the production build, and commits only the validated article and editorial-state files.
 
-The first five releases require a named editorial approval bound to the exact article content. Review each article's official sources, facts, intent, usefulness, and image provenance before recording approval. Source changes and unavailable sources hold affected publication; fact expiry also hides dated claims at build time.
-
-After five approved releases, the workflow requests auto-merge while respecting branch protection. Check the editorial-reports artifact and automation/review-queue.json for held work. Do not merge unexpected files or changes to executable scripts as an ordinary content update.
+The pipeline still checks official-source freshness, registered evidence, fact expiry, topic intent, duplicate content, safe Markdown output and the complete site build. A failed check leaves the candidate in the queue and prevents the commit. This file remains for historical compatibility with older tooling that may look for the former PR body.

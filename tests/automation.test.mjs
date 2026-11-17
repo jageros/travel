@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { articleDigest, assertOfficialUrl, findDuplicates, manualReleaseCount, parseArticle, publicationDecision, readArticles, readJson, serializeArticle, sha256, validateArticle, writeJson } from '../scripts/content-lib.mjs';
 import { checkSources, extractText, fetchOfficialText, runSourceCheck } from '../scripts/check-sources.mjs';
-import { approveArticle, generateDraft, publishCandidates, runPipeline, topicPreflight } from '../scripts/content-pipeline.mjs';
+import { approveArticle, generateDraft, publishCandidates, rankTopics, runPipeline, topicOpportunityScore, topicPreflight } from '../scripts/content-pipeline.mjs';
 import { importQueries } from '../scripts/import-gsc.mjs';
 
 const now = new Date('2026-10-19T09:00:00.000Z');
@@ -76,6 +76,47 @@ test('baseline acceptance initializes only missing hashes and never accepts chan
   assert.equal(changed.report.sources[0].status, 'changed');
 });
 
+test('automatic source acceptance updates only evidence-backed changed pages', async () => {
+  const changedHtml = `<main>${'Revised official transit material with station access and public fare guidance. '.repeat(5)}</main>`;
+  const current = registry();
+  const accepted = await checkSources(current, { fetcher: async () => new Response(changedHtml, { headers: { 'content-type': 'text/html' } }), now: new Date('2026-10-20T09:00:00Z'), acceptChanged: true });
+  assert.equal(accepted.report.sources[0].status, 'unchanged');
+  assert.equal(current.sources[0].contentHash, sha256(extractText(changedHtml)));
+  assert.equal(current.sources[0].facts[0].checkedAt, '2026-10-20');
+  assert.equal(current.sources[0].facts[0].expiresAt, '2026-10-27');
+
+  const evidenceMissing = registry();
+  const held = await checkSources(evidenceMissing, { fetcher: async () => new Response(`<main>${'Revised page without the registered evidence. '.repeat(5)}</main>`, { headers: { 'content-type': 'text/html' } }), now, acceptChanged: true });
+  assert.equal(held.report.sources[0].status, 'changed');
+  assert.equal(evidenceMissing.sources[0].contentHash, sha256(officialText));
+  assert.deepEqual(held.report.conflicts, ['station-fact']);
+
+  const manual = registry();
+  delete manual.sources[0].facts[0].evidence;
+  const manualHeld = await checkSources(manual, { fetcher: async () => new Response(changedHtml, { headers: { 'content-type': 'text/html' } }), now, acceptChanged: true });
+  assert.equal(manualHeld.report.sources[0].status, 'changed');
+  assert.equal(manual.sources[0].contentHash, sha256(officialText));
+
+  const failed = registry();
+  const unavailable = await checkSources(failed, { fetcher: async () => new Response(null, { status: 503 }), now, acceptChanged: true });
+  assert.equal(unavailable.report.sources[0].status, 'unavailable');
+  assert.equal(failed.sources[0].contentHash, sha256(officialText));
+});
+
+test('topic ranking prioritizes exact matching intent, then clicks and impressions', () => {
+  const topics = [
+    { slug: 'low', status: 'ready', primaryIntent: 'How can I plan a waterfront day?' },
+    { slug: 'high', status: 'ready', primaryIntent: 'How should I plan SFO transit with luggage?' },
+    { slug: 'blocked', status: 'blocked', primaryIntent: 'Ignore this topic' },
+  ];
+  const opportunities = [
+    { query: 'SFO transit with luggage', clicks: 1, impressions: 3, position: 9, matchingIntent: 'high' },
+    { query: 'waterfront day', clicks: 4, impressions: 100, position: 5, matchingIntent: null },
+  ];
+  assert.ok(topicOpportunityScore(topics[1], opportunities) > topicOpportunityScore(topics[0], opportunities));
+  assert.deepEqual(rankTopics(topics, opportunities).map((topic) => topic.slug), ['high', 'low']);
+});
+
 test('source snapshots capture exact current-run normalized text and overwrite unavailable sources without accepting baselines', async (t) => {
   const root = await fixture(t);
   const initial = registry();
@@ -107,6 +148,18 @@ test('source snapshots capture exact current-run normalized text and overwrite u
   assert.deepEqual(unavailable.sources, initial.sources.map(({ id, url }) => ({ id, url, status: 'unavailable', contentHash: null })));
   assert.ok(unavailable.sources.every((source) => !Object.hasOwn(source, 'text')), 'failed checks cannot retain any prior normalized text');
   assert.deepEqual(await savedHashes(), baselineHashes);
+});
+
+test('source monitoring removes resolved source holds while preserving article holds', async (t) => {
+  const root = await fixture(t);
+  await writeJson(path.join(root, 'automation/review-queue.json'), [
+    { slug: 'source-monitor', stage: 'source-check', errors: ['official-transit: changed'], detectedAt: now.toISOString() },
+    { slug: 'source-monitor', stage: 'fact-evidence', errors: ['station-fact: registered evidence was not found in the current source'], detectedAt: now.toISOString() },
+    { slug: 'article-draft', stage: 'publish', errors: ['Named editorial approval required for this exact content'], detectedAt: now.toISOString() },
+  ]);
+  await runSourceCheck(root, { now, fetcher: sourceFetch });
+  const queue = await readJson(path.join(root, 'automation/review-queue.json'));
+  assert.deepEqual(queue.map((item) => item.slug), ['article-draft']);
 });
 
 test('unchanged source health cannot renew manual facts without evidence or bypass their expiry gate', async (t) => {
@@ -267,6 +320,19 @@ test('approval and successful release preserve prose, record provenance, and nev
   assert.equal(ledger.publications[0].manualApproval, true);
   assert.equal(ledger.publications[0].contentSha256, articleDigest(published.data, published.body));
   assert.deepEqual(await publishCandidates(root, registry(), report(), { now }), []);
+});
+
+test('fully automatic state publishes a validated review article without named approval', async (t) => {
+  const root = await fixture(t);
+  const editorial = await readJson(path.join(root, 'automation/editorial.json'));
+  editorial.requiredManualApprovals = 0;
+  editorial.fullyAutomatic = true;
+  await writeJson(path.join(root, 'automation/editorial.json'), editorial);
+  const result = await publishCandidates(root, registry(), report(), { now });
+  assert.equal(result[0].status, 'published');
+  assert.equal(result[0].manualApproval, false);
+  const ledger = await readJson(path.join(root, 'automation/editorial.json'));
+  assert.equal(ledger.publications[0].manualApproval, false);
 });
 
 test('unavailable source holds release, writes failure queue, and leaves published file untouched', async (t) => {

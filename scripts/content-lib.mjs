@@ -205,6 +205,10 @@ export function publicationDecision(article, state, { now = new Date(), manualOn
   if (recent.length >= 3) return { allowed: false, reason: 'Weekly publication cap reached (3 in rolling 7 days)' };
   const approval = state.approvals.find((item) => item.slug === article.data.slug && item.contentSha256 === article.digest && item.reviewer && isDay(item.reviewedAt) && item.reviewedAt <= isoDay(now));
   const reviewedPublications = manualReleaseCount(state, { now });
+  const fullyAutomatic = state.fullyAutomatic === true || state.requiredManualApprovals === 0;
+  if (fullyAutomatic && !manualOnly && state.autoPublishEnabled === true) {
+    return { allowed: true, manualApproval: false };
+  }
   if (reviewedPublications < state.requiredManualApprovals || manualOnly || state.autoPublishEnabled !== true) {
     return approval ? { allowed: true, manualApproval: true, approval } : { allowed: false, reason: 'Named editorial approval required for this exact content' };
   }

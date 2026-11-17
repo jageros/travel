@@ -214,12 +214,13 @@ export async function openEditorialPullRequest({ root = process.cwd(), env = pro
   }
 
   const state = await readJson(path.join(root, 'automation/editorial.json'));
-  if (state.version !== 1 || state.requiredManualApprovals !== 5 || typeof state.autoPublishEnabled !== 'boolean' || !Array.isArray(state.publications) || !Array.isArray(state.approvals)) throw new Error('Invalid editorial approval state; PR remains held for review');
+  if (state.version !== 1 || !Number.isInteger(state.requiredManualApprovals) || state.requiredManualApprovals < 0 || typeof state.autoPublishEnabled !== 'boolean' || (state.fullyAutomatic !== undefined && typeof state.fullyAutomatic !== 'boolean') || !Array.isArray(state.publications) || !Array.isArray(state.approvals)) throw new Error('Invalid editorial approval state; automated release remains held');
   const manualCount = manualReleaseCount(state, { now });
   const stateFiles = changed.filter((file) => sourceStatePaths.has(file));
   const sourceState = stateFiles.length ? await classifySourceStateUpdate({ changed: stateFiles, run, readVersion, readChanges, headRef: sha, now }) : { eligible: true, reason: 'No source-state changes' };
   const healthOnly = stateFiles.length === changed.length && sourceState.eligible;
-  const autoEligible = state.autoPublishEnabled === true && sourceState.eligible && (healthOnly || manualCount >= 5);
+  const fullyAutomatic = state.fullyAutomatic === true || state.requiredManualApprovals === 0;
+  const autoEligible = state.autoPublishEnabled === true && sourceState.eligible && (fullyAutomatic || healthOnly || manualCount >= state.requiredManualApprovals);
   const listRuns = async () => JSON.parse((await run('gh', ['run', 'list', '--workflow', 'ci.yml', '--event', 'workflow_dispatch', '--branch', 'automation/editorial', '--commit', sha, '--limit', '10', '--json', 'databaseId,status,conclusion,headSha'])).stdout);
   const priorRuns = new Set(autoEligible ? (await listRuns()).map((item) => item.databaseId) : []);
   // This extra exact-SHA dispatch is distinct from the required PR-event CI.
