@@ -4,7 +4,7 @@
 
 ## 当前执行顺序：自动发布机制
 
-代码改动已在当前工作区完成，尚未提交、推送或部署。交付顺序如下。
+自动发布代码已提交到 `main` 的 `0b946d2`，required CI 和 Cloudflare build check 已成功。活动版本、流量分配和生产 SHA 仍需继续核对。后续维护顺序如下。
 
 1. 通过普通代码 PR 交付 workflow、pipeline、测试和文档改动，保持当前 main 的生产构建门禁。
 2. 在 GitHub Actions 中确认 workflow token 可以写入 `main`，并确认 `DRAFT_API_KEY`、`DRAFT_MODEL`、允许的 API host 和 Cloudflare 部署链路已经配置。

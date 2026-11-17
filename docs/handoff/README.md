@@ -4,11 +4,12 @@
 
 ## 当前代码工作区
 
-- 当前本地 `main` 和记录中的 `origin/main` 指向 `339836c`。本次 `git fetch origin main` 因本机无法写入 `.git/FETCH_HEAD` 未完成，不能据此断言远端此刻没有更新。
+- 当前本地 `main` 和 `origin/main` 已同步到 `0b946d2`。此前推送时远端先合入 source-health 提交 `05bc210`，已先 fetch、rebase 后再推送，未覆盖远端状态。
 - 工作区已加入自动 editorial workflow。它在 `main` 上抓取登记的官方来源，按已导入的 Search Console 机会给 `ready` 主题排序，生成一篇合规 Markdown，运行生产验证，并在成功后直接提交 `main`。`automation/editorial.json` 已设为 `requiredManualApprovals: 0` 和 `fullyAutomatic: true`。
 - changed 来源只有在抓取成功、所有登记 evidence 片段仍存在且来源没有人工事实时自动推进 baseline 和证据日期。缺失 evidence、人工事实、不可用来源、过期事实、重复或质量失败会留在队列中，等待下一次自动运行。
-- 本次本地验证在清理 Astro/Vite 忽略缓存后通过。内容校验 6 篇，Astro 检查 60 文件零诊断，137/137 测试，生产构建 17 页和 `verify-build` 均通过。尚未验证远程 CI、Cloudflare 活动版本、生产 HTTP 或真实自动 workflow run。
-- 当前源健康账本来自 2026-11-16 07:56:42Z，记录 11 个 changed 来源。当前 Search Console JSON 仍是 10 月 19–30 日的历史导入，不能当作新的实时窗口。
+- 本次本地验证在清理 Astro/Vite 忽略缓存后通过。内容校验 6 篇，Astro 检查 60 文件零诊断，138/138 测试，生产构建 17 页和 `verify-build` 均通过。远程 `Content and site checks` run [44074195972](https://github.com/jageros/travel/actions/runs/44074195972) 对 `0b946d2` 成功，Cloudflare `Workers Builds: cedar-trips` check 也成功，指向 build [fc01f963-d659-4230-99c5-81c6ae070d47](https://dash.cloudflare.com/34d77ab5bdb83622d58fe9ff1ac1b695/workers/services/view/cedar-trips/production/builds/fc01f963-d659-4230-99c5-81c6ae070d47)。活动版本和 100% 流量分配仍未进入仪表盘复核。
+- 远程 source-health 提交 [#51](https://github.com/jageros/travel/commit/05bc210) 的报告捕获于 `2026-11-17T09:10:05.987Z`，当前记录 6 个 changed 来源、23 个 unchanged。当前 Search Console JSON 仍是 10 月 19–30 日的历史导入，不能当作新的实时窗口。
+- 生产只读 HTTP 检查得到首页 200、sitemap 200 且含 12 个 URL、未知路径 404。结果证明当前站点可访问，不单独证明活动版本已经切到 `0b946d2`。
 
 本节描述的是当前未提交工作区。提交、远端推送和部署完成前，不应把自动发布机制写成已在生产运行。
 
