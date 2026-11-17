@@ -13,7 +13,7 @@
     "errors": [
       "sfmta-travel-updates: changed"
     ],
-    "detectedAt": "2026-11-16T07:56:42.233Z"
+    "detectedAt": "2026-11-17T09:10:05.987Z"
   },
   {
     "slug": "source-monitor",
@@ -21,7 +21,7 @@
     "errors": [
       "sfmta-trip-planner: changed"
     ],
-    "detectedAt": "2026-11-16T07:56:42.233Z"
+    "detectedAt": "2026-11-17T09:10:05.987Z"
   },
   {
     "slug": "source-monitor",
@@ -29,7 +29,7 @@
     "errors": [
       "sfmta-fares: changed"
     ],
-    "detectedAt": "2026-11-16T07:56:42.233Z"
+    "detectedAt": "2026-11-17T09:10:05.987Z"
   },
   {
     "slug": "source-monitor",
@@ -37,7 +37,7 @@
     "errors": [
       "bart-advisories: changed"
     ],
-    "detectedAt": "2026-11-16T07:56:42.233Z"
+    "detectedAt": "2026-11-17T09:10:05.987Z"
   },
   {
     "slug": "source-monitor",
@@ -85,7 +85,7 @@
     "errors": [
       "sfmta-f-line: changed"
     ],
-    "detectedAt": "2026-11-16T07:56:42.233Z"
+    "detectedAt": "2026-11-17T09:10:05.987Z"
   },
   {
     "slug": "source-monitor",
@@ -117,6 +117,6 @@
     "errors": [
       "sfmta-cable-cars: changed"
     ],
-    "detectedAt": "2026-11-16T07:56:42.233Z"
+    "detectedAt": "2026-11-17T09:10:05.987Z"
   }
 ]
