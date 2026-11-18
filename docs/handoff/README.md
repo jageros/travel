@@ -1,17 +1,17 @@
 # Cedar Trips 当前交接
 
-整理日期：**2026-11-17，Asia/Shanghai**。本页同时记录当前自动发布改动和 11 月 5 日历史快照；下次必须重新核对远端、运行记录和部署。先读根目录 [AGENTS.md](../../AGENTS.md)，再按本页接续。项目决策见 [推进历史](history.md)，执行优先级见 [后续计划](roadmap.md)。
+整理日期：**2026-11-18，Asia/Shanghai**。本页同时记录当前自动发布改动和 11 月 5 日历史快照；下次必须重新核对远端、运行记录和部署。先读根目录 [AGENTS.md](../../AGENTS.md)，再按本页接续。项目决策见 [推进历史](history.md)，执行优先级见 [后续计划](roadmap.md)。
 
 ## 当前代码工作区
 
-- 当前本地 `main` 和 `origin/main` 已同步到 `d42fe76`。此前推送时远端先合入 source-health 提交 `05bc210`，已先 fetch、rebase 后再推送，未覆盖远端状态。
+- 当前本地 `main` 和 `origin/main` 已同步到 `aac2579`（PR #52 squash merge）。此前自动发布改造提交 `0b946d2` 与交接文档提交 `d42fe76` 均已包含在内。
 - 当前 Codex 会话已启用名为 `cedar-trips` 的每日 scheduled task。它在本地 `main` 上抓取登记的官方来源，按已导入的 Search Console 机会给 `ready` 主题排序，使用当前会话模型生成一篇合规 Markdown，运行生产验证，并在成功后直接提交 `main`。`automation/editorial.json` 已设为 `requiredManualApprovals: 0` 和 `fullyAutomatic: true`。
 - changed 来源只有在抓取成功、所有登记 evidence 片段仍存在且来源没有人工事实时自动推进 baseline 和证据日期。缺失 evidence、人工事实、不可用来源、过期事实、重复或质量失败会留在队列中，等待下一次自动运行。
-- 本次本地验证在清理 Astro/Vite 忽略缓存后通过。内容校验 6 篇，Astro 检查 60 文件零诊断，138/138 测试，生产构建 17 页和 `verify-build` 均通过。远程 `Content and site checks` run [44074195972](https://github.com/jageros/travel/actions/runs/44074195972) 对 `0b946d2` 成功，Cloudflare `Workers Builds: cedar-trips` check 也成功，指向 build [fc01f963-d659-4230-99c5-81c6ae070d47](https://dash.cloudflare.com/34d77ab5bdb83622d58fe9ff1ac1b695/workers/services/view/cedar-trips/production/builds/fc01f963-d659-4230-99c5-81c6ae070d47)。活动版本和 100% 流量分配仍未进入仪表盘复核。
+- 本次本地验证在清理 Astro/Vite 忽略缓存后通过。内容校验 6 篇，Astro 检查 60 文件零诊断，138/138 测试，生产构建 17 页和 `verify-build` 均通过。PR #52 的 `verify` 与 Cloudflare Workers 预览检查均成功，合并后 `Content and site checks` run [44261703797](https://github.com/jageros/travel/actions/runs/44261703797) 也已成功。当前合并提交对应的 Cloudflare 生产活动版本、HTTP 和 sitemap 仍需单独复核。
 - 远程 source-health 提交 [#51](https://github.com/jageros/travel/commit/05bc210) 的报告捕获于 `2026-11-17T09:10:05.987Z`，当前记录 6 个 changed 来源、23 个 unchanged。当前 Search Console JSON 仍是 10 月 19–30 日的历史导入，不能当作新的实时窗口。
 - 生产只读 HTTP 检查得到首页 200、sitemap 200 且含 12 个 URL、未知路径 404。结果证明当前站点可访问，不单独证明活动版本已经切到 `0b946d2`。
 
-本节描述的是当前已提交的自动发布机制。首次成功运行仍需观察 scheduled task 的实际结果。
+本节描述的是当前已提交的自动发布机制。首次成功运行仍需观察 scheduled task 的实际结果，当前 Search Console 数据仍是历史导入。
 
 ## 历史快照：2026-11-05
 
