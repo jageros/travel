@@ -24,7 +24,7 @@ CONTENT_REVIEW_PREVIEW=true npm run verify:build
 npm run preview
 ```
 
-A normal production build excludes draft/review articles. Automatic publication state and release records are in `automation/editorial.json`. The scheduled editorial workflow selects an eligible topic, generates a bounded Markdown draft, verifies the site and commits the result to `main`. Official-source freshness, duplicate detection, fact expiry and build verification remain publication gates. Operational details are in [docs/automation.md](docs/automation.md).
+A normal production build excludes draft/review articles. Automatic publication state and release records are in `automation/editorial.json`. The Codex scheduled task selects an eligible topic, generates a bounded Markdown draft with the current session model, verifies the site and commits the result to `main`. Official-source freshness, duplicate detection, fact expiry and build verification remain publication gates. Operational details are in [docs/automation.md](docs/automation.md).
 
 ## Site architecture
 
@@ -67,7 +67,7 @@ Manage `www.cedartrips.com` as the Worker's Custom Domain in the Cloudflare dash
 
 The existing Search Console Domain property and sitemap URL are unchanged. This hosting move does not require Change of Address. The five initial approved articles and the subsequent waterfront guide have release records in `automation/editorial.json`; use that ledger and the dated [handoff](docs/handoff/README.md) for current status. Content approval and release limits remain independent of hosting. The retired `travel.mumasir.com` remains outside this site's routing; no rules target other mumasir services.
 
-For deployment acceptance, verify canonical/OG/JSON-LD, redirects, real HTTP statuses, robots/sitemap, consent-based GA events and the committed Git SHA in Cloudflare. An editorial workflow commit still needs an actual Cloudflare production deployment check. Historical acceptance documents preserve what was true at their recorded time. Recovery uses Cloudflare deployment versions and retains current article and source state; rebuild older code with current state if an old static version would restore unsafe facts.
+For deployment acceptance, verify canonical/OG/JSON-LD, redirects, real HTTP statuses, robots/sitemap, consent-based GA events and the committed Git SHA in Cloudflare. A scheduled task commit still needs an actual Cloudflare production deployment check. Historical acceptance documents preserve what was true at their recorded time. Recovery uses Cloudflare deployment versions and retains current article and source state; rebuild older code with current state if an old static version would restore unsafe facts.
 
 ## Optional site configuration
 
@@ -98,15 +98,15 @@ Analytics sends result count and query length, not typed search text. It records
 ## Automated content and measurement
 
 - [Keyword research](docs/keyword-research.md): 60 candidates, qualitative evidence and limitations; no invented search volume/KD.
-- [Automation operations](docs/automation.md): source hashes, source-health, daily Actions commits, automatic topic selection, publication gates and model setup.
+- [Automation operations](docs/automation.md): source hashes, source-health, daily Codex scheduled commits, automatic topic selection and publication gates.
 - [Editorial review](docs/editorial-review.md): historical first-five approval record and content boundaries.
 - [Metrics](docs/metrics.md): actual-data CSV reports for search/reading/ad revenue and costs.
 - [Next-stage operations](docs/growth-operations-2026-10-21.md): follow-up content, actual analytics baseline, release follow-up and weekly review.
 - [Mobile performance](docs/mobile-performance-2026-10-21.md): reproducible lab baseline and measured responsive-image improvement.
 
-Model-generated content is restricted to plain Markdown with registered topic/source/fact IDs. It cannot choose files, execute code, alter registries or change publication state outside the pipeline. Missing credentials, evidence gaps, expired facts, conflicting evidence, unsafe output and duplicates remain held in the queue for the next automated run. Evidence-backed changed sources can advance through the automatic source gate. The model interface is server-side and is never called during build, tests or browser requests.
+Model-generated content is restricted to plain Markdown with registered topic/source/fact IDs. It cannot choose files, execute code, alter registries or change publication state outside the pipeline. Evidence gaps, expired facts, conflicting evidence, unsafe output and duplicates remain held in the queue for the next automated run. Evidence-backed changed sources can advance through the automatic source gate. The current session model runs through the Codex scheduled task and is never called during build, tests or browser requests.
 
-Daily source monitoring and automatic generation start once the workflow is on `main` and the required Actions permissions/secrets have been configured. These are repository workflows, not a claim that a 90-day operating period has already run.
+Daily source monitoring and automatic generation start once the Codex desktop app is running with the local project available. These are scheduled tasks, not a claim that a 90-day operating period has already run.
 
 ## Verification
 

@@ -8,7 +8,8 @@
 - 发布账本改为 `requiredManualApprovals: 0`、`fullyAutomatic: true`。历史五篇人工批准和既有发布记录原样保留，后续自动发布记录 `manualApproval: false` 与精确 `articleDigest`。
 - changed 来源自动推进仅限于抓取成功、登记 evidence 全部存在且来源不含人工事实的情况。证据缺失、人工事实、不可用来源、过期事实、重复、质量或构建失败继续阻止该次发布并进入队列。
 - 增加 Search Console 机会排序、自动来源 baseline 测试、无人工批准发布测试和 main 直写 workflow 测试。清理 Astro/Vite 忽略缓存后，内容校验、Astro 检查、137 个测试、生产构建和静态验证均通过。
-- 本地提交最初被远端 source-health 提交阻塞，随后 fetch、rebase 到 `05bc210` 后以 `0b946d2` 推送到远端 `main`。对应的 required CI run `44074195972` 和 Cloudflare Workers build check `fc01f963-d659-4230-99c5-81c6ae070d47` 均成功。尚未独立确认 Cloudflare 活动版本和 100% 流量分配；生产首页、sitemap 和未知路径的只读 HTTP 检查分别为 200、200/12 URLs、404。
+- 本地提交最初被远端 source-health 提交阻塞，随后 fetch、rebase 到 `05bc210` 后以 `0b946d2` 推送到远端 `main`。交接文档随后以 `d42fe76` 更新。对应的 required CI run `44074195972` 和 Cloudflare Workers build check `fc01f963-d659-4230-99c5-81c6ae070d47` 均成功。尚未独立确认 Cloudflare 活动版本和 100% 流量分配；生产首页、sitemap 和未知路径的只读 HTTP 检查分别为 200、200/12 URLs、404。
+- 当前会话创建了 `cedar-trips` Codex scheduled task，计划每日 09:15 Asia/Shanghai 在本地项目中使用当前会话模型执行来源抓取、选题、生成、验证和 main 提交。GitHub editorial workflow 已改为只读 source diagnostics，避免与当前会话任务重复发布。
 
 ## 2026-10-19：内容与技术方向
 

@@ -200,14 +200,15 @@ test('an Actions dispatch permission failure leaves a reviewable PR and never re
   assert.ok(!runner.calls.some((call) => call.args[0] === 'pr' && call.args[1] === 'merge'));
 });
 
-test('workflow always runs the complete automatic pipeline', async () => {
+test('workflow remains a read-only source diagnostic', async () => {
   const workflow = parse(await fs.readFile(new URL('../.github/workflows/editorial.yml', import.meta.url), 'utf8'));
   assert.deepEqual(workflow.on.workflow_dispatch, null);
-  const step = workflow.jobs.editorial.steps.find((item) => item.id === 'pipeline');
-  assert.equal(step.run, 'node scripts/content-pipeline.mjs --draft --publish --automatic');
-  assert.equal(step['continue-on-error'], true);
-  assert.ok(!step.run.includes('--approve'));
-  assert.ok(!step.run.includes('--accept-baseline'));
+  assert.equal(workflow.permissions.contents, 'read');
+  assert.equal(workflow.jobs.diagnostics.if, "github.ref == 'refs/heads/main'");
+  const monitor = workflow.jobs.diagnostics.steps.find((item) => item.name === 'Monitor registered official sources');
+  assert.equal(monitor.run, 'node scripts/content-pipeline.mjs');
+  assert.ok(!JSON.stringify(workflow).includes('DRAFT_API_KEY'));
+  assert.ok(!JSON.stringify(workflow).includes('git push'));
 });
 
 function sourceStateFixture() {
@@ -498,27 +499,15 @@ test('the push command restricts branch and content paths before using any write
   }
 });
 
-test('workflow runs the automated publisher on main and pushes only after verification', async () => {
+test('workflow does not publish or push content', async () => {
   const workflow = parse(await fs.readFile(new URL('../.github/workflows/editorial.yml', import.meta.url), 'utf8'));
   assert.deepEqual(workflow.on.workflow_dispatch, null);
-  assert.equal(workflow.permissions.contents, 'write');
-  assert.equal(workflow.jobs.editorial.if, "github.ref == 'refs/heads/main'");
-  const checkout = workflow.jobs.editorial.steps.find((step) => step.uses === 'actions/checkout@v4');
-  assert.equal(checkout.with['persist-credentials'], true);
-  const pipeline = workflow.jobs.editorial.steps.find((step) => step.id === 'pipeline');
-  assert.equal(pipeline.run, 'node scripts/content-pipeline.mjs --draft --publish --automatic');
-  assert.equal(pipeline['continue-on-error'], true);
-  const verify = workflow.jobs.editorial.steps.find((step) => step.id === 'verify');
+  assert.equal(workflow.permissions.contents, 'read');
+  assert.equal(workflow.jobs.diagnostics.if, "github.ref == 'refs/heads/main'");
+  const diagnosticsCheckout = workflow.jobs.diagnostics.steps.find((step) => step.uses === 'actions/checkout@v4');
+  assert.equal(diagnosticsCheckout.with['persist-credentials'], false);
+  const verify = workflow.jobs.diagnostics.steps.find((step) => step.name === 'Verify the production site');
   assert.equal(verify.run, 'npm run verify');
-  const commit = workflow.jobs.editorial.steps.find((step) => step.name === 'Commit verified editorial state to main');
-  assert.equal(commit.if, "steps.verify.outcome == 'success'");
-  assert.match(commit.run, /git push origin HEAD:main/);
-  assert.match(commit.run, /git fetch origin main/);
-  assert.match(commit.run, /git rev-parse origin\/main/);
-  assert.ok(!commit.run.includes('HEAD:automation/editorial'));
-  assert.ok(!commit.run.includes('gh pr'));
-  assert.ok(!JSON.stringify(workflow).includes('approve_slug'));
-  assert.ok(!JSON.stringify(workflow).includes('approve_sha256'));
-  assert.ok(!JSON.stringify(workflow).includes('accept_missing_baselines'));
-  assert.ok(!JSON.stringify(workflow).includes('EDITORIAL_APP'));
+  assert.ok(!JSON.stringify(workflow).includes('DRAFT_API_KEY'));
+  assert.ok(!JSON.stringify(workflow).includes('git push'));
 });
