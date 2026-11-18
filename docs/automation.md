@@ -1,8 +1,8 @@
 # Editorial automation operations
 
-The repository runs a scheduled source monitor and publisher. Each run reads the registered official sources, imports the latest persisted Search Console opportunities, selects the next qualified topic, drafts one article when model credentials are configured, applies the content and source gates, verifies the production build, and commits the resulting state directly to `main`.
+The repository uses a Codex scheduled task in the current chat as the automatic publisher. Each run reads the registered official sources, imports the latest persisted Search Console opportunities, selects the next qualified topic, uses the current Codex model to draft one article, applies the content and source gates, verifies the production build, and commits the resulting state directly to `main`.
 
-The workflow does not create an editorial branch or pull request. A run that cannot produce a valid article still records source health and failure details when the site verification passes. A run never commits an article that failed validation, duplicate checks, source freshness checks or build verification.
+The Codex task runs in the local project directory and does not require a model API key. A run that cannot produce a valid article records source health and failure details when verification passes. A run never commits an article that failed validation, duplicate checks, source freshness checks or build verification.
 
 ## Local commands
 
@@ -16,7 +16,7 @@ node scripts/content-pipeline.mjs --draft --publish --automatic
 node scripts/import-gsc.mjs /path/to/Queries.csv
 ```
 
-`content-pipeline.mjs --draft --publish --automatic` performs one complete monitor, topic-selection, generation and publication attempt without an approval gate. It requires `DRAFT_API_KEY` and `DRAFT_MODEL` for model generation. The API endpoint must be HTTPS and match the configured allow-list. A missing key records a failed draft attempt and leaves the existing articles untouched.
+`content-pipeline.mjs --publish --automatic` validates and publishes a current-session-generated review article without an approval gate. The scheduled Codex task writes the article with its current model before invoking this command.
 
 The pipeline uses real Search Console imports only. `automation/gsc-opportunities.json` retains the source and observation window. Small or incomplete query samples are editorial signals, not invented demand estimates.
 
@@ -35,24 +35,22 @@ The `--accept-baseline` option is reserved for initializing missing baselines in
 
 ## Automated publication flow
 
-`.github/workflows/editorial.yml` runs daily at 09:15 Asia/Shanghai and can also be started manually. The job runs on `main` with repository `contents: write` permission.
+The Codex scheduled task runs daily at 09:15 Asia/Shanghai in the local project. The computer must remain powered on and the Codex desktop app must remain running. `.github/workflows/editorial.yml` is a read-only source diagnostic workflow and does not publish articles.
 
-1. Checkout the current `main` commit with the workflow credential available for the final push.
-2. Run `node scripts/content-pipeline.mjs --draft --publish --automatic` with server-side model credentials.
-3. Run the production `npm run verify` command. This covers content validation, Astro checks, tests, production build and static build verification.
-4. Stage article and editorial-state files. If nothing changed, finish without a commit.
-5. Commit the verified state and fetch `origin/main` again. The push stops if another commit advanced `main` while the job was running.
+1. Check the current `main` checkout and synchronize `origin/main`.
+2. Fetch registered official sources and rank ready topics with the persisted Search Console opportunities.
+3. Use the current Codex model to write one review article, then run `node scripts/content-pipeline.mjs --publish --automatic`.
+4. Run the production `npm run verify` command. This covers content validation, Astro checks, tests, production build and static build verification.
+5. Commit the verified state and fetch `origin/main` again. The push stops if another commit advanced `main` while the task was running.
 6. Push the exact verified commit to `main`.
 
-GitHub branch protection can reject a direct push. The workflow treats that as a failed delivery and leaves the commit available in the job workspace for diagnosis. The repository must explicitly allow the workflow identity to write `main` before unattended publication can operate.
+GitHub branch protection can reject a direct push. The task treats that as a failed delivery and leaves the commit available in the local workspace for diagnosis. The repository must allow the local Git identity to write `main` before unattended publication can operate.
 
 The workflow uploads `automation/reports/`, `automation/review-queue.json` and `automation/source-health.json` as artifacts on every run. Reports do not become website content.
 
 ## Model configuration
 
-Set `DRAFT_API_KEY` as an Actions secret and `DRAFT_MODEL` as an Actions variable. Optional variables are `DRAFT_API_BASE_URL` and `DRAFT_API_ALLOWED_HOSTS`. The model receives only the topic brief and bounded official-source text. It can return a title, description and Markdown body. It cannot select files, alter the source registry, change ledger state or emit executable content.
-
-The workflow calls the model on every scheduled run. If credentials are absent or the provider fails, the pipeline records the error and leaves existing articles unchanged. No credentials are committed to the repository or passed to browser code.
+The current Codex session supplies the model for scheduled runs. No `DRAFT_API_KEY`, `DRAFT_MODEL` or external model endpoint is required. The model receives only the topic brief and bounded official-source text. It can return a title, description and Markdown body. It cannot select files, alter the source registry, change ledger state or emit executable content.
 
 ## Failure handling
 
@@ -60,7 +58,7 @@ Publication is transactional at the article level. A draft is written only after
 
 The publication cap, if enabled in the ledger, is checked by `publicationDecision` before a status changes to `published`. The ledger records the exact content digest and publication timestamp for every release. The workflow does not fabricate approvals or transfer an old digest to a changed article.
 
-Search Console import, source monitoring, generated drafts and publication reports remain versioned only where they are editorial inputs or release state. Raw exports and oversized source snapshots stay in ignored artifacts.
+Search Console import, source monitoring, generated drafts and publication reports remain versioned only where they are editorial inputs or release state. Raw exports and oversized source snapshots stay in ignored artifacts. The current Search Console JSON is still a persisted import and requires a separate authorized sync if live click data is needed.
 
 ## Operational checks
 

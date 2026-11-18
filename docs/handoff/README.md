@@ -4,14 +4,14 @@
 
 ## 当前代码工作区
 
-- 当前本地 `main` 和 `origin/main` 已同步到 `0b946d2`。此前推送时远端先合入 source-health 提交 `05bc210`，已先 fetch、rebase 后再推送，未覆盖远端状态。
-- 工作区已加入自动 editorial workflow。它在 `main` 上抓取登记的官方来源，按已导入的 Search Console 机会给 `ready` 主题排序，生成一篇合规 Markdown，运行生产验证，并在成功后直接提交 `main`。`automation/editorial.json` 已设为 `requiredManualApprovals: 0` 和 `fullyAutomatic: true`。
+- 当前本地 `main` 和 `origin/main` 已同步到 `d42fe76`。此前推送时远端先合入 source-health 提交 `05bc210`，已先 fetch、rebase 后再推送，未覆盖远端状态。
+- 当前 Codex 会话已启用名为 `cedar-trips` 的每日 scheduled task。它在本地 `main` 上抓取登记的官方来源，按已导入的 Search Console 机会给 `ready` 主题排序，使用当前会话模型生成一篇合规 Markdown，运行生产验证，并在成功后直接提交 `main`。`automation/editorial.json` 已设为 `requiredManualApprovals: 0` 和 `fullyAutomatic: true`。
 - changed 来源只有在抓取成功、所有登记 evidence 片段仍存在且来源没有人工事实时自动推进 baseline 和证据日期。缺失 evidence、人工事实、不可用来源、过期事实、重复或质量失败会留在队列中，等待下一次自动运行。
 - 本次本地验证在清理 Astro/Vite 忽略缓存后通过。内容校验 6 篇，Astro 检查 60 文件零诊断，138/138 测试，生产构建 17 页和 `verify-build` 均通过。远程 `Content and site checks` run [44074195972](https://github.com/jageros/travel/actions/runs/44074195972) 对 `0b946d2` 成功，Cloudflare `Workers Builds: cedar-trips` check 也成功，指向 build [fc01f963-d659-4230-99c5-81c6ae070d47](https://dash.cloudflare.com/34d77ab5bdb83622d58fe9ff1ac1b695/workers/services/view/cedar-trips/production/builds/fc01f963-d659-4230-99c5-81c6ae070d47)。活动版本和 100% 流量分配仍未进入仪表盘复核。
 - 远程 source-health 提交 [#51](https://github.com/jageros/travel/commit/05bc210) 的报告捕获于 `2026-11-17T09:10:05.987Z`，当前记录 6 个 changed 来源、23 个 unchanged。当前 Search Console JSON 仍是 10 月 19–30 日的历史导入，不能当作新的实时窗口。
 - 生产只读 HTTP 检查得到首页 200、sitemap 200 且含 12 个 URL、未知路径 404。结果证明当前站点可访问，不单独证明活动版本已经切到 `0b946d2`。
 
-本节描述的是当前未提交工作区。提交、远端推送和部署完成前，不应把自动发布机制写成已在生产运行。
+本节描述的是当前已提交的自动发布机制。首次成功运行仍需观察 scheduled task 的实际结果。
 
 ## 历史快照：2026-11-05
 
@@ -81,8 +81,8 @@
 2. 读 `AGENTS.md`、本页、history、roadmap。查看 `git status --short --branch` 和 `git log -5 --oneline`；有本地改动先保留。在已获准的 Git 访问条件下 fetch，检查最新 `origin/main`，不覆盖用户改动、不强推 main。
 3. 使用 Node 24（`.nvmrc`），运行 `npm ci`。本地 `.env` 可从 `.env.example` 建立；不要从原聊天复制密钥。
 4. 重新连接所需工具/后台。已有标识：Search Console Domain property **cedartrips.com**；GA4 property **559805493**、measurement ID **G-QDDLYW7WRF**；Cloudflare Worker **cedar-trips**。登录和权限不会随 Git 转移。
-5. 读取本次 main 的账本、sources、health、queue、文章、照片登记与 workflow，重算配额和来源状态。自动 workflow 只使用登记的官方来源和已导入的真实 Search Console 数据；不要把 docs 下的候选稿直接当成生产文章。
-6. 代码和 workflow 变更走普通受保护 PR。内容和来源状态由自动 workflow 在生产验证和 main 竞态检查通过后直接提交 `main`。提交成功仍需单独核对 Cloudflare 部署、生产 SHA、HTTP 和 sitemap。
+5. 读取本次 main 的账本、sources、health、queue、文章、照片登记与 scheduled task 状态，重算配额和来源状态。自动任务只使用登记的官方来源和已导入的真实 Search Console 数据；不要把 docs 下的候选稿直接当成生产文章。
+6. 代码和 workflow 变更走普通受保护 PR。内容和来源状态由 Codex scheduled task 在生产验证和 main 竞态检查通过后直接提交 `main`。提交成功仍需单独核对 Cloudflare 部署、生产 SHA、HTTP 和 sitemap。
 
 本地只读查看待审稿指纹：
 
@@ -101,9 +101,9 @@ CONTENT_REVIEW_PREVIEW=true npm run dev
 
 预览默认 `127.0.0.1:4321`，端口占用时以命令输出为准。刻意给预览传 `SITE_INDEXING_ENABLED=true` 仍必须保持 noindex、无 GA/广告。纯交接文档变更不需要伪造或重跑整套文章验证；应检查链接和 payload 完整性。
 
-**有副作用的命令**：`npm run sources:check`、无参数 `node scripts/content-pipeline.mjs` 都会联网并改写来源/健康/队列或报告；不是只读检查。`node scripts/content-pipeline.mjs --draft --publish --automatic` 会抓取来源、调用已配置模型、写入候选并尝试发布，运行前必须确认当前工作区和账本状态。
+**有副作用的命令**：`npm run sources:check`、无参数 `node scripts/content-pipeline.mjs` 都会联网并改写来源/健康/队列或报告；不是只读检查。Codex scheduled task 会抓取来源、使用当前会话模型写入候选并尝试发布，运行前必须确认当前工作区和账本状态。
 
-在 [editorial.yml](https://github.com/jageros/travel/actions/workflows/editorial.yml) 手动启动或等待每日 UTC 01:15 / 北京时间 09:15 的 schedule，都会执行完整自动流程。先检查已有 run，避免重复 dispatch。自动化细节见 [automation.md](../automation.md)。
+每日北京时间 09:15 的 Codex scheduled task 会执行完整自动流程。保持电脑和 Codex 桌面应用运行，避免与其他任务重复。自动化细节见 [automation.md](../automation.md)。
 
 导入新的实际查询词可用 `node scripts/import-gsc.mjs path/to/Queries.csv`，它会改写 `automation/gsc-opportunities.json`。保留真实日期与来源，不为缺失数据造 CSV。
 

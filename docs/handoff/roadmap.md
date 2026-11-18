@@ -4,10 +4,10 @@
 
 ## 当前执行顺序：自动发布机制
 
-自动发布代码已提交到 `main` 的 `0b946d2`，required CI 和 Cloudflare build check 已成功。活动版本、流量分配和生产 SHA 仍需继续核对。后续维护顺序如下。
+自动发布代码已提交到 `main` 的 `d42fe76`，required CI 和 Cloudflare build check 已成功。当前会话已创建 `cedar-trips` Codex scheduled task，首次实际运行结果仍需观察。后续维护顺序如下。
 
-1. 通过普通代码 PR 交付 workflow、pipeline、测试和文档改动，保持当前 main 的生产构建门禁。
-2. 在 GitHub Actions 中确认 workflow token 可以写入 `main`，并确认 `DRAFT_API_KEY`、`DRAFT_MODEL`、允许的 API host 和 Cloudflare 部署链路已经配置。
+1. 通过普通代码 PR 交付程序和 workflow 改动，保持当前 main 的生产构建门禁。
+2. 确认 Codex scheduled task 能访问本地项目、官方来源和 GitHub SSH，并确认 Cloudflare 部署链路已经配置。
 3. 首次自动运行只观察 source snapshot、pipeline report、队列和提交竞态结果。来源 changed 只有在 evidence 全部存在且没有人工事实时自动推进；其他项目保持 hold。
 4. 首次成功提交后单独核对 Cloudflare 生产 SHA、活动版本、HTTP、canonical、sitemap 和未知路径 404。自动提交不等于生产部署完成。
 5. 后续运行按真实导入的 Search Console 数据为 `ready` 主题排序，每次最多生成和发布一篇，并继续执行七天三篇配额、来源新鲜度、事实有效期、重复和构建门禁。

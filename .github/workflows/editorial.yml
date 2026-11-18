@@ -1,67 +1,34 @@
-name: Automated editorial monitor and publisher
+name: Editorial source diagnostics
 on:
-  schedule:
-    - cron: '15 1 * * *'
   workflow_dispatch:
 permissions:
-  contents: write
-concurrency:
-  group: editorial-queue
-  cancel-in-progress: false
+  contents: read
 jobs:
-  editorial:
+  diagnostics:
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          # The job commits only after the complete production verification passes.
-          # Checkout keeps the workflow token available for the final main push.
-          persist-credentials: true
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: npm
       - run: npm ci
-      - name: Monitor sources, select a topic, draft and publish eligible content
-        id: pipeline
-        continue-on-error: true
-        env:
-          DRAFT_API_KEY: ${{ secrets.DRAFT_API_KEY }}
-          DRAFT_MODEL: ${{ vars.DRAFT_MODEL }}
-          DRAFT_API_BASE_URL: ${{ vars.DRAFT_API_BASE_URL }}
-          DRAFT_API_ALLOWED_HOSTS: ${{ vars.DRAFT_API_ALLOWED_HOSTS }}
-        run: node scripts/content-pipeline.mjs --draft --publish --automatic
-      - name: Verify the generated production site
-        id: verify
+      - name: Monitor registered official sources
+        run: node scripts/content-pipeline.mjs
+      - name: Verify the production site
         env:
           DEPLOYMENT_ENV: production
           SITE_INDEXING_ENABLED: 'true'
         run: npm run verify
-      - name: Commit verified editorial state to main
-        if: steps.verify.outcome == 'success'
-        run: |
-          set -euo pipefail
-          git config user.name 'travel-editorial[bot]'
-          git config user.email 'travel-editorial@users.noreply.github.com'
-          git add src/content/articles automation/editorial.json automation/review-queue.json automation/source-health.json automation/sources.json automation/gsc-opportunities.json
-          if git diff --cached --quiet; then
-            echo 'No editorial changes to commit.'
-            exit 0
-          fi
-          git commit -m 'chore(content): automate editorial publication'
-          git fetch origin main
-          if [ "$(git rev-parse HEAD^1)" != "$(git rev-parse origin/main)" ]; then
-            echo 'main advanced while the editorial job was running. Leaving the commit local for the next run.' >&2
-            exit 1
-          fi
-          git push origin HEAD:main
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: editorial-reports
+          name: editorial-diagnostics
           path: |
             automation/reports/
             automation/review-queue.json
