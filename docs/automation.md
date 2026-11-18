@@ -12,11 +12,11 @@ Use Node 24 and install the lockfile dependencies with `npm ci`.
 node scripts/validate-content.mjs
 node --test tests/automation.test.mjs
 node scripts/check-sources.mjs
-node scripts/content-pipeline.mjs --draft --publish --automatic
+node scripts/content-pipeline.mjs --publish --automatic
 node scripts/import-gsc.mjs /path/to/Queries.csv
 ```
 
-`content-pipeline.mjs --publish --automatic` validates and publishes a current-session-generated review article without an approval gate. The scheduled Codex task writes the article with its current model before invoking this command.
+`content-pipeline.mjs --publish --automatic` validates and publishes a current-session-generated review article without an approval gate. The scheduled Codex task writes the article with its current model before invoking this command. The legacy `--draft` option still exists for compatibility and requires the separate `DRAFT_API_*` environment variables when used directly.
 
 The pipeline uses real Search Console imports only. `automation/gsc-opportunities.json` retains the source and observation window. Small or incomplete query samples are editorial signals, not invented demand estimates.
 
