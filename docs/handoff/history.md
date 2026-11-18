@@ -1,6 +1,12 @@
 # Cedar Trips 推进历史
 
-本文件只记已发生的工作和已决定的边界；未来工作见 [roadmap](roadmap.md)，当前日期快照见 [交接](README.md)。截至 2026-11-17；更早的验收链接保留当时状态，不代表今天重新执行。
+本文件只记已发生的工作和已决定的边界；未来工作见 [roadmap](roadmap.md)，当前日期快照见 [交接](README.md)。截至 2026-11-18；更早的验收链接保留当时状态，不代表今天重新执行。
+
+## 2026-11-18：切换到当前会话自动化
+
+- 按用户要求移除 GitHub editorial workflow 的模型/API 发布依赖，改由当前 Codex 会话的 `cedar-trips` scheduled task 每日 09:15 Asia/Shanghai 在本地项目执行来源抓取、选题、生成、验证和 `main` 提交。当前路径不需要 `DRAFT_API_KEY`。
+- `.github/workflows/editorial.yml` 现在只提供手动触发的只读来源诊断和生产验证，不会生成文章、提交或推送。
+- PR [#52](https://github.com/jageros/travel/pull/52) 通过 `verify` 和 Cloudflare 预览检查后以 squash 方式合并，`main` 为 `aac2579`；合并后的 `Content and site checks` run [44261703797](https://github.com/jageros/travel/actions/runs/44261703797) 成功。首次 scheduled task 实际发布结果和对应 Cloudflare 生产活动版本仍待观察。
 
 ## 2026-11-17：自动发布机制改造
 
