@@ -24,7 +24,7 @@ CONTENT_REVIEW_PREVIEW=true npm run verify:build
 npm run preview
 ```
 
-A production build includes published articles. The Codex scheduled task selects one eligible topic, publishes an existing review copy or drafts with the current session model, verifies the site, and commits the result to `main`. Official-source freshness, duplicate detection, fact expiry, image verification and the rolling release cap are release gates. Operational details are in [docs/automation.md](docs/automation.md).
+A production build includes published articles. The Codex scheduled task publishes one to three eligible articles each Beijing calendar day when enough are available. It selects each topic in turn, uses an existing review copy or drafts with the current session model, verifies the site, and commits the result to `main`. Official-source freshness, duplicate detection, fact expiry, image verification, and the daily release cap apply to every article. [Editorial automation](docs/automation.md).
 
 ## Site architecture
 

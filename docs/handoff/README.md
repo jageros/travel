@@ -4,14 +4,15 @@
 
 ## 当前代码工作区
 
-- 已发布 Grand Canyon（`403ab1c`）与 Yellowstone（`108e8fd`）。黄石单篇自动发布通过四项 NPS 来源检查、GitHub CI 和 Cloudflare 生产构建。线上黄石页、封面、分享图、响应式图、目录与 sitemap 返回 200。黄石在 sitemap 中出现一次，其余五篇草稿返回 404。滚动配额为 3/3，下一个名额最早在 11 月 26 日北京时间 10:34 恢复。
+- 每个北京时间自然日最多发布三篇，定时任务继续在北京时间 09:15 运行，有合格稿件时逐篇推进一至三篇。11 月 19 日过渡当天上限为四篇，额外名额用于当日要求的单篇发布。发布结果以账本、远端提交与生产验收为准。
+- 已发布 Grand Canyon（`403ab1c`）与 Yellowstone（`108e8fd`）。黄石单篇自动发布通过四项 NPS 来源检查、GitHub CI 和 Cloudflare 生产构建。线上黄石页、封面、分享图、响应式图、目录与 sitemap 返回 200。黄石在 sitemap 中出现一次，当时其余五篇草稿返回 404。
 - 地区和类别筛选采用贴在控件下方的主题菜单。Chrome 复核了 26 个预览页面、320 至 1440px 六种宽度，以及筛选的鼠标、触控、键盘、减弱动态效果和无 JavaScript 状态。全站走查也修正了窄屏搜索溢出、重置焦点、导航点击区域与面包屑换行。
 - 本轮景点改版从 `main` 的 `f3f6718` 开始。首次由当前会话自动发布的旧金山文章记录在 `d80a156`，该提交及历史备查证据仍见下文。
 - 景点改版将 `/destinations/` 设为首页主入口，增加地区与类别筛选；七篇新景点稿备在内容目录，已有的 Golden Gate Bridge 页面在原路径加入景点亮点。首批名单见 [后续计划](roadmap.md)。
 - 首批八个景点都有已核实许可的真实封面，新增七张本地照片来自 Wikimedia Commons 和 Pexels。来源登记新增 27 个官方页面，隔离实测均通过，九个既有 BART/Clipper 403 继续标记为 unavailable。
 - 在隔离副本用当前 Search Console JSON 和实时来源运行发布选择，选中 Grand Canyon 并通过限定 slug 的发布门禁，验证账本指纹与实际稿件一致。本条记录是隔离验收；正式发布以 `automation/editorial.json`、远端提交及对应 HTTP 检查为准。
 - 本地景点改版验证通过，内容 14 篇，Astro 零诊断，142 项测试，生产输出 19 页、预览输出 26 页。Chrome 核对了桌面与 393px 布局、八张封面裁切和署名，以及地区与类别的组合筛选、空结果与重置。
-- 当前 Codex 会话已启用名为 `cedar-trips` 的每日 scheduled task。它在本地 `main` 上抓取登记的官方来源，按已导入的 Search Console 机会给 `ready` 主题排序，使用当前会话模型生成一篇合规 Markdown，运行生产验证，并在成功后直接提交 `main`。`automation/editorial.json` 已设为 `requiredManualApprovals: 0` 和 `fullyAutomatic: true`。
+- 当前 Codex 会话的 `cedar-trips` 定时任务在本地 `main` 上抓取登记的官方来源，按已导入的 Search Console 机会给 `ready` 主题排序，在当日剩余配额内逐篇复用已验证稿件或使用当前会话模型生成 Markdown。通过构建验证后直接提交 `main`。`automation/editorial.json` 已设为 `requiredManualApprovals: 0` 和 `fullyAutomatic: true`。
 - changed 来源只有在抓取成功、所有登记 evidence 片段仍存在且来源没有人工事实时自动推进 baseline 和证据日期。缺失 evidence、人工事实、不可用来源、过期事实、重复或质量失败会留在队列中，等待下一次自动运行。
 - 首次旧金山自动发布快照，内容校验 7 篇，Astro 60 个文件零诊断，138 项测试，生产构建 18 页。提交 `d80a156` 的 [GitHub 验证](https://github.com/jageros/travel/actions/runs/44446625851)和生产构建成功，首页、sitemap、文章页返回 200，未知路径返回 404。
 - 首次旧金山自动发布的来源报告捕获于 `2026-11-19T02:34:04.369Z`。当时 20 个来源基线匹配，9 个 BART/Clipper 来源返回 403，证据冲突为零。搜索数据仍是历史导入。

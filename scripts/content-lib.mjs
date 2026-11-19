@@ -8,6 +8,11 @@ import topics from '../src/data/topics.json' with { type: 'json' };
 import destinationCategories from '../src/data/destination-categories.json' with { type: 'json' };
 import usRegions from '../src/data/us-regions.json' with { type: 'json' };
 
+const publicationTimeZone = 'Asia/Shanghai';
+const publicationDay = new Intl.DateTimeFormat('en-CA', {
+  timeZone: publicationTimeZone, year: 'numeric', month: '2-digit', day: '2-digit',
+});
+
 export const isoDay = (date = new Date()) => date.toISOString().slice(0, 10);
 export const sha256 = (value) => createHash('sha256').update(value).digest('hex');
 export const isSlug = (value) => typeof value === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
@@ -225,9 +230,13 @@ export function manualReleaseCount(state, { now = new Date() } = {}) {
 }
 
 export function publicationDecision(article, state, { now = new Date(), manualOnly = false } = {}) {
-  if (state.publications.some((item) => !Number.isFinite(Date.parse(item.publishedAt)) || Date.parse(item.publishedAt) > now.getTime())) return { allowed: false, reason: 'Invalid or future-dated publication ledger requires review' };
-  const recent = state.publications.filter((item) => Date.parse(item.publishedAt) > now.getTime() - 7 * 86400000);
-  if (recent.length >= 3) return { allowed: false, reason: 'Weekly publication cap reached (3 in rolling 7 days)' };
+  const dates = state.publications.map((item) => Date.parse(item.publishedAt));
+  if (dates.some((date) => !Number.isFinite(date) || date > now.getTime())) return { allowed: false, reason: 'Invalid or future-dated publication ledger requires review' };
+  const today = publicationDay.format(now);
+  // The owner requested one extra release on the transition day.
+  const limit = today === '2026-11-19' ? 4 : 3;
+  const releasedToday = dates.filter((date) => publicationDay.format(date) === today).length;
+  if (releasedToday >= limit) return { allowed: false, reason: `Daily publication cap reached (${limit} in ${publicationTimeZone})` };
   const approval = state.approvals.find((item) => item.slug === article.data.slug && item.contentSha256 === article.digest && item.reviewer && isDay(item.reviewedAt) && item.reviewedAt <= isoDay(now));
   const reviewedPublications = manualReleaseCount(state, { now });
   const fullyAutomatic = state.fullyAutomatic === true || state.requiredManualApprovals === 0;
