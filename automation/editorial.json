@@ -82,6 +82,12 @@
       "publishedAt": "2026-11-19T02:34:04.369Z",
       "contentSha256": "fea4b013debbb0ade3eb35b3ed2f45e09818ed1daf284258485b0806f0c86ca7",
       "manualApproval": false
+    },
+    {
+      "slug": "grand-canyon",
+      "publishedAt": "2026-11-19T09:12:56.575Z",
+      "contentSha256": "ce5253128ab86a02fe8f5a287ee59aacbc4a2b2dd473d41068c411cf5630b8c6",
+      "manualApproval": false
     }
   ]
 }
