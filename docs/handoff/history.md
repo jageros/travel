@@ -1,6 +1,12 @@
 # Cedar Trips 推进历史
 
-本文件只记已发生的工作和已决定的边界；未来工作见 [roadmap](roadmap.md)，当前日期快照见 [交接](README.md)。截至 2026-11-18；更早的验收链接保留当时状态，不代表今天重新执行。
+本文件只记已发生的工作和已决定的边界；未来工作见 [roadmap](roadmap.md)，当前日期快照见 [交接](README.md)。截至 2026-11-19；更早的验收链接保留当时状态，不代表今天重新执行。
+
+## 2026-11-19：首次当前会话自动发布
+
+- `cedar-trips` scheduled task 首次完成来源抓取、选题排序、当前会话模型生成、自动发布和生产验证。按真实导入的 Search Console 机会排序后，符合来源和事实门禁的 `sf-cable-car-vs-historic-streetcar` 自动发布，`manualApproval=false`，`articleDigest=fea4b013debbb0ade3eb35b3ed2f45e09818ed1daf284258485b0806f0c86ca7`。
+- 来源报告捕获于 `2026-11-19T02:34:04.369Z`，20 个来源 unchanged，9 个 BART/Clipper 官方来源返回 HTTP 403 并保持 unavailable，0 个 evidence conflict。受阻来源没有被当作已核验数据。
+- 本地生产验证通过，内容 7 篇，Astro 60 文件零诊断，138/138 测试，生产构建 18 页。提交 `d80a156` 的 GitHub `verify` 和 Cloudflare Workers 生产 build 均成功。首页、sitemap、新文章页返回 200，未知路径返回 404。
 
 ## 2026-11-18：切换到当前会话自动化
 
