@@ -1,0 +1,40 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { destinationDetails, destinationPlace, destinationCategories } from '../lib/content';
+import { getArticlePhoto } from '../lib/photos';
+import { localePath, localeLabels, sourceArticleDigest, sourceSupplementalDigest } from '../lib/i18n.mjs';
+import { SITE_NAME, isReviewPreview } from '../lib/site';
+import Search from './Search';
+
+interface Props { locale: any; kind: string }
+const { locale, kind } = Astro.props;
+const labels = localeLabels(locale.code);
+const [articles, translations] = await Promise.all([
+  getCollection('articles', ({ data }) => data.status === 'published'),
+  getCollection('translations', ({ data }) => (data.status === 'published' || (isReviewPreview && data.status === 'review')) && data.locale === locale.code),
+]);
+const sourceBySlug = new Map(articles.map(article => [article.data.slug, article]));
+const entries = translations.flatMap(translation => {
+  const source = sourceBySlug.get(translation.data.sourceSlug);
+  return source && translation.data.sourceDigest === sourceArticleDigest(source) && translation.data.supplementalDigest === sourceSupplementalDigest(source) ? [{ translation, source }] : [];
+});
+const destinations = entries.flatMap(entry => {
+  const details = destinationDetails(entry.source);
+  return details ? [{ ...entry, details }] : [];
+});
+const path = localePath(locale.code, `/${kind}/`);
+const title = kind === 'destinations' ? labels.destinations : kind === 'guides' ? labels.guides : kind === 'topics' ? labels.topics : labels[kind] ?? labels.about;
+const description = kind === 'destinations' ? 'Places worth visiting across the United States.' : kind === 'guides' ? 'Practical planning guides with official references.' : 'Travel information and official sources for planning a visit.';
+const guideItems = entries.filter(({ source }) => source.data.type === 'guide').map(({ translation, source }) => ({ title: translation.data.title, description: translation.data.description, href: localePath(locale.code, `/guides/${source.data.slug}/`), topic: labels.guides, type: labels.guides }));
+const searchLabels = { searchLabel: labels.search, placeholder: labels.searchPlaceholder, allItems: labels.guides, itemSingular: labels.guides, itemPlural: labels.guides, noResults: labels.noResults, emptyDescription: labels.viewInEnglish, showAll: labels.readMore };
+---
+<BaseLayout title={`${title} — ${SITE_NAME}`} description={description} path={path} lang={locale.hreflang} dir={locale.dir} breadcrumbs={[{ name: labels.breadcrumbHome, url: localePath(locale.code, '/') }, { name: title, url: path }]}>
+  <section class="container section-block">
+    <div class="page-intro"><h1>{title}</h1><p>{description}</p></div>
+    {kind === 'destinations' && <div class="cards-grid destination-grid">{destinations.map(async ({ translation, source, details }) => { const image = await getArticlePhoto(source.data.hero); return <article class="destination-card"><a href={localePath(locale.code, `/destinations/${source.data.slug}/`)}>{image && <div class="destination-card-media"><img src={image.src} srcset={image.srcSet} sizes="(max-width: 700px) calc(100vw - 36px), 380px" width={image.width} height={image.height} alt={translation.data.photoAlt ?? image.alt} loading="lazy" decoding="async" /></div>}<div class="destination-card-body"><p class="destination-card-location">{destinationPlace(details)} <span aria-hidden="true">·</span> {destinationCategories[details.category]}</p><h2 class="destination-card-title">{translation.data.title}</h2><p class="destination-card-description">{translation.data.description}</p></div></a></article>; })}</div>}
+    {kind === 'guides' && <Search items={guideItems} labels={searchLabels} locale={locale.hreflang} client:load />}
+    {kind === 'topics' && <div class="topic-grid topic-directory"><a class="topic-card" href={localePath(locale.code, '/destinations/')}><span class="card-type">{labels.destinations}</span><h2>{labels.destinations}</h2><p>{description}</p></a><a class="topic-card" href={localePath(locale.code, '/guides/')}><span class="card-type">{labels.guides}</span><h2>{labels.guides}</h2><p>{description}</p></a></div>}
+    {!['destinations', 'guides', 'topics'].includes(kind) && <div class="prose"><p>{description}</p><p><a href={localePath('en-US', `/${kind}/`)}>{labels.viewInEnglish}</a></p></div>}
+  </section>
+</BaseLayout>

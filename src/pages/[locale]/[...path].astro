@@ -1,0 +1,100 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleFactPanel from '../../components/ArticleFactPanel.astro';
+import Photo from '../../components/Photo.astro';
+import { articleHref, destinationDetails, destinationPlace, destinationCategories } from '../../lib/content';
+import { articleFacts, articleSources } from '../../lib/sources';
+import { getArticlePhoto } from '../../lib/photos';
+import { getLocale, localeLabels, localePath, sourceArticleDigest, sourceSupplementalDigest } from '../../lib/i18n.mjs';
+import { SITE_EDITORIAL_TEAM, SITE_NAME, SITE_URL, isReviewPreview } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const [articles, translations] = await Promise.all([
+    getCollection('articles', ({ data }) => data.status === 'published'),
+    getCollection('translations', ({ data }) => data.status === 'published' || (isReviewPreview && data.status === 'review')),
+  ]);
+  const sources = new Map(articles.map(article => [article.data.slug, article]));
+  const candidates = translations.flatMap(translation => {
+    const source = sources.get(translation.data.sourceSlug);
+    const locale = getLocale(translation.data.locale);
+    if (!source || !locale || locale.path === '' || translation.data.sourceDigest !== sourceArticleDigest(source) || translation.data.supplementalDigest !== sourceSupplementalDigest(source)) return [];
+    return [{
+      params: { locale: locale.path, path: `${source.data.type === 'destination' ? 'destinations' : 'guides'}/${source.data.slug}` },
+      props: { translation, source },
+    }];
+  });
+  return candidates;
+}
+
+const { translation, source } = Astro.props;
+const locale = getLocale(translation.data.locale);
+if (!locale) throw new Error(`Unknown translation locale ${translation.data.locale}`);
+const labels = localeLabels(locale.code);
+const { Content, headings } = await render(translation);
+const destination = destinationDetails(source);
+const hero = await getArticlePhoto(source.data.hero);
+const sourcePath = articleHref(source);
+const path = localePath(locale.code, sourcePath);
+const topicPath = localePath(locale.code, destination ? '/destinations/' : '/guides/');
+const facts = articleFacts(source.data.facts);
+const sources = articleSources([...new Set(source.data.sources)]);
+const canonical = new URL(path, SITE_URL).href;
+const place = destination ? {
+  '@type': 'TouristAttraction',
+  '@id': `${canonical}#attraction`,
+  url: canonical,
+  name: translation.data.title,
+  description: translation.data.description,
+  ...(hero && hero.kind !== 'illustration' ? { image: new URL(hero.share.src, SITE_URL).href } : {}),
+  address: { '@type': 'PostalAddress', addressLocality: destination.location, addressRegion: destination.region, addressCountry: 'US' },
+} : undefined;
+const articleData = {
+  '@type': 'Article',
+  headline: translation.data.title,
+  description: translation.data.description,
+  inLanguage: locale.hreflang,
+  dateModified: translation.data.updatedAt,
+  author: { '@type': 'Organization', name: SITE_EDITORIAL_TEAM, url: `${SITE_URL}/editorial-policy/` },
+  publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+  mainEntityOfPage: canonical,
+  ...(place ? { about: { '@id': place['@id'] } } : {}),
+  ...(hero ? { image: new URL(hero.share.src, SITE_URL).href } : {}),
+};
+---
+
+<BaseLayout
+  title={`${translation.data.title} — ${SITE_NAME}`}
+  description={translation.data.description}
+  path={path}
+  lang={locale.hreflang}
+  dir={locale.dir}
+  article={articleData}
+  place={place}
+  socialImage={hero ? { ...hero.share, alt: translation.data.photoAlt ?? hero.alt } : undefined}
+  breadcrumbs={[{ name: labels.breadcrumbHome, url: localePath(locale.code, '/') }, { name: destination ? labels.destinations : labels.guides, url: topicPath }, { name: translation.data.title, url: path }]}
+>
+  <article class:list={['container article-shell', { 'destination-article': destination }]}>
+    <header class="article-header">
+      <a class="eyebrow" href={topicPath}>{destination ? labels.destinations : labels.guides}</a>
+      <h1>{translation.data.title}</h1>
+      <p class="article-deck">{translation.data.description}</p>
+      <div class="article-meta">
+        {destination && <strong>{destinationPlace(destination)} <span aria-hidden="true">·</span> {destinationCategories[destination.category]}</strong>}
+        <a href={localePath(locale.code, '/editorial-policy/')}>{SITE_EDITORIAL_TEAM}</a>
+      </div>
+      {destination && hero && <Photo photo={hero} priority sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) calc(100vw - 44px), 1180px" class="article-figure destination-figure" />}
+    </header>
+    <aside class="article-sidebar" aria-label="On this page"><p class="eyebrow">{labels.explore}</p><nav><ul>
+      {headings.filter(heading => heading.depth === 2).map(heading => <li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}
+      <li><a href="#official-sources">{labels.officialSources}</a></li>
+    </ul></nav></aside>
+    <div class="article-body">
+      {!destination && hero && <Photo photo={hero} priority sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) 70vw, 740px" class="article-figure" />}
+      <div class="prose"><Content /></div>
+      {destination && <ArticleFactPanel facts={facts} title={labels.whatToCheck} />}
+      <section id="official-sources" class="official-sources"><p class="eyebrow">{labels.officialSources}</p><h2>{labels.officialSources}</h2><ul class="sources-list">{sources.map(source => <li><a href={source.url} rel="noopener">{source.title} ↗</a><span>{source.publisher}</span></li>)}</ul><p class="source-note"><a href={localePath(locale.code, '/editorial-policy/')}>{labels.editorialPolicy}</a></p></section>
+    </div>
+  </article>
+</BaseLayout>
+

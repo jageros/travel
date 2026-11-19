@@ -1,0 +1,122 @@
+{
+  "en-US": {
+    "home": "Home", "destinations": "Destinations", "guides": "Guides", "topics": "Topics",
+    "about": "About this site", "editorialPolicy": "Editorial policy", "photoCredits": "Photo credits",
+    "contact": "Contact & corrections", "advertising": "Advertising", "privacy": "Privacy & cookies",
+    "cookiePreferences": "Cookie preferences", "explore": "Explore", "howWeWork": "How we work",
+    "search": "Search", "searchPlaceholder": "Search places and guides", "language": "Language",
+    "allRegions": "All regions", "allCategories": "All categories", "noResults": "No matching places found.",
+    "readMore": "Read more", "viewInEnglish": "Read this page in English", "officialSources": "Official sources",
+    "whatToCheck": "What to check before going", "breadcrumbHome": "Home"
+  },
+  "es": {
+    "home": "Inicio", "destinations": "Destinos", "guides": "Guías", "topics": "Temas",
+    "about": "Sobre este sitio", "editorialPolicy": "Política editorial", "photoCredits": "Créditos de fotos",
+    "contact": "Contacto y correcciones", "advertising": "Publicidad", "privacy": "Privacidad y cookies",
+    "cookiePreferences": "Preferencias de cookies", "explore": "Explorar", "howWeWork": "Cómo trabajamos",
+    "search": "Buscar", "searchPlaceholder": "Buscar lugares y guías", "language": "Idioma",
+    "allRegions": "Todas las regiones", "allCategories": "Todas las categorías", "noResults": "No encontramos lugares coincidentes.",
+    "readMore": "Leer más", "viewInEnglish": "Leer esta página en inglés", "officialSources": "Fuentes oficiales",
+    "whatToCheck": "Qué comprobar antes de ir", "breadcrumbHome": "Inicio"
+  },
+  "fr": {
+    "home": "Accueil", "destinations": "Destinations", "guides": "Guides", "topics": "Thèmes",
+    "about": "À propos du site", "editorialPolicy": "Politique éditoriale", "photoCredits": "Crédits photos",
+    "contact": "Contact et corrections", "advertising": "Publicité", "privacy": "Confidentialité et cookies",
+    "cookiePreferences": "Préférences de cookies", "explore": "Explorer", "howWeWork": "Notre méthode",
+    "search": "Rechercher", "searchPlaceholder": "Rechercher des lieux et des guides", "language": "Langue",
+    "allRegions": "Toutes les régions", "allCategories": "Toutes les catégories", "noResults": "Aucun lieu correspondant.",
+    "readMore": "Lire la suite", "viewInEnglish": "Lire cette page en anglais", "officialSources": "Sources officielles",
+    "whatToCheck": "À vérifier avant de partir", "breadcrumbHome": "Accueil"
+  },
+  "de": {
+    "home": "Startseite", "destinations": "Reiseziele", "guides": "Reiseführer", "topics": "Themen",
+    "about": "Über diese Seite", "editorialPolicy": "Redaktionelle Richtlinien", "photoCredits": "Fotoinformationen",
+    "contact": "Kontakt und Korrekturen", "advertising": "Werbung", "privacy": "Datenschutz und Cookies",
+    "cookiePreferences": "Cookie-Einstellungen", "explore": "Entdecken", "howWeWork": "So arbeiten wir",
+    "search": "Suchen", "searchPlaceholder": "Orte und Reiseführer suchen", "language": "Sprache",
+    "allRegions": "Alle Regionen", "allCategories": "Alle Kategorien", "noResults": "Keine passenden Orte gefunden.",
+    "readMore": "Mehr lesen", "viewInEnglish": "Diese Seite auf Englisch lesen", "officialSources": "Offizielle Quellen",
+    "whatToCheck": "Vor der Reise prüfen", "breadcrumbHome": "Startseite"
+  },
+  "pt-BR": {
+    "home": "Início", "destinations": "Destinos", "guides": "Guias", "topics": "Temas",
+    "about": "Sobre este site", "editorialPolicy": "Política editorial", "photoCredits": "Créditos das fotos",
+    "contact": "Contato e correções", "advertising": "Publicidade", "privacy": "Privacidade e cookies",
+    "cookiePreferences": "Preferências de cookies", "explore": "Explorar", "howWeWork": "Como trabalhamos",
+    "search": "Pesquisar", "searchPlaceholder": "Pesquisar lugares e guias", "language": "Idioma",
+    "allRegions": "Todas as regiões", "allCategories": "Todas as categorias", "noResults": "Nenhum lugar correspondente encontrado.",
+    "readMore": "Leia mais", "viewInEnglish": "Ler esta página em inglês", "officialSources": "Fontes oficiais",
+    "whatToCheck": "O que conferir antes de ir", "breadcrumbHome": "Início"
+  },
+  "zh-Hans": {
+    "home": "首页", "destinations": "景点", "guides": "旅行指南", "topics": "专题",
+    "about": "关于本站", "editorialPolicy": "编辑政策", "photoCredits": "图片署名",
+    "contact": "联系与更正", "advertising": "广告", "privacy": "隐私与 Cookie",
+    "cookiePreferences": "Cookie 偏好", "explore": "探索", "howWeWork": "我们的工作方式",
+    "search": "搜索", "searchPlaceholder": "搜索景点和指南", "language": "语言",
+    "allRegions": "所有地区", "allCategories": "所有类别", "noResults": "没有找到匹配的景点。",
+    "readMore": "阅读更多", "viewInEnglish": "阅读英文页面", "officialSources": "官方来源",
+    "whatToCheck": "出发前需要确认", "breadcrumbHome": "首页"
+  },
+  "zh-Hant": {
+    "home": "首頁", "destinations": "景點", "guides": "旅行指南", "topics": "專題",
+    "about": "關於本站", "editorialPolicy": "編輯政策", "photoCredits": "圖片署名",
+    "contact": "聯絡與更正", "advertising": "廣告", "privacy": "隱私與 Cookie",
+    "cookiePreferences": "Cookie 偏好", "explore": "探索", "howWeWork": "我們的工作方式",
+    "search": "搜尋", "searchPlaceholder": "搜尋景點和指南", "language": "語言",
+    "allRegions": "所有地區", "allCategories": "所有類別", "noResults": "找不到符合的景點。",
+    "readMore": "閱讀更多", "viewInEnglish": "閱讀英文頁面", "officialSources": "官方來源",
+    "whatToCheck": "出發前需要確認", "breadcrumbHome": "首頁"
+  },
+  "ja": {
+    "home": "ホーム", "destinations": "観光スポット", "guides": "ガイド", "topics": "テーマ",
+    "about": "このサイトについて", "editorialPolicy": "編集方針", "photoCredits": "写真クレジット",
+    "contact": "お問い合わせと訂正", "advertising": "広告", "privacy": "プライバシーとCookie",
+    "cookiePreferences": "Cookie設定", "explore": "探す", "howWeWork": "編集方針",
+    "search": "検索", "searchPlaceholder": "場所やガイドを検索", "language": "言語",
+    "allRegions": "すべての地域", "allCategories": "すべてのカテゴリー", "noResults": "一致する場所が見つかりません。",
+    "readMore": "続きを読む", "viewInEnglish": "英語で読む", "officialSources": "公式情報",
+    "whatToCheck": "出発前に確認すること", "breadcrumbHome": "ホーム"
+  },
+  "ko": {
+    "home": "홈", "destinations": "여행지", "guides": "가이드", "topics": "주제",
+    "about": "사이트 소개", "editorialPolicy": "편집 정책", "photoCredits": "사진 출처",
+    "contact": "문의 및 수정", "advertising": "광고", "privacy": "개인정보 및 쿠키",
+    "cookiePreferences": "쿠키 설정", "explore": "둘러보기", "howWeWork": "운영 방식",
+    "search": "검색", "searchPlaceholder": "장소와 가이드 검색", "language": "언어",
+    "allRegions": "모든 지역", "allCategories": "모든 카테고리", "noResults": "일치하는 장소가 없습니다.",
+    "readMore": "더 읽기", "viewInEnglish": "영어로 읽기", "officialSources": "공식 출처",
+    "whatToCheck": "방문 전 확인할 내용", "breadcrumbHome": "홈"
+  },
+  "it": {
+    "home": "Home", "destinations": "Destinazioni", "guides": "Guide", "topics": "Temi",
+    "about": "Informazioni sul sito", "editorialPolicy": "Politica editoriale", "photoCredits": "Crediti fotografici",
+    "contact": "Contatti e correzioni", "advertising": "Pubblicità", "privacy": "Privacy e cookie",
+    "cookiePreferences": "Preferenze cookie", "explore": "Esplora", "howWeWork": "Come lavoriamo",
+    "search": "Cerca", "searchPlaceholder": "Cerca luoghi e guide", "language": "Lingua",
+    "allRegions": "Tutte le regioni", "allCategories": "Tutte le categorie", "noResults": "Nessun luogo corrispondente.",
+    "readMore": "Leggi di più", "viewInEnglish": "Leggi questa pagina in inglese", "officialSources": "Fonti ufficiali",
+    "whatToCheck": "Cosa verificare prima di partire", "breadcrumbHome": "Home"
+  },
+  "ar": {
+    "home": "الرئيسية", "destinations": "الوجهات", "guides": "الأدلة", "topics": "المواضيع",
+    "about": "عن الموقع", "editorialPolicy": "السياسة التحريرية", "photoCredits": "حقوق الصور",
+    "contact": "التواصل والتصحيحات", "advertising": "الإعلانات", "privacy": "الخصوصية وملفات تعريف الارتباط",
+    "cookiePreferences": "تفضيلات ملفات تعريف الارتباط", "explore": "استكشف", "howWeWork": "كيف نعمل",
+    "search": "بحث", "searchPlaceholder": "ابحث عن أماكن وأدلة", "language": "اللغة",
+    "allRegions": "كل المناطق", "allCategories": "كل الفئات", "noResults": "لم نعثر على أماكن مطابقة.",
+    "readMore": "اقرأ المزيد", "viewInEnglish": "اقرأ هذه الصفحة بالإنجليزية", "officialSources": "المصادر الرسمية",
+    "whatToCheck": "ما يجب التحقق منه قبل الذهاب", "breadcrumbHome": "الرئيسية"
+  },
+  "hi": {
+    "home": "होम", "destinations": "गंतव्य", "guides": "गाइड", "topics": "विषय",
+    "about": "इस साइट के बारे में", "editorialPolicy": "संपादकीय नीति", "photoCredits": "फ़ोटो क्रेडिट",
+    "contact": "संपर्क और सुधार", "advertising": "विज्ञापन", "privacy": "गोपनीयता और कुकीज़",
+    "cookiePreferences": "कुकी प्राथमिकताएँ", "explore": "खोजें", "howWeWork": "हम कैसे काम करते हैं",
+    "search": "खोजें", "searchPlaceholder": "स्थान और गाइड खोजें", "language": "भाषा",
+    "allRegions": "सभी क्षेत्र", "allCategories": "सभी श्रेणियाँ", "noResults": "कोई मेल खाता स्थान नहीं मिला।",
+    "readMore": "और पढ़ें", "viewInEnglish": "यह पृष्ठ अंग्रेज़ी में पढ़ें", "officialSources": "आधिकारिक स्रोत",
+    "whatToCheck": "जाने से पहले क्या जाँचें", "breadcrumbHome": "होम"
+  }
+}

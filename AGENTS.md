@@ -8,6 +8,7 @@
 - 唯一正式地址 `https://www.cedartrips.com`；Cloudflare Worker `cedar-trips`；GitHub `jageros/travel`。
 - Astro 静态正文，React 渐进增强搜索，Markdown 内容；Node 24，`npm ci` 使用锁文件。保留免费托管，无数据库、CMS 或 SSR。
 - 广告保持关闭。未确定供应商、模型及费用上限，不配置或调用付费扩稿接口。广告开户、条款、身份和支付由用户完成。
+- 多语言改造保留英语根路径，首批注册 11 个语言前缀。译文必须使用独立内容集合并绑定原文和补充景点数据指纹。只有通过官方来源新鲜度、事实、质量和构建门禁的 `published` 译文才可进入语言路由、搜索、canonical、hreflang 和 sitemap。
 
 ## 开始工作
 

@@ -42,6 +42,13 @@ p { margin-bottom: 1.25em; }
 .site-header nav { display: flex; align-items: center; gap: 30px; }
 .site-header nav a { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; color: var(--ink); font-size: .88rem; font-weight: 550; text-decoration: none; padding-block: 8px; }
 .site-header nav a:hover, .site-header nav a[aria-current] { color: var(--teal); text-decoration: underline; text-underline-offset: 8px; }
+.language-nav { gap: 8px !important; margin-inline-start: auto; }
+.language-nav a { min-width: auto !important; padding-inline: 6px; font-size: .75rem !important; }
+.language-nav a:not([aria-current]) { color: var(--muted); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+html[dir="rtl"] .article-sidebar { border-left: 0; border-right: 1px solid var(--line); padding-left: 0; padding-right: 26px; }
+html[dir="rtl"] .article-shell > .article-sidebar { grid-column: 2; }
+html[dir="rtl"] .destination-filter-options [role="option"] { text-align: right; }
 .review-banner { text-align: center; padding: 9px 20px; color: #634523; background: #fff0d6; font-size: .82rem; border-bottom: 1px solid #e4c58d; }
 .eyebrow { display: block; margin: 0 0 20px; color: var(--teal); font-size: .7rem; line-height: 1.45; text-transform: uppercase; letter-spacing: .18em; font-weight: 700; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 28px; }

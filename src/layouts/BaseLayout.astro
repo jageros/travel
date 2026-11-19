@@ -1,7 +1,10 @@
 ---
 import '../styles/global.css';
 import Consent from '../components/Consent.astro';
+import { getCollection } from 'astro:content';
 import { getPhoto } from '../lib/photos';
+import { articleHref } from '../lib/content';
+import { defaultLocale, getLocale, localeLabels, localePath, locales, sourceArticleDigest, sourceSupplementalDigest, stripLocale } from '../lib/i18n.mjs';
 import { SITE_URL, SITE_NAME, isReviewPreview, isIndexable, googleSiteVerification } from '../lib/site';
 interface Props {
   title: string;
@@ -12,22 +15,50 @@ interface Props {
   place?: Record<string, unknown>;
   breadcrumbs?: Array<{ name: string; url: string }>;
   socialImage?: { src: string; width: number; height: number; alt: string };
+  lang?: string;
+  dir?: 'ltr' | 'rtl';
+  languageLinks?: Array<{ href: string; hreflang: string; label: string }>;
 }
-const { title, description, path = Astro.url.pathname, noindex = false, article, place, breadcrumbs = [], socialImage } = Astro.props;
+const { title, description, path = Astro.url.pathname, noindex = false, article, place, breadcrumbs = [], socialImage,
+  lang = 'en-US', dir = 'ltr', languageLinks = [] } = Astro.props;
+const currentLocale = getLocale(lang) ?? defaultLocale;
+const labels = localeLabels(currentLocale.code);
+const localHref = (value: string) => localePath(currentLocale.code, value);
+const localizedLinks = noindex || !isIndexable || isReviewPreview ? [] : languageLinks.length ? languageLinks : await (async () => {
+  const { path: sourcePath } = stripLocale(path);
+  const localizedPublicPaths = new Set(['/','/destinations/','/guides/','/topics/','/topics/san-francisco-without-a-car/','/about/','/editorial-policy/','/photo-credits/','/contact/','/advertising/','/privacy/']);
+  const articles = await getCollection('articles', ({ data }) => data.status === 'published');
+  const source = articles.find(item => articleHref(item) === sourcePath);
+  const translations = source
+    ? (await getCollection('translations', ({ data }) => data.status === 'published' && data.sourceSlug === source.data.slug)).filter(item => item.data.sourceDigest === sourceArticleDigest(source) && item.data.supplementalDigest === sourceSupplementalDigest(source))
+    : [];
+  const translatedCodes = new Set(translations.map(item => item.data.locale));
+  const available = source
+    ? locales.filter(locale => locale.code === defaultLocale.code || translatedCodes.has(locale.code))
+    : localizedPublicPaths.has(sourcePath) ? locales : [defaultLocale];
+  const links = available.map(locale => ({
+    href: locale.code === defaultLocale.code ? sourcePath : localePath(locale.code, sourcePath),
+    hreflang: locale.hreflang,
+    label: locale.label,
+  }));
+  const english = links.find(link => link.hreflang === defaultLocale.hreflang);
+  if (english) links.push({ ...english, hreflang: 'x-default' });
+  return links;
+})();
 const defaultPhoto = socialImage ? null : await getPhoto('golden-gate');
 const share = socialImage ?? {...defaultPhoto!.share,alt:defaultPhoto!.alt};
 const canonical = new URL(path, SITE_URL).href;
 const pageTitle = title.includes(SITE_NAME) ? title : `${title} | ${SITE_NAME}`;
 const excluded = noindex || !isIndexable || isReviewPreview;
 const json = (value: unknown) => JSON.stringify(value).replace(/</g, '\\u003c').replace(/>/g, '\\u003e').replace(/&/g, '\\u0026');
-const schema: Record<string, unknown>[] = [{ '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: SITE_URL, inLanguage: 'en-US' }];
+const schema: Record<string, unknown>[] = [{ '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: SITE_URL, inLanguage: lang }];
 if (article) schema.push({ '@context': 'https://schema.org', ...article });
 if (place) schema.push({ '@context': 'https://schema.org', ...place });
 if (breadcrumbs.length) schema.push({ '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: breadcrumbs.map((item, index) => ({ '@type': 'ListItem', position: index + 1, name: item.name, item: new URL(item.url, SITE_URL).href })) });
-const navigation = [{ href: '/destinations/', label: 'Destinations' }, { href: '/guides/', label: 'Guides' }, { href: '/topics/', label: 'Topics' }];
+const navigation = [{ href: localHref('/destinations/'), label: labels.destinations }, { href: localHref('/guides/'), label: labels.guides }, { href: localHref('/topics/'), label: labels.topics }];
 ---
 <!doctype html>
-<html lang="en-US">
+<html lang={lang} dir={dir}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -43,7 +74,8 @@ const navigation = [{ href: '/destinations/', label: 'Destinations' }, { href: '
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content={SITE_NAME} />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content={lang.replace('-', '_')} />
+    {localizedLinks.map((item) => <link rel="alternate" hreflang={item.hreflang} href={new URL(item.href, SITE_URL).href} />)}
     <meta property="og:image" content={new URL(share.src, SITE_URL).href} />
     <meta property="og:image:width" content={String(share.width)} />
     <meta property="og:image:height" content={String(share.height)} />
@@ -61,11 +93,12 @@ const navigation = [{ href: '/destinations/', label: 'Destinations' }, { href: '
     {isReviewPreview && <div class="review-banner">Editorial preview · Content is awaiting review and is excluded from search indexing.</div>}
     <header class="site-header">
       <div class="container header-inner">
-        <a class="wordmark" href="/" aria-label={`${SITE_NAME} home`}>
+        <a class="wordmark" href={localHref('/')} aria-label={`${SITE_NAME} ${labels.home}`}>
           <span class="brand-icon" aria-hidden="true"><svg width="29" height="29" viewBox="0 0 32 32" fill="none"><path d="M5 25V12l11-6 11 6v13L16 19 5 25Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M16 6v13M5 12l11 6 11-6" stroke="currentColor" stroke-width="1.7"/><path d="m12 11 4-2 4 2" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span>
           <span>Cedar <strong>Trips</strong></span>
         </a>
-        <nav aria-label="Main navigation">{navigation.map((item) => <a href={item.href} aria-current={path === item.href || path.startsWith(item.href) ? 'page' : undefined}>{item.label}</a>)}</nav>
+        <nav aria-label={labels.explore}>{navigation.map((item) => <a href={item.href} aria-current={path === item.href || path.startsWith(item.href) ? 'page' : undefined}>{item.label}</a>)}</nav>
+        {localizedLinks.length > 0 && <nav class="language-nav" aria-label={labels.language}><span class="sr-only">{labels.language}</span>{localizedLinks.filter(item => item.hreflang !== 'x-default').map((item) => <a href={item.href} hreflang={item.hreflang} lang={item.hreflang} aria-current={item.hreflang === lang ? 'page' : undefined}>{item.label}</a>)}</nav>}
       </div>
     </header>
     <main id="main" tabindex="-1">
@@ -80,12 +113,12 @@ const navigation = [{ href: '/destinations/', label: 'Destinations' }, { href: '
     </main>
     <footer class="site-footer">
       <div class="container footer-main">
-        <div class="footer-brand"><a href="/" class="footer-wordmark">{SITE_NAME}<span aria-hidden="true">↗</span></a><p>Places worth visiting across the United States, with useful details and official sources you can check.</p></div>
-        <div><h2>Explore</h2><a href="/destinations/">Destinations</a><a href="/guides/">Travel guides</a><a href="/topics/">Travel topics</a><a href="/about/">About this site</a></div>
-        <div><h2>How we work</h2><a href="/editorial-policy/">Editorial policy</a><a href="/photo-credits/">Photo credits</a><a href="/contact/">Contact & corrections</a><a href="/advertising/">Advertising</a><a href="/privacy/">Privacy & cookies</a><button type="button" class="text-button" data-consent-settings hidden>Cookie preferences</button></div>
+        <div class="footer-brand"><a href={localHref('/')} class="footer-wordmark">{SITE_NAME}<span aria-hidden="true">↗</span></a><p>Places worth visiting across the United States, with useful details and official sources you can check.</p></div>
+        <div><h2>{labels.explore}</h2><a href={localHref('/destinations/')}>{labels.destinations}</a><a href={localHref('/guides/')}>{labels.guides}</a><a href={localHref('/topics/')}>{labels.topics}</a><a href={localHref('/about/')}>{labels.about}</a></div>
+        <div><h2>{labels.howWeWork}</h2><a href={localHref('/editorial-policy/')}>{labels.editorialPolicy}</a><a href={localHref('/photo-credits/')}>{labels.photoCredits}</a><a href={localHref('/contact/')}>{labels.contact}</a><a href={localHref('/advertising/')}>{labels.advertising}</a><a href={localHref('/privacy/')}>{labels.privacy}</a><button type="button" class="text-button" data-consent-settings hidden>{labels.cookiePreferences}</button></div>
       </div>
       <div class="container footer-bottom"><p>© {new Date().getUTCFullYear()} {SITE_NAME}.</p><p>Independent planning guides. Confirm changing details with the official provider.</p></div>
     </footer>
-    <Consent />
+    <Consent labels={labels} privacyHref={localHref('/privacy/')} />
   </body>
 </html>

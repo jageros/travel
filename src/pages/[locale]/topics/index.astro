@@ -1,0 +1,7 @@
+---
+import LocalizedPublicPage from '../../../components/LocalizedPublicPage.astro';
+import { locales } from '../../../lib/i18n.mjs';
+export function getStaticPaths() { return locales.filter(locale => locale.path).map(locale => ({ params: { locale: locale.path }, props: { locale } })); }
+const { locale } = Astro.props;
+---
+<LocalizedPublicPage locale={locale} kind="topics" />
