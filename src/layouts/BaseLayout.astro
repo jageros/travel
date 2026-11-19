@@ -6,6 +6,7 @@ import { getPhoto } from '../lib/photos';
 import { articleHref } from '../lib/content';
 import { defaultLocale, getLocale, localeLabels, localePath, locales, sourceArticleDigest, sourceSupplementalDigest, stripLocale } from '../lib/i18n.mjs';
 import { SITE_URL, SITE_NAME, isReviewPreview, isIndexable, googleSiteVerification } from '../lib/site';
+import { localeCopy } from '../lib/i18n-copy.mjs';
 interface Props {
   title: string;
   description: string;
@@ -23,6 +24,7 @@ const { title, description, path = Astro.url.pathname, noindex = false, article,
   lang = 'en-US', dir = 'ltr', languageLinks = [] } = Astro.props;
 const currentLocale = getLocale(lang) ?? defaultLocale;
 const labels = localeLabels(currentLocale.code);
+const text = localeCopy(currentLocale.code);
 const localHref = (value: string) => localePath(currentLocale.code, value);
 const localizedLinks = noindex || !isIndexable || isReviewPreview ? [] : languageLinks.length ? languageLinks : await (async () => {
   const { path: sourcePath } = stripLocale(path);
@@ -113,7 +115,7 @@ const navigation = [{ href: localHref('/destinations/'), label: labels.destinati
     </main>
     <footer class="site-footer">
       <div class="container footer-main">
-        <div class="footer-brand"><a href={localHref('/')} class="footer-wordmark">{SITE_NAME}<span aria-hidden="true">↗</span></a><p>Places worth visiting across the United States, with useful details and official sources you can check.</p></div>
+        <div class="footer-brand"><a href={localHref('/')} class="footer-wordmark">{SITE_NAME}<span aria-hidden="true">↗</span></a><p>{text.siteDescription}</p></div>
         <div><h2>{labels.explore}</h2><a href={localHref('/destinations/')}>{labels.destinations}</a><a href={localHref('/guides/')}>{labels.guides}</a><a href={localHref('/topics/')}>{labels.topics}</a><a href={localHref('/about/')}>{labels.about}</a></div>
         <div><h2>{labels.howWeWork}</h2><a href={localHref('/editorial-policy/')}>{labels.editorialPolicy}</a><a href={localHref('/photo-credits/')}>{labels.photoCredits}</a><a href={localHref('/contact/')}>{labels.contact}</a><a href={localHref('/advertising/')}>{labels.advertising}</a><a href={localHref('/privacy/')}>{labels.privacy}</a><button type="button" class="text-button" data-consent-settings hidden>{labels.cookiePreferences}</button></div>
       </div>

@@ -6,6 +6,7 @@ import { destinationDetails, destinationPlace } from '../../lib/content';
 import { getArticlePhoto } from '../../lib/photos';
 import { localeLabels, localePath, sourceArticleDigest, sourceSupplementalDigest } from '../../lib/i18n.mjs';
 import { SITE_NAME, isReviewPreview } from '../../lib/site';
+import { localeCopy } from '../../lib/i18n-copy.mjs';
 
 export async function getStaticPaths() {
   const locales = (await import('../../lib/i18n.mjs')).locales.filter(locale => locale.path !== '');
@@ -29,20 +30,21 @@ const destinations = entries.flatMap(entry => {
 const hero = destinations[0];
 const heroPhoto = hero ? await getArticlePhoto(hero.source.data.hero) : null;
 const path = localePath(locale.code, '/');
+const text = localeCopy(locale.code);
 ---
 
 <BaseLayout title={`${labels.destinations} — ${SITE_NAME}`} description="Discover places worth visiting across the United States." path={path} lang={locale.hreflang} dir={locale.dir} socialImage={heroPhoto ? { ...heroPhoto.share, alt: hero.translation.data.photoAlt ?? heroPhoto.alt } : undefined}>
   <section class="container discovery-hero">
     <div class="discovery-hero-copy">
-      <p class="eyebrow">{labels.destinations}</p>
-      <h1>{labels.explore}</h1>
-      <p>Discover places worth a detour, with practical details and official sources you can check before going.</p>
+      <p class="eyebrow">{text.explore}</p>
+      <h1>{text.homeTitle}</h1>
+      <p>{text.homeDescription}</p>
       <a class="button" href={localePath(locale.code, '/destinations/')}>{labels.explore} <span aria-hidden="true">↗</span></a>
     </div>
     {heroPhoto && <Photo photo={heroPhoto} priority sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) 56vw, 680px" class="discovery-hero-photo" />}
   </section>
   {destinations.length > 0 && <section class="container section-block homepage-destinations" aria-labelledby="featured-destinations">
-    <div class="section-heading"><h2 id="featured-destinations">{labels.destinations}</h2><a href={localePath(locale.code, '/destinations/')}>{labels.readMore} <span aria-hidden="true">→</span></a></div>
+    <div class="section-heading"><h2 id="featured-destinations">{text.featured}</h2><a href={localePath(locale.code, '/destinations/')}>{text.viewAll} <span aria-hidden="true">→</span></a></div>
     <div class="cards-grid destination-grid">
       {destinations.slice(0, 8).map(async ({ translation, source, details }) => {
         const image = await getArticlePhoto(source.data.hero);
