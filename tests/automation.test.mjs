@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { articleDigest, assertOfficialUrl, findDuplicates, manualReleaseCount, parseArticle, publicationDecision, readArticles, readJson, serializeArticle, sha256, validateArticle, writeJson } from '../scripts/content-lib.mjs';
 import { checkSources, extractText, fetchOfficialText, runSourceCheck } from '../scripts/check-sources.mjs';
-import { approveArticle, generateDraft, publishCandidates, rankTopics, runPipeline, topicOpportunityScore, topicPreflight } from '../scripts/content-pipeline.mjs';
+import { approveArticle, generateDraft, planSessionPublication, publishCandidates, rankTopics, runPipeline, saveSessionDraft, topicPreflight } from '../scripts/content-pipeline.mjs';
 import { importQueries } from '../scripts/import-gsc.mjs';
 
 const now = new Date('2026-10-19T09:00:00.000Z');
@@ -105,16 +105,76 @@ test('automatic source acceptance updates only evidence-backed changed pages', a
 
 test('topic ranking prioritizes exact matching intent, then clicks and impressions', () => {
   const topics = [
-    { slug: 'low', status: 'ready', primaryIntent: 'How can I plan a waterfront day?' },
+    { slug: 'low', status: 'ready', primaryIntent: 'How can I plan a waterfront day?', queryAliases: ['waterfront'] },
     { slug: 'high', status: 'ready', primaryIntent: 'How should I plan SFO transit with luggage?' },
+    { slug: 'middle', status: 'ready', primaryIntent: 'How can I ride a streetcar?', queryAliases: ['streetcar'] },
+    { slug: 'tied', status: 'ready', primaryIntent: 'How can I ride a train?', queryAliases: ['train'] },
+    { slug: 'priority', status: 'ready', primaryIntent: 'How can I visit a park?', priority: 5 },
     { slug: 'blocked', status: 'blocked', primaryIntent: 'Ignore this topic' },
   ];
   const opportunities = [
-    { query: 'SFO transit with luggage', clicks: 1, impressions: 3, position: 9, matchingIntent: 'high' },
-    { query: 'waterfront day', clicks: 4, impressions: 100, position: 5, matchingIntent: null },
+    { query: 'SFO transit with luggage', clicks: 0, impressions: 3, matchingIntent: 'high' },
+    { query: 'waterfront day', clicks: 4, impressions: 100, matchingIntent: null },
+    { query: 'first streetcar trip', clicks: 5, impressions: 70, matchingIntent: null },
+    { query: 'first train trip', clicks: 5, impressions: 90, matchingIntent: null },
+    { query: 'most searched topic', clicks: 100, impressions: 9000, matchingIntent: null },
   ];
-  assert.ok(topicOpportunityScore(topics[1], opportunities) > topicOpportunityScore(topics[0], opportunities));
-  assert.deepEqual(rankTopics(topics, opportunities).map((topic) => topic.slug), ['high', 'low']);
+  assert.deepEqual(rankTopics(topics, opportunities).map((topic) => topic.slug), ['high', 'tied', 'middle', 'low', 'priority']);
+  assert.deepEqual(rankTopics(topics, []).map((topic) => topic.slug), ['priority', 'low', 'high', 'middle', 'tied']);
+});
+
+const destinationBrief = (slug = 'new-destination', priority = 10) => ({
+  slug, priority, type: 'destination', topic: 'us-destinations', status: 'ready',
+  primaryIntent: `What makes ${slug} worth visiting?`, brief: 'Use the registered source for a focused visit.',
+  sources: ['official-transit'], facts: ['station-fact'], related: [], region: 'Arizona', location: 'Grand Canyon Village',
+  category: 'national-parks', featured: true, hero: { photoId: 'golden-gate' },
+});
+const destinationBody = [
+  '## Why this place is worth visiting',
+  Array.from({ length: 180 }, (_, index) => `activity${index} sight${index}`).join(' '),
+  '## What to see', 'Check the official visitor map.',
+  '## Who it suits', 'Choose a visit that fits your available time.',
+  '## What to check before going', 'Consult the official visitor information before setting out.',
+].join('\n\n');
+const destinationDraft = { title: 'A destination worth planning around', description: 'A practical overview of highlights and how to plan a visit.', body: destinationBody };
+
+test('the session plans, writes locked destination metadata and publishes only the selected article', async (t) => {
+  const root = await fixture(t);
+  const { status: _status, priority: _priority, brief: _brief, ...metadata } = destinationBrief();
+  await writeJson(path.join(root, 'automation/editorial.json'), { ...state(), requiredManualApprovals: 0, fullyAutomatic: true });
+  await writeJson(path.join(root, 'automation/topics.json'), { topics: [destinationBrief()] });
+  const blocked = await planSessionPublication(root, { now, fetcher: async () => new Response(null, { status: 403 }) });
+  assert.equal(blocked.reason, 'No eligible topic');
+  assert.match(blocked.held[0].errors.join(' '), /Official source needs review/);
+  const planned = await planSessionPublication(root, { now, fetcher: sourceFetch });
+  assert.equal(planned.action, 'draft');
+  assert.equal(planned.slug, metadata.slug);
+  assert.equal(planned.officialMaterial[0].untrustedSourceText, officialText);
+  await assert.rejects(saveSessionDraft(root, metadata.slug, { ...destinationDraft, hero: { photoId: 'sfo-bart' } }, { now }), /controlled response shape/);
+  await assert.rejects(saveSessionDraft(root, metadata.slug, { ...destinationDraft, body: body() }, { now }), /sections in order/);
+  const saved = await saveSessionDraft(root, metadata.slug, destinationDraft, { now });
+  const file = path.join(root, 'src/content/articles', `${metadata.slug}.md`);
+  const review = parseArticle(await fs.readFile(file, 'utf8'), path.basename(file));
+  assert.deepEqual(Object.fromEntries(Object.keys(metadata).map((field) => [field, review.data[field]])), metadata);
+  assert.equal(review.digest, saved.contentSha256);
+  await assert.rejects(saveSessionDraft(root, metadata.slug, destinationDraft, { now }), /not the current eligible topic/);
+  assert.equal((await planSessionPublication(root, { now, fetcher: sourceFetch })).action, 'publish-review');
+  await fs.writeFile(file, serializeArticle({ ...review.data, hero: { photoId: 'sfo-bart' } }, review.body));
+  const held = await runPipeline(root, { publish: true, automatic: true, slug: metadata.slug, now, fetcher: sourceFetch });
+  assert.equal(held.publications[0].status, 'held');
+  assert.match(held.publications[0].errors.join(' '), /must match its ready brief/);
+  await fs.writeFile(file, review.raw);
+  const release = await runPipeline(root, { publish: true, automatic: true, slug: metadata.slug, now, fetcher: sourceFetch });
+  assert.deepEqual(release.publications, [{ slug: metadata.slug, status: 'published', manualApproval: false }]);
+  const ledger = await readJson(path.join(root, 'automation/editorial.json'));
+  assert.equal(ledger.publications[0].contentSha256, saved.contentSha256);
+  assert.equal((await readArticles(root)).find((entry) => entry.data.slug === 'airport-checklist').data.status, 'review');
+});
+
+test('destination briefs require valid region, location, category, featured flag and cover', () => {
+  const invalid = { ...destinationBrief(), region: 'Atlantis', location: '', category: 'made-up', featured: 1, hero: { photoId: 'bad' } };
+  const errors = topicPreflight(invalid, registry(), report(), [], { now });
+  for (const field of ['region', 'location', 'category', 'featured', 'cover']) assert.ok(errors.some((error) => error.includes(field)));
 });
 
 test('source snapshots capture exact current-run normalized text and overwrite unavailable sources without accepting baselines', async (t) => {
@@ -306,15 +366,17 @@ test('only distinct past releases with matching named approval evidence unlock a
 });
 
 test('approval and successful release preserve prose, record provenance, and never republish', async (t) => {
-  const root = await fixture(t);
+  const review = parseArticle(`${article().raw}\n\n`, 'airport-checklist.md');
+  const root = await fixture(t, [review]);
   await assert.rejects(approveArticle(root, 'airport-checklist', '--approve', { now }), /named reviewer/);
   await assert.rejects(approveArticle(root, 'airport-checklist', 'human-editor', { now }), /exact reviewed/);
   await assert.rejects(approveArticle(root, 'airport-checklist', 'human-editor', { now, expectedSha256: sha256('a different version') }), /no longer matches/);
-  await approveArticle(root, 'airport-checklist', 'human-editor', { now, expectedSha256: article().digest });
+  await approveArticle(root, 'airport-checklist', 'human-editor', { now, expectedSha256: review.digest });
   const result = await publishCandidates(root, registry(), report(), { now });
   assert.equal(result[0].status, 'published');
   const [published] = await readArticles(root);
-  assert.equal(published.body.trim(), article().body.trim());
+  assert.equal(published.body, review.body);
+  assert.equal(published.digest, review.digest);
   assert.equal(published.data.publishedAt, '2026-10-19');
   const ledger = await readJson(path.join(root, 'automation/editorial.json'));
   assert.equal(ledger.publications[0].manualApproval, true);

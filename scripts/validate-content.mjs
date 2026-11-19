@@ -1,12 +1,16 @@
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { findDuplicates, readArticles, readJson, validateArticle, validateRegistry } from './content-lib.mjs';
+import { validatePhotoRegistry } from './photo-lib.mjs';
 
 export async function validateContent(root, { now = new Date() } = {}) {
   const registry = await readJson(path.join(root, 'automation/sources.json'));
   validateRegistry(registry);
   const articles = await readArticles(root);
   const errors = [];
+  const photosFile = 'src/data/photos.json';
+  const photoProblems = await validatePhotoRegistry(await readJson(path.join(root, photosFile)), { root });
+  if (photoProblems.length) errors.push({ file: photosFile, errors: photoProblems });
   for (const article of articles) {
     const problems = validateArticle(article, registry, { now });
     const duplicates = findDuplicates(article, articles);

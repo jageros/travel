@@ -107,10 +107,19 @@ for(const file of htmlFiles) {
         assertOwnUrl(schema.author.url,'editorial team URL');
         if(schema.image) {assertOwnUrl(schema.image,'Article image');await assertLocalAsset(schema.image,'Article image');}
       }
+      if(schema['@type']==='TouristAttraction') {
+        assert.equal(schema.url,canonical,'TouristAttraction canonical identity');
+        assert.equal(schema['@id'],`${canonical}#attraction`,'TouristAttraction identity');
+        assert.equal(schema.address?.addressCountry,'US','U.S. destination country');
+        assert.ok(schema.address?.addressRegion && schema.address?.addressLocality,'destination location');
+        assert.ok(schemas.some(article=>article['@type']==='Article'&&article.about?.['@id']===schema['@id']),'Article points to attraction metadata');
+        if(schema.image) {assertOwnUrl(schema.image,'TouristAttraction image');await assertLocalAsset(schema.image,'TouristAttraction image');}
+      }
       if(schema['@type']==='BreadcrumbList')for(const item of schema.itemListElement||[])assertOwnUrl(item.item,'breadcrumb item');
     }
     for(const node of nodes) {
       const attrs=attributes(node);
+      if(node.tagName==='img'&&attrs.src)assert.ok(/^\/(?!\/)/.test(attrs.src),'article and site images use local assets');
       for(const key of ['href','src'])if(attrs[key])await assertLocalAsset(attrs[key],'internal URL');
       for(const key of ['srcset','imagesrcset'])if(attrs[key])for(const candidate of attrs[key].split(',')) {
         const url=candidate.trim().split(/\s+/)[0];
@@ -121,6 +130,7 @@ for(const file of htmlFiles) {
 }
 const sitemap=await fs.readFile(path.join(dist,'sitemap.xml'),'utf8');
 assertNoLegacyIdentity(sitemap,'sitemap uses current site identity');
+if(!indexable)assert.doesNotMatch(sitemap,/<url>/,'nonproduction sitemap is empty');
 for(const [,location]of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g))assertOwnUrl(location,'sitemap location');
 const entries=await fs.readdir(path.join(root,'src/content/articles'));
 for(const file of entries.filter(file=>file.endsWith('.md'))) {
@@ -131,6 +141,10 @@ for(const file of entries.filter(file=>file.endsWith('.md'))) {
   const shouldExist=data.status==='published'||(review&&data.status==='review');
   if(exists!==shouldExist) failures.push(`${route}: visibility does not match editorial state`);
   if(data.status!=='published'&&sitemap.includes(route)) failures.push(`${route}: draft leaked into sitemap`);
+  if(exists&&data.status==='published'&&data.topic==='us-destinations') {
+    const html=await fs.readFile(path.join(dist,route,'index.html'),'utf8');
+    if(!html.includes('"@type":"TouristAttraction"')) failures.push(`${route}: missing attraction metadata`);
+  }
 }
 const robots=await fs.readFile(path.join(dist,'robots.txt'),'utf8');
 assert.match(robots,/User-agent: \*/);

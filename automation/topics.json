@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "selection": "san-francisco-without-a-car",
-  "planningNote": "Five initial articles plus eight distinct follow-up briefs can form a thirteen-article cluster. This is an editorial plan, not a demand estimate or publication approval. Three potentially overlapping briefs remain held and are excluded from that target.",
+  "selection": "us-destinations",
+  "planningNote": "The launch queue covers eight US attractions, including the existing Golden Gate Bridge page, and retains the San Francisco trip-planning briefs. Publish eligible prepared articles within the rolling release cap. Search Console observations guide ranking when available; the launch shortlist is an editorial selection.",
   "topics": [
     {
       "slug": "sf-airport-arrival-checklist",
@@ -279,6 +279,305 @@
       "sourceGaps": [],
       "distinctness": "A current service-disruption response workflow, not another general route overview or payment guide.",
       "reviewNote": "Current SFMTA advisory/relocation/planner entry points and example notices were reviewed on 2026-10-21. Read each notice's update date, affected segment, direction and effective period: official indexes can retain old incidents. No current incident, accessible detour or replacement bus is certified by a stable page hash; a specific substitute must be checked with its operator. The SFMTA elevator page concerns Muni Metro, not every F-line wayside lift. The missing machine baselines were captured by real GitHub runner run 39603328748 and reviewed in PR #21; the local 403 limitation no longer leaves these source hashes missing."
+    },
+    {
+      "slug": "grand-canyon",
+      "type": "destination",
+      "topic": "us-destinations",
+      "primaryIntent": "What should I see on a first visit to the Grand Canyon South Rim?",
+      "sources": [
+        "grand-canyon-overview",
+        "grand-canyon-geology",
+        "grand-canyon-south-rim",
+        "grand-canyon-conditions",
+        "grand-canyon-hiking"
+      ],
+      "facts": [
+        "grand-canyon-tribal-homelands",
+        "grand-canyon-rock-layers",
+        "grand-canyon-mather-rim-trail",
+        "grand-canyon-current-travel-checks",
+        "grand-canyon-day-hiking-updates"
+      ],
+      "related": [
+        "yosemite",
+        "yellowstone"
+      ],
+      "region": "Arizona",
+      "location": "Grand Canyon Village",
+      "category": "national-parks",
+      "featured": true,
+      "hero": {
+        "photoId": "grand-canyon"
+      },
+      "status": "ready",
+      "brief": "Help a first-time visitor choose a South Rim viewpoint and an optional rim walk. Use Mather Point, the changing perspective along the Canyon Rim Trail, and what the canyon walls reveal. Guide readers to official access and trail updates before travel.",
+      "queryAliases": [
+        "grand canyon",
+        "grand canyon national park",
+        "grand canyon south rim",
+        "mather point"
+      ],
+      "priority": 70
+    },
+    {
+      "slug": "yellowstone",
+      "type": "destination",
+      "topic": "us-destinations",
+      "primaryIntent": "What should I see on a first Yellowstone geyser-basin visit?",
+      "sources": [
+        "yellowstone-overview",
+        "yellowstone-old-faithful",
+        "yellowstone-conditions",
+        "yellowstone-safety"
+      ],
+      "facts": [
+        "yellowstone-seasonal-planning",
+        "yellowstone-old-faithful-boardwalks",
+        "yellowstone-grand-prismatic-location",
+        "yellowstone-current-travel-checks",
+        "yellowstone-thermal-boardwalk-safety"
+      ],
+      "related": [
+        "grand-canyon",
+        "yosemite"
+      ],
+      "region": "Wyoming",
+      "location": "Upper Geyser Basin",
+      "category": "national-parks",
+      "featured": true,
+      "hero": {
+        "photoId": "yellowstone"
+      },
+      "status": "ready",
+      "brief": "Make a thermal-focused first visit easy to picture. Anchor on Old Faithful and the Upper Geyser Basin boardwalks. Explain Grand Prismatic as a separate Midway Geyser Basin stop, and emphasize current conditions and official safety rules.",
+      "queryAliases": [
+        "yellowstone",
+        "yellowstone national park",
+        "old faithful",
+        "grand prismatic spring"
+      ],
+      "priority": 60
+    },
+    {
+      "slug": "yosemite",
+      "type": "destination",
+      "topic": "us-destinations",
+      "primaryIntent": "Which Yosemite Valley viewpoints should I choose for a first visit?",
+      "sources": [
+        "yosemite-overview",
+        "yosemite-valley",
+        "yosemite-conditions"
+      ],
+      "facts": [
+        "yosemite-seasonal-waterfalls",
+        "yosemite-tunnel-view-features",
+        "yosemite-current-travel-checks"
+      ],
+      "related": [
+        "grand-canyon",
+        "yellowstone",
+        "balboa-park"
+      ],
+      "region": "California",
+      "location": "Yosemite Valley",
+      "category": "national-parks",
+      "featured": true,
+      "hero": {
+        "photoId": "yosemite"
+      },
+      "status": "ready",
+      "brief": "Pair Tunnel View with one valley-floor stop. Describe what the visitor can look for from each, the seasonal variability of the falls, and the official checks for road access, trail conditions, and entry arrangements.",
+      "queryAliases": [
+        "yosemite",
+        "yosemite national park",
+        "yosemite valley",
+        "tunnel view"
+      ],
+      "priority": 50
+    },
+    {
+      "slug": "statue-of-liberty",
+      "type": "destination",
+      "topic": "us-destinations",
+      "primaryIntent": "How should I choose between a Liberty Island visit, the pedestal and the crown?",
+      "sources": [
+        "statue-of-liberty-overview",
+        "statue-of-liberty-visit",
+        "statue-of-liberty-crown"
+      ],
+      "facts": [
+        "statue-of-liberty-museum-location",
+        "statue-of-liberty-authorized-ferry",
+        "statue-of-liberty-ticket-types",
+        "statue-of-liberty-crown-stairs"
+      ],
+      "related": [
+        "national-mall"
+      ],
+      "region": "New York",
+      "location": "Liberty Island",
+      "category": "landmarks",
+      "featured": true,
+      "hero": {
+        "photoId": "statue-of-liberty"
+      },
+      "status": "ready",
+      "brief": "Frame the official island visit as a waterfront attraction. Compare grounds and museum, pedestal and crown choices without assuming ticket inclusions or elevator access. Include departure-side, screening and Ellis Island planning.",
+      "queryAliases": [
+        "statue of liberty",
+        "liberty island",
+        "statue of liberty museum",
+        "statue of liberty crown"
+      ],
+      "priority": 40
+    },
+    {
+      "slug": "national-mall",
+      "type": "destination",
+      "topic": "us-destinations",
+      "primaryIntent": "Which monuments should I pair on a first National Mall visit?",
+      "sources": [
+        "national-mall-overview",
+        "national-mall-visit",
+        "national-mall-lincoln",
+        "national-mall-conditions"
+      ],
+      "facts": [
+        "national-mall-monuments",
+        "national-mall-route-planning",
+        "national-mall-reflecting-pool-view",
+        "national-mall-current-travel-checks"
+      ],
+      "related": [
+        "statue-of-liberty",
+        "balboa-park"
+      ],
+      "region": "Washington, D.C.",
+      "location": "Washington",
+      "category": "history-culture",
+      "featured": true,
+      "hero": {
+        "photoId": "national-mall"
+      },
+      "status": "ready",
+      "brief": "Build an outdoor memorial-focused first visit around the Washington Monument and Lincoln Memorial, with the Reflecting Pool as a visual connection and optional nearby memorials. Link to official route and access notices.",
+      "queryAliases": [
+        "national mall",
+        "national mall washington dc",
+        "lincoln memorial",
+        "washington monument"
+      ],
+      "priority": 30
+    },
+    {
+      "slug": "kennedy-space-center",
+      "type": "destination",
+      "topic": "us-destinations",
+      "primaryIntent": "What should I prioritize at Kennedy Space Center Visitor Complex?",
+      "sources": [
+        "kennedy-space-center-overview",
+        "kennedy-space-center-atlantis",
+        "kennedy-space-center-visit",
+        "kennedy-space-center-launches"
+      ],
+      "facts": [
+        "kennedy-space-center-mission-zones",
+        "kennedy-space-center-saturn-v",
+        "kennedy-space-center-atlantis-exhibit",
+        "kennedy-space-center-current-travel-checks",
+        "kennedy-space-center-events-calendar"
+      ],
+      "related": [
+        "national-mall",
+        "balboa-park"
+      ],
+      "region": "Florida",
+      "location": "Merritt Island",
+      "category": "science-space",
+      "featured": true,
+      "hero": {
+        "photoId": "kennedy-space-center"
+      },
+      "status": "ready",
+      "brief": "Anchor the visit on the actual Space Shuttle Atlantis display. Compare a main-campus exhibition focus with adding the bus tour to Apollo/Saturn V, and point to current operating and event guidance without promising launch or tour access.",
+      "queryAliases": [
+        "kennedy space center",
+        "kennedy space center visitor complex",
+        "space shuttle atlantis exhibit",
+        "apollo saturn v center"
+      ],
+      "priority": 20
+    },
+    {
+      "slug": "balboa-park",
+      "type": "destination",
+      "topic": "us-destinations",
+      "primaryIntent": "What should I see on a first visit to Balboa Park in San Diego?",
+      "sources": [
+        "balboa-park-overview",
+        "balboa-park-gardens",
+        "balboa-park-visit"
+      ],
+      "facts": [
+        "balboa-park-prado-architecture",
+        "balboa-park-lily-pond",
+        "balboa-park-current-travel-checks"
+      ],
+      "related": [
+        "yosemite",
+        "golden-gate-bridge-without-a-car"
+      ],
+      "region": "California",
+      "location": "San Diego",
+      "category": "urban-parks",
+      "featured": true,
+      "hero": {
+        "photoId": "balboa-park"
+      },
+      "status": "ready",
+      "brief": "Anchor a first visit on El Prado, the Botanical Building and the Lily Pond. Match an optional museum or garden to interests and explain which checks apply to individual venue hours, arrival and parking.",
+      "queryAliases": [
+        "balboa park",
+        "balboa park san diego",
+        "balboa park botanical building",
+        "balboa park lily pond"
+      ],
+      "priority": 10
+    },
+    {
+      "slug": "golden-gate-bridge-without-a-car",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "region": "California",
+      "location": "San Francisco",
+      "category": "landmarks",
+      "featured": true,
+      "hero": {
+        "photoId": "golden-gate"
+      },
+      "primaryIntent": "What should I see at the Golden Gate Bridge on a first visit?",
+      "brief": "Surface the existing Golden Gate Bridge page through the US attractions list. Its separate attraction overview covers the view and engineering exhibits, with the original transport guidance beneath it.",
+      "queryAliases": [
+        "golden gate bridge",
+        "golden gate bridge overlook"
+      ],
+      "priority": 45,
+      "sources": [
+        "golden-gate-visit",
+        "golden-gate-sidewalks",
+        "golden-gate-transit"
+      ],
+      "facts": [
+        "golden-gate-onsite-exhibits",
+        "bridge-pedestrian-east",
+        "bridge-transit-option"
+      ],
+      "related": [
+        "san-francisco-without-a-car",
+        "sf-waterfront-transit-itinerary"
+      ]
     }
   ]
 }

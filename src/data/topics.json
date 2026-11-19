@@ -1,0 +1,18 @@
+[
+  {
+    "slug": "us-destinations",
+    "title": "Places to visit in the United States",
+    "description": "Find a national park, city landmark, museum or green space worth making time for on your next trip.",
+    "region": "United States",
+    "href": "/destinations/",
+    "priority": 100
+  },
+  {
+    "slug": "san-francisco-without-a-car",
+    "title": "San Francisco without a car",
+    "description": "Make sense of airport connections, transit tickets and the last leg to the places you want to visit.",
+    "region": "California",
+    "href": "/topics/san-francisco-without-a-car/",
+    "priority": 10
+  }
+]

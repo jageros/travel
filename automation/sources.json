@@ -5,7 +5,11 @@
     "www.sfmta.com",
     "www.goldengate.org",
     "www.clippercard.com",
-    "www.flysfo.com"
+    "www.flysfo.com",
+    "www.nps.gov",
+    "www.kennedyspacecenter.com",
+    "www.sandiego.gov",
+    "balboapark.org"
   ],
   "sources": [
     {
@@ -573,6 +577,500 @@
       ],
       "checkedAt": "2026-11-19",
       "contentHash": "85d2581adf1e62861aa93e42c2a80041ced04e591e620f0bf362d40841d1823b"
+    },
+    {
+      "id": "grand-canyon-overview",
+      "url": "https://www.nps.gov/grca/index.htm",
+      "title": "Grand Canyon National Park",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "grand-canyon-tribal-homelands",
+          "statement": "The National Park Service describes connections between eleven tribes and the land and resources of Grand Canyon National Park.",
+          "checkedAt": "2026-11-19",
+          "dynamic": false,
+          "evidence": "Eleven tribes have cultural connections"
+        }
+      ],
+      "contentHash": "0e8272a259b7a7185b216b7267d1e78f6642e1db1af5b68d9fd1ece949dd4bd0"
+    },
+    {
+      "id": "grand-canyon-south-rim",
+      "url": "https://www.nps.gov/grca/planyourvisit/grand-canyon-visitor-center.htm",
+      "title": "Grand Canyon Visitor Center",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "grand-canyon-mather-rim-trail",
+          "statement": "Mather Point is a viewpoint near the South Rim visitor center, with connections to the Canyon Rim Trail in both directions. Check current conditions before choosing a segment.",
+          "checkedAt": "2026-11-19",
+          "dynamic": false,
+          "evidence": "walk east or west along the Canyon Rim Trail"
+        }
+      ],
+      "contentHash": "796e92b76d49eb6fb5bf44f9b588e5256d9061854443c2237ec8c99a0d7ebfed"
+    },
+    {
+      "id": "grand-canyon-geology",
+      "url": "https://www.nps.gov/grca/learn/nature/geologicformations.htm",
+      "title": "Geologic Formations of the Grand Canyon",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "grand-canyon-rock-layers",
+          "statement": "The canyon walls expose many rock layers. The park geology guide identifies conspicuous rock layers from the Paleozoic Era.",
+          "checkedAt": "2026-11-19",
+          "dynamic": false,
+          "evidence": "Rock layers formed during the Paleozoic Era"
+        }
+      ],
+      "contentHash": "bb5506183ac28fa0ed9ac69a6d8f1439a5cee45160c66f8b13c65f3043469075"
+    },
+    {
+      "id": "grand-canyon-conditions",
+      "url": "https://www.nps.gov/grca/planyourvisit/conditions.htm",
+      "title": "Grand Canyon Alerts and Conditions",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "grand-canyon-current-travel-checks",
+          "statement": "The park conditions page links to road updates, hiking conditions and South Rim operating information. Check those updates for the chosen entrance and segment.",
+          "checkedAt": "2026-11-19",
+          "expiresAt": "2026-11-26",
+          "dynamic": true,
+          "evidence": "Weather, Webcams and Roads"
+        }
+      ],
+      "contentHash": "a5a19f6445c8f517127c776137c5641e8b3f19e5436914f87233a89755bcece5"
+    },
+    {
+      "id": "grand-canyon-hiking",
+      "url": "https://www.nps.gov/grca/planyourvisit/day-hiking.htm",
+      "title": "Grand Canyon Day Hiking",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "grand-canyon-day-hiking-updates",
+          "statement": "The park day-hiking guide links to backcountry updates and closures for current trail conditions. Choose rim or inner-canyon routes with the official precautions in mind.",
+          "checkedAt": "2026-11-19",
+          "expiresAt": "2026-11-26",
+          "dynamic": true,
+          "evidence": "for current information on trail conditions"
+        }
+      ],
+      "contentHash": "30a7c32f5bb9e8b71059c1be4cb760bd6078d9cbdeb2b81eb5d401734bd837c0"
+    },
+    {
+      "id": "yellowstone-overview",
+      "url": "https://www.nps.gov/yell/index.htm",
+      "title": "Yellowstone National Park",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "yellowstone-seasonal-planning",
+          "statement": "The park recommends planning for seasonal conditions and links to current road and operating information.",
+          "checkedAt": "2026-11-19",
+          "expiresAt": "2026-11-26",
+          "dynamic": true,
+          "evidence": "Yellowstone changes with the seasons"
+        }
+      ],
+      "contentHash": "4043cd8c3681ee21f8c5251f525fca4f71f115305421448cd2bc7952f20d2b0b"
+    },
+    {
+      "id": "yellowstone-old-faithful",
+      "url": "https://www.nps.gov/yell/planyourvisit/exploreoldfaithful.htm",
+      "title": "Old Faithful and Nearby Geyser Basins",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "yellowstone-old-faithful-boardwalks",
+          "statement": "The Old Faithful area has a viewing area and boardwalks in Upper Geyser Basin. The National Park Service publishes eruption predictions as estimates.",
+          "checkedAt": "2026-11-19",
+          "dynamic": false,
+          "evidence": "through the Upper Geyser Basin"
+        },
+        {
+          "id": "yellowstone-grand-prismatic-location",
+          "statement": "Grand Prismatic Spring is in Midway Geyser Basin, a separate stop from the Old Faithful area.",
+          "checkedAt": "2026-11-19",
+          "dynamic": false,
+          "evidence": "Discover Midway Geyser Basin"
+        }
+      ],
+      "contentHash": "2a7352d3f015c2d65d8ca634c85c03bd6f2b7229e983dde44ade701a7a113d4e"
+    },
+    {
+      "id": "yellowstone-conditions",
+      "url": "https://www.nps.gov/yell/planyourvisit/conditions.htm",
+      "title": "Yellowstone Current Conditions",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "yellowstone-current-travel-checks",
+          "statement": "Yellowstone publishes current road status, seasonal opening and closing dates and road construction information. Check the entire route before visiting.",
+          "checkedAt": "2026-11-19",
+          "expiresAt": "2026-11-26",
+          "dynamic": true,
+          "evidence": "the current road status, seasonal road opening/closing dates"
+        }
+      ],
+      "contentHash": "3ef0fe29019164ff68d20cbb44173b4005be784159679f23fbfd5f9cdb006c2f"
+    },
+    {
+      "id": "yellowstone-safety",
+      "url": "https://www.nps.gov/yell/planyourvisit/safety.htm",
+      "title": "Yellowstone Safety",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "yellowstone-thermal-boardwalk-safety",
+          "statement": "In thermal areas, Yellowstone directs visitors to stay on boardwalks and designated trails, and to keep children close.",
+          "checkedAt": "2026-11-19",
+          "expiresAt": "2026-11-26",
+          "dynamic": true,
+          "evidence": "Keep children close and do not let them run on boardwalks"
+        }
+      ],
+      "contentHash": "c8e2f0683acd235a7f2c8b20294088cbc52a8b9714bb2968746cbb0d4a9e6ed0"
+    },
+    {
+      "id": "yosemite-overview",
+      "url": "https://www.nps.gov/yose/index.htm",
+      "title": "Yosemite National Park",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "yosemite-seasonal-waterfalls",
+          "statement": "The National Park Service describes spring snowmelt as the usual period for viewing Yosemite waterfalls. Check current flow and conditions for the actual trip.",
+          "checkedAt": "2026-11-19",
+          "dynamic": false,
+          "evidence": "when most of the snowmelt occurs"
+        }
+      ],
+      "contentHash": "bb254ac76b7886934569b4e65130cbbea9ba6c6a4729b7280da7d8d106b9e8ec"
+    },
+    {
+      "id": "yosemite-valley",
+      "url": "https://www.nps.gov/yose/planyourvisit/yv.htm",
+      "title": "Yosemite Valley",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "yosemite-tunnel-view-features",
+          "statement": "The National Park Service identifies El Capitan, Bridalveil Fall and Half Dome as features visible from Tunnel View in clear conditions.",
+          "checkedAt": "2026-11-19",
+          "dynamic": false,
+          "evidence": "with Half Dome in the background"
+        }
+      ],
+      "contentHash": "d42d8d10468cc756908d72bf08070bb36f242fbcc84ff12c977c45e4dce63546"
+    },
+    {
+      "id": "yosemite-conditions",
+      "url": "https://www.nps.gov/yose/planyourvisit/conditions.htm",
+      "title": "Yosemite Current Conditions",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "yosemite-current-travel-checks",
+          "statement": "Yosemite publishes road status, seasonal information and trail conditions. Check them for the chosen entrance, viewpoint and walking route.",
+          "checkedAt": "2026-11-19",
+          "expiresAt": "2026-11-26",
+          "dynamic": true,
+          "evidence": "Road Status"
+        }
+      ],
+      "contentHash": "43ff8ce632bf5d16b801556befeb26014d1355b8bf95fca7a1ddd6db0b4ebecc"
+    },
+    {
+      "id": "statue-of-liberty-overview",
+      "url": "https://www.nps.gov/stli/index.htm",
+      "title": "Statue of Liberty National Monument",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "statue-of-liberty-museum-location",
+          "statement": "The Statue of Liberty Museum is on Liberty Island. The National Park Service provides separate planning links for directions and reservations.",
+          "checkedAt": "2026-11-19",
+          "dynamic": false,
+          "evidence": "through the museum on Liberty Island"
+        }
+      ],
+      "contentHash": "e81c80660b5ccbcacbfcf4166c4168673f11171ec172d4f85baa5eee24cbc243"
+    },
+    {
+      "id": "statue-of-liberty-visit",
+      "url": "https://www.nps.gov/stli/planyourvisit/index.htm",
+      "title": "Plan Your Statue of Liberty Visit",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "statue-of-liberty-authorized-ferry",
+          "statement": "The National Park Service identifies Statue City Cruises as the authorized ferry operator for Liberty and Ellis Islands. Check departure instructions before booking.",
+          "checkedAt": "2026-11-19",
+          "expiresAt": "2026-11-26",
+          "dynamic": true,
+          "evidence": "ONLY AUTHORIZED ticket seller"
+        },
+        {
+          "id": "statue-of-liberty-ticket-types",
+          "statement": "The National Park Service describes general admission, pedestal and crown access as separate booking options. Check the current inclusions with the authorized operator.",
+          "checkedAt": "2026-11-19",
+          "expiresAt": "2026-11-26",
+          "dynamic": true,
+          "evidence": "What Are My Ticket Options?"
+        }
+      ],
+      "contentHash": "3f1ace62217fb14eb15240eef78b99c41e4071bfbaeb7fc3094c934acd0aabcf"
+    },
+    {
+      "id": "statue-of-liberty-crown",
+      "url": "https://www.nps.gov/stli/planyourvisit/visit-the-crown.htm",
+      "title": "Visit the Crown",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "statue-of-liberty-crown-stairs",
+          "statement": "The crown climb uses a tight spiral staircase, and the National Park Service states that there is no elevator service to the crown. Check all eligibility and access rules before booking.",
+          "checkedAt": "2026-11-19",
+          "expiresAt": "2026-11-26",
+          "dynamic": true,
+          "evidence": "There is no elevator service to the Crown"
+        }
+      ],
+      "contentHash": "651ecbf8c76e45c75b2a5943457638f9b666f60c4fe24071de29016ce4dc5901"
+    },
+    {
+      "id": "national-mall-overview",
+      "url": "https://www.nps.gov/nama/index.htm",
+      "title": "National Mall and Memorial Parks",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "national-mall-monuments",
+          "statement": "The National Mall and Memorial Parks includes a group of monuments and memorials, with individual sites and events listed by the National Park Service.",
+          "checkedAt": "2026-11-19",
+          "dynamic": false,
+          "evidence": "unique monuments & memorials"
+        }
+      ],
+      "contentHash": "398b0667e1ce63556faf5818068fb09d28fcbc73eed6035b65491cb700fb7f6e"
+    },
+    {
+      "id": "national-mall-visit",
+      "url": "https://www.nps.gov/nama/planyourvisit/basicinfo.htm",
+      "title": "National Mall Visitor Information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "national-mall-route-planning",
+          "statement": "The park identifies maps and wayfinding signs across the National Mall and provides directions by public transport, bicycle and car.",
+          "checkedAt": "2026-11-19",
+          "dynamic": false,
+          "evidence": "system of maps and pylons"
+        }
+      ],
+      "contentHash": "f15663bb56d9aecd3a65d57846bb8adad7125714a36dbc8968385e283b32707a"
+    },
+    {
+      "id": "national-mall-lincoln",
+      "url": "https://www.nps.gov/linc/planyourvisit/visit-the-lincoln-memorial-chamber.htm",
+      "title": "Visit the Lincoln Memorial Chamber",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "national-mall-reflecting-pool-view",
+          "statement": "The National Park Service describes views of the Reflecting Pool and other landmarks from the Lincoln Memorial area. Check temporary access notices for individual paths.",
+          "checkedAt": "2026-11-19",
+          "dynamic": false,
+          "evidence": "views of the Reflecting Pool"
+        }
+      ],
+      "contentHash": "117a635c2c813ae71edad07bba35b3c6cf6de9aeb6cfec8282a99da23f38a518"
+    },
+    {
+      "id": "national-mall-conditions",
+      "url": "https://www.nps.gov/nama/planyourvisit/conditions.htm",
+      "title": "National Mall Alerts and Conditions",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "national-mall-current-travel-checks",
+          "statement": "The National Park Service publishes alerts and road closure notices. Check each notice’s effective dates and the individual memorial’s visitor information.",
+          "checkedAt": "2026-11-19",
+          "expiresAt": "2026-11-26",
+          "dynamic": true,
+          "evidence": "Road Closures"
+        }
+      ],
+      "contentHash": "cb442b10ed46347a2b060d9857c1d13362f94835bd6b39f6ef67c518c7b8b3a1"
+    },
+    {
+      "id": "kennedy-space-center-overview",
+      "url": "https://www.kennedyspacecenter.com/explore-attractions",
+      "title": "Explore the Kennedy Space Center Attractions",
+      "publisher": "Kennedy Space Center Visitor Complex",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "kennedy-space-center-mission-zones",
+          "statement": "The visitor complex groups attractions and tours into zones that follow eras of space exploration.",
+          "checkedAt": "2026-11-19",
+          "dynamic": false,
+          "evidence": "grouped by chronological era"
+        },
+        {
+          "id": "kennedy-space-center-saturn-v",
+          "statement": "The visitor complex lists the Apollo/Saturn V Center with its Behind the Gates bus tour. Check tour operation before building your visit around it.",
+          "checkedAt": "2026-11-19",
+          "expiresAt": "2026-11-26",
+          "dynamic": true,
+          "evidence": "Apollo/Saturn V Center"
+        }
+      ],
+      "contentHash": "68367f2705cfa650a7772221bc36fba93fe75b32bc9384531c38e8c8d0e93add"
+    },
+    {
+      "id": "kennedy-space-center-atlantis",
+      "url": "https://www.kennedyspacecenter.com/explore-attractions/space-shuttle-atlantis",
+      "title": "Space Shuttle Atlantis Exhibit",
+      "publisher": "Kennedy Space Center Visitor Complex",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "kennedy-space-center-atlantis-exhibit",
+          "statement": "The permanent Atlantis exhibit displays the orbiter angled with its payload doors open and its Canadarm extended.",
+          "checkedAt": "2026-11-19",
+          "dynamic": false,
+          "evidence": "with payload doors open and Canadarm extended"
+        }
+      ],
+      "contentHash": "aa478ece00a28fc1893afdcd1e8cba1ff7d476e128108a7935786f2f0965c510"
+    },
+    {
+      "id": "kennedy-space-center-visit",
+      "url": "https://www.kennedyspacecenter.com/info/plan-your-visit",
+      "title": "Plan Your Kennedy Space Center Visit",
+      "publisher": "Kennedy Space Center Visitor Complex",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "kennedy-space-center-current-travel-checks",
+          "statement": "The visitor complex maintains its own operating, parking, accessibility and security information. Check these resources for the chosen day and activities.",
+          "checkedAt": "2026-11-19",
+          "expiresAt": "2026-11-26",
+          "dynamic": true,
+          "evidence": "Accessibility Information Security Information"
+        }
+      ],
+      "contentHash": "003448ad83c6287a3a7b0b4d3ae376d4fb8ce7df94c95a60960e1da407b7d32a"
+    },
+    {
+      "id": "kennedy-space-center-launches",
+      "url": "https://www.kennedyspacecenter.com/launches-and-events",
+      "title": "Kennedy Space Center Featured Events",
+      "publisher": "Kennedy Space Center Visitor Complex",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "kennedy-space-center-events-calendar",
+          "statement": "The visitor complex publishes a calendar of listed events and experiences. Check the schedule separately from general visit planning.",
+          "checkedAt": "2026-11-19",
+          "expiresAt": "2026-11-26",
+          "dynamic": true,
+          "evidence": "see the full list on the Events Calendar"
+        }
+      ],
+      "contentHash": "1d0443b7e2e5b9e1bfa0eacca05c324c94aa8c89971f4f84607a78523ccbc862"
+    },
+    {
+      "id": "balboa-park-overview",
+      "url": "https://www.sandiego.gov/park-and-recreation/parks/regional/balboa",
+      "title": "Balboa Park",
+      "publisher": "City of San Diego",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "balboa-park-prado-architecture",
+          "statement": "The City of San Diego describes the Spanish Colonial Revival museum buildings along the Prado.",
+          "checkedAt": "2026-11-19",
+          "dynamic": false,
+          "evidence": "Spanish Colonial Revival buildings"
+        }
+      ],
+      "contentHash": "cba5c893e9fce01e119921a7d4271a5dddeff6454114e967462d15efe5040b32"
+    },
+    {
+      "id": "balboa-park-visit",
+      "url": "https://balboapark.org/plan-your-visit/",
+      "title": "Plan Your Balboa Park Visit",
+      "publisher": "Balboa Park",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "balboa-park-current-travel-checks",
+          "statement": "Balboa Park asks visitors to check each venue’s hours individually. Its trip planning page also links to park maps, transit routes and parking information.",
+          "checkedAt": "2026-11-19",
+          "expiresAt": "2026-11-26",
+          "dynamic": true,
+          "evidence": "Venue and restaurant hours vary"
+        }
+      ],
+      "contentHash": "eadc40601bb3065310f94cf7380175bf4339a2e6baac7920b57abd2e8cb0ed67"
+    },
+    {
+      "id": "balboa-park-gardens",
+      "url": "https://balboapark.org/parks-trails-gardens/botanical-building-and-lily-pond-balboa-park/",
+      "title": "Botanical Building and Lily Pond",
+      "publisher": "Balboa Park",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "balboa-park-lily-pond",
+          "statement": "The historic Botanical Building stands alongside the Lily Pond and Lagoon on El Prado.",
+          "checkedAt": "2026-11-19",
+          "dynamic": false,
+          "evidence": "along with the adjacent Lily Pond and Lagoon"
+        }
+      ],
+      "contentHash": "b2a09c45b4a6e37167a9ed76570815ae6a487c494b5a287af05a29d25c5533ad"
+    },
+    {
+      "id": "golden-gate-visit",
+      "url": "https://www.goldengate.org/bridge/visiting-the-bridge/",
+      "title": "Visiting the Golden Gate Bridge",
+      "publisher": "Golden Gate Bridge, Highway and Transportation District",
+      "checkedAt": "2026-11-19",
+      "facts": [
+        {
+          "id": "golden-gate-onsite-exhibits",
+          "statement": "The bridge district describes exhibits on the history, science and engineering of the bridge around the Welcome Center plaza.",
+          "checkedAt": "2026-11-19",
+          "dynamic": false,
+          "evidence": "science, and engineering of the Bridge"
+        }
+      ],
+      "contentHash": "0aa04dbd7c1f390cb0617968218f54308aeb6d2da4c9daa76bac901369c17f9d"
     }
   ]
 }

@@ -1,20 +1,48 @@
 ---
-import { SITE_NAME } from '../lib/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import Search from '../components/Search';
+import DestinationGrid from '../components/DestinationGrid.astro';
 import Photo from '../components/Photo.astro';
-import { visibleArticles, articleHref, topic } from '../lib/content';
+import { destinationArticles, destinationTopic, sanFranciscoTopic, visibleArticles } from '../lib/content';
 import { getArticlePhoto, getPhoto } from '../lib/photos';
+import { SITE_NAME } from '../lib/site';
+
 const articles = await visibleArticles();
-const items = await Promise.all(articles.map(async article=>({title:article.data.title,description:article.data.description,href:articleHref(article),topic:topic.title,type:article.data.type,image:await getArticlePhoto(article.data.hero)})));
-const heroPhoto = await getPhoto('golden-gate');
+const destinations = destinationArticles(articles);
+const featured = destinations.filter(({ details }) => details.featured);
+const featuredArticles = (featured.length ? featured : destinations).slice(0, 8).map(({ article }) => article);
+const hero = destinations.find(({ article }) => article.data.slug === 'grand-canyon') ?? destinations[0];
+const heroPhoto = await getArticlePhoto(hero?.article.data.hero) ?? await getPhoto('golden-gate');
+const heroSizes = heroPhoto.width / heroPhoto.height > 2.25
+  ? '(max-width: 700px) calc(200vw - 72px), (max-width: 1000px) 132vw, 1600px'
+  : '(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) 56vw, 680px';
 ---
-<BaseLayout title={`Practical US travel guides — ${SITE_NAME}`} description="Plan the details that make a trip work. Clear US travel guides with official sources, useful comparisons and thoughtfully connected itineraries." path="/" socialImage={{...heroPhoto.share,alt:heroPhoto.alt}}>
-  <section class="hero container">
-    <div class="hero-copy"><p class="eyebrow">A little planning. A better trip.</p><h1>Go beyond<br/>the sightseeing list.</h1><p>Find your way from “I’d like to go” to a plan that works. Start with the transport, tickets and small decisions that shape a good day out.</p><div class="hero-actions"><a class="button" href="/topics/">Explore destinations <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="/editorial-policy/">How we research</a></div><p class="hero-footnote">Clear comparisons. Official sources. No invented firsthand stories.</p></div>
-    <div class="hero-art"><Photo photo={heroPhoto} priority sizes="(max-width: 760px) 100vw, 560px" caption class="hero-photo" /></div>
+
+<BaseLayout title={`Places worth visiting in the United States — ${SITE_NAME}`} description="Find your next U.S. destination, from national parks and city landmarks to gardens, museums and space exhibits." path="/" socialImage={{ ...heroPhoto.share, alt: heroPhoto.alt }}>
+  <section class="container discovery-hero">
+    <div class="discovery-hero-copy">
+      <p class="eyebrow">Explore the United States</p>
+      <h1>Places worth<br class="discovery-break" /> the trip.</h1>
+      <p>Discover canyons, city landmarks and places worth a detour. Find out what to see and what to check before you go.</p>
+      <a class="button" href={destinationTopic.href}>Explore destinations <span aria-hidden="true">↗</span></a>
+    </div>
+    <Photo photo={heroPhoto} priority sizes={heroSizes} class="discovery-hero-photo" />
   </section>
-  <section class="container section-block"><div class="section-heading"><div><p class="eyebrow">Start somewhere good</p><h2>One place, all the useful details.</h2></div><a href="/topics/">Browse our focus areas <span aria-hidden="true">→</span></a></div><div class="topic-grid"><a class="topic-card" href={`/topics/${topic.slug}/`}><span class="card-type">California · City travel</span><h3>{topic.title}</h3><p>{topic.description}</p><span class="topic-link">Explore the planning guide →</span></a><div class="topic-note"><span class="eyebrow">Travel with context</span><h3>The right ticket.<br/>The last connection.<br/>The time to linger.</h3><p>Good travel advice helps you make a decision. Our guides bring the relevant details together and show you where to check what has changed.</p></div></div></section>
-  {articles.length > 0 && <section class="container section-block" id="guides"><div class="section-heading"><div><p class="eyebrow">Make your next decision</p><h2>Practical guides, connected.</h2></div><a href="/guides/">View all guides →</a></div><Search items={items} client:load/><noscript><p class="source-note">Browse every guide below. Search filtering is available with JavaScript.</p></noscript></section>}
-  <section class="container section-block"><div class="principles"><div><span>01</span><h3>Know your options</h3><p>Compare routes and tickets by the journey you actually want to make.</p></div><div><span>02</span><h3>Check the source</h3><p>Follow official references for changing fares, operating hours and booking rules.</p></div><div><span>03</span><h3>Keep exploring</h3><p>Move from the big picture to the detail that helps you plan your next stop.</p></div></div></section>
+
+  {featuredArticles.length > 0 && <section class="container section-block homepage-destinations" aria-labelledby="featured-destinations">
+    <div class="section-heading">
+      <h2 id="featured-destinations">Featured destinations</h2>
+      <a href={destinationTopic.href}>View all destinations <span aria-hidden="true">→</span></a>
+    </div>
+    <DestinationGrid articles={featuredArticles} />
+  </section>}
+
+  <section class="container section-block" aria-labelledby="san-francisco-topic">
+    <div class="editorial-banner discovery-topic">
+      <h2 id="san-francisco-topic">{sanFranciscoTopic.title}</h2>
+      <div>
+        <p>{sanFranciscoTopic.description}</p>
+        <a href={sanFranciscoTopic.href}>Explore the San Francisco guides <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

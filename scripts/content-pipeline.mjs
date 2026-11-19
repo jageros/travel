@@ -1,8 +1,31 @@
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
-import { articleDigest, factMap, findDuplicates, isDay, isSlug, isoDay, normalizedIntent, parseArticle, publicationDecision, queueFailure, readArticles, readJson, serializeArticle, supportedTopics, validateArticle, writeJson } from './content-lib.mjs';
+import { isDeepStrictEqual } from 'node:util';
+import { articleDigest, factMap, findDuplicates, isDay, isSlug, isoDay, normalizedIntent, parseArticle, publicationDecision, queueFailure, readArticles, readJson, serializeArticle, supportedTopics, validateArticle, validateDestinationMetadata, writeJson } from './content-lib.mjs';
 import { runSourceCheck } from './check-sources.mjs';
+
+function draftMetadata(topic) {
+  const { slug, type = 'guide', primaryIntent, sources, facts, related = [], region, location, category, featured, hero } = topic;
+  return { slug, type, topic: topic.topic, primaryIntent, sources, facts, related,
+    ...(topic.topic === 'us-destinations' ? { region, location, category, featured, hero } : {}) };
+}
+
+function articleFromDraft(topic, draft, now) {
+  if (!draft || typeof draft !== 'object' || Object.keys(draft).length !== 3 ||
+      ['title', 'description', 'body'].some((key) => typeof draft[key] !== 'string')) {
+    throw new Error('Draft does not match the controlled response shape');
+  }
+  const data = { title: draft.title, description: draft.description, ...draftMetadata(topic),
+    status: 'review', author: 'editorial-team', updatedAt: isoDay(now), checkedAt: isoDay(now) };
+  return parseArticle(serializeArticle(data, draft.body), `${topic.slug}.md`);
+}
+
+function draftMatchesBrief(article, brief) {
+  return brief?.status === 'ready' && Object.entries(draftMetadata(brief)).every(
+    ([field, value]) => isDeepStrictEqual(article.data[field], value),
+  );
+}
 
 export async function generateDraft(topic, registry, texts, { fetcher = fetch, env = process.env, now = new Date() } = {}) {
   if (!isSlug(topic.slug) || !supportedTopics.has(topic.topic)) throw new Error('Topic has no registered site landing page');
@@ -28,10 +51,7 @@ export async function generateDraft(topic, registry, texts, { fetcher = fetch, e
   const result = await response.json();
   const message = result.choices?.[0]?.message?.content;
   if (typeof message !== 'string' || message.length > 80000) throw new Error('Draft API returned an invalid response');
-  const draft = JSON.parse(message);
-  if (Object.keys(draft).some((key) => !['title', 'description', 'body'].includes(key)) || ['title', 'description', 'body'].some((key) => typeof draft[key] !== 'string')) throw new Error('Draft does not match the controlled response shape');
-  const data = { title: draft.title, description: draft.description, slug: topic.slug, type: topic.type ?? 'guide', topic: topic.topic, status: 'review', author: 'editorial-team', updatedAt: isoDay(now), checkedAt: isoDay(now), primaryIntent: topic.primaryIntent, sources: topic.sources, facts: topic.facts, related: topic.related ?? [] };
-  return parseArticle(serializeArticle(data, draft.body), `${topic.slug}.md`);
+  return articleFromDraft(topic, JSON.parse(message), now);
 }
 
 export async function approveArticle(root, slug, reviewer, { now = new Date(), expectedSha256 } = {}) {
@@ -52,15 +72,26 @@ export async function approveArticle(root, slug, reviewer, { now = new Date(), e
   return { slug, contentSha256: article.digest, reviewer: reviewer.trim() };
 }
 
-export async function publishCandidates(root, registry, report, { now = new Date() } = {}) {
-  const stateFile = path.join(root, 'automation/editorial.json');
-  const state = await readJson(stateFile);
+async function readEditorialLedger(root) {
+  const state = await readJson(path.join(root, 'automation/editorial.json'));
   if (state.version !== 1 || !Number.isInteger(state.requiredManualApprovals) || state.requiredManualApprovals < 0 || typeof state.autoPublishEnabled !== 'boolean' || (state.fullyAutomatic !== undefined && typeof state.fullyAutomatic !== 'boolean') || !Array.isArray(state.publications) || !Array.isArray(state.approvals)) throw new Error('Invalid editorial approval state');
-  if (!report.checkedAt || !Number.isFinite(Date.parse(report.checkedAt)) || now.getTime() - Date.parse(report.checkedAt) > 24 * 3600000 || Date.parse(report.checkedAt) > now.getTime() || !Array.isArray(report.sources) || !Array.isArray(report.conflicts)) throw new Error('Publication requires a current source check');
+  return state;
+}
+
+export async function publishCandidates(root, registry, report, { now = new Date(), slug } = {}) {
+  const state = await readEditorialLedger(root);
+  if (!currentSourceReport(report, now)) throw new Error('Publication requires a current source check');
   const articles = await readArticles(root);
+  const candidates = articles.filter((article) => article.data.status === 'review' && (!slug || article.data.slug === slug));
+  if (slug && candidates.length !== 1) throw new Error('Expected one matching review article');
+  const destinationBriefs = candidates.some((article) => article.data.topic === 'us-destinations')
+    ? (await readJson(path.join(root, 'automation/topics.json'))).topics : [];
   const results = [];
-  for (const article of articles.filter((item) => item.data.status === 'review')) {
+  for (const article of candidates) {
     const errors = validateArticle(article, registry, { now, publishing: true, sourceReport: report });
+    if (article.data.topic === 'us-destinations' && !draftMatchesBrief(article, destinationBriefs.find((brief) => brief.slug === article.data.slug))) {
+      errors.push('Destination frontmatter must match its ready brief');
+    }
     const duplicates = findDuplicates(article, articles);
     if (duplicates.length) errors.push(`Duplicate intent or content: ${duplicates.join(', ')}`);
     const decision = publicationDecision(article, state, { now });
@@ -76,38 +107,44 @@ export async function publishCandidates(root, registry, report, { now = new Date
     // Never write files selected by model output; only known local Markdown basenames.
     if (path.basename(file) !== article.file || !isSlug(article.file.slice(0, -3))) throw new Error('Unsafe article filename');
     state.publications.push({ slug: data.slug, publishedAt: now.toISOString(), contentSha256: articleDigest(data, article.body), manualApproval: decision.manualApproval, ...(decision.approval ? { reviewer: decision.approval.reviewer } : {}) });
-    await writeJson(stateFile, state);
-    await fs.writeFile(file, serializeArticle(data, article.body));
+    await writeJson(path.join(root, 'automation/editorial.json'), state);
+    await fs.writeFile(file, serializeArticle(data, article.body, { preserveBody: true }));
     results.push({ slug: data.slug, status: 'published', manualApproval: decision.manualApproval });
   }
   return results;
 }
 
-export function topicOpportunityScore(topic, opportunities = []) {
-  const intentWords = new Set(normalizedIntent(topic.primaryIntent).split(' ').filter((word) => word.length > 2));
-  return opportunities.reduce((best, opportunity) => {
-    if (!opportunity || typeof opportunity.query !== 'string') return best;
+function compareSearchSignals(a, b) {
+  return b.exact - a.exact || b.clicks - a.clicks || b.impressions - a.impressions;
+}
+
+function topicSearchSignal(topic, opportunities) {
+  const phrases = [topic.slug, topic.primaryIntent, ...(topic.queryAliases ?? [])].map(normalizedIntent).filter(Boolean);
+  let best = { exact: 0, clicks: 0, impressions: 0 };
+  for (const opportunity of opportunities) {
+    if (typeof opportunity?.query !== 'string' ||
+        !Number.isFinite(opportunity.clicks) || opportunity.clicks < 0 ||
+        !Number.isFinite(opportunity.impressions) || opportunity.impressions < 0) continue;
     const query = normalizedIntent(opportunity.query);
-    const overlap = query.split(' ').filter((word) => intentWords.has(word)).length;
-    const exact = opportunity.matchingIntent === topic.slug ? 1 : 0;
-    const clicks = Number.isFinite(Number(opportunity.clicks)) ? Number(opportunity.clicks) : 0;
-    const impressions = Number.isFinite(Number(opportunity.impressions)) ? Number(opportunity.impressions) : 0;
-    const position = Number.isFinite(Number(opportunity.position)) ? Number(opportunity.position) : 100;
-    const score = exact * 100000 + clicks * 10000 + impressions * 100 + overlap * 10 + Math.max(0, 100 - position);
-    return Math.max(best, score);
-  }, 0);
+    const exact = Number(Boolean(query && (opportunity.matchingIntent === topic.slug || phrases.includes(query))));
+    const matched = exact || phrases.some((phrase) => ` ${query} `.includes(` ${phrase} `));
+    if (!matched) continue;
+    const signal = { exact, clicks: opportunity.clicks, impressions: opportunity.impressions };
+    if (compareSearchSignals(best, signal) > 0) best = signal;
+  }
+  return best;
 }
 
 export function rankTopics(topics, opportunities = [], articles = []) {
   const existing = new Set(articles.map((article) => article.data.slug));
   return topics
-    .map((topic, index) => ({ topic, index }))
-    .filter(({ topic }) => topic.status === 'ready' && !existing.has(topic.slug))
-    .sort((a, b) => topicOpportunityScore(b.topic, opportunities) - topicOpportunityScore(a.topic, opportunities) || a.index - b.index)
+    .filter((topic) => topic.status === 'ready' && !existing.has(topic.slug))
+    .map((topic) => ({ topic, signal: topicSearchSignal(topic, opportunities) }))
+    .sort((a, b) => compareSearchSignals(a.signal, b.signal) || (b.topic.priority ?? 0) - (a.topic.priority ?? 0))
     .map(({ topic }) => topic);
 }
 
-export async function runPipeline(root, { draft = false, publish = false, automatic = false, now = new Date(), fetcher = fetch, env = process.env } = {}) {
+export async function runPipeline(root, { draft = false, publish = false, automatic = false, slug, now = new Date(), fetcher = fetch, env = process.env } = {}) {
   const { registry, report, texts } = await runSourceCheck(root, { now, fetcher, acceptChanged: automatic });
   const output = { checkedAt: now.toISOString(), generated: [], heldDrafts: [], publications: [], errors: [] };
   if (draft) {
@@ -147,13 +184,13 @@ export async function runPipeline(root, { draft = false, publish = false, automa
       await queueFailure(root, { slug: 'draft-generator', stage: 'draft', errors: [error.message] }, now);
     }
   }
-  if (publish) output.publications = await publishCandidates(root, registry, report, { now });
+  if (publish) output.publications = await publishCandidates(root, registry, report, { now, slug });
   await writeJson(path.join(root, 'automation/reports/pipeline.json'), output);
   return output;
 }
 
 export function topicPreflight(topic, registry, sourceReport, articles = [], { now = new Date() } = {}) {
-  const errors = [];
+  const errors = validateDestinationMetadata(topic);
   if (!isSlug(topic.slug) || !supportedTopics.has(topic.topic)) errors.push('Unsafe or unsupported topic');
   if (typeof topic.primaryIntent !== 'string' || !topic.primaryIntent.trim() || typeof topic.brief !== 'string' || !topic.brief.trim()) errors.push('An independent intent and editorial brief are required');
   if (topic.sourceGaps !== undefined && (!Array.isArray(topic.sourceGaps) || topic.sourceGaps.length > 0)) errors.push('Declared source gaps must be resolved before generation');
@@ -166,6 +203,8 @@ export function topicPreflight(topic, registry, sourceReport, articles = [], { n
     const source = sources.get(id);
     const health = sourceReport.sources.find((item) => item.id === id);
     if (!source || health?.status !== 'unchanged' || !/^[a-f0-9]{64}$/.test(source.contentHash ?? '') || health.contentHash !== source.contentHash) errors.push(`Official source needs review: ${id}`);
+    const checked = Date.parse(health?.checkedAt);
+    if (!Number.isFinite(checked) || checked > now.getTime() || now.getTime() - checked > 24 * 3600000) errors.push(`Source health is not current: ${id}`);
     if (!isDay(source?.checkedAt) || source.checkedAt > isoDay(now) || Date.parse(isoDay(now)) - Date.parse(source.checkedAt) > 30 * 86400000) errors.push(`Source verification is stale: ${id}`);
   }
   for (const id of Array.isArray(topic.facts) ? topic.facts : []) {
@@ -177,10 +216,95 @@ export function topicPreflight(topic, registry, sourceReport, articles = [], { n
   return [...new Set(errors)];
 }
 
+function currentSourceReport(report, now) {
+  const checked = Date.parse(report?.checkedAt);
+  return Number.isFinite(checked) && checked <= now.getTime() && now.getTime() - checked <= 24 * 3600000 &&
+    Array.isArray(report.sources) && Array.isArray(report.conflicts);
+}
+
+async function selectSessionTopic(root, registry, report, now) {
+  const [articles, queue, search] = await Promise.all([
+    readArticles(root),
+    readJson(path.join(root, 'automation/topics.json')),
+    readJson(path.join(root, 'automation/gsc-opportunities.json')).catch((error) => {
+      if (error.code !== 'ENOENT') throw error;
+      return {};
+    }),
+  ]);
+  const ledger = await readEditorialLedger(root);
+  if (!ledger.autoPublishEnabled) return { reason: 'Automatic publishing is disabled', held: [] };
+  const decision = publicationDecision({ data: {} }, { ...ledger, approvals: [] }, { now });
+  if (!decision.allowed) return { reason: decision.reason, held: [] };
+  const candidates = rankTopics(queue.topics, Array.isArray(search.opportunities) ? search.opportunities : [],
+    articles.filter((article) => article.data.status !== 'review'));
+  const released = new Set(ledger.publications.map((publication) => publication.slug));
+  const held = [];
+  for (const topic of candidates) {
+    if (released.has(topic.slug)) continue;
+    const existing = articles.find((article) => article.data.slug === topic.slug);
+    const otherArticles = articles.filter((article) => article !== existing);
+    const errors = topicPreflight(topic, registry, report, otherArticles, { now });
+    if (existing) {
+      if (!draftMatchesBrief(existing, topic)) errors.push('Existing review article does not match its ready brief');
+      errors.push(...validateArticle(existing, registry, { now, publishing: true, sourceReport: report }));
+      const duplicates = findDuplicates(existing, articles);
+      if (duplicates.length) errors.push(`Duplicate intent or content: ${duplicates.join(', ')}`);
+    }
+    if (!errors.length) return { topic, action: existing ? 'publish-review' : 'draft', held };
+    held.push({ slug: topic.slug, stage: 'draft-preflight', errors: [...new Set(errors)] });
+  }
+  return { reason: 'No eligible topic', held };
+}
+
+export async function planSessionPublication(root, { now = new Date(), fetcher = fetch } = {}) {
+  const { registry, report, texts } = await runSourceCheck(root, { now, fetcher, acceptChanged: true });
+  const result = await selectSessionTopic(root, registry, report, now);
+  for (const hold of result.held) await queueFailure(root, hold, now);
+  if (!result.topic) return result;
+  const { topic, action } = result;
+  if (action === 'publish-review') return { action, slug: topic.slug, held: result.held };
+  return {
+    action, slug: topic.slug, topic: topic.topic, brief: topic.brief, primaryIntent: topic.primaryIntent, held: result.held,
+    officialMaterial: registry.sources.filter((source) => topic.sources.includes(source.id)).map((source) => ({
+      url: source.url, facts: source.facts?.filter((fact) => topic.facts.includes(fact.id)),
+      untrustedSourceText: texts.get(source.id)?.slice(0, 20000),
+    })),
+  };
+}
+
+export async function saveSessionDraft(root, slug, draft, { now = new Date() } = {}) {
+  const [registry, report] = await Promise.all([
+    readJson(path.join(root, 'automation/sources.json')),
+    readJson(path.join(root, 'automation/source-health.json')),
+  ]);
+  if (!currentSourceReport(report, now)) throw new Error('Draft requires a current source check');
+  const selection = await selectSessionTopic(root, registry, report, now);
+  if (!isSlug(slug) || selection.topic?.slug !== slug || selection.action !== 'draft') throw new Error('Draft is not the current eligible topic');
+  const article = articleFromDraft(selection.topic, draft, now);
+  const articles = await readArticles(root);
+  const errors = validateArticle(article, registry, { now, publishing: true, sourceReport: report });
+  const duplicates = findDuplicates(article, articles);
+  if (duplicates.length) errors.push(`Duplicate intent or content: ${duplicates.join(', ')}`);
+  if (errors.length) throw new Error(errors.join('; '));
+  await fs.writeFile(path.join(root, 'src/content/articles', article.file), article.raw, { flag: 'wx' });
+  return { slug, contentSha256: article.digest };
+}
+
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   try {
     const args = process.argv.slice(2);
-    if (args.includes('--list-review')) {
+    if (args.includes('--plan-session')) {
+      console.log(JSON.stringify(await planSessionPublication(process.cwd()), null, 2));
+    } else if (args.includes('--save-session-draft')) {
+      const slug = args[args.indexOf('--save-session-draft') + 1];
+      let input = '';
+      process.stdin.setEncoding('utf8');
+      for await (const chunk of process.stdin) {
+        input += chunk;
+        if (input.length > 80000) throw new Error('Draft payload exceeds the limit');
+      }
+      console.log(JSON.stringify(await saveSessionDraft(process.cwd(), slug, JSON.parse(input)), null, 2));
+    } else if (args.includes('--list-review')) {
       const articles = await readArticles(process.cwd());
       console.log(JSON.stringify(articles.filter((article) => article.data.status === 'review').map((article) => ({ slug: article.data.slug, title: article.data.title, contentSha256: article.digest, file: article.file })), null, 2));
     } else if (args.includes('--approve')) {
@@ -189,7 +313,9 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
       const result = await approveArticle(process.cwd(), args[args.indexOf('--approve') + 1], args[args.indexOf('--reviewer') + 1], { expectedSha256: args[args.indexOf('--sha256') + 1] });
       console.log(`Recorded editorial approval for ${result.slug} by ${result.reviewer}. Publication remains a separate capped step.`);
     } else {
-      const result = await runPipeline(process.cwd(), { draft: args.includes('--draft'), publish: args.includes('--publish'), automatic: args.includes('--automatic') });
+      const slug = args.includes('--slug') ? args[args.indexOf('--slug') + 1] : undefined;
+      if (args.includes('--slug') && (!isSlug(slug) || !args.includes('--publish'))) throw new Error('--slug requires a valid slug and --publish');
+      const result = await runPipeline(process.cwd(), { draft: args.includes('--draft'), publish: args.includes('--publish'), automatic: args.includes('--automatic'), slug });
       console.log(JSON.stringify(result, null, 2));
       if (result.errors.length) process.exitCode = 2;
     }
