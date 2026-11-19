@@ -1,340 +1,340 @@
 {
-  "checkedAt": "2026-11-19T09:29:28.275Z",
+  "checkedAt": "2026-11-19T11:16:21.742Z",
   "sources": [
     {
       "id": "bart-sfo",
       "status": "unavailable",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "error": "Official source returned HTTP 403"
     },
     {
       "id": "sfmta-fares",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "5ce5cb5f84ac3e17fe65e815cceedbf975fc32e6dd4f4de44c729e1156da3dca"
     },
     {
       "id": "sfmta-adult-single",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "8087841ae3443a60e9d29ffcc513870b6380e02253256bceb823084c503f0d4c"
     },
     {
       "id": "sfmta-day-pass",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "59e0f03b2ef8dbb7f203e7c45b63be6e4004c9707c6f93fdb6a44008fb7ef1d6"
     },
     {
       "id": "sfmta-visitor-passport",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "51eb2206b07fb7f60b1a03b4ab21ea86a51dc750949c391b0bcb0db60b320dac"
     },
     {
       "id": "sfmta-f-line",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "7a70afd82d2737573ef5c16a884f7c1776742a51c5b8f20d6593ba2405b840e9"
     },
     {
       "id": "sfmta-f-access",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "0a9ae8ead93491f93b90e6ed88cc3d7c8003c04815fe7c40660f9a26f8828a13"
     },
     {
       "id": "golden-gate-transit",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "f23813f0fee46d9da31b01c0911a67d64183c7b4cdf5d3cd5453adbd4d2ea754"
     },
     {
       "id": "golden-gate-sidewalks",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "b5c077d24f49d8ef729f048924a152d013ee48c416952245340a0466a6381e9b"
     },
     {
       "id": "clipper-contactless",
       "status": "unavailable",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "error": "Official source returned HTTP 403"
     },
     {
       "id": "golden-gate-current-schedules",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "08d34b7944f1007ebc368e77a04a1f086f0acf80df239a31914b01f991ed27fa"
     },
     {
       "id": "sfmta-cable-cars",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "584242c684a29efd7c894ae719544b42dbfa54950dd6045fc1e672650fdacaa7"
     },
     {
       "id": "sfmta-stop-relocations",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "b9a9e3e9fc0534603143a41f6e838b491355e25a3b62a3f22c8711034813f61a"
     },
     {
       "id": "sfmta-travel-updates",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "3da795972c2e4e6991fcb01d873ddc4b4a9adcfaf070ea6e848275129a94cd50"
     },
     {
       "id": "sfmta-trip-planner",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "bbbb4d09cbb5ea22d896a55a08cae7205f062f0fc84d313d6b067256e04d3764"
     },
     {
       "id": "bart-advisories",
       "status": "unavailable",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "error": "Official source returned HTTP 403"
     },
     {
       "id": "sfmta-free-muni-youth",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "597df52cff3f97ec2f9a0167cad48452e67d3d709db37834e4043d4bee5b2bd0"
     },
     {
       "id": "bart-paying-fare",
       "status": "unavailable",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "error": "Official source returned HTTP 403"
     },
     {
       "id": "clipper-youth-senior",
       "status": "unavailable",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "error": "Official source returned HTTP 403"
     },
     {
       "id": "clipper-ways-to-pay",
       "status": "unavailable",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "error": "Official source returned HTTP 403"
     },
     {
       "id": "bart-tap-and-ride",
       "status": "unavailable",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "error": "Official source returned HTTP 403"
     },
     {
       "id": "bart-schedules",
       "status": "unavailable",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "error": "Official source returned HTTP 403"
     },
     {
       "id": "bart-official-app",
       "status": "unavailable",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "error": "Official source returned HTTP 403"
     },
     {
       "id": "sfo-taxis",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "e5de1348a28790bf031f688b51685315c05f4b0d18875ec34fb69964f0291c8b"
     },
     {
       "id": "sfo-ride-app-pickup",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "1fc944d202ab1ac017046667ba1b8986cac872047e48d06054eb7e3a3935b84a"
     },
     {
       "id": "golden-gate-ferry-schedules",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "57350931c05f6b06eb556424499b054a4ed549d7486cbd8224ed8e2a8a4b4e01"
     },
     {
       "id": "golden-gate-ferry-fares",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "c3dda5316c623247ee98dce8be8f9902b04de4daa55f941fd5039bacd71afb40"
     },
     {
       "id": "golden-gate-route120-rendered",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "89a85a2221253144bfb5a390f5195a79de45cbea31b7ec98f254a5491610af38"
     },
     {
       "id": "golden-gate-sausalito-rendered",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "85d2581adf1e62861aa93e42c2a80041ced04e591e620f0bf362d40841d1823b"
     },
     {
       "id": "grand-canyon-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "0e8272a259b7a7185b216b7267d1e78f6642e1db1af5b68d9fd1ece949dd4bd0"
     },
     {
       "id": "grand-canyon-south-rim",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "796e92b76d49eb6fb5bf44f9b588e5256d9061854443c2237ec8c99a0d7ebfed"
     },
     {
       "id": "grand-canyon-geology",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "bb5506183ac28fa0ed9ac69a6d8f1439a5cee45160c66f8b13c65f3043469075"
     },
     {
       "id": "grand-canyon-conditions",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "a5a19f6445c8f517127c776137c5641e8b3f19e5436914f87233a89755bcece5"
     },
     {
       "id": "grand-canyon-hiking",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "30a7c32f5bb9e8b71059c1be4cb760bd6078d9cbdeb2b81eb5d401734bd837c0"
     },
     {
       "id": "yellowstone-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "4043cd8c3681ee21f8c5251f525fca4f71f115305421448cd2bc7952f20d2b0b"
     },
     {
       "id": "yellowstone-old-faithful",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "2a7352d3f015c2d65d8ca634c85c03bd6f2b7229e983dde44ade701a7a113d4e"
     },
     {
       "id": "yellowstone-conditions",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "3ef0fe29019164ff68d20cbb44173b4005be784159679f23fbfd5f9cdb006c2f"
     },
     {
       "id": "yellowstone-safety",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "c8e2f0683acd235a7f2c8b20294088cbc52a8b9714bb2968746cbb0d4a9e6ed0"
     },
     {
       "id": "yosemite-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "9e1fb2b1cd684266b289969ccd030bec29b419a04de9512f6fbb6d56f79ffdd7"
     },
     {
       "id": "yosemite-valley",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "d42d8d10468cc756908d72bf08070bb36f242fbcc84ff12c977c45e4dce63546"
     },
     {
       "id": "yosemite-conditions",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "43ff8ce632bf5d16b801556befeb26014d1355b8bf95fca7a1ddd6db0b4ebecc"
     },
     {
       "id": "statue-of-liberty-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "e81c80660b5ccbcacbfcf4166c4168673f11171ec172d4f85baa5eee24cbc243"
     },
     {
       "id": "statue-of-liberty-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "3f1ace62217fb14eb15240eef78b99c41e4071bfbaeb7fc3094c934acd0aabcf"
     },
     {
       "id": "statue-of-liberty-crown",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "651ecbf8c76e45c75b2a5943457638f9b666f60c4fe24071de29016ce4dc5901"
     },
     {
       "id": "national-mall-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "398b0667e1ce63556faf5818068fb09d28fcbc73eed6035b65491cb700fb7f6e"
     },
     {
       "id": "national-mall-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "f15663bb56d9aecd3a65d57846bb8adad7125714a36dbc8968385e283b32707a"
     },
     {
       "id": "national-mall-lincoln",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "117a635c2c813ae71edad07bba35b3c6cf6de9aeb6cfec8282a99da23f38a518"
     },
     {
       "id": "national-mall-conditions",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "cb442b10ed46347a2b060d9857c1d13362f94835bd6b39f6ef67c518c7b8b3a1"
     },
     {
       "id": "kennedy-space-center-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "68367f2705cfa650a7772221bc36fba93fe75b32bc9384531c38e8c8d0e93add"
     },
     {
       "id": "kennedy-space-center-atlantis",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "aa478ece00a28fc1893afdcd1e8cba1ff7d476e128108a7935786f2f0965c510"
     },
     {
       "id": "kennedy-space-center-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "003448ad83c6287a3a7b0b4d3ae376d4fb8ce7df94c95a60960e1da407b7d32a"
     },
     {
       "id": "kennedy-space-center-launches",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "1d0443b7e2e5b9e1bfa0eacca05c324c94aa8c89971f4f84607a78523ccbc862"
     },
     {
       "id": "balboa-park-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "cba5c893e9fce01e119921a7d4271a5dddeff6454114e967462d15efe5040b32"
     },
     {
       "id": "balboa-park-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "eadc40601bb3065310f94cf7380175bf4339a2e6baac7920b57abd2e8cb0ed67"
     },
     {
       "id": "balboa-park-gardens",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "b2a09c45b4a6e37167a9ed76570815ae6a487c494b5a287af05a29d25c5533ad"
     },
     {
       "id": "golden-gate-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-19T09:29:28.275Z",
+      "checkedAt": "2026-11-19T11:16:21.742Z",
       "contentHash": "0aa04dbd7c1f390cb0617968218f54308aeb6d2da4c9daa76bac901369c17f9d"
     }
   ],

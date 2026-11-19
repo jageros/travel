@@ -23,10 +23,11 @@
 "featured": true
 "hero":
   "photoId": "yosemite"
-"status": "review"
+"status": "published"
 "author": "editorial-team"
 "updatedAt": "2026-11-19"
 "checkedAt": "2026-11-19"
+"publishedAt": "2026-11-19"
 ---
 
 ## Why this place is worth visiting

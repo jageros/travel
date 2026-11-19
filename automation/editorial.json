@@ -94,6 +94,12 @@
       "publishedAt": "2026-11-19T09:29:28.275Z",
       "contentSha256": "ca7deca39ba65e6f918d4f19c0b24c2ab5842fcda292a793360b41918ae3d12b",
       "manualApproval": false
+    },
+    {
+      "slug": "yosemite",
+      "publishedAt": "2026-11-19T11:17:04.973Z",
+      "contentSha256": "d4de7ff45833ca16efa5ddc3818a4ec9e64c0cfe980c1c42e5c5ba64c5bbd9dc",
+      "manualApproval": false
     }
   ]
 }
