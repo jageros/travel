@@ -1,6 +1,6 @@
 # Editorial automation operations
 
-The repository uses a Codex scheduled task in the current chat as the automatic publisher. Each run checks registered official sources, uses the persisted Search Console opportunities to choose one eligible brief, prepares or reuses its review article, verifies the production build, and commits the resulting state directly to `main`.
+The repository uses a Codex scheduled task in the current chat as the automatic publisher. Each run checks registered official sources, uses the persisted Search Console opportunities to select eligible briefs in order, prepares or reuses the review articles, verifies the production build, and commits the resulting state directly to `main`.
 
 The Codex task runs in the local project directory and does not require a model API key. A run that cannot produce a valid article records source health and failure details when verification passes. A run never commits an article that failed validation, duplicate checks, source freshness checks or build verification.
 
@@ -40,11 +40,11 @@ The `--accept-baseline` option is reserved for initializing missing baselines in
 The Codex scheduled task runs daily at 09:15 Asia/Shanghai in the local project. The computer must remain powered on and the Codex desktop app must remain running. `.github/workflows/editorial.yml` is a read-only source diagnostic workflow and does not publish articles.
 
 1. Check the current `main` checkout and synchronize `origin/main`.
-2. Fetch registered official sources and rank ready topics with the persisted Search Console opportunities.
+2. Fetch registered official sources and rank ready topics with the persisted Search Console opportunities. Recalculate the remaining daily quota from the ledger.
 3. Use the command's selected slug. Reuse a validated review copy or draft with the current Codex model. An attraction brief locks its location, region, category, featured flag, cover ID, sources, facts and related articles. Release with `node scripts/content-pipeline.mjs --publish --automatic --slug <slug>`.
-4. Run the production `npm run verify` command. This covers content validation, Astro checks, tests, production build and static build verification.
+4. Run `npm run verify` in production mode and verify the preview build. The checks cover content validation, Astro diagnostics, tests, and static build verification.
 5. Commit the verified state and fetch `origin/main` again. The push stops if another commit advanced `main` while the task was running.
-6. Push the exact verified commit to `main`.
+6. Push the exact verified commit to `main` and check the deployment. After a successful article, repeat from the updated ledger until the quota is filled or the planning command finds no eligible brief.
 
 GitHub branch protection can reject a direct push. The task treats that as a failed delivery and leaves the commit available in the local workspace for diagnosis. The repository must allow the local Git identity to write `main` before unattended publication can operate.
 
@@ -58,7 +58,7 @@ The current Codex session supplies the model for scheduled runs. No `DRAFT_API_K
 
 A draft is written only after the model response matches the expected shape and passes content, source, intent, duplicate and fact checks. A failed draft or source check leaves existing published Markdown intact.
 
-The rolling cap allows three releases per seven days across all topics. The initial U.S. attraction collection uses the existing Golden Gate Bridge page with an attraction introduction and seven additional review articles. The release task publishes one eligible article per run and records its exact digest and publication time.
+The cap is three releases per Beijing calendar day across all topics. November 19, 2026 has a cap of four to accommodate the one additional release requested that day. Count the current day's entries in the release ledger each time a candidate is evaluated. A new day starts at midnight in `Asia/Shanghai`. The scheduled run aims to publish one to three articles when enough candidates pass the gates, and the ledger records each article's exact digest and publication time.
 
 Search Console import, source monitoring, generated drafts and publication reports remain versioned only where they are editorial inputs or release state. Raw exports and oversized source snapshots stay in ignored artifacts. The current Search Console JSON is still a persisted import and requires a separate authorized sync if live click data is needed.
 

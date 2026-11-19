@@ -144,7 +144,8 @@ export function rankTopics(topics, opportunities = [], articles = []) {
     .map(({ topic }) => topic);
 }
 
-export async function runPipeline(root, { draft = false, publish = false, automatic = false, slug, now = new Date(), fetcher = fetch, env = process.env } = {}) {
+export async function runPipeline(root, { draft = false, publish = false, automatic = false, slug, now: time, fetcher = fetch, env = process.env } = {}) {
+  const now = time ?? new Date();
   const { registry, report, texts } = await runSourceCheck(root, { now, fetcher, acceptChanged: automatic });
   const output = { checkedAt: now.toISOString(), generated: [], heldDrafts: [], publications: [], errors: [] };
   if (draft) {
@@ -184,7 +185,7 @@ export async function runPipeline(root, { draft = false, publish = false, automa
       await queueFailure(root, { slug: 'draft-generator', stage: 'draft', errors: [error.message] }, now);
     }
   }
-  if (publish) output.publications = await publishCandidates(root, registry, report, { now, slug });
+  if (publish) output.publications = await publishCandidates(root, registry, report, { now: time ?? new Date(), slug });
   await writeJson(path.join(root, 'automation/reports/pipeline.json'), output);
   return output;
 }
@@ -256,8 +257,9 @@ async function selectSessionTopic(root, registry, report, now) {
   return { reason: 'No eligible topic', held };
 }
 
-export async function planSessionPublication(root, { now = new Date(), fetcher = fetch } = {}) {
-  const { registry, report, texts } = await runSourceCheck(root, { now, fetcher, acceptChanged: true });
+export async function planSessionPublication(root, { now: time, fetcher = fetch } = {}) {
+  const { registry, report, texts } = await runSourceCheck(root, { now: time ?? new Date(), fetcher, acceptChanged: true });
+  const now = time ?? new Date();
   const result = await selectSessionTopic(root, registry, report, now);
   for (const hold of result.held) await queueFailure(root, hold, now);
   if (!result.topic) return result;

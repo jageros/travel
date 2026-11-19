@@ -36,6 +36,6 @@ External links in draft prose provide attribution and the next official check. D
 
 ## Current automatic publication
 
-Passing automated checks permits the configured workflow to publish. The workflow retains the weekly cap, rotates through high-change facts and records failures in the queue. A material source or fact failure holds the affected article until the automatic evidence gate passes again.
+Passing automated checks permits publication within the [current daily cap](automation.md#failure-handling). The source monitor checks high-change facts and records failures in the queue. A material source or fact failure holds the affected article until the automatic evidence gate passes again.
 
 Keyword ideas, source hashes and Search Console data are inputs to a decision. They do not authorize duplicate pages or turn an unverified draft into a published article. A new article must add a distinct useful answer and retain source provenance.

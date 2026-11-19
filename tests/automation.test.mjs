@@ -171,6 +171,40 @@ test('the session plans, writes locked destination metadata and publishes only t
   assert.equal((await readArticles(root)).find((entry) => entry.data.slug === 'airport-checklist').data.status, 'review');
 });
 
+test('successive session publications share the daily cap and resume after Beijing midnight', async (t) => {
+  const slugs = ['one', 'two', 'three', 'four'];
+  const articles = slugs.map((slug) => article(slug, slug));
+  const root = await fixture(t, articles);
+  const ledgerFile = path.join(root, 'automation/editorial.json');
+  await writeJson(ledgerFile, { ...state(), requiredManualApprovals: 0, fullyAutomatic: true });
+  await writeJson(path.join(root, 'automation/topics.json'), {
+    topics: articles.map(({ data: metadata }, index) => ({
+      ...metadata, status: 'ready', priority: slugs.length - index, brief: `Verified planning guide for ${metadata.slug}`,
+    })),
+  });
+  const beforeMidnight = { now: new Date('2026-10-19T15:59:59.999Z'), fetcher: sourceFetch };
+  const publish = (slug, options) => runPipeline(root, { ...options, publish: true, automatic: true, slug });
+
+  for (const slug of slugs.slice(0, 3)) {
+    assert.equal((await planSessionPublication(root, beforeMidnight)).slug, slug);
+    const result = await publish(slug, beforeMidnight);
+    assert.deepEqual(result.publications, [{ slug, status: 'published', manualApproval: false }]);
+  }
+
+  assert.match((await planSessionPublication(root, beforeMidnight)).reason, /Daily publication cap reached \(3 in Asia\/Shanghai\)/);
+  const direct = await publish('four', beforeMidnight);
+  assert.equal(direct.publications[0].status, 'held');
+  assert.match(direct.publications[0].errors.join(' '), /Daily publication cap reached \(3 in Asia\/Shanghai\)/);
+  assert.deepEqual((await readJson(ledgerFile)).publications.map(({ slug }) => slug), slugs.slice(0, 3));
+
+  const afterMidnight = { ...beforeMidnight, now: new Date('2026-10-19T16:00:00.000Z') };
+  assert.equal((await planSessionPublication(root, afterMidnight)).slug, 'four');
+  assert.deepEqual((await publish('four', afterMidnight)).publications, [
+    { slug: 'four', status: 'published', manualApproval: false },
+  ]);
+  assert.deepEqual((await readJson(ledgerFile)).publications.map(({ slug }) => slug), slugs);
+});
+
 test('destination briefs require valid region, location, category, featured flag and cover', () => {
   const invalid = { ...destinationBrief(), region: 'Atlantis', location: '', category: 'made-up', featured: 1, hero: { photoId: 'bad' } };
   const errors = topicPreflight(invalid, registry(), report(), [], { now });
@@ -340,15 +374,56 @@ test('first five releases need named approval bound to exact content; later rele
   assert.equal(publicationDecision(changed, editorial, { now }).allowed, false);
 });
 
-test('rolling seven-day cap applies to manually approved and automatic releases', () => {
-  const editorial = state();
-  editorial.publications = ['16', '17', '18'].map((day) => ({ publishedAt: `2026-10-${day}T09:00:00Z`, manualApproval: true }));
-  const result = publicationDecision(article(), editorial, { now });
-  assert.equal(result.allowed, false);
-  assert.match(result.reason, /cap/);
+test('the Beijing calendar-day cap applies to manually approved and automatic releases', () => {
   const a = article();
-  editorial.approvals.push({ slug: a.data.slug, contentSha256: a.digest, reviewer: 'human-editor', reviewedAt: '2026-10-19' });
-  assert.equal(publicationDecision(a, editorial, { now: new Date('2026-10-23T09:00:00Z') }).allowed, true, 'a release exactly seven days old leaves the rolling window');
+  const previousDay = { publishedAt: '2026-10-18T15:59:59.999Z', manualApproval: true };
+  const today = [
+    { publishedAt: '2026-10-18T16:00:00.000Z', manualApproval: true },
+    { publishedAt: '2026-10-19T00:00:00.000Z', manualApproval: false },
+    { publishedAt: '2026-10-19T09:00:00.000Z', manualApproval: false },
+  ];
+  for (const automatic of [false, true]) {
+    const editorial = {
+      ...state(),
+      fullyAutomatic: automatic,
+      approvals: [{ slug: a.data.slug, contentSha256: a.digest, reviewer: 'human-editor', reviewedAt: '2026-10-19' }],
+      publications: [previousDay, ...today.slice(0, 2)],
+    };
+    const available = publicationDecision(a, editorial, { now });
+    assert.equal(available.allowed, true);
+    assert.equal(available.manualApproval, !automatic);
+    editorial.publications.push(today[2]);
+    const blocked = publicationDecision(a, editorial, { now });
+    assert.equal(blocked.allowed, false);
+    assert.match(blocked.reason, /Daily publication cap reached \(3 in Asia\/Shanghai\)/);
+    assert.equal(publicationDecision(a, editorial, { now: new Date('2026-10-19T16:00:00.000Z') }).allowed, true);
+  }
+});
+
+test('the one-time fourth release is scoped to November 19 in Beijing', () => {
+  const automatic = { ...state(), requiredManualApprovals: 0, fullyAutomatic: true };
+  const a = article();
+  const today = ['02:34:04.369', '09:12:56.575', '09:29:28.275']
+    .map((time) => ({ publishedAt: `2026-11-19T${time}Z` }));
+  const beforeMidnight = new Date('2026-11-19T15:59:59.999Z');
+  const afterMidnight = new Date('2026-11-19T16:00:00.000Z');
+  const editorial = { ...automatic, publications: [...today] };
+  assert.equal(publicationDecision(a, editorial, { now: beforeMidnight }).allowed, true);
+  editorial.publications.push({ publishedAt: beforeMidnight.toISOString() });
+  assert.match(publicationDecision(a, editorial, { now: beforeMidnight }).reason, /Daily publication cap reached \(4 in Asia\/Shanghai\)/);
+  assert.equal(publicationDecision(a, editorial, { now: afterMidnight }).allowed, true);
+  editorial.publications.push(...['16:00', '17:00', '18:00'].map((time) => ({ publishedAt: `2026-11-19T${time}:00Z` })));
+  assert.match(publicationDecision(a, editorial, { now: new Date('2026-11-19T19:00:00Z') }).reason, /Daily publication cap reached \(3 in Asia\/Shanghai\)/);
+});
+
+test('the daily cap rejects invalid and future ledger timestamps before using any slots', () => {
+  const a = article();
+  for (const publishedAt of ['invalid-date', '2026-10-19T09:00:00.001Z']) {
+    const editorial = { ...state(), requiredManualApprovals: 0, fullyAutomatic: true, publications: [{ publishedAt }] };
+    const result = publicationDecision(a, editorial, { now });
+    assert.equal(result.allowed, false);
+    assert.match(result.reason, /Invalid or future-dated publication ledger/);
+  }
 });
 
 test('only distinct past releases with matching named approval evidence unlock automation', () => {
