@@ -1,0 +1,31 @@
+---
+interface Props {
+  name: 'region' | 'category';
+  label: string;
+  options: { value: string; label: string }[];
+}
+
+const { name, label, options } = Astro.props;
+const id = `destination-filter-${name}`;
+---
+
+<div class="destination-filter" data-filter-field={name}>
+  <span class="destination-filter-label" id={`${id}-label`}>{label}</span>
+  <div class="destination-filter-control">
+    <button
+      class="destination-filter-button"
+      type="button"
+      role="combobox"
+      aria-expanded="false"
+      aria-controls={`${id}-options`}
+      aria-labelledby={`${id}-label ${id}-value`}
+      data-destination-filter={name}
+    >
+      <span id={`${id}-value`} data-filter-label>{options[0].label}</span>
+      <span class="destination-filter-arrow" aria-hidden="true"></span>
+    </button>
+    <ul class="destination-filter-options" id={`${id}-options`} role="listbox" aria-labelledby={`${id}-label`} hidden>
+      {options.map((option, index) => <li id={`${id}-option-${index}`} role="option" data-value={option.value} aria-selected={index === 0 ? 'true' : 'false'}><span>{option.label}</span></li>)}
+    </ul>
+  </div>
+</div>
