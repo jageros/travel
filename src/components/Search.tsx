@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
 export interface SearchItem {
   title: string;
@@ -13,6 +13,7 @@ export default function Search({ items }: { items: SearchItem[] }) {
   const [query, setQuery] = useState('');
   const [filter, setFilter] = useState('All guides');
   const [ready, setReady] = useState(false);
+  const searchInput = useRef<HTMLInputElement>(null);
   const topics = useMemo(() => ['All guides', ...new Set(items.map((item) => item.topic).filter(Boolean))], [items]);
   const results = useMemo(() => {
     const words = query.toLocaleLowerCase('en-US').trim().split(/\s+/).filter(Boolean);
@@ -34,11 +35,11 @@ export default function Search({ items }: { items: SearchItem[] }) {
         <label className="search-label" htmlFor="guide-search">Find your next step</label>
         <div className="search-input-wrap">
           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 4.5 4.5" /></svg>
-          <input id="guide-search" type="search" placeholder="Try airport, car-free, or transit…" value={query} onChange={(event) => setQuery(event.target.value)} autoComplete="off" />
+          <input ref={searchInput} id="guide-search" type="search" placeholder="Try airport, car-free, or transit…" value={query} onChange={(event) => setQuery(event.target.value)} autoComplete="off" />
         </div>
         {topics.length > 2 && <div className="filter-pills" aria-label="Filter by topic">{topics.map((topic) => <button key={topic} type="button" aria-pressed={filter === topic} onClick={() => setFilter(topic)}>{topic}</button>)}</div>}
       </div>
-      <p className="search-count" aria-live="polite" aria-atomic="true">{results.length} {results.length === 1 ? 'guide' : 'guides'}{query.trim() ? ` for “${query.trim()}”` : ' to help you plan'}</p>
+      <p className="search-count" aria-live="polite" aria-atomic="true">{results.length} {results.length === 1 ? 'guide' : 'guides'} found</p>
       <div className="cards-grid">
         {results.map(item => (
           <article className={`guide-card${item.image ? ' guide-card-with-image' : ''}`} key={item.href}>
@@ -47,13 +48,17 @@ export default function Search({ items }: { items: SearchItem[] }) {
               {item.image.kind === 'illustration' && <span className="destination-artwork-label">AI illustration</span>}
             </div>}
             <div className="card-topline"><span className="card-type">{item.type}</span></div>
-            <h3 className="card-title"><a href={item.href} data-analytics="internal-link">{item.title}</a></h3>
+            <h2 className="card-title"><a href={item.href} data-analytics="internal-link">{item.title}</a></h2>
             <p className="card-description">{item.description}</p>
             <div className="card-meta"><span>{item.topic}</span><span className="card-arrow" aria-hidden="true">↗</span></div>
           </article>
         ))}
       </div>
-      {results.length === 0 && <div className="empty-state"><h3>No matching guides yet</h3><p>Try a broader term, or browse all our planning guides.</p><button className="button button-secondary" type="button" onClick={() => { setQuery(''); setFilter('All guides'); }}>Show all guides</button></div>}
+      {results.length === 0 && <div className="empty-state"><h2>No matching guides</h2><p>Try a broader term, or browse all our planning guides.</p><button className="button button-secondary" type="button" onClick={() => {
+        setQuery('');
+        setFilter('All guides');
+        searchInput.current?.focus();
+      }}>Show all guides</button></div>}
     </div>
   );
 }

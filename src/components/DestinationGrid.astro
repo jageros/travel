@@ -1,6 +1,7 @@
 ---
 import { articleHref, destinationArticles, destinationCategories, destinationPlace, type Article } from '../lib/content';
 import { getArticlePhoto } from '../lib/photos';
+import DestinationFilter from './DestinationFilter.astro';
 
 interface Props {
   articles: Article[];
@@ -24,20 +25,8 @@ const cards = await Promise.all(destinations.map(async entry => {
 
 <div data-destination-directory>
   {filterable && cards.length > 0 && <div class="destination-filters" data-destination-filters hidden>
-    <label>
-      <span>Region</span>
-      <select name="region" data-destination-filter="region">
-        <option value="">All regions</option>
-        {regions.map(region => <option value={region}>{region}</option>)}
-      </select>
-    </label>
-    <label>
-      <span>Category</span>
-      <select name="category" data-destination-filter="category">
-        <option value="">All categories</option>
-        {categories.map(([value, label]) => <option value={value}>{label}</option>)}
-      </select>
-    </label>
+    <DestinationFilter name="region" label="Region" options={[{ value: '', label: 'All regions' }, ...regions.map(region => ({ value: region, label: region }))]} />
+    <DestinationFilter name="category" label="Category" options={[{ value: '', label: 'All categories' }, ...categories.map(([value, label]) => ({ value, label }))]} />
     <p class="destination-count" data-destination-count aria-live="polite" aria-atomic="true">{cards.length} {cards.length === 1 ? 'destination' : 'destinations'}</p>
   </div>}
   <div class="cards-grid destination-grid">
@@ -61,32 +50,156 @@ const cards = await Promise.all(destinations.map(async entry => {
 </div>
 
 <script>
+  function setupFilter(field: HTMLElement | null | undefined, onSelect: () => void) {
+    const trigger = field?.querySelector<HTMLButtonElement>('[data-destination-filter]');
+    const label = trigger?.querySelector<HTMLElement>('[data-filter-label]');
+    const menu = field?.querySelector<HTMLElement>('[role="listbox"]');
+    const options = Array.from(menu?.querySelectorAll<HTMLElement>('[role="option"]') ?? []);
+    if (!field || !trigger || !label || !menu || !options.length) return;
+
+    let selected = 0;
+    let active = 0;
+    let search = '';
+    let lastTyped = 0;
+    const isOpen = () => !menu.hidden;
+
+    const highlight = (index: number) => {
+      options[active].removeAttribute('data-active');
+      active = Math.max(0, Math.min(index, options.length - 1));
+      const option = options[active];
+      option.setAttribute('data-active', '');
+      trigger.setAttribute('aria-activedescendant', option.id);
+      // Move the list rather than scrolling the entire page on each keypress.
+      const bounds = menu.getBoundingClientRect();
+      const row = option.getBoundingClientRect();
+      if (row.top < bounds.top) menu.scrollTop += row.top - bounds.top;
+      else if (row.bottom > bounds.bottom) menu.scrollTop += row.bottom - bounds.bottom;
+    };
+
+    const open = (index = selected) => {
+      menu.hidden = false;
+      trigger.setAttribute('aria-expanded', 'true');
+      highlight(index);
+    };
+
+    const close = () => {
+      menu.hidden = true;
+      trigger.setAttribute('aria-expanded', 'false');
+      trigger.removeAttribute('aria-activedescendant');
+      options[active].removeAttribute('data-active');
+      search = '';
+    };
+
+    const select = (index: number) => {
+      options[selected].setAttribute('aria-selected', 'false');
+      selected = index;
+      options[selected].setAttribute('aria-selected', 'true');
+      label.textContent = options[selected].textContent;
+      close();
+    };
+
+    trigger.addEventListener('click', () => {
+      trigger.focus({ preventScroll: true });
+      if (isOpen()) close();
+      else open();
+    });
+    field.addEventListener('focusout', event => {
+      if (!field.contains(event.relatedTarget as Node | null)) close();
+    });
+    document.addEventListener('pointerdown', event => {
+      if (isOpen() && !field.contains(event.target as Node)) close();
+    });
+    menu.addEventListener('mousedown', event => {
+      // Keep focus on the combobox. The menu still handles native touch scrolling.
+      event.preventDefault();
+    });
+    menu.addEventListener('click', event => {
+      const option = (event.target as Element).closest<HTMLElement>('[role="option"]');
+      if (!option || !options.includes(option)) return;
+      select(options.indexOf(option));
+      trigger.focus({ preventScroll: true });
+      onSelect();
+    });
+    trigger.addEventListener('keydown', event => {
+      if (event.altKey || event.ctrlKey || event.metaKey) return;
+      switch (event.key) {
+        case 'ArrowDown':
+        case 'ArrowUp':
+          if (isOpen()) highlight(active + (event.key === 'ArrowDown' ? 1 : -1));
+          else open();
+          break;
+        case 'Home':
+        case 'End':
+          if (!isOpen()) open(event.key === 'Home' ? 0 : options.length - 1);
+          else highlight(event.key === 'Home' ? 0 : options.length - 1);
+          break;
+        case 'Enter':
+        case ' ':
+          if (event.repeat) break;
+          if (!isOpen()) open();
+          else {
+            select(active);
+            onSelect();
+          }
+          break;
+        case 'Escape':
+          if (!isOpen()) return;
+          close();
+          break;
+        case 'Tab':
+          close();
+          return;
+        default: {
+          if (event.key.length !== 1) return;
+          if (!isOpen()) open();
+          const key = event.key.toLocaleLowerCase('en-US');
+          const now = performance.now();
+          search = now - lastTyped > 600 || search === key ? key : search + key;
+          lastTyped = now;
+          const start = search.length === 1 ? active + 1 : active;
+          for (let offset = 0; offset < options.length; offset++) {
+            const index = (start + offset) % options.length;
+            if (options[index].textContent?.trim().toLocaleLowerCase('en-US').startsWith(search)) {
+              highlight(index);
+              break;
+            }
+          }
+        }
+      }
+      event.preventDefault();
+    });
+
+    return { value: () => options[selected].dataset.value, reset: () => select(0), focus: () => trigger.focus() };
+  }
+
   for (const directory of document.querySelectorAll('[data-destination-directory]')) {
     const filters = directory.querySelector<HTMLElement>('[data-destination-filters]');
-    const region = filters?.querySelector<HTMLSelectElement>('[data-destination-filter="region"]');
-    const category = filters?.querySelector<HTMLSelectElement>('[data-destination-filter="category"]');
     const count = filters?.querySelector<HTMLElement>('[data-destination-count]');
     const empty = directory.querySelector<HTMLElement>('[data-destination-empty]');
     const reset = empty?.querySelector<HTMLButtonElement>('[data-destination-reset]');
-    if (!filters || !region || !category || !count || !empty) continue;
+    if (!filters || !count || !empty) continue;
 
     const cards = directory.querySelectorAll<HTMLElement>('[data-destination-card]');
     const update = () => {
+      const selectedRegion = region?.value();
+      const selectedCategory = category?.value();
       let visible = 0;
       for (const card of cards) {
-        const matchesRegion = !region.value || card.dataset.region === region.value;
-        const matchesCategory = !category.value || card.dataset.category === category.value;
+        const matchesRegion = !selectedRegion || card.dataset.region === selectedRegion;
+        const matchesCategory = !selectedCategory || card.dataset.category === selectedCategory;
         card.hidden = !(matchesRegion && matchesCategory);
         if (!card.hidden) visible++;
       }
       count.textContent = `${visible} ${visible === 1 ? 'destination' : 'destinations'}`;
       empty.hidden = visible > 0;
     };
+    const region = setupFilter(filters.querySelector<HTMLElement>('[data-filter-field="region"]'), update);
+    const category = setupFilter(filters.querySelector<HTMLElement>('[data-filter-field="category"]'), update);
+    if (!region || !category) continue;
     filters.hidden = false;
-    filters.addEventListener('change', update);
     reset?.addEventListener('click', () => {
-      region.value = '';
-      category.value = '';
+      region.reset();
+      category.reset();
       update();
       region.focus();
     });

@@ -21,6 +21,29 @@ function pageMetadata(html) {
  };
 }
 
+function assertDestinationFilters(html) {
+ const nodes=[];
+ function visit(node) {
+  if(node.tagName)nodes.push({node,attrs:Object.fromEntries(node.attrs.map(({name,value})=>[name,value]))});
+  for(const child of node.childNodes??[])visit(child);
+ }
+ visit(parseHtml(html));
+ const controls=nodes.filter(({attrs})=>Object.hasOwn(attrs,'data-destination-filter'));
+ assert.deepEqual(controls.map(({attrs})=>attrs['data-destination-filter']),['region','category']);
+ for(const {node,attrs} of controls) {
+  assert.equal(node.tagName,'button');
+  assert.equal(attrs.role,'combobox');
+  assert.equal(attrs['aria-expanded'],'false');
+  const list=nodes.find(node=>node.attrs.id===attrs['aria-controls']);
+  assert.equal(list?.attrs.role,'listbox');
+  assert.ok(Object.hasOwn(list.attrs,'hidden'));
+  const options=nodes.filter(option=>option.node.parentNode===list.node&&option.attrs.role==='option');
+  assert.equal(options.filter(option=>option.attrs['aria-selected']==='true').length,1);
+  assert.equal(options.find(option=>option.attrs['aria-selected']==='true').attrs['data-value'],'');
+ }
+ assert.ok(nodes.some(({attrs})=>Object.hasOwn(attrs,'data-destination-filters')&&Object.hasOwn(attrs,'hidden')));
+}
+
 test('a staged production release has static content, working links, metadata and two gated ad positions',async()=>{
  const source=process.cwd();
  const temporary=await fs.mkdtemp(path.join(os.tmpdir(),'travel-published-test-'));
@@ -94,6 +117,7 @@ test('a staged production release has static content, working links, metadata an
   assert.match(home,/href="\/topics\/san-francisco-without-a-car\/"/);
   assert.match(topics,/class="topic-card" href="\/destinations\/"[\s\S]+class="topic-card" href="\/topics\/san-francisco-without-a-car\/"/);
   assert.match(destinations,/data-destination-card/);
+  assertDestinationFilters(destinations);
   assert.match(destinations,/data-region="California"/);
   assert.match(destinations,/data-category="landmarks"/);
   assert.match(destinations,/href="\/destinations\/golden-gate-bridge-without-a-car\/"/);
