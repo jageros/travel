@@ -4,12 +4,15 @@ import path from 'node:path';
 import { parseDocument, stringify } from 'yaml';
 import { fromMarkdown } from 'mdast-util-from-markdown';
 import photos from '../src/data/photos.json' with { type: 'json' };
+import topics from '../src/data/topics.json' with { type: 'json' };
+import destinationCategories from '../src/data/destination-categories.json' with { type: 'json' };
+import usRegions from '../src/data/us-regions.json' with { type: 'json' };
 
 export const isoDay = (date = new Date()) => date.toISOString().slice(0, 10);
 export const sha256 = (value) => createHash('sha256').update(value).digest('hex');
 export const isSlug = (value) => typeof value === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(value);
 export const isDay = (value) => typeof value === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value)) && new Date(value).toISOString().slice(0, 10) === value;
-export const supportedTopics = new Set(['san-francisco-without-a-car']);
+export const supportedTopics = new Set(topics.map((topic) => topic.slug));
 export const readJson = async (file) => JSON.parse(await fs.readFile(file, 'utf8'));
 
 export async function writeJson(file, data) {
@@ -35,8 +38,8 @@ export function articleDigest(data, body) {
   return sha256(JSON.stringify(editorial) + '\n' + body);
 }
 
-export function serializeArticle(data, body) {
-  return `---\n${stringify(data, { lineWidth: 0, defaultStringType: 'QUOTE_DOUBLE' }).trimEnd()}\n---\n\n${body.trim()}\n`;
+export function serializeArticle(data, body, { preserveBody = false } = {}) {
+  return `---\n${stringify(data, { lineWidth: 0, defaultStringType: 'QUOTE_DOUBLE' }).trimEnd()}\n---\n${preserveBody ? body : `\n${body.trim()}\n`}`;
 }
 
 export async function readArticles(root) {
@@ -80,8 +83,11 @@ export function factMap(registry) {
   return new Map(registry.sources.flatMap((source) => (source.facts ?? []).map((fact) => [fact.id, { ...fact, sourceId: source.id }])));
 }
 
-const allowedFields = new Set(['title', 'description', 'slug', 'type', 'topic', 'status', 'author', 'publishedAt', 'updatedAt', 'checkedAt', 'primaryIntent', 'sources', 'facts', 'related', 'hero']);
+const allowedFields = new Set(['title', 'description', 'slug', 'type', 'topic', 'status', 'author', 'publishedAt', 'updatedAt', 'checkedAt', 'primaryIntent', 'sources', 'facts', 'related', 'hero', 'region', 'location', 'category', 'featured']);
 const photoIds = new Set(photos.map((photo) => photo.id));
+const destinationSections = [
+  'Why this place is worth visiting', 'What to see', 'Who it suits', 'What to check before going',
+];
 const dynamicClaimPattern = /\$\s*\d|\b(?:USD|dollars?)\s*\d|\b\d+(?:\.\d+)?\s*(?:dollars?|USD)\b|\b\d{1,2}:\d{2}\b|\b\d{1,2}\s*(?:a\.?m\.?|p\.?m\.?)\b|\b20\d{2}-\d{2}-\d{2}\b|\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}\b/i;
 
 export function validateMarkdownLinks(body, allowedHosts) {
@@ -111,9 +117,21 @@ export function validateMarkdownLinks(body, allowedHosts) {
   return [...new Set(errors)];
 }
 
+export function validateDestinationMetadata(data) {
+  if (data.topic !== 'us-destinations') return [];
+  const errors = [];
+  if (data.type !== 'destination') errors.push('A U.S. attraction must be a destination');
+  if (!usRegions.includes(data.region)) errors.push('A U.S. destination requires a registered U.S. region');
+  if (typeof data.location !== 'string' || !data.location.trim() || data.location !== data.location.trim() || data.location.length > 100) errors.push('A U.S. destination requires a location');
+  if (typeof data.category !== 'string' || !Object.hasOwn(destinationCategories, data.category)) errors.push('A U.S. destination requires a registered category');
+  if (typeof data.featured !== 'boolean') errors.push('A U.S. destination requires a featured flag');
+  if (!data.hero || typeof data.hero !== 'object' || Object.keys(data.hero).length !== 1 || !photoIds.has(data.hero.photoId)) errors.push('A U.S. destination requires a registered cover photo or illustration');
+  return errors;
+}
+
 export function validateArticle(article, registry, { now = new Date(), publishing = false, sourceReport } = {}) {
   const { data, body } = article;
-  const errors = [];
+  const errors = validateDestinationMetadata(data);
   for (const field of Object.keys(data)) if (!allowedFields.has(field)) errors.push(`Unknown frontmatter field: ${field}`);
   for (const key of ['title', 'description', 'primaryIntent']) if (typeof data[key] !== 'string' || !data[key].trim()) errors.push(`${key} is required`);
   for (const key of ['slug', 'topic']) if (!isSlug(data[key])) errors.push(`Invalid ${key}`);
@@ -151,6 +169,13 @@ export function validateArticle(article, registry, { now = new Date(), publishin
   }
   if (body.split(/\s+/).filter(Boolean).length < 350) errors.push('Article needs at least 350 words');
   if ((body.match(/^##\s+/gm) ?? []).length < 2) errors.push('Article needs at least two useful sections');
+  if (data.topic === 'us-destinations') {
+    const headings = fromMarkdown(body).children.filter((node) => node.type === 'heading' && node.depth === 2)
+      .map((node) => node.children.map((child) => child.value).join(''));
+    if (headings.length !== destinationSections.length || destinationSections.some((section, index) => section !== headings[index])) {
+      errors.push(`A U.S. destination needs these sections in order: ${destinationSections.join(', ')}`);
+    }
+  }
   if (/<\/?[A-Za-z!][^>]*>|\{\s*(?:import|export)|^\s*(?:import|export)\s/m.test(body)) errors.push('Raw HTML, MDX, and executable imports are forbidden');
   if (/!\[/.test(body)) errors.push('Inline images are forbidden; use the licensed local hero metadata');
   if (/(?:javascript|data|vbscript)\s*:|<script|on(?:click|error|load)\s*=/i.test(body)) errors.push('Executable content is forbidden');

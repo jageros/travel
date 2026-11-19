@@ -27,12 +27,18 @@ test('a staged production release has static content, working links, metadata an
  const root=path.join(temporary,'project');
  try {
   await fs.cp(source,root,{recursive:true,filter:(file)=>!path.relative(source,file).split(path.sep).some(segment=>['node_modules','.git','.astro','dist','reports','artifacts'].includes(segment))});
-  await fs.symlink(path.join(source,'node_modules'),path.join(root,'node_modules'),'dir');
+  const dependencies = path.join(source,'node_modules');
+  const localModules = path.join(root,'node_modules');
+  await fs.mkdir(localModules);
+  // Reuse installed packages without sharing Astro's environment-specific content cache.
+  const packages = (await fs.readdir(dependencies,{withFileTypes:true})).filter(entry=>!entry.name.startsWith('.'));
+  await Promise.all(packages.map(entry=>fs.symlink(path.join(dependencies,entry.name),path.join(localModules,entry.name),entry.isDirectory()?'dir':'file')));
   // Own the fixture's release state so live editorial releases cannot turn the
   // unpublished-link and sitemap assertions into assertions about current data.
   const articlesDir=path.join(root,'src/content/articles');
   for(const name of await fs.readdir(articlesDir)){
    if(!name.endsWith('.md'))continue;
+   if(name==='golden-gate-bridge-without-a-car.md')continue;
    const target=path.join(articlesDir,name);
    const parts=/^---\n([\s\S]*?)\n---\n([\s\S]*)$/.exec(await fs.readFile(target,'utf8'));
    const data=parse(parts[1]);data.status='review';delete data.publishedAt;
@@ -43,8 +49,7 @@ test('a staged production release has static content, working links, metadata an
   const parts=/^---\n([\s\S]*?)\n---\n([\s\S]*)$/.exec(raw);
   const article=parse(parts[1]);
   article.status='published';article.publishedAt=new Date().toISOString().slice(0,10);
-  // Keep this one-article production fixture internally self-contained after
-  // the other articles are moved to review status.
+  // The production fixture keeps the Golden Gate destination and this guide.
   article.related=[];
   await fs.writeFile(file,`---\n${stringify(article,{defaultStringType:'QUOTE_DOUBLE'})}---\n${parts[2]}`);
   const healthFile=path.join(root,'automation/source-health.json');
@@ -82,8 +87,30 @@ test('a staged production release has static content, working links, metadata an
   assert.doesNotMatch(html,/<script[^>]+src="https:/,'no thirdparty request before consent');
   assert.match(html,/data-current-fact[^>]*hidden/,'precise facts stay hidden without a runtime freshness check');
   assert.match(html,/data-fact-fallback/,'official-source fallback is in static HTML');
+  const home=await fs.readFile(path.join(root,'dist/index.html'),'utf8');
+  const destinations=await fs.readFile(path.join(root,'dist/destinations/index.html'),'utf8');
+  const topics=await fs.readFile(path.join(root,'dist/topics/index.html'),'utf8');
+  assert.match(home,/Featured destinations/);
+  assert.match(home,/href="\/topics\/san-francisco-without-a-car\/"/);
+  assert.match(topics,/class="topic-card" href="\/destinations\/"[\s\S]+class="topic-card" href="\/topics\/san-francisco-without-a-car\/"/);
+  assert.match(destinations,/data-destination-card/);
+  assert.match(destinations,/data-region="California"/);
+  assert.match(destinations,/data-category="landmarks"/);
+  assert.match(destinations,/href="\/destinations\/golden-gate-bridge-without-a-car\/"/);
+  assert.doesNotMatch(destinations,/href="\/destinations\/grand-canyon\/"/);
+  const goldenGate=await fs.readFile(path.join(root,'dist/destinations/golden-gate-bridge-without-a-car/index.html'),'utf8');
+  const metadataPlace=pageMetadata(goldenGate);
+  const place=metadataPlace.schemas.find(schema=>schema['@type']==='TouristAttraction');
+  assert.equal(metadataPlace.canonical,`${CANONICAL_SITE_URL}/destinations/golden-gate-bridge-without-a-car/`);
+  assert.equal(place.url,metadataPlace.canonical);
+  assert.equal(place.address.addressLocality,'San Francisco');
+  assert.equal(place.address.addressCountry,'US');
+  assert.match(goldenGate,/id="car-free-planning"/);
+  assert.match(goldenGate,/south-end visit/);
   const sitemap=await fs.readFile(path.join(root,'dist/sitemap.xml'),'utf8');
   assert.match(sitemap,/guides\/is-muni-pass-worth-it\//);
+  assert.ok(sitemap.includes(`<loc>${CANONICAL_SITE_URL}/destinations/</loc>`));
+  assert.ok(sitemap.includes(`<loc>${CANONICAL_SITE_URL}/destinations/golden-gate-bridge-without-a-car/</loc>`));
   assert.doesNotMatch(sitemap,/guides\/sfo-to-fishermans-wharf-with-luggage\//);
   for(const [,url]of sitemap.matchAll(/<loc>([^<]+)<\/loc>/g))assert.equal(new URL(url).origin,CANONICAL_SITE_URL);
   const robots=await fs.readFile(path.join(root,'dist/robots.txt'),'utf8');
@@ -101,6 +128,9 @@ test('a staged production release has static content, working links, metadata an
   assert.match(previewHtml,/<meta name="robots" content="noindex/);
   assert.doesNotMatch(previewHtml,/data-ad-container/,'no ads in review deployments even with configured IDs');
   assert.doesNotMatch(previewHtml,/data-analytics-id="G-FIXTURE123"/,'no analytics in review deployments even with indexing enabled');
+  const previewDestinations=await fs.readFile(path.join(root,'dist/destinations/index.html'),'utf8');
+  assert.match(previewDestinations,/<meta name="robots" content="noindex/);
+  assert.doesNotMatch(previewDestinations,/data-ad-container|data-analytics-id="G-FIXTURE123"/);
   // A preview with only published content is still a preview: the content
   // visibility switch must not authorize indexing, analytics or advertising.
   const publicPreviewOptions={...options,env:{...previewEnv,CONTENT_REVIEW_PREVIEW:'false'}};

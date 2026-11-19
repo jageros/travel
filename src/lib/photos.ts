@@ -1,11 +1,34 @@
 import { getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
-import registry from '../data/photos.json';
+import records from '../data/photos.json';
 
 const originals = import.meta.glob<ImageMetadata>('/src/assets/photos/*.jpg', { eager: true, import: 'default' });
 
+type PhotoKind = 'photo' | 'official' | 'illustration';
+interface PhotoRecord {
+  id: string;
+  file: string;
+  kind?: PhotoKind;
+  width: number;
+  height: number;
+  alt: string;
+  caption: string;
+  title: string;
+  author: string;
+  sourceUrl: string;
+  license: string;
+  licenseUrl: string;
+  checkedAt: string;
+  capturedAt?: string;
+  permissionNote?: string;
+  generation?: { generatedAt: string; provider: string; promptSummary: string };
+}
+
+const registry: PhotoRecord[] = records as PhotoRecord[];
+
 export interface Photo {
   id: string;
+  kind: PhotoKind;
   src: string;
   srcSet: string;
   fallbackSrc: string;
@@ -26,6 +49,7 @@ export async function getPhoto(id: string): Promise<Photo> {
   if (!record) throw new Error(`Unregistered photo: ${id}`);
   const original = originals[`/src/assets/photos/${record.file}`];
   if (!original) throw new Error(`Missing photo original: ${record.file}`);
+  if (original.width !== record.width || original.height !== record.height) throw new Error(`Image dimensions differ from registry: ${record.file}`);
   const width = Math.min(1200, original.width);
   const [responsive, fallback, share] = await Promise.all([
     getImage({ src: original, width, widths: [400, 680, 800, 1200, 1600].filter(value => value <= original.width), format: 'webp', quality: 78 }),
@@ -33,7 +57,7 @@ export async function getPhoto(id: string): Promise<Photo> {
     getImage({ src: original, width: 1200, height: 630, fit: 'cover', position: 'center', format: 'jpeg', quality: 82 })
   ]);
   return {
-    id: record.id, src: responsive.src, srcSet: responsive.srcSet.attribute,
+    id: record.id, kind: record.kind ?? 'photo', src: responsive.src, srcSet: responsive.srcSet.attribute,
     fallbackSrc: fallback.src, width, height: Math.round(original.height * width / original.width),
     alt: record.alt, caption: record.caption, author: record.author,
     sourceUrl: record.sourceUrl, license: record.license, licenseUrl: record.licenseUrl,

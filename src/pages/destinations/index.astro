@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DestinationGrid from '../../components/DestinationGrid.astro';
+import { destinationArticles, destinationTopic, visibleArticles } from '../../lib/content';
+import { getArticlePhoto } from '../../lib/photos';
+import { SITE_NAME } from '../../lib/site';
+
+const articles = await visibleArticles();
+const destinations = destinationArticles(articles);
+const hero = destinations.find(({ article }) => article.data.slug === 'grand-canyon') ?? destinations[0];
+const heroPhoto = await getArticlePhoto(hero?.article.data.hero);
+---
+
+<BaseLayout title={`Explore U.S. destinations — ${SITE_NAME}`} description={destinationTopic.description} path={destinationTopic.href} noindex={destinations.length === 0}
+  socialImage={heroPhoto ? { ...heroPhoto.share, alt: heroPhoto.alt } : undefined}
+  breadcrumbs={[{ name: 'Home', url: '/' }, { name: 'Destinations', url: destinationTopic.href }]}>
+  <section class="container section-block destination-directory">
+    <div class="page-intro destination-intro">
+      <h1>Explore U.S. destinations</h1>
+      <p>{destinationTopic.description}</p>
+    </div>
+    {destinations.length > 0 ? <DestinationGrid articles={articles} filterable /> : <p>Browse the <a href="/guides/">travel guides</a> for places you can explore today.</p>}
+  </section>
+</BaseLayout>

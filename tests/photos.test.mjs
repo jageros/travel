@@ -1,58 +1,45 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { createHash } from 'node:crypto';
-import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import photos from '../src/data/photos.json' with { type: 'json' };
-import { isDay, readArticles, readJson, validateArticle } from '../scripts/content-lib.mjs';
+import { readArticles, readJson, validateArticle } from '../scripts/content-lib.mjs';
+import { validatePhotoRegistry } from '../scripts/photo-lib.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const expectedIds = ['city-cable-car', 'golden-gate', 'bart-train', 'muni-streetcar', 'sfo-bart'];
 const initialSlugs = ['san-francisco-without-a-car', 'sfo-to-fishermans-wharf-with-luggage', 'bart-vs-muni-clipper', 'is-muni-pass-worth-it', 'golden-gate-bridge-without-a-car'];
-const allowedLicenses = new Map([
-  ['CC0-1.0', '/publicdomain/zero/1.0/'],
-  ['CC-BY-4.0', '/licenses/by/4.0/'],
-  ['CC-BY-3.0', '/licenses/by/3.0/'],
-  ['CC-BY-2.0', '/licenses/by/2.0/'],
-  ['CC-BY-SA-4.0', '/licenses/by-sa/4.0/'],
-]);
+const destinationCovers = ['grand-canyon', 'yellowstone', 'yosemite', 'golden-gate', 'statue-of-liberty', 'national-mall', 'kennedy-space-center', 'balboa-park'];
 
-test('photo registry includes the five initial editorial photos with complete provenance', () => {
-  assert.ok(Array.isArray(photos));
-  for (const id of expectedIds) assert.ok(photos.some((photo) => photo.id === id), id);
-  assert.equal(new Set(photos.map((photo) => photo.id)).size, photos.length);
-  assert.equal(new Set(photos.map((photo) => photo.file)).size, photos.length);
-  for (const photo of photos) {
-    assert.match(photo.file, /^[a-z0-9]+(?:-[a-z0-9]+)*\.jpe?g$/, photo.id);
-    assert.equal(typeof photo.title, 'string');
-    assert.ok(photo.title.trim(), photo.id);
-    assert.equal(typeof photo.author, 'string');
-    assert.ok(photo.author.trim(), photo.id);
-    assert.ok(isDay(photo.checkedAt), photo.id);
-    const source = new URL(photo.sourceUrl);
-    assert.equal(source.protocol, 'https:', photo.id);
-    assert.equal(source.hostname, 'commons.wikimedia.org', photo.id);
-    assert.equal(source.username + source.password + source.port, '', photo.id);
-    assert.ok(source.pathname.startsWith('/wiki/File:'), photo.id);
-    const licensePath = allowedLicenses.get(photo.license);
-    assert.ok(licensePath, `${photo.id}: unsupported license ${photo.license}`);
-    const licenseUrl = new URL(photo.licenseUrl);
-    assert.equal(licenseUrl.protocol, 'https:', photo.id);
-    assert.equal(licenseUrl.hostname, 'creativecommons.org', photo.id);
-    assert.equal(licenseUrl.username + licenseUrl.password + licenseUrl.port, '', photo.id);
-    assert.equal(licenseUrl.pathname, licensePath, photo.id);
-  }
+test('registered local covers preserve initial images and have complete provenance and exact file hashes', async () => {
+  for (const id of [...new Set([...expectedIds, ...destinationCovers])]) assert.ok(photos.some(photo => photo.id === id), id);
+  assert.deepEqual(await validatePhotoRegistry(photos, { root }), []);
 });
 
-test('each original JPEG is present and matches its reviewed SHA-256', async () => {
-  for (const photo of photos) {
-    const bytes = await fs.readFile(path.join(root, 'src/assets/photos', photo.file));
-    assert.ok(bytes.length > 1000, photo.id);
-    assert.deepEqual([...bytes.subarray(0, 3)], [0xff, 0xd8, 0xff], `${photo.id}: original must be JPEG`);
-    assert.match(photo.sha256, /^[a-f0-9]{64}$/, photo.id);
-    assert.equal(createHash('sha256').update(bytes).digest('hex'), photo.sha256, photo.id);
-  }
+test('image validation rejects missing descriptions, altered bytes, unsafe sources and missing permission', async () => {
+  const sample = photos[0];
+  const invalid = { ...sample, alt: '', sha256: '0'.repeat(64), sourceUrl: 'https://localhost/photo', kind: 'official' };
+  const errors = await validatePhotoRegistry([invalid], { root });
+  assert.ok(errors.some(error => error.includes('alt is required')));
+  assert.ok(errors.some(error => error.includes('local image SHA-256 does not match')));
+  assert.ok(errors.some(error => error.includes('invalid image source')));
+  const official = { ...sample, kind: 'official', sourceUrl: 'https://www.nasa.gov/image/', permissionNote: 'Fixture permission statement' };
+  assert.deepEqual(await validatePhotoRegistry([official], { root }), []);
+  assert.ok((await validatePhotoRegistry([{ ...official, permissionNote: '' }], { root })).some(error => error.includes('invalid image source')));
+  const pexels = photos.find(photo => photo.id === 'balboa-park');
+  assert.ok((await validatePhotoRegistry([{ ...pexels, originalUrl: 'https://images.pexels.com/photos/1/pexels-photo-1.jpeg' }], { root }))
+    .some(error => error.includes('invalid image source')));
+});
+
+test('AI illustration requires the generation date, provider and prompt summary', async () => {
+  const illustration = {
+    ...photos[0],
+    kind: 'illustration',
+    generation: { generatedAt: '2026-10-20', provider: 'Fixture provider', promptSummary: 'A stitched map of mountains' },
+  };
+  assert.deepEqual(await validatePhotoRegistry([illustration], { root }), []);
+  assert.ok((await validatePhotoRegistry([{ ...illustration, generation: { ...illustration.generation, promptSummary: '' } }], { root }))
+    .some(error => error.includes('invalid image source')));
 });
 
 test('all five initial articles use registered photo IDs with no source overrides', async () => {
@@ -66,7 +53,7 @@ test('all five initial articles use registered photo IDs with no source override
 });
 
 test('article validation rejects unknown photos and metadata mixing while retaining licensed legacy heroes', async () => {
-  const [original] = await readArticles(root);
+  const original = (await readArticles(root)).find(article => article.data.slug === 'bart-vs-muni-clipper');
   const registry = await readJson(path.join(root, 'automation/sources.json'));
   const latestCheckedDay = [original.data.updatedAt, original.data.checkedAt, ...registry.sources.map((source) => source.checkedAt)].sort().at(-1);
   const now = new Date(`${latestCheckedDay}T12:00:00Z`);

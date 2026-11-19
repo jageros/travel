@@ -1,6 +1,6 @@
 # Cedar Trips
 
-A source-led English travel site for https://www.cedartrips.com. Astro generates readable static HTML; React progressively enhances guide search. No account, database or CMS is required.
+A guide to places worth visiting across the United States for https://www.cedartrips.com. Astro generates browseable static destination pages, with optional filtering and React-enhanced guide search.
 
 ## Continue this project on another computer
 
@@ -16,7 +16,7 @@ npm run verify
 CONTENT_REVIEW_PREVIEW=true npm run dev
 ```
 
-The local review site opens at `http://127.0.0.1:4321`. It includes editorial review copies, including the new waterfront itinerary. All preview pages are `noindex`, optional analytics/ads remain disabled, and review articles never enter the sitemap. To inspect generated output instead:
+The local review site opens at `http://127.0.0.1:4321` and includes editorial review copies. Preview pages use `noindex`, disable analytics and ads, and serve an empty sitemap. To inspect generated output instead:
 
 ```sh
 CONTENT_REVIEW_PREVIEW=true npm run build
@@ -24,15 +24,15 @@ CONTENT_REVIEW_PREVIEW=true npm run verify:build
 npm run preview
 ```
 
-A normal production build excludes draft/review articles. Automatic publication state and release records are in `automation/editorial.json`. The Codex scheduled task selects an eligible topic, generates a bounded Markdown draft with the current session model, verifies the site and commits the result to `main`. Official-source freshness, duplicate detection, fact expiry and build verification remain publication gates. Operational details are in [docs/automation.md](docs/automation.md).
+A production build includes published articles. The Codex scheduled task selects one eligible topic, publishes an existing review copy or drafts with the current session model, verifies the site, and commits the result to `main`. Official-source freshness, duplicate detection, fact expiry, image verification and the rolling release cap are release gates. Operational details are in [docs/automation.md](docs/automation.md).
 
 ## Site architecture
 
-- `/topics/{slug}/`: connected planning hub (initial topic: San Francisco without a car).
-- `/guides/{slug}/` and `/destinations/{slug}/`: source-linked Markdown articles.
+- `/destinations/` lists U.S. attractions with region and category filters. The first collection spans national parks, historic and city landmarks, science and space, and urban parks.
+- `/topics/` links themed collections, including the original [San Francisco topic](https://www.cedartrips.com/topics/san-francisco-without-a-car/). `/guides/{slug}/` and `/destinations/{slug}/` serve source-linked Markdown articles.
 - About, editorial policy, contact/corrections, privacy and advertising disclosures.
-- Per-page canonical, description, Open Graph images, safely escaped Article/Breadcrumb JSON-LD, robots, sitemap and a true 404.
-- Five real destination and transport photos with reviewed Commons source pages, creators, dates, licenses and original checksums in `src/data/photos.json`. Local JPEG originals in `src/assets/photos/` generate responsive WebP variants, JPEG fallbacks and per-page social previews at build time; no remote image requests are needed. Captions and `/photo-credits/` retain attribution, license and adaptation details. Legacy unverified hotlinks remain removed from the 100 research seeds.
+- Per-page canonical, description, Open Graph images, safely escaped Article, TouristAttraction and Breadcrumb JSON-LD, robots, sitemap and a true 404.
+- Local JPEGs generate responsive WebP variants, JPEG fallbacks and social crops. The image registry records creators, source and license evidence, and original and local checksums. Captions and `/photo-credits/` retain attribution and adaptation details. Any generated art carries an AI illustration label and a generation record.
 - A first-party pass comparison calculator uses reader-supplied current fares and paid fare windows; it does not invent ticket prices.
 - Optional current-fact panels use registered facts, source health and expiry. Precise claims are hidden by default in static HTML. A browser checks the date before revealing them and hides them at expiry; without JavaScript, readers get the official reference instead. Guide prose and links remain readable without JavaScript.
 - Internal Markdown links to unreleased guides degrade to readable text and become links once the destination is published. Related cards only include visible articles.

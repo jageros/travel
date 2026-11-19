@@ -1,6 +1,6 @@
 # Editorial automation operations
 
-The repository uses a Codex scheduled task in the current chat as the automatic publisher. Each run reads the registered official sources, imports the latest persisted Search Console opportunities, selects the next qualified topic, uses the current Codex model to draft one article, applies the content and source gates, verifies the production build, and commits the resulting state directly to `main`.
+The repository uses a Codex scheduled task in the current chat as the automatic publisher. Each run checks registered official sources, uses the persisted Search Console opportunities to choose one eligible brief, prepares or reuses its review article, verifies the production build, and commits the resulting state directly to `main`.
 
 The Codex task runs in the local project directory and does not require a model API key. A run that cannot produce a valid article records source health and failure details when verification passes. A run never commits an article that failed validation, duplicate checks, source freshness checks or build verification.
 
@@ -12,13 +12,15 @@ Use Node 24 and install the lockfile dependencies with `npm ci`.
 node scripts/validate-content.mjs
 node --test tests/automation.test.mjs
 node scripts/check-sources.mjs
-node scripts/content-pipeline.mjs --publish --automatic
+node scripts/content-pipeline.mjs --plan-session
+node scripts/content-pipeline.mjs --save-session-draft <slug> < /path/to/draft.json
+node scripts/content-pipeline.mjs --publish --automatic --slug <slug>
 node scripts/import-gsc.mjs /path/to/Queries.csv
 ```
 
-`content-pipeline.mjs --publish --automatic` validates and publishes a current-session-generated review article without an approval gate. The scheduled Codex task writes the article with its current model before invoking this command. The legacy `--draft` option still exists for compatibility and requires the separate `DRAFT_API_*` environment variables when used directly.
+The planning command refreshes official captures and returns `publish-review`, `draft`, or a hold reason. When it returns `draft`, pass a JSON object with exactly `title`, `description` and `body` to the draft command. The script assembles metadata from the selected brief and validates the article. The final command checks the sources again and attempts to release only the selected slug. The legacy `--draft` option is separate and requires its own `DRAFT_API_*` variables.
 
-The pipeline uses real Search Console imports only. `automation/gsc-opportunities.json` retains the source and observation window. Small or incomplete query samples are editorial signals, not invented demand estimates.
+Topic ranking uses exact query matches, then clicks, then impressions from matching real import rows. Ties and briefs without matching data use descending editorial priority and stable queue order. The current Search Console file is an older import. Query aliases identify an attraction's name or search intent and carry no traffic estimates.
 
 ## Source and fact gates
 
@@ -39,14 +41,14 @@ The Codex scheduled task runs daily at 09:15 Asia/Shanghai in the local project.
 
 1. Check the current `main` checkout and synchronize `origin/main`.
 2. Fetch registered official sources and rank ready topics with the persisted Search Console opportunities.
-3. Use the current Codex model to write one review article, then run `node scripts/content-pipeline.mjs --publish --automatic`.
+3. Use the command's selected slug. Reuse a validated review copy or draft with the current Codex model. An attraction brief locks its location, region, category, featured flag, cover ID, sources, facts and related articles. Release with `node scripts/content-pipeline.mjs --publish --automatic --slug <slug>`.
 4. Run the production `npm run verify` command. This covers content validation, Astro checks, tests, production build and static build verification.
 5. Commit the verified state and fetch `origin/main` again. The push stops if another commit advanced `main` while the task was running.
 6. Push the exact verified commit to `main`.
 
 GitHub branch protection can reject a direct push. The task treats that as a failed delivery and leaves the commit available in the local workspace for diagnosis. The repository must allow the local Git identity to write `main` before unattended publication can operate.
 
-The workflow uploads `automation/reports/`, `automation/review-queue.json` and `automation/source-health.json` as artifacts on every run. Reports do not become website content.
+The manual GitHub diagnostic workflow uploads `automation/reports/`, `automation/review-queue.json` and `automation/source-health.json` as artifacts. The Codex task keeps its raw captures in ignored local reports.
 
 ## Model configuration
 
@@ -54,9 +56,9 @@ The current Codex session supplies the model for scheduled runs. No `DRAFT_API_K
 
 ## Failure handling
 
-Publication is transactional at the article level. A draft is written only after the model response matches the expected shape and passes content, source, intent, duplicate and fact checks. Existing published Markdown is never overwritten by a failed draft or source check.
+A draft is written only after the model response matches the expected shape and passes content, source, intent, duplicate and fact checks. A failed draft or source check leaves existing published Markdown intact.
 
-The publication cap, if enabled in the ledger, is checked by `publicationDecision` before a status changes to `published`. The ledger records the exact content digest and publication timestamp for every release. The workflow does not fabricate approvals or transfer an old digest to a changed article.
+The rolling cap allows three releases per seven days across all topics. The initial U.S. attraction collection uses the existing Golden Gate Bridge page with an attraction introduction and seven additional review articles. The release task publishes one eligible article per run and records its exact digest and publication time.
 
 Search Console import, source monitoring, generated drafts and publication reports remain versioned only where they are editorial inputs or release state. Raw exports and oversized source snapshots stay in ignored artifacts. The current Search Console JSON is still a persisted import and requires a separate authorized sync if live click data is needed.
 

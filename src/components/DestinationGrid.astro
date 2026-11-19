@@ -1,0 +1,94 @@
+---
+import { articleHref, destinationArticles, destinationCategories, destinationPlace, type Article } from '../lib/content';
+import { getArticlePhoto } from '../lib/photos';
+
+interface Props {
+  articles: Article[];
+  filterable?: boolean;
+}
+
+const { articles, filterable = false } = Astro.props;
+const CardHeading = filterable ? 'h2' : 'h3';
+const destinations = destinationArticles(articles);
+const regions = [...new Set(destinations.map(({ details }) => details.region))].sort((a, b) => a.localeCompare(b, 'en-US'));
+const categories = Object.entries(destinationCategories).filter(([id]) => destinations.some(({ details }) => details.category === id));
+const cards = await Promise.all(destinations.map(async entry => {
+  const image = await getArticlePhoto(entry.article.data.hero);
+  const panorama = image && image.width / image.height > 2.25;
+  const sizes = panorama
+    ? `(max-width: 700px) calc(200vw - 72px), (max-width: 1000px) calc(100vw - 64px), ${filterable ? 760 : 560}px`
+    : `(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) calc((100vw - 64px) / 2), ${filterable ? 380 : 280}px`;
+  return { ...entry, image, sizes };
+}));
+---
+
+<div data-destination-directory>
+  {filterable && cards.length > 0 && <div class="destination-filters" data-destination-filters hidden>
+    <label>
+      <span>Region</span>
+      <select name="region" data-destination-filter="region">
+        <option value="">All regions</option>
+        {regions.map(region => <option value={region}>{region}</option>)}
+      </select>
+    </label>
+    <label>
+      <span>Category</span>
+      <select name="category" data-destination-filter="category">
+        <option value="">All categories</option>
+        {categories.map(([value, label]) => <option value={value}>{label}</option>)}
+      </select>
+    </label>
+    <p class="destination-count" data-destination-count aria-live="polite" aria-atomic="true">{cards.length} {cards.length === 1 ? 'destination' : 'destinations'}</p>
+  </div>}
+  <div class="cards-grid destination-grid">
+    {cards.map(({ article, details, image, sizes }) => <article class="destination-card" data-destination-card data-region={details.region} data-category={details.category}>
+      {image && <div class="destination-card-media">
+        <img src={image.src} srcset={image.srcSet} sizes={sizes} width={image.width} height={image.height} alt={image.alt} loading="lazy" decoding="async" />
+        {image.kind === 'illustration' && <span class="destination-artwork-label">AI illustration</span>}
+      </div>}
+      <div class="destination-card-body">
+        <p class="destination-card-location">{destinationPlace(details)} <span aria-hidden="true">·</span> {destinationCategories[details.category]}</p>
+        <CardHeading class="destination-card-title"><a href={articleHref(article)} data-analytics="internal-link">{details.title}</a></CardHeading>
+        <p class="destination-card-description">{details.reason}</p>
+        {image && <p class="destination-card-credit"><a href={`/photo-credits/#${image.id}`}>{image.kind === 'illustration' ? 'Illustration credits' : `Photo by ${image.author}`}</a></p>}
+      </div>
+    </article>)}
+  </div>
+  {filterable && cards.length > 0 && <div class="empty-state" data-destination-empty hidden>
+    <p>No destinations match these filters.</p>
+    <button class="button button-secondary" type="button" data-destination-reset>Show all destinations</button>
+  </div>}
+</div>
+
+<script>
+  for (const directory of document.querySelectorAll('[data-destination-directory]')) {
+    const filters = directory.querySelector<HTMLElement>('[data-destination-filters]');
+    const region = filters?.querySelector<HTMLSelectElement>('[data-destination-filter="region"]');
+    const category = filters?.querySelector<HTMLSelectElement>('[data-destination-filter="category"]');
+    const count = filters?.querySelector<HTMLElement>('[data-destination-count]');
+    const empty = directory.querySelector<HTMLElement>('[data-destination-empty]');
+    const reset = empty?.querySelector<HTMLButtonElement>('[data-destination-reset]');
+    if (!filters || !region || !category || !count || !empty) continue;
+
+    const cards = directory.querySelectorAll<HTMLElement>('[data-destination-card]');
+    const update = () => {
+      let visible = 0;
+      for (const card of cards) {
+        const matchesRegion = !region.value || card.dataset.region === region.value;
+        const matchesCategory = !category.value || card.dataset.category === category.value;
+        card.hidden = !(matchesRegion && matchesCategory);
+        if (!card.hidden) visible++;
+      }
+      count.textContent = `${visible} ${visible === 1 ? 'destination' : 'destinations'}`;
+      empty.hidden = visible > 0;
+    };
+    filters.hidden = false;
+    filters.addEventListener('change', update);
+    reset?.addEventListener('click', () => {
+      region.value = '';
+      category.value = '';
+      update();
+      region.focus();
+    });
+  }
+</script>

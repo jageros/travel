@@ -2,51 +2,29 @@
 
 计划维护日期：2026-11-19。以 **2026-10-20 首发**为经营起点；先重新核对 [当前交接](README.md) 中的日期快照。以下是计划，不能写成已经完成。
 
-## 当前执行顺序：自动发布机制
+## 首期美国景点
 
-当前会话自动发布改造已合并到 `main` 的 `d80a156`，首次运行已发布 `sf-cable-car-vs-historic-streetcar`。本地验证、GitHub `verify` 和 Cloudflare 生产 build 均成功，生产 HTTP 已核对。后续维护顺序如下。
+| 景点 | 首期内容 |
+| --- | --- |
+| Grand Canyon | 南缘观景与走一段 Rim Trail |
+| Yellowstone | Old Faithful 与上间歇泉盆地 |
+| Yosemite | 从山谷看花岗岩崖壁与瀑布 |
+| Golden Gate Bridge | 南端观景、工程展览和原无车攻略 |
+| Statue of Liberty | 自由岛、博物馆与登岛核对 |
+| National Mall | 纪念碑与博物馆之间如何选段 |
+| Kennedy Space Center | Atlantis、Apollo/Saturn V 和参观范围 |
+| Balboa Park | 植物建筑、庭院和博物馆 |
 
-1. 程序和 workflow 改动通过 PR #52 交付并合并，后续继续保持当前 main 的生产构建门禁。
-2. 继续保持 scheduled task 的本地项目、官方来源和 GitHub 写入链路，遇到 BART/Clipper HTTP 403 时保持来源阻塞。
-3. 首次运行结果已记录在 source snapshot、pipeline report、队列和 `d80a156`。来源 changed 或 unavailable 只有在 evidence 全部存在且没有人工事实时自动推进，其他项目保持 hold。
-4. `d80a156` 已通过 Cloudflare 生产 build，首页、sitemap、新文章和未知路径的 HTTP 状态已核对；canonical、JSON-LD 和 sitemap 内容继续随下一轮发布复核。
-5. 后续运行按真实导入的 Search Console 数据为 `ready` 主题排序，每次最多生成和发布一篇，并继续执行七天三篇配额、来源新鲜度、事实有效期、重复和构建门禁。
+1. 根据实时官方来源和滚动七天三篇配额，按近期真实匹配搜索信号与编辑优先级各轮发布一篇。首期未匹配到现有 Search Console 导入数据时，按编辑优先级由 Grand Canyon 开始。
+2. 每次直推后核对对应提交的 CI、Cloudflare 生产构建、景点页、canonical、sitemap，新页应先取得实际 HTTP 200 再记录上线。
+3. 首期覆盖五类景点。下一批补充目前样本稀少的美国州与地区，每个新景点先登记官方来源、可复查事实和本地授权照片。
+4. 照片许可、证据、动态事实或构建未通过时保留阻塞。新稿不能顶替历史发布记录。现有 Search Console 导入是历史数据，当前仍依赖真实 CSV 获取新观测。
 
-Search Console 自动选题目前使用版本库中的真实导入 JSON。要获取新的点击数据，仍需通过授权流程导入新的 Queries CSV；仓库没有自行登录 Search Console 的凭证或 API 集成。
+## 旧金山专题维护
 
-## 第一优先：来源阻塞和当前部署
-
-1. 读取最新 main、editorial run、source snapshots、待审队列和对应部署，确认自动任务是否已跑。不要重复 dispatch 或将旧失败再次当成故障。
-2. 让自动 workflow 逐项读取当前 changed 来源的完整捕获，比较登记 evidence 和受影响事实。哈希变化只有在抓取成功、evidence 全部存在且来源没有人工事实时自动推进；其他情况记录具体阻塞。
-3. 保留逐项事实—来源—捕获 hash—检查日期—影响—处理结果的报告。事实冲突、不可用、人工来源过期保持 hold，不自动续期。
-4. 尤其处理 `sfmta-f-line`：它直接影响已有 SFO、滨水区内容和下一篇候选。生产精确信息按现有健康机制抑制；不要在没有证据时宣称停运或改价，也不盲目覆盖已发布正文。
-5. 实际验证最新 Cloudflare 活动版本与合并 SHA；至少抽查一篇正式指南的官方事实、内链、照片许可、HTTP、canonical、sitemap、未知 404。只读抓取不制造 GA 自然流量。
-
-验收：当前来源报告与自动处置有可追溯记录，未通过 evidence 门禁的 hash 继续阻塞；实际部署证据与当前 main 对齐。
-
-## 第二优先：交付已有 review 成果，继续约十三篇的主题集
-
-先处理 [pending](pending/README.md) 的 cable car / historic streetcar review 与查询词 JSON：
-
-- 从最新 main 取得候选文本；检查目标文章/数据是否已被自动流程提交，避免覆盖。
-- 按当前官方来源和事实门禁生成或修订稿件，检查与 Muni 通票、BART/Muni 和滨水区现有页的独立增量。自动稿保留精确 digest，发布前重新计算。
-- 仅在不存在更新的真实导出时采用保存的 10 条查询词；新导出优先，保留日期范围。搜索信号很小，不据此声称竞争低或有稳定需求。
-- 重新跑内容、类型、测试、双构建；自动 workflow 在生产验证通过后提交 `main`，不能引用 11 月 2 日本地检查代替远端结果。
-- 来源、事实有效期、质量、重复和滚动配额都过关后自动发布；发布后检查生产正文、内链和 sitemap，不手改 status。
-
-当前 6 篇 + 下列 7 个独立简报 = 约 13 篇潜在主题集；`ready` 仅说明简报存在，不能覆盖来源门禁：
-
-| 简报 slug | 独立读者任务 | 眼前限制 |
-| --- | --- | --- |
-| `sf-cable-car-vs-historic-streetcar` | 识别想乘的车辆、匹配目的地与上车点 | 已准备 review 文本；F-line 来源 changed |
-| `sf-waterfront-step-free-transit-planning` | 按上下车站、方向和临时站点逐段核对无台阶行程 | 不承诺端到端 accessible；部分来源 changed |
-| `sf-transit-with-children-fare-planning` | 分别核对 BART/Muni 的儿童/青少年资格与证明 | 核对当前官方年龄/身份要求，避免成人公式套全家 |
-| `sfo-late-arrival-transit-fallbacks` | 晚到机场时验证末班连接及官方替代上车区 | 不给未经核验的末班时刻或车价；多项 BART 来源 changed |
-| `sf-contactless-transit-payment-declined` | 支付被拒时按官方步骤排查并找站务协助 | 区别设备/卡身份、发行行 hold；部分来源 changed |
-| `sausalito-without-car-return-ferry-or-bus` | 出发前比较渡轮与公交返程 | 两条人工事实已过期；必须重新操作官方方向/日期控件核验 |
-| `sf-transit-disruption-backup-plan` | 用官方公告和 planner 修订中断后的行程 | 当前多个公告/planner 来源 changed，先审来源 |
-
-`sf-airport-arrival-checklist`、`golden-gate-bridge-transit-checklist`、`sf-adult-group-contactless-payments` 三个重叠简报继续 `needs-editorial-assessment`，优先并入已有答案，不为了数量另发相似页面。新内容继续使用决策表、比较/计算示例、下一步内链和许可明确的真实照片；不虚构亲历。
+- 保留全部七个既有页面和历史 digest。Golden Gate Bridge 原 URL 同时出现在景点和旧金山专题。
+- 维护 [待办简报](../../automation/topics.json) 里的交通补充选题。BART 和 Clipper 的 HTTP 403、Sausalito 过期人工事实及来源冲突分别按实际原因阻塞。持久化新抓取的基线只使用已登记证据。
+- 避免用已发布的 cable car 与 F-line 比较重复建页。保留 [历史候选](pending/README.md) 作为当时材料。
 
 ## 每周：用同口径数据改进内容
 

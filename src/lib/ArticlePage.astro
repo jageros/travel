@@ -2,41 +2,81 @@
 import { render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Card from '../components/Card.astro';
+import ArticleFactPanel from '../components/ArticleFactPanel.astro';
 import AdSlot from '../components/AdSlot.astro';
 import FareCalculator from '../components/FareCalculator';
 import Photo from '../components/Photo.astro';
 import { getArticlePhoto } from './photos';
-import { type Article, articleHref, visibleArticles, formatDate, topic } from './content';
+import { type Article, articleHref, visibleArticles, formatDate, getTopic, destinationTopic, destinationDetails, destinationPlace, destinationCategories, attractionHighlights } from './content';
 import { articleSources, articleFacts } from './sources';
 import { SITE_URL, SITE_NAME, SITE_EDITORIAL_TEAM } from './site';
 interface Props { article: Article }
 const {article}=Astro.props;
 const {Content,headings}=await render(article);
-const sources=articleSources(article.data.sources);
+const destination = destinationDetails(article);
+const highlights = attractionHighlights(article);
+const topic = destination ? destinationTopic : getTopic(article.data.topic);
+const sources = articleSources([...new Set([...article.data.sources, ...(highlights?.sources ?? [])])]);
 const facts=articleFacts(article.data.facts);
 const related=(await visibleArticles()).filter(item=>article.data.related.includes(item.data.slug));
 const heroPhoto = await getArticlePhoto(article.data.hero);
+const destinationHeroSizes = heroPhoto && heroPhoto.width / heroPhoto.height > 2.25
+  ? '(max-width: 700px) calc(200vw - 72px), (max-width: 1000px) 130vw, 1600px'
+  : '(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) calc(100vw - 44px), 1180px';
 const legacyHero = article.data.hero && 'src' in article.data.hero ? article.data.hero : undefined;
 const relatedCards = await Promise.all(related.map(async item=>({article:item,image:await getArticlePhoto(item.data.hero)})));
 const path=articleHref(article);
 const isPublished=article.data.status==='published';
+const canonical = new URL(path, SITE_URL).href;
+const place = isPublished && destination ? {
+  '@type': 'TouristAttraction',
+  '@id': `${canonical}#attraction`,
+  url: canonical,
+  name: destination.title,
+  description: destination.reason,
+  ...(heroPhoto && heroPhoto.kind !== 'illustration' ? { image: new URL(heroPhoto.share.src, SITE_URL).href } : {}),
+  address: { '@type': 'PostalAddress', addressLocality: destination.location, addressRegion: destination.region, addressCountry: 'US' },
+} : undefined;
 const articleData=isPublished?{
   '@context':'https://schema.org','@type':'Article',headline:article.data.title,description:article.data.description,
-  datePublished:article.data.publishedAt,dateModified:article.data.updatedAt,
+  datePublished:article.data.publishedAt,dateModified:highlights?.checkedAt ?? article.data.updatedAt,
   author:{'@type':'Organization',name:SITE_EDITORIAL_TEAM,url:`${SITE_URL}/editorial-policy/`},
   publisher:{'@type':'Organization',name:SITE_NAME,url:SITE_URL},
-  mainEntityOfPage:`${SITE_URL}${path}`,
+  mainEntityOfPage:canonical,
+  ...(place ? { about: { '@id': place['@id'] } } : {}),
   ...(heroPhoto?{image:new URL(heroPhoto.share.src,SITE_URL).href}:legacyHero?{image:new URL(legacyHero.src,SITE_URL).href}:{})
 }:undefined;
 ---
-<BaseLayout title={`${article.data.title} — ${SITE_NAME}`} description={article.data.description} path={path} noindex={!isPublished} article={articleData} socialImage={heroPhoto?{...heroPhoto.share,alt:heroPhoto.alt}:undefined} breadcrumbs={[{name:'Home',url:'/'},{name:topic.title,url:`/topics/${article.data.topic}/`},{name:article.data.title,url:path}]}>
-<article class="container article-shell">
-  <header class="article-header"><a class="eyebrow" href={`/topics/${article.data.topic}/`}>{topic.title}</a><h1>{article.data.title}</h1><p class="article-deck">{article.data.description}</p><div class="article-meta"><a href="/editorial-policy/">{SITE_EDITORIAL_TEAM}</a><span>Sources checked {formatDate(article.data.checkedAt)}</span></div>{!isPublished&&<aside class="notice review-notice"><strong>Editorial review copy</strong><p>This draft is provided for review. It is excluded from the public sitemap and search indexing.</p></aside>}</header>
-  <aside class="article-sidebar" aria-label="On this page"><p class="eyebrow">On this page</p><nav><ul>{headings.filter(heading=>heading.depth===2).map(heading=><li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}<li><a href="#official-sources">Official sources</a></li></ul></nav><p class="source-note">Transport services and ticket rules can change. Check the linked operator before travelling.</p></aside>
+<BaseLayout title={`${article.data.title} — ${SITE_NAME}`} description={destination?.reason ?? article.data.description} path={path} noindex={!isPublished} article={articleData} place={place} socialImage={heroPhoto?{...heroPhoto.share,alt:heroPhoto.alt}:undefined} breadcrumbs={[{name:'Home',url:'/'},{name:topic.title,url:topic.href},{name:destination?.title ?? article.data.title,url:path}]}>
+<article class:list={['container article-shell', { 'destination-article': destination }]}>
+  <header class="article-header">
+    <a class="eyebrow" href={topic.href}>{topic.title}</a>
+    <h1>{article.data.title}</h1>
+    <p class="article-deck">{destination?.reason ?? article.data.description}</p>
+    <div class="article-meta">
+      {destination && <strong>{destinationPlace(destination)} <span aria-hidden="true">·</span> {destinationCategories[destination.category]}</strong>}
+      <a href="/editorial-policy/">{SITE_EDITORIAL_TEAM}</a>
+      <span>Sources checked {formatDate(highlights?.checkedAt ?? article.data.checkedAt)}</span>
+    </div>
+    {!isPublished && <aside class="notice review-notice"><strong>Editorial review copy</strong><p>This draft is provided for review. It is excluded from the public sitemap and search indexing.</p></aside>}
+    {destination && heroPhoto && <Photo photo={heroPhoto} priority sizes={destinationHeroSizes} class="article-figure destination-figure" />}
+  </header>
+  <aside class="article-sidebar" aria-label="On this page"><p class="eyebrow">On this page</p><nav><ul>
+    {highlights ? <>
+      {highlights.sections.map(({ heading }, index) => <li><a href={`#visit-${index + 1}`}>{heading}</a></li>)}
+      <li><a href="#car-free-planning">Plan a car-free visit</a></li>
+    </> : headings.filter(heading => heading.depth === 2).map(heading => <li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}
+    <li><a href="#official-sources">Official sources</a></li>
+  </ul></nav></aside>
   <div class="article-body">
-    {heroPhoto?<Photo photo={heroPhoto} priority sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) 70vw, 740px" caption class="article-figure"/>:legacyHero&&<figure class="article-figure"><img src={legacyHero.src} alt={legacyHero.alt} width="800" height="800" fetchpriority="high"/><figcaption>Illustration: {legacyHero.credit} · {legacyHero.license}</figcaption></figure>}
-    {facts.length>0&&<section class="fact-panel" aria-label="Source-checked facts"><p class="eyebrow">Check the details</p><h2>Source notes for this guide</h2><ul>{facts.map(({fact,source,status})=><li>{status==='current'&&<div data-current-fact data-fact-checked={fact.checkedAt} data-fact-expires={fact.expiresAt||''} hidden><p>{fact.statement}</p><small>Checked {formatDate(fact.checkedAt)}{fact.expiresAt&&` · Recheck by ${formatDate(fact.expiresAt)}`}</small></div>}<p data-fact-fallback>This detail needs a fresh check before you rely on it. Consult the operator for its current rules.</p><a href={source.url} rel="noopener">{source.publisher}: {source.title} ↗</a></li>)}</ul></section>}
+    {!destination && (heroPhoto ? <Photo photo={heroPhoto} priority sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) 70vw, 740px" class="article-figure" /> : legacyHero && <figure class="article-figure"><img src={legacyHero.src} alt={legacyHero.alt} width="800" height="800" fetchpriority="high"/><figcaption>Illustration: {legacyHero.credit} · {legacyHero.license}</figcaption></figure>)}
+    {!destination && <ArticleFactPanel facts={facts} title="Source notes for this guide" />}
+    {highlights && <div class="prose">
+      {highlights.sections.map(({ heading, text }, index) => <section id={`visit-${index + 1}`}><h2>{heading}</h2><p>{text}</p></section>)}
+      <h2 id="car-free-planning">Plan a car-free visit</h2>
+    </div>}
     <div class="prose"><Content/></div>
+    {destination && <ArticleFactPanel facts={facts} title="Check current visitor details" />}
     {article.data.slug==='is-muni-pass-worth-it'&&<FareCalculator client:load/>}
     {isPublished&&<AdSlot position="endArticle"/>}
     <section id="official-sources" class="official-sources"><p class="eyebrow">Go to the source</p><h2>Official references</h2><ul class="sources-list">{sources.map(source=><li><a href={source.url} rel="noopener">{source.title} ↗</a><span>{source.publisher} · Checked {formatDate(source.checkedAt)}</span></li>)}</ul><p class="source-note">This guide is research based, rather than a claim of firsthand testing. <a href="/editorial-policy/">Read our editorial method</a> or <a href="/contact/">report a correction</a>.</p></section>

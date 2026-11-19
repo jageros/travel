@@ -4,14 +4,17 @@
 
 ## 当前代码工作区
 
-- 当前本地 `main` 和 `origin/main` 已同步到 `d80a156`。当前会话 scheduled task 首次自动发布了 `sf-cable-car-vs-historic-streetcar`，文章状态、发布账本和来源状态均随该提交写入 `main`。
+- 本轮景点改版从 `main` 的 `f3f6718` 开始。首次由当前会话自动发布的旧金山文章记录在 `d80a156`，该提交及历史备查证据仍见下文。
+- 景点改版将 `/destinations/` 设为首页主入口，增加地区与类别筛选；七篇新景点稿备在内容目录，已有的 Golden Gate Bridge 页面在原路径加入景点亮点。首批名单见 [后续计划](roadmap.md)。
+- 首批八个景点都有已核实许可的真实封面，新增七张本地照片来自 Wikimedia Commons 和 Pexels。来源登记新增 27 个官方页面，隔离实测均通过，九个既有 BART/Clipper 403 继续标记为 unavailable。
+- 在隔离副本用当前 Search Console JSON 和实时来源运行发布选择，选中 Grand Canyon 并通过限定 slug 的发布门禁，验证账本指纹与实际稿件一致。本条记录是隔离验收；正式发布以 `automation/editorial.json`、远端提交及对应 HTTP 检查为准。
+- 本地景点改版验证通过，内容 14 篇，Astro 零诊断，142 项测试，生产输出 19 页、预览输出 26 页。Chrome 核对了桌面与 393px 布局、八张封面裁切和署名，以及地区与类别的组合筛选、空结果与重置。
 - 当前 Codex 会话已启用名为 `cedar-trips` 的每日 scheduled task。它在本地 `main` 上抓取登记的官方来源，按已导入的 Search Console 机会给 `ready` 主题排序，使用当前会话模型生成一篇合规 Markdown，运行生产验证，并在成功后直接提交 `main`。`automation/editorial.json` 已设为 `requiredManualApprovals: 0` 和 `fullyAutomatic: true`。
 - changed 来源只有在抓取成功、所有登记 evidence 片段仍存在且来源没有人工事实时自动推进 baseline 和证据日期。缺失 evidence、人工事实、不可用来源、过期事实、重复或质量失败会留在队列中，等待下一次自动运行。
-- 本次本地验证通过。内容校验 7 篇，Astro 检查 60 文件零诊断，138/138 测试，生产构建 18 页和 `verify-build` 均通过。合并提交 `d80a156` 的 `verify` run [44446625851](https://github.com/jageros/travel/actions/runs/44446625851) 与 Cloudflare Workers 生产 build [12e7c353-e5cb-43ee-b336-8939bc7e7717](https://dash.cloudflare.com/34d77ab5bdb83622d58fe9ff1ac1b695/workers/services/view/cedar-trips/production/builds/12e7c353-e5cb-43ee-b336-8939bc7e7717) 均成功。
-- 本次 source report 捕获于 `2026-11-19T02:34:04.369Z`，20 个来源 unchanged、9 个来源因官方站点 HTTP 403 unavailable、0 个 evidence conflict。BART 与 Clipper 的 403 来源继续阻塞依赖它们的选题。当前 Search Console JSON 仍是 10 月 19–30 日的历史导入，不能当作新的实时窗口。
-- 本次生产只读 HTTP 检查得到首页 200、sitemap 200、新文章 `/guides/sf-cable-car-vs-historic-streetcar/` 200、未知路径 404。新文章正文已在正式站点可见。
+- 首次旧金山自动发布快照，内容校验 7 篇，Astro 60 个文件零诊断，138 项测试，生产构建 18 页。提交 `d80a156` 的 [GitHub 验证](https://github.com/jageros/travel/actions/runs/44446625851)和生产构建成功，首页、sitemap、文章页返回 200，未知路径返回 404。
+- 首次旧金山自动发布的来源报告捕获于 `2026-11-19T02:34:04.369Z`。当时 20 个来源基线匹配，9 个 BART/Clipper 来源返回 403，证据冲突为零。搜索数据仍是历史导入。
 
-本节描述的是当前已提交的自动发布机制。首次 scheduled task 已成功发布一篇文章，当前 Search Console 数据仍是历史导入，9 个 BART/Clipper 来源因 HTTP 403 保持阻塞。
+接续时先核对当前远端 SHA、账本与实际部署。部署与内容提交分别验收。
 
 ## 历史快照：2026-11-05
 

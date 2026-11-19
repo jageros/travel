@@ -1,0 +1,31 @@
+{
+  "slug": "golden-gate-bridge-without-a-car",
+  "title": "Golden Gate Bridge",
+  "region": "California",
+  "location": "San Francisco",
+  "category": "landmarks",
+  "featured": true,
+  "reason": "Frame the bridge and the headlands from the south end, then choose a viewpoint, a walk or a stop at the engineering exhibits.",
+  "checkedAt": "2026-11-19",
+  "sources": [
+    "golden-gate-visit"
+  ],
+  "sections": [
+    {
+      "heading": "Why this place is worth visiting",
+      "text": "From the south end, the bridge gives the bay a sense of scale. Follow the suspension cables from the deck to the towers and look toward the headlands behind them. Fog and sun can change which parts of the scene stand out, so give yourself time at the viewpoint before deciding whether to walk farther."
+    },
+    {
+      "heading": "What to see",
+      "text": "Begin around the south visitor area and look over the span from the plaza. The bridge district describes exhibits around its Welcome Center on the history, science and engineering of the crossing. Look for the test tower while learning how the full-size structure came together."
+    },
+    {
+      "heading": "Who it suits",
+      "text": "Choose a viewpoint-centered visit if photography, engineering or a shorter outing is your priority. If the walk itself is what you came for, decide whether an out-and-back or a crossing fits the people in your group. The transport guide below helps you plan each option."
+    },
+    {
+      "heading": "What to check before going",
+      "text": "Check the bridge district’s current pedestrian access notices and the exact approach to your chosen stop. If you’re walking farther, save a turnaround point and confirm the return journey before leaving the visitor area."
+    }
+  ]
+}
