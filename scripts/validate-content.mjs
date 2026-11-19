@@ -9,10 +9,12 @@ export async function validateContent(root, { now = new Date() } = {}) {
   const articles = await readArticles(root);
   const errors = [];
   const photosFile = 'src/data/photos.json';
-  const photoProblems = await validatePhotoRegistry(await readJson(path.join(root, photosFile)), { root });
+  const photos = await readJson(path.join(root, photosFile));
+  const photoProblems = await validatePhotoRegistry(photos, { root });
   if (photoProblems.length) errors.push({ file: photosFile, errors: photoProblems });
+  const registeredPhotoIds = new Set(Array.isArray(photos) ? photos.map(photo => photo?.id) : []);
   for (const article of articles) {
-    const problems = validateArticle(article, registry, { now });
+    const problems = validateArticle(article, registry, { now, registeredPhotoIds });
     const duplicates = findDuplicates(article, articles);
     if (duplicates.length) problems.push(`Duplicate intent or content: ${duplicates.join(', ')}`);
     if (problems.length) errors.push({ file: article.file, errors: problems });

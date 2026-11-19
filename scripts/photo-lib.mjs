@@ -32,6 +32,11 @@ function publicHttps(value) {
   }
 }
 
+export function creativeCommonsLicenseUrl(license) {
+  const pathname = creativeCommons.get(license);
+  return pathname ? `https://creativecommons.org${pathname}` : null;
+}
+
 function validProvenance(record) {
   const kind = record.kind ?? 'photo';
   const source = publicHttps(record.sourceUrl);

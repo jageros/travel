@@ -122,7 +122,7 @@ export function validateMarkdownLinks(body, allowedHosts) {
   return [...new Set(errors)];
 }
 
-export function validateDestinationMetadata(data) {
+export function validateDestinationMetadata(data, { registeredPhotoIds = photoIds } = {}) {
   if (data.topic !== 'us-destinations') return [];
   const errors = [];
   if (data.type !== 'destination') errors.push('A U.S. attraction must be a destination');
@@ -130,13 +130,13 @@ export function validateDestinationMetadata(data) {
   if (typeof data.location !== 'string' || !data.location.trim() || data.location !== data.location.trim() || data.location.length > 100) errors.push('A U.S. destination requires a location');
   if (typeof data.category !== 'string' || !Object.hasOwn(destinationCategories, data.category)) errors.push('A U.S. destination requires a registered category');
   if (typeof data.featured !== 'boolean') errors.push('A U.S. destination requires a featured flag');
-  if (!data.hero || typeof data.hero !== 'object' || Object.keys(data.hero).length !== 1 || !photoIds.has(data.hero.photoId)) errors.push('A U.S. destination requires a registered cover photo or illustration');
+  if (!data.hero || typeof data.hero !== 'object' || Object.keys(data.hero).length !== 1 || !registeredPhotoIds.has(data.hero.photoId)) errors.push('A U.S. destination requires a registered cover photo or illustration');
   return errors;
 }
 
-export function validateArticle(article, registry, { now = new Date(), publishing = false, sourceReport } = {}) {
+export function validateArticle(article, registry, { now = new Date(), publishing = false, sourceReport, registeredPhotoIds = photoIds } = {}) {
   const { data, body } = article;
-  const errors = validateDestinationMetadata(data);
+  const errors = validateDestinationMetadata(data, { registeredPhotoIds });
   for (const field of Object.keys(data)) if (!allowedFields.has(field)) errors.push(`Unknown frontmatter field: ${field}`);
   for (const key of ['title', 'description', 'primaryIntent']) if (typeof data[key] !== 'string' || !data[key].trim()) errors.push(`${key} is required`);
   for (const key of ['slug', 'topic']) if (!isSlug(data[key])) errors.push(`Invalid ${key}`);
@@ -192,7 +192,7 @@ export function validateArticle(article, registry, { now = new Date(), publishin
     const hero = data.hero;
     if (!hero || typeof hero !== 'object' || Array.isArray(hero)) errors.push('Hero must reference a registered photo or licensed local image');
     else if (Object.hasOwn(hero, 'photoId')) {
-      if (Object.keys(hero).length !== 1 || typeof hero.photoId !== 'string' || !photoIds.has(hero.photoId)) errors.push('Hero photoId must reference a registered photo without legacy fields');
+      if (Object.keys(hero).length !== 1 || typeof hero.photoId !== 'string' || !registeredPhotoIds.has(hero.photoId)) errors.push('Hero photoId must reference a registered photo without legacy fields');
     } else if (Object.keys(hero).some((key) => !['src', 'alt', 'credit', 'license'].includes(key)) || !/^\/images\/[a-zA-Z0-9/_-]+\.(?:svg|png|webp|jpe?g|avif)$/.test(hero.src ?? '') || ['alt', 'credit', 'license'].some((key) => typeof hero[key] !== 'string' || !hero[key].trim())) errors.push('Hero must use a local image with alt, credit, and license');
   }
   return errors;

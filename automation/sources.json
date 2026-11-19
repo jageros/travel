@@ -1071,6 +1071,93 @@
         }
       ],
       "contentHash": "0aa04dbd7c1f390cb0617968218f54308aeb6d2da4c9daa76bac901369c17f9d"
+    },
+    {
+      "id": "acadia-national-park-overview",
+      "url": "https://www.nps.gov/acad/index.htm",
+      "title": "Acadia National Park overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "contentHash": "4b7116f6a347ff8f27f70900b176f10216e2f553e737b2fcf4bd88183e2705cd",
+      "facts": [
+        {
+          "id": "acadia-national-park-overview-fact-1",
+          "statement": "The park highlights the heritage and continuing presence of the Wabanaki Nations as part of understanding Acadia.",
+          "evidence": "heritage, culture, and continuing presence of tribes known collectively as Wabanaki",
+          "checkedAt": "2026-11-19",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "acadia-national-park-visit",
+      "url": "https://www.nps.gov/acad/planyourvisit/index.htm",
+      "title": "Acadia National Park visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "contentHash": "6427ecffa0ae7fbc76d5d7ef8a255a0ece19cfbd700c42b52cdc690c914e067e",
+      "facts": [
+        {
+          "id": "acadia-national-park-visit-fact-1",
+          "statement": "Before traveling, use Acadia's official alerts for current road, facility and program closures or advisories.",
+          "evidence": "Find a current listing of alerts, advisories, and closures for park roads, facilities, and programs.",
+          "checkedAt": "2026-11-19",
+          "dynamic": true,
+          "expiresAt": "2026-11-26"
+        }
+      ]
+    },
+    {
+      "id": "acadia-national-park-highlights",
+      "url": "https://www.nps.gov/acad/planyourvisit/placestogo.htm",
+      "title": "Acadia National Park highlights",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "contentHash": "4e85a98fe118a13e5f84dd74bd134cb759a1c6feaead37eea65c21375cd02461",
+      "facts": [
+        {
+          "id": "acadia-national-park-highlights-fact-1",
+          "statement": "Acadia's guide to Park Loop Road lists Sand Beach, Thunder Hole and Otter Cliffs among its highlights on Mount Desert Island.",
+          "evidence": "Sieur de Monts, Sand Beach, Thunder Hole, Otter Cliffs, Jordan Pond, and Cadillac Mountain",
+          "checkedAt": "2026-11-19",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "hot-springs-national-park-overview",
+      "url": "https://www.nps.gov/hosp/index.htm",
+      "title": "Hot Springs National Park overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "contentHash": "dfb013ed507ac6abef218391b25c440975d46a44cb7d0bad6b3361c5d9049b57",
+      "facts": [
+        {
+          "id": "hot-springs-national-park-overview-fact-1",
+          "statement": "Bathhouse Row preserves the historic bathhouses that are central to a visit to this park.",
+          "evidence": "Bathhouse Row is home to the Park's historic bathhouses.",
+          "checkedAt": "2026-11-19",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "hot-springs-national-park-visit",
+      "url": "https://www.nps.gov/hosp/planyourvisit/index.htm",
+      "title": "Hot Springs National Park visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-19",
+      "contentHash": "0d2d70c24d800ccff16f2d66f3b912992f4e8bd19452d0a2fd0b4b7943f1c68f",
+      "facts": [
+        {
+          "id": "hot-springs-national-park-visit-fact-1",
+          "statement": "The park's current visitor guidance does not allow outdoor soaking in its thermal springs.",
+          "evidence": "There are no opportunities to soak in the thermal springs outdoors.",
+          "checkedAt": "2026-11-19",
+          "dynamic": true,
+          "expiresAt": "2026-11-26"
+        }
+      ]
     }
   ]
 }
