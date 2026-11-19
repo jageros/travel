@@ -88,6 +88,12 @@
       "publishedAt": "2026-11-19T09:12:56.575Z",
       "contentSha256": "ce5253128ab86a02fe8f5a287ee59aacbc4a2b2dd473d41068c411cf5630b8c6",
       "manualApproval": false
+    },
+    {
+      "slug": "yellowstone",
+      "publishedAt": "2026-11-19T09:29:28.275Z",
+      "contentSha256": "ca7deca39ba65e6f918d4f19c0b24c2ab5842fcda292a793360b41918ae3d12b",
+      "manualApproval": false
     }
   ]
 }
