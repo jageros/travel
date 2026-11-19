@@ -578,6 +578,64 @@
         "san-francisco-without-a-car",
         "sf-waterfront-transit-itinerary"
       ]
+    },
+    {
+      "slug": "acadia-national-park",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "How can I plan a first visit to Acadia's rocky coast from Sand Beach along Ocean Path?",
+      "brief": "Give first-time visitors a flexible coastal outing on Mount Desert Island with Sand Beach, Thunder Hole, and an optional extension toward Otter Cliffs. Explain the contrast between the beach cove and exposed granite shore, point out when to turn back, and direct readers to official alerts, access and safety information.",
+      "sources": [
+        "acadia-national-park-overview",
+        "acadia-national-park-visit",
+        "acadia-national-park-highlights"
+      ],
+      "facts": [
+        "acadia-national-park-overview-fact-1",
+        "acadia-national-park-visit-fact-1",
+        "acadia-national-park-highlights-fact-1"
+      ],
+      "related": [],
+      "region": "Maine",
+      "location": "Mount Desert Island",
+      "category": "national-parks",
+      "featured": false,
+      "hero": {
+        "photoId": "acadia-national-park"
+      },
+      "queryAliases": [
+        "Acadia National Park"
+      ],
+      "priority": 0
+    },
+    {
+      "slug": "hot-springs-national-park",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "Can I combine Bathhouse Row and the Grand Promenade on a first visit to Hot Springs National Park?",
+      "brief": "Help a first-time visitor combine the historic bathhouses on Central Avenue with a short Grand Promenade outing. Treat the Fordyce museum as conditional on access, explain street-to-hillside approaches, and distinguish seeing thermal springs from arranging an operated bath.",
+      "sources": [
+        "hot-springs-national-park-overview",
+        "hot-springs-national-park-visit"
+      ],
+      "facts": [
+        "hot-springs-national-park-overview-fact-1",
+        "hot-springs-national-park-visit-fact-1"
+      ],
+      "related": [],
+      "region": "Arkansas",
+      "location": "Hot Springs",
+      "category": "national-parks",
+      "featured": false,
+      "hero": {
+        "photoId": "hot-springs-national-park"
+      },
+      "queryAliases": [
+        "Hot Springs National Park"
+      ],
+      "priority": 0
     }
   ]
 }

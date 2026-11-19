@@ -26,6 +26,8 @@ npm run preview
 
 A production build includes published articles. The Codex scheduled task publishes one to three eligible articles each Beijing calendar day when enough are available. It selects each topic in turn, uses an existing review copy or drafts with the current session model, verifies the site, and commits the result to `main`. Official-source freshness, duplicate detection, fact expiry, image verification, and the daily release cap apply to every article. [Editorial automation](docs/automation.md).
 
+When the U.S. destination queue falls below six usable review drafts, the scheduled task uses National Park Service state indexes to prioritize underrepresented states. It checks official visit information, verifies a real Wikimedia Commons cover, and adds up to three review drafts per daily run toward the target. The ordinary release checks apply when each draft is selected for publication. [Automatic queue refill](docs/automation.md#automatic-destination-queue-refill).
+
 ## Site architecture
 
 - `/destinations/` lists U.S. attractions with region and category filters. The first collection spans national parks, historic and city landmarks, science and space, and urban parks.
@@ -98,7 +100,7 @@ Analytics sends result count and query length, not typed search text. It records
 ## Automated content and measurement
 
 - [Keyword research](docs/keyword-research.md): 60 candidates, qualitative evidence and limitations; no invented search volume/KD.
-- [Automation operations](docs/automation.md): source hashes, source-health, daily Codex scheduled commits, automatic topic selection and publication gates.
+- [Automation operations](docs/automation.md) covers source checks, automatic destination intake, scheduled publishing, and deployment verification.
 - [Editorial review](docs/editorial-review.md): historical first-five approval record and content boundaries.
 - [Metrics](docs/metrics.md): actual-data CSV reports for search/reading/ad revenue and costs.
 - [Next-stage operations](docs/growth-operations-2026-10-21.md): follow-up content, actual analytics baseline, release follow-up and weekly review.

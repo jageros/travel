@@ -11,7 +11,7 @@ function draftMetadata(topic) {
     ...(topic.topic === 'us-destinations' ? { region, location, category, featured, hero } : {}) };
 }
 
-function articleFromDraft(topic, draft, now) {
+export function articleFromDraft(topic, draft, now) {
   if (!draft || typeof draft !== 'object' || Object.keys(draft).length !== 3 ||
       ['title', 'description', 'body'].some((key) => typeof draft[key] !== 'string')) {
     throw new Error('Draft does not match the controlled response shape');
@@ -21,7 +21,7 @@ function articleFromDraft(topic, draft, now) {
   return parseArticle(serializeArticle(data, draft.body), `${topic.slug}.md`);
 }
 
-function draftMatchesBrief(article, brief) {
+export function draftMatchesBrief(article, brief) {
   return brief?.status === 'ready' && Object.entries(draftMetadata(brief)).every(
     ([field, value]) => isDeepStrictEqual(article.data[field], value),
   );

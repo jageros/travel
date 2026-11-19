@@ -4,7 +4,10 @@
 
 ## 当前代码工作区
 
+- 自动补稿以六篇可用景点待发稿为目标，现有日常任务每次最多补三篇。按 NPS 州索引优先补覆盖较少的州，核验官方资料、逐项证据与真实 Commons 照片，随后单独提交 `review` 稿件和配套登记。补稿、定时任务和正式发布的验收彼此独立。 [运行手册](../automation.md#automatic-destination-queue-refill)
+- 11 月 19 日实抓 NPS 与 Commons，通过补稿入口录入缅因州 Acadia 和阿肯色州 Hot Springs，将储备从四篇补到六篇。两篇保持 `review`，发布账本未改。照片及许可分别为 [Z3lvs 的 Acadia 海岸实景](https://commons.wikimedia.org/wiki/File:Granite_sea_cliffs_and_surf_along_Ocean_Path,_Acadia_National_Park,_Maine.jpg)和 [daveynin 的 Fordyce Bathhouse 实景](https://commons.wikimedia.org/wiki/File:Fordyce_Bathhouse_overview_and_Visitor_Center_(26393743389).jpg)。
 - 每个北京时间自然日最多发布三篇，定时任务继续在北京时间 09:15 运行，有合格稿件时逐篇推进一至三篇。11 月 19 日过渡当天上限为四篇，额外名额用于当日要求的单篇发布。发布结果以账本、远端提交与生产验收为准。
+- 优胜美地使用 11 月 19 日一次性过渡名额，已随 `4085f71` 发布。正式页面、配图与 sitemap 已核对。 [正式页面](https://www.cedartrips.com/destinations/yosemite/)
 - 已发布 Grand Canyon（`403ab1c`）与 Yellowstone（`108e8fd`）。黄石单篇自动发布通过四项 NPS 来源检查、GitHub CI 和 Cloudflare 生产构建。线上黄石页、封面、分享图、响应式图、目录与 sitemap 返回 200。黄石在 sitemap 中出现一次，当时其余五篇草稿返回 404。
 - 地区和类别筛选采用贴在控件下方的主题菜单。Chrome 复核了 26 个预览页面、320 至 1440px 六种宽度，以及筛选的鼠标、触控、键盘、减弱动态效果和无 JavaScript 状态。全站走查也修正了窄屏搜索溢出、重置焦点、导航点击区域与面包屑换行。
 - 本轮景点改版从 `main` 的 `f3f6718` 开始。首次由当前会话自动发布的旧金山文章记录在 `d80a156`，该提交及历史备查证据仍见下文。
@@ -87,7 +90,7 @@
 2. 读 `AGENTS.md`、本页、history、roadmap。查看 `git status --short --branch` 和 `git log -5 --oneline`；有本地改动先保留。在已获准的 Git 访问条件下 fetch，检查最新 `origin/main`，不覆盖用户改动、不强推 main。
 3. 使用 Node 24（`.nvmrc`），运行 `npm ci`。本地 `.env` 可从 `.env.example` 建立；不要从原聊天复制密钥。
 4. 重新连接所需工具/后台。已有标识：Search Console Domain property **cedartrips.com**；GA4 property **559805493**、measurement ID **G-QDDLYW7WRF**；Cloudflare Worker **cedar-trips**。登录和权限不会随 Git 转移。
-5. 读取本次 main 的账本、sources、health、queue、文章、照片登记与 scheduled task 状态，重算配额和来源状态。自动任务只使用登记的官方来源和已导入的真实 Search Console 数据；不要把 docs 下的候选稿直接当成生产文章。
+5. 读取本次 main 的账本、sources、health、queue、文章、照片登记与 scheduled task 状态，重算当日配额和待发队列。发布使用登记的官方来源和已导入的真实 Search Console 数据。补稿按已允许的 NPS 主机与 Commons 照片核验流程追加资料。docs 下的历史候选稿仍仅供接续参考。
 6. 代码和 workflow 变更走普通受保护 PR。内容和来源状态由 Codex scheduled task 在生产验证和 main 竞态检查通过后直接提交 `main`。提交成功仍需单独核对 Cloudflare 部署、生产 SHA、HTTP 和 sitemap。
 
 本地只读查看待审稿指纹：
@@ -107,7 +110,7 @@ CONTENT_REVIEW_PREVIEW=true npm run dev
 
 预览默认 `127.0.0.1:4321`，端口占用时以命令输出为准。刻意给预览传 `SITE_INDEXING_ENABLED=true` 仍必须保持 noindex、无 GA/广告。纯交接文档变更不需要伪造或重跑整套文章验证；应检查链接和 payload 完整性。
 
-**有副作用的命令**：`npm run sources:check`、无参数 `node scripts/content-pipeline.mjs` 都会联网并改写来源/健康/队列或报告；不是只读检查。Codex scheduled task 会抓取来源、使用当前会话模型写入候选并尝试发布，运行前必须确认当前工作区和账本状态。
+**有副作用的命令**包括 `npm run sources:check`、无参数 `node scripts/content-pipeline.mjs` 和 `node scripts/destination-intake.mjs --enqueue`。前两条会联网更新来源、健康、队列或报告。入队命令会追加通过核验的来源、照片、选题和待发稿。照片预览只写入 ignored 报告。运行定时任务前必须确认当前工作区和账本状态。
 
 每日北京时间 09:15 的 Codex scheduled task 会执行完整自动流程。保持电脑和 Codex 桌面应用运行，避免与其他任务重复。自动化细节见 [automation.md](../automation.md)。
 
