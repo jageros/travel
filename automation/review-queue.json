@@ -11,30 +11,6 @@
     "slug": "source-monitor",
     "stage": "source-check",
     "errors": [
-      "sfmta-travel-updates: changed"
-    ],
-    "detectedAt": "2026-11-17T09:10:05.987Z"
-  },
-  {
-    "slug": "source-monitor",
-    "stage": "source-check",
-    "errors": [
-      "sfmta-trip-planner: changed"
-    ],
-    "detectedAt": "2026-11-17T09:10:05.987Z"
-  },
-  {
-    "slug": "source-monitor",
-    "stage": "source-check",
-    "errors": [
-      "sfmta-fares: changed"
-    ],
-    "detectedAt": "2026-11-17T09:10:05.987Z"
-  },
-  {
-    "slug": "source-monitor",
-    "stage": "source-check",
-    "errors": [
       "bart-advisories: changed"
     ],
     "detectedAt": "2026-11-17T09:10:05.987Z"
@@ -83,14 +59,6 @@
     "slug": "source-monitor",
     "stage": "source-check",
     "errors": [
-      "sfmta-f-line: changed"
-    ],
-    "detectedAt": "2026-11-17T09:10:05.987Z"
-  },
-  {
-    "slug": "source-monitor",
-    "stage": "source-check",
-    "errors": [
       "clipper-contactless: changed"
     ],
     "detectedAt": "2026-11-06T07:53:30.233Z"
@@ -115,8 +83,144 @@
     "slug": "source-monitor",
     "stage": "source-check",
     "errors": [
-      "sfmta-cable-cars: changed"
+      "bart-sfo: unavailable (fetch failed)"
     ],
-    "detectedAt": "2026-11-17T09:10:05.987Z"
+    "detectedAt": "2026-11-19T01:30:50.407Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "clipper-contactless: unavailable (fetch failed)"
+    ],
+    "detectedAt": "2026-11-19T01:30:50.407Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-advisories: unavailable (fetch failed)"
+    ],
+    "detectedAt": "2026-11-19T01:30:50.407Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-paying-fare: unavailable (fetch failed)"
+    ],
+    "detectedAt": "2026-11-19T01:30:50.407Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "clipper-youth-senior: unavailable (fetch failed)"
+    ],
+    "detectedAt": "2026-11-19T01:30:50.407Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "clipper-ways-to-pay: unavailable (fetch failed)"
+    ],
+    "detectedAt": "2026-11-19T01:30:50.407Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-tap-and-ride: unavailable (fetch failed)"
+    ],
+    "detectedAt": "2026-11-19T01:30:50.407Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-schedules: unavailable (fetch failed)"
+    ],
+    "detectedAt": "2026-11-19T01:30:50.407Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-official-app: unavailable (fetch failed)"
+    ],
+    "detectedAt": "2026-11-19T01:30:50.407Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-sfo: unavailable (Official source returned HTTP 403)"
+    ],
+    "detectedAt": "2026-11-19T02:34:04.369Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "clipper-contactless: unavailable (Official source returned HTTP 403)"
+    ],
+    "detectedAt": "2026-11-19T02:34:04.369Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-advisories: unavailable (Official source returned HTTP 403)"
+    ],
+    "detectedAt": "2026-11-19T02:34:04.369Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-paying-fare: unavailable (Official source returned HTTP 403)"
+    ],
+    "detectedAt": "2026-11-19T02:34:04.369Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "clipper-youth-senior: unavailable (Official source returned HTTP 403)"
+    ],
+    "detectedAt": "2026-11-19T02:34:04.369Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "clipper-ways-to-pay: unavailable (Official source returned HTTP 403)"
+    ],
+    "detectedAt": "2026-11-19T02:34:04.369Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-tap-and-ride: unavailable (Official source returned HTTP 403)"
+    ],
+    "detectedAt": "2026-11-19T02:34:04.369Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-schedules: unavailable (Official source returned HTTP 403)"
+    ],
+    "detectedAt": "2026-11-19T02:34:04.369Z"
+  },
+  {
+    "slug": "source-monitor",
+    "stage": "source-check",
+    "errors": [
+      "bart-official-app: unavailable (Official source returned HTTP 403)"
+    ],
+    "detectedAt": "2026-11-19T02:34:04.369Z"
   }
 ]

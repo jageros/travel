@@ -76,6 +76,12 @@
       "publishedAt": "2026-10-28T08:54:28.653Z",
       "contentSha256": "8c70de85b51ed9f9e07f35fb4e095529de36eb83e2411cd629311b3260e8960d",
       "manualApproval": false
+    },
+    {
+      "slug": "sf-cable-car-vs-historic-streetcar",
+      "publishedAt": "2026-11-19T02:34:04.369Z",
+      "contentSha256": "fea4b013debbb0ade3eb35b3ed2f45e09818ed1daf284258485b0806f0c86ca7",
+      "manualApproval": false
     }
   ]
 }
