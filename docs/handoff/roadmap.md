@@ -1,15 +1,15 @@
 # Cedar Trips 接下来做什么
 
-计划维护日期：2026-11-18。以 **2026-10-20 首发**为经营起点；先重新核对 [当前交接](README.md) 中的日期快照。以下是计划，不能写成已经完成。
+计划维护日期：2026-11-19。以 **2026-10-20 首发**为经营起点；先重新核对 [当前交接](README.md) 中的日期快照。以下是计划，不能写成已经完成。
 
 ## 当前执行顺序：自动发布机制
 
-当前会话自动发布改造已合并到 `main` 的 `aac2579`，PR #52 的 required CI、Cloudflare 预览检查和合并后的 `Content and site checks` 均成功。`cedar-trips` Codex scheduled task 已激活，首次实际运行结果和 Cloudflare 生产活动版本仍需观察。后续维护顺序如下。
+当前会话自动发布改造已合并到 `main` 的 `d80a156`，首次运行已发布 `sf-cable-car-vs-historic-streetcar`。本地验证、GitHub `verify` 和 Cloudflare 生产 build 均成功，生产 HTTP 已核对。后续维护顺序如下。
 
 1. 程序和 workflow 改动通过 PR #52 交付并合并，后续继续保持当前 main 的生产构建门禁。
-2. 确认 Codex scheduled task 能访问本地项目、官方来源和 GitHub SSH，并确认 Cloudflare 部署链路已经配置。
-3. 首次自动运行只观察 source snapshot、pipeline report、队列和提交竞态结果。来源 changed 只有在 evidence 全部存在且没有人工事实时自动推进；其他项目保持 hold。
-4. 首次成功提交后单独核对 Cloudflare 生产 SHA、活动版本、HTTP、canonical、sitemap 和未知路径 404。自动提交不等于生产部署完成。
+2. 继续保持 scheduled task 的本地项目、官方来源和 GitHub 写入链路，遇到 BART/Clipper HTTP 403 时保持来源阻塞。
+3. 首次运行结果已记录在 source snapshot、pipeline report、队列和 `d80a156`。来源 changed 或 unavailable 只有在 evidence 全部存在且没有人工事实时自动推进，其他项目保持 hold。
+4. `d80a156` 已通过 Cloudflare 生产 build，首页、sitemap、新文章和未知路径的 HTTP 状态已核对；canonical、JSON-LD 和 sitemap 内容继续随下一轮发布复核。
 5. 后续运行按真实导入的 Search Console 数据为 `ready` 主题排序，每次最多生成和发布一篇，并继续执行七天三篇配额、来源新鲜度、事实有效期、重复和构建门禁。
 
 Search Console 自动选题目前使用版本库中的真实导入 JSON。要获取新的点击数据，仍需通过授权流程导入新的 Queries CSV；仓库没有自行登录 Search Console 的凭证或 API 集成。
