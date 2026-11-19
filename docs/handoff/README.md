@@ -8,7 +8,7 @@
 - 已加入独立译文集合、原文和补充景点数据指纹、11 种语言的公共静态路由、文章路由、语言切换、`lang`/`dir`、canonical、Open Graph、双向 `hreflang`、`x-default` 和带 XHTML alternates 的 sitemap。缺失或过期译文不生成生产路由。
 - 首批三篇景点各有 11 份受控译文，共 33 份。当前本地运行已通过不超过 24 小时的官方来源报告、逐项 unchanged 哈希和事实冲突门禁并提升为 `published`。合并后的 CI、Cloudflare 构建和生产 HTTP 验收仍是正式上线条件。
 - `scripts/translation-pipeline.mjs` 每轮最多处理四篇英文原文，保存和发布独立于英文账本与每日一至三篇配额。现有 `cedar-trips` 定时任务已接入补稿后翻译计划、来源门禁、独立构建和竞态检查。
-- 本轮验证通过 `npm run check`、168 项测试、译文校验 33/33、生产静态构建 176 页和预览静态构建 182 页。正式多语言上线仍以合并后的 CI、Cloudflare 构建和生产 HTTP 验收为准。
+- 本轮验证通过 `npm run check`、168 项测试、译文校验 33/33、生产静态构建 176 页和预览静态构建 182 页。合并提交 `94572b4` 的 GitHub `verify` 与 Cloudflare production build 均成功。正式站的西班牙语 Grand Canyon、阿拉伯语 Yosemite、简体中文 Yellowstone 页面返回 200，语言标记、canonical、hreflang 和本地 JPEG 均已核对；sitemap 返回 175 个唯一 URL，其中 Grand Canyon 有 12 个语言版本。
 
 ## 当前代码工作区
 

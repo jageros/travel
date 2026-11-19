@@ -10,6 +10,7 @@
 - 加入 `sourceDigest` 与补充景点数据指纹、来源新鲜度和事实冲突门禁。33 份首批景点译文覆盖 Grand Canyon、Yellowstone、Yosemite 和 11 种新增语言。本地实际来源报告通过后已提升为 `published`，未改变英文发布账本。
 - 语言切换、导航和页脚使用本地路径与标签。页面生成 `lang`、`dir`、canonical、Open Graph、双向 `hreflang`、`x-default` 和 sitemap alternates。修复 Astro 内容归一化造成的来源指纹误差，并增加过期译文不生成路由的检查。
 - 更新 `cedar-trips` 定时任务，在英文发布和景点补稿之后每轮计划最多四篇英文原文的译文，逐项复核官方来源后独立提交。检查通过 `npm run check`、168 项测试、生产 176 页和预览 182 页静态校验。
+- PR #60 已合并到 `main`，提交 `94572b4` 的 GitHub verify 和 Cloudflare production build 成功。正式 HTTP 验收核对了 `/es/destinations/grand-canyon/`、`/ar/destinations/yosemite/`、`/zh-hans/destinations/yellowstone/`、本地 JPEG 和 sitemap。sitemap 返回 175 个唯一 URL，Grand Canyon 的 12 个语言版本均已列出。
 
 - 实际发现尚未覆盖的州与公园候选。通过入队入口录入 Acadia National Park 和 Hot Springs National Park 及其授权实景照片，储备达到六篇。已核对固定证据、原图身份与哈希，并保留两篇 `review` 与所有发布记录。
 
