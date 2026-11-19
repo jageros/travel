@@ -18,6 +18,9 @@
     "sources:check": "node scripts/check-sources.mjs",
     "content:draft": "node scripts/content-pipeline.mjs --draft",
     "content:publish": "node scripts/content-pipeline.mjs --publish",
+    "translations:plan": "node scripts/translation-pipeline.mjs --plan",
+    "translations:validate": "node scripts/translation-pipeline.mjs --validate",
+    "translations:publish": "node scripts/translation-pipeline.mjs --publish",
     "verify:build": "node scripts/verify-build.mjs",
     "verify": "npm run validate:content && npm run check && npm test && npm run build && npm run verify:build",
     "metrics:report": "node scripts/report-metrics.mjs"

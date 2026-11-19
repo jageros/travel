@@ -1,0 +1,38 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Card from '../../../components/Card.astro';
+import { getTopic, articleHref } from '../../../lib/content';
+import { getArticlePhoto } from '../../../lib/photos';
+import { getLocale, localeLabels, localePath, locales, sourceArticleDigest, sourceSupplementalDigest } from '../../../lib/i18n.mjs';
+import { SITE_NAME } from '../../../lib/site';
+
+export function getStaticPaths() {
+  return locales.filter(locale => locale.path).map(locale => ({
+    params: { locale: locale.path, slug: 'san-francisco-without-a-car' }, props: { locale, slug: 'san-francisco-without-a-car' }
+  }));
+}
+const { locale: routeLocale, slug } = Astro.props;
+const locale = getLocale(routeLocale.code);
+if (!locale) throw new Error('Unknown locale');
+const labels = localeLabels(locale.code);
+const topic = getTopic(slug);
+const [articles, translations] = await Promise.all([
+  getCollection('articles', ({ data }) => data.status === 'published' && data.topic === slug),
+  getCollection('translations', ({ data }) => data.status === 'published' && data.locale === locale.code),
+]);
+const sourceBySlug = new Map(articles.map(article => [article.data.slug, article]));
+const cards = translations.flatMap(translation => {
+  const source = sourceBySlug.get(translation.data.sourceSlug);
+  if (!source || translation.data.sourceDigest !== sourceArticleDigest(source) || translation.data.supplementalDigest !== sourceSupplementalDigest(source)) return [];
+  return [{ translation, source }];
+});
+const path = localePath(locale.code, `/topics/${slug}/`);
+---
+<BaseLayout title={`${topic.title} — ${SITE_NAME}`} description={topic.description} path={path} lang={locale.hreflang} dir={locale.dir} noindex={cards.length === 0} breadcrumbs={[{ name: labels.breadcrumbHome, url: localePath(locale.code, '/') }, { name: labels.topics, url: localePath(locale.code, '/topics/') }, { name: topic.title, url: path }]}>
+  <section class="container section-block">
+    <div class="page-intro"><p class="eyebrow">{topic.region}</p><h1>{topic.title}</h1><p>{topic.description}</p></div>
+    {cards.length > 0 && <div class="cards-grid">{cards.map(async ({ translation, source }) => <Card title={translation.data.title} description={translation.data.description} href={localePath(locale.code, articleHref(source))} type={source.data.type} image={await getArticlePhoto(source.data.hero)} />)}</div>}
+    {cards.length === 0 && <p><a href={localePath('en-US', topic.href)}>{labels.viewInEnglish}</a></p>}
+  </section>
+</BaseLayout>

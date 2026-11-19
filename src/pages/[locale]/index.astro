@@ -1,0 +1,54 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Photo from '../../components/Photo.astro';
+import { destinationDetails, destinationPlace } from '../../lib/content';
+import { getArticlePhoto } from '../../lib/photos';
+import { localeLabels, localePath, sourceArticleDigest, sourceSupplementalDigest } from '../../lib/i18n.mjs';
+import { SITE_NAME, isReviewPreview } from '../../lib/site';
+
+export async function getStaticPaths() {
+  const locales = (await import('../../lib/i18n.mjs')).locales.filter(locale => locale.path !== '');
+  return locales.map(locale => ({ params: { locale: locale.path }, props: { locale } }));
+}
+const { locale } = Astro.props;
+const labels = localeLabels(locale.code);
+const [articles, translations] = await Promise.all([
+  getCollection('articles', ({ data }) => data.status === 'published'),
+  getCollection('translations', ({ data }) => (data.status === 'published' || (isReviewPreview && data.status === 'review')) && data.locale === locale.code),
+]);
+const sources = new Map(articles.map(article => [article.data.slug, article]));
+const entries = translations.flatMap(translation => {
+  const source = sources.get(translation.data.sourceSlug);
+  return source && translation.data.sourceDigest === sourceArticleDigest(source) && translation.data.supplementalDigest === sourceSupplementalDigest(source) ? [{ translation, source }] : [];
+});
+const destinations = entries.flatMap(entry => {
+  const details = destinationDetails(entry.source);
+  return details ? [{ ...entry, details }] : [];
+});
+const hero = destinations[0];
+const heroPhoto = hero ? await getArticlePhoto(hero.source.data.hero) : null;
+const path = localePath(locale.code, '/');
+---
+
+<BaseLayout title={`${labels.destinations} — ${SITE_NAME}`} description="Discover places worth visiting across the United States." path={path} lang={locale.hreflang} dir={locale.dir} socialImage={heroPhoto ? { ...heroPhoto.share, alt: hero.translation.data.photoAlt ?? heroPhoto.alt } : undefined}>
+  <section class="container discovery-hero">
+    <div class="discovery-hero-copy">
+      <p class="eyebrow">{labels.destinations}</p>
+      <h1>{labels.explore}</h1>
+      <p>Discover places worth a detour, with practical details and official sources you can check before going.</p>
+      <a class="button" href={localePath(locale.code, '/destinations/')}>{labels.explore} <span aria-hidden="true">↗</span></a>
+    </div>
+    {heroPhoto && <Photo photo={heroPhoto} priority sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) 56vw, 680px" class="discovery-hero-photo" />}
+  </section>
+  {destinations.length > 0 && <section class="container section-block homepage-destinations" aria-labelledby="featured-destinations">
+    <div class="section-heading"><h2 id="featured-destinations">{labels.destinations}</h2><a href={localePath(locale.code, '/destinations/')}>{labels.readMore} <span aria-hidden="true">→</span></a></div>
+    <div class="cards-grid destination-grid">
+      {destinations.slice(0, 8).map(async ({ translation, source, details }) => {
+        const image = await getArticlePhoto(source.data.hero);
+        if (!details) return null;
+        return <article class="destination-card"><a href={localePath(locale.code, `/destinations/${source.data.slug}/`)}>{image && <div class="destination-card-media"><img src={image.src} srcset={image.srcSet} sizes="(max-width: 700px) calc(100vw - 36px), 280px" width={image.width} height={image.height} alt={translation.data.photoAlt ?? image.alt} loading="lazy" decoding="async" /></div>}<div class="destination-card-body"><p class="destination-card-location">{destinationPlace(details)}</p><h3 class="destination-card-title">{translation.data.title}</h3><p class="destination-card-description">{translation.data.description}</p></div></a></article>;
+      })}
+    </div>
+  </section>}
+</BaseLayout>

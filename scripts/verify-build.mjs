@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import {parse} from 'yaml';
 import {parse as parseHtml} from 'parse5';
 import {CANONICAL_SITE_URL,SITE_NAME,SITE_EDITORIAL_TEAM} from '../src/lib/site-config.mjs';
+import {getLocaleFromPath} from '../src/lib/i18n.mjs';
 
 const root=process.cwd();
 const dist=path.join(root,'dist');
@@ -84,7 +85,18 @@ for(const file of htmlFiles) {
     assert.ok(textContent(titleNode).includes(SITE_NAME),'title includes the current brand');
     assertNoLegacyIdentity(textContent(document).replace(/\s+/g,' '),'visible copy uses the current brand and domain');
     for(const node of nodes)for(const value of Object.values(attributes(node)))assertNoLegacyIdentity(value,'DOM attributes have no legacy brand or domain');
-    assert.match(html,/<html[^>]+lang="en-US"/,'English document language');
+    const routeLocale = name === '404.html' ? null : getLocaleFromPath(expectedPath);
+    assert.match(html,new RegExp(`<html[^>]+lang="${(routeLocale?.hreflang ?? 'en-US').replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}"`),'document language matches its route');
+    const alternateNodes=nodes.filter(node=>node.tagName==='link'&&attributes(node).rel==='alternate');
+    if(alternateNodes.length) {
+      const alternates=alternateNodes.map(item=>({ ...attributes(item), href: new URL(attributes(item).href, CANONICAL_SITE_URL).href }));
+      assert.ok(alternates.some(item=>item.href===canonical&&item.hreflang===routeLocale?.hreflang),'hreflang set includes the self URL');
+      assert.ok(alternates.some(item=>item.hreflang==='x-default'),'hreflang set includes x-default');
+      for(const item of alternates) {
+        assertOwnUrl(item.href,'hreflang URL');
+        await assertLocalAsset(item.href,'hreflang URL');
+      }
+    }
     assert.equal((html.match(/<h1(?:\s|>)/g)||[]).length,1,'one clear page heading');
     assert.match(html,/<title>[^<]+<\/title>/,'page title');
     assert.match(html,/<meta name="description" content="[^"]+"/,'page description');

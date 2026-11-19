@@ -4,6 +4,7 @@ import { glob } from 'astro/loaders';
 import topics from './data/topics.json';
 import categories from './data/destination-categories.json';
 import regions from './data/us-regions.json';
+import locales from './data/locales.json';
 
 const isoDate = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 const articles = defineCollection({
@@ -33,4 +34,23 @@ const articles = defineCollection({
     }
   })
 });
-export const collections = { articles };
+const localeCodes = locales.map((locale) => locale.code) as [string, ...string[]];
+const translations = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/translations' }),
+  schema: z.object({
+    locale: z.enum(localeCodes),
+    sourceSlug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
+    slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).optional(),
+    author: z.literal('editorial-team').optional(),
+    sourceDigest: z.string().regex(/^[a-f0-9]{64}$/),
+    supplementalDigest: z.string().regex(/^[a-f0-9]{64}$/),
+    status: z.enum(['draft', 'review', 'published']),
+    publishedAt: isoDate.optional(),
+    updatedAt: isoDate,
+    title: z.string().min(4).max(140),
+    description: z.string().min(20).max(300),
+    photoAlt: z.string().trim().min(1).max(300).optional(),
+    photoCaption: z.string().trim().min(1).max(500).optional()
+  }).strict()
+});
+export const collections = { articles, translations };

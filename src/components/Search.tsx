@@ -9,16 +9,28 @@ export interface SearchItem {
   image?: { src: string; srcSet: string; width: number; height: number; alt: string; kind?: string } | null;
 }
 
-export default function Search({ items }: { items: SearchItem[] }) {
+export interface SearchLabels {
+  searchLabel?: string;
+  placeholder?: string;
+  allItems?: string;
+  itemSingular?: string;
+  itemPlural?: string;
+  noResults?: string;
+  emptyDescription?: string;
+  showAll?: string;
+}
+
+export default function Search({ items, labels = {}, locale = 'en-US' }: { items: SearchItem[]; labels?: SearchLabels; locale?: string }) {
+  const copy = { searchLabel: 'Find your next step', placeholder: 'Try airport, car-free, or transit…', allItems: 'All guides', itemSingular: 'guide', itemPlural: 'guides', noResults: 'No matching guides', emptyDescription: 'Try a broader term, or browse all our planning guides.', showAll: 'Show all guides', ...labels };
   const [query, setQuery] = useState('');
-  const [filter, setFilter] = useState('All guides');
+  const [filter, setFilter] = useState(copy.allItems);
   const [ready, setReady] = useState(false);
   const searchInput = useRef<HTMLInputElement>(null);
   const topics = useMemo(() => ['All guides', ...new Set(items.map((item) => item.topic).filter(Boolean))], [items]);
   const results = useMemo(() => {
-    const words = query.toLocaleLowerCase('en-US').trim().split(/\s+/).filter(Boolean);
-    return items.filter((item) => (filter === 'All guides' || item.topic === filter) && words.every((word) => `${item.title} ${item.description} ${item.topic} ${item.type}`.toLocaleLowerCase('en-US').includes(word)));
-  }, [items, query, filter]);
+    const words = query.toLocaleLowerCase(locale).trim().split(/\s+/).filter(Boolean);
+    return items.filter((item) => (filter === copy.allItems || item.topic === filter) && words.every((word) => `${item.title} ${item.description} ${item.topic} ${item.type}`.toLocaleLowerCase(locale).includes(word)));
+  }, [items, query, filter, locale, copy.allItems]);
 
   useEffect(() => { setReady(true); }, []);
   useEffect(() => {
@@ -32,14 +44,14 @@ export default function Search({ items }: { items: SearchItem[] }) {
   return (
     <div className="search-directory">
       <div className="search-controls" hidden={!ready}>
-        <label className="search-label" htmlFor="guide-search">Find your next step</label>
+        <label className="search-label" htmlFor="guide-search">{copy.searchLabel}</label>
         <div className="search-input-wrap">
           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7"><circle cx="10.8" cy="10.8" r="6.8" /><path d="m16 16 4.5 4.5" /></svg>
-          <input ref={searchInput} id="guide-search" type="search" placeholder="Try airport, car-free, or transit…" value={query} onChange={(event) => setQuery(event.target.value)} autoComplete="off" />
+          <input ref={searchInput} id="guide-search" type="search" placeholder={copy.placeholder} value={query} onChange={(event) => setQuery(event.target.value)} autoComplete="off" />
         </div>
         {topics.length > 2 && <div className="filter-pills" aria-label="Filter by topic">{topics.map((topic) => <button key={topic} type="button" aria-pressed={filter === topic} onClick={() => setFilter(topic)}>{topic}</button>)}</div>}
       </div>
-      <p className="search-count" aria-live="polite" aria-atomic="true">{results.length} {results.length === 1 ? 'guide' : 'guides'} found</p>
+      <p className="search-count" aria-live="polite" aria-atomic="true">{results.length} {results.length === 1 ? copy.itemSingular : copy.itemPlural}</p>
       <div className="cards-grid">
         {results.map(item => (
           <article className={`guide-card${item.image ? ' guide-card-with-image' : ''}`} key={item.href}>
@@ -54,11 +66,11 @@ export default function Search({ items }: { items: SearchItem[] }) {
           </article>
         ))}
       </div>
-      {results.length === 0 && <div className="empty-state"><h2>No matching guides</h2><p>Try a broader term, or browse all our planning guides.</p><button className="button button-secondary" type="button" onClick={() => {
+      {results.length === 0 && <div className="empty-state"><h2>{copy.noResults}</h2><p>{copy.emptyDescription}</p><button className="button button-secondary" type="button" onClick={() => {
         setQuery('');
-        setFilter('All guides');
+        setFilter(copy.allItems);
         searchInput.current?.focus();
-      }}>Show all guides</button></div>}
+      }}>{copy.showAll}</button></div>}
     </div>
   );
 }

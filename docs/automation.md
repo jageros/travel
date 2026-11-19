@@ -15,6 +15,9 @@ node scripts/check-sources.mjs
 node scripts/content-pipeline.mjs --plan-session
 node scripts/content-pipeline.mjs --save-session-draft <slug> < /path/to/draft.json
 node scripts/content-pipeline.mjs --publish --automatic --slug <slug>
+node scripts/translation-pipeline.mjs --plan --max-originals 4
+node scripts/translation-pipeline.mjs --save <locale> <source-slug> < /path/to/translation.json
+node scripts/translation-pipeline.mjs --publish
 node scripts/import-gsc.mjs /path/to/Queries.csv
 ```
 
@@ -38,6 +41,14 @@ Use the full state name and four-character park code returned by the planner. Re
 Enqueue fetches the official sources and original Commons image again. New sources use the existing official host allowlist, and each fact must have matching evidence in the current capture. The Commons check requires a matching JPEG with credited authorship, known CC0 or reusable CC BY or CC BY-SA rights, and matching original size and SHA-1. The registered local JPEG has its own SHA-256 and an adaptation note. Skip any candidate whose evidence, license, image subject, or content fails verification.
 
 Run production and preview verification before submitting the intake as a separate content-only commit to `main`. Stage only the appended source, topic and photo registry entries, plus the new review Markdown and JPEG. Fetch `origin/main` and verify the starting commit still matches. Enqueue leaves the publication ledger untouched. Review routes remain excluded from production and the sitemap. The publication command makes a fresh official-source check and records the release under the daily quota. Neither intake nor publication requires a separate paid model API.
+
+## Automatic translation queue
+
+The site has an unprefixed English default and eleven enabled locale paths: `es`, `fr`, `de`, `pt-br`, `zh-hans`, `zh-hant`, `ja`, `ko`, `it`, `ar` and `hi`. English URLs remain stable. Translation Markdown lives under `src/content/translations/<locale>/<source-slug>.md` and stores its own status, source digest and supplemental attraction-data digest.
+
+After the English release and destination refill steps, the scheduled Codex task runs `node scripts/translation-pipeline.mjs --plan --max-originals 4`. It processes the newest four published originals first, then the oldest missing or stale locale pairs. The current session generates only `title`, `description` and `body`; the script controls locale, source slug, status, facts, sources, photo identity and output path. A translation is publishable only when its source and supplemental digests match, the official source report is less than 24 hours old, every inherited source is unchanged with the registered hash, and no registered fact is conflicted. Translation releases do not consume the English one-to-three article quota.
+
+Production routes include only `published` translations with matching digests. Review translations appear in review previews and remain out of production routes, search, canonical alternates and sitemap. Source or fact changes automatically hold the affected translation for regeneration. A failed locale pair does not stop other eligible pairs. `sourceArticleDigest` reads the original Markdown bytes so Astro content normalization cannot silently invalidate or publish a stale derivative.
 
 ## Source and fact gates
 
