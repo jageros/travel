@@ -6,10 +6,12 @@ import { getArticlePhoto } from '../lib/photos';
 import { localePath, localeLabels, sourceArticleDigest, sourceSupplementalDigest } from '../lib/i18n.mjs';
 import { SITE_NAME, isReviewPreview } from '../lib/site';
 import Search from './Search';
+import { localeCopy } from '../lib/i18n-copy.mjs';
 
 interface Props { locale: any; kind: string }
 const { locale, kind } = Astro.props;
 const labels = localeLabels(locale.code);
+const text = localeCopy(locale.code);
 const [articles, translations] = await Promise.all([
   getCollection('articles', ({ data }) => data.status === 'published'),
   getCollection('translations', ({ data }) => (data.status === 'published' || (isReviewPreview && data.status === 'review')) && data.locale === locale.code),
@@ -25,7 +27,7 @@ const destinations = entries.flatMap(entry => {
 });
 const path = localePath(locale.code, `/${kind}/`);
 const title = kind === 'destinations' ? labels.destinations : kind === 'guides' ? labels.guides : kind === 'topics' ? labels.topics : labels[kind] ?? labels.about;
-const description = kind === 'destinations' ? 'Places worth visiting across the United States.' : kind === 'guides' ? 'Practical planning guides with official references.' : 'Travel information and official sources for planning a visit.';
+const description = kind === 'destinations' ? text.destinations : kind === 'guides' ? text.guides : text.topics;
 const guideItems = entries.filter(({ source }) => source.data.type === 'guide').map(({ translation, source }) => ({ title: translation.data.title, description: translation.data.description, href: localePath(locale.code, `/guides/${source.data.slug}/`), topic: labels.guides, type: labels.guides }));
 const searchLabels = { searchLabel: labels.search, placeholder: labels.searchPlaceholder, allItems: labels.guides, itemSingular: labels.guides, itemPlural: labels.guides, noResults: labels.noResults, emptyDescription: labels.viewInEnglish, showAll: labels.readMore };
 ---
