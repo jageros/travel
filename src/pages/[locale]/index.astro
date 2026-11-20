@@ -7,6 +7,7 @@ import { getArticlePhoto } from '../../lib/photos';
 import { localeLabels, localePath, sourceArticleDigest, sourceSupplementalDigest } from '../../lib/i18n.mjs';
 import { SITE_NAME, isReviewPreview } from '../../lib/site';
 import { localeCopy } from '../../lib/i18n-copy.mjs';
+import { articleCopy } from '../../lib/i18n-article-copy.mjs';
 
 export async function getStaticPaths() {
   const locales = (await import('../../lib/i18n.mjs')).locales.filter(locale => locale.path !== '');
@@ -31,6 +32,7 @@ const hero = destinations[0];
 const heroPhoto = hero ? await getArticlePhoto(hero.source.data.hero) : null;
 const path = localePath(locale.code, '/');
 const text = localeCopy(locale.code);
+const articleText = articleCopy(locale.code);
 ---
 
 <BaseLayout title={`${labels.destinations} — ${SITE_NAME}`} description="Discover places worth visiting across the United States." path={path} lang={locale.hreflang} dir={locale.dir} socialImage={heroPhoto ? { ...heroPhoto.share, alt: hero.translation.data.photoAlt ?? heroPhoto.alt } : undefined}>
@@ -41,7 +43,7 @@ const text = localeCopy(locale.code);
       <p>{text.homeDescription}</p>
       <a class="button" href={localePath(locale.code, '/destinations/')}>{labels.explore} <span aria-hidden="true">↗</span></a>
     </div>
-    {heroPhoto && <Photo photo={heroPhoto} priority sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) 56vw, 680px" class="discovery-hero-photo" />}
+    {heroPhoto && <Photo photo={heroPhoto} priority alt={hero.translation.data.photoAlt ?? articleText.photoDescription} captionText={hero.translation.data.photoCaption ?? articleText.photoDescription} creditsLabel={articleText.imageCredits} aiIllustrationLabel={labels.aiIllustration} creditsHref={localePath(locale.code, '/photo-credits/')} sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) 56vw, 680px" class="discovery-hero-photo" />}
   </section>
   {destinations.length > 0 && <section class="container section-block homepage-destinations" aria-labelledby="featured-destinations">
     <div class="section-heading"><h2 id="featured-destinations">{text.featured}</h2><a href={localePath(locale.code, '/destinations/')}>{text.viewAll} <span aria-hidden="true">→</span></a></div>
