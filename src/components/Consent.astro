@@ -1,6 +1,13 @@
 ---
 import { gaMeasurementId, adsenseClient, isIndexable, isReviewPreview } from '../lib/site';
-interface Props { labels?: { cookiePreferences?: string; privacy?: string }; privacyHref?: string }
+interface Props {
+  labels?: {
+    cookiePreferences?: string; privacy?: string; consentTitle?: string; consentDescription?: string;
+    acceptCookies?: string; rejectCookies?: string; chooseCookies?: string; savePreferences?: string;
+    analyticsCookies?: string; advertisingCookies?: string;
+  };
+  privacyHref?: string;
+}
 const { labels = {}, privacyHref = '/privacy/' } = Astro.props;
 const analyticsId = isIndexable && !isReviewPreview && /^G-[A-Z0-9]+$/.test(gaMeasurementId) ? gaMeasurementId : '';
 const advertisingId = isIndexable && !isReviewPreview && /^ca-pub-\d{16}$/.test(adsenseClient) ? adsenseClient : '';
@@ -17,12 +24,12 @@ const cmpScriptUrl = advertisingId ? trustedCmpUrl(import.meta.env.PUBLIC_CMP_SC
 const enabled = Boolean(analyticsId || advertisingId);
 ---
 {enabled && <div class="consent-banner" role="region" aria-label={labels.cookiePreferences ?? 'Cookie preferences'} data-consent-banner data-analytics-id={analyticsId} data-advertising-id={advertisingId} data-cmp-script-url={cmpScriptUrl} hidden>
-  <div class="consent-copy"><h2>Your trip. Your privacy.</h2><p>With your permission, we use cookies to understand which guides help readers{advertisingId ? ' and to show advertising' : ''}. Essential site features work without them. <a href={privacyHref}>{labels.privacy ?? 'Read our privacy policy'}</a>.</p></div>
+  <div class="consent-copy"><h2>{labels.consentTitle ?? 'Your trip. Your privacy.'}</h2><p>{labels.consentDescription ?? 'With your permission, we use cookies to understand which guides help readers. Essential site features work without them.'} <a href={privacyHref}>{labels.privacy ?? 'Read our privacy policy'}</a>.</p></div>
   <div class="consent-options" data-consent-options hidden>
-    {analyticsId && <label><input type="checkbox" name="analytics" /> Analytics cookies</label>}
-    {advertisingId && <label><input type="checkbox" name="advertising" /> Advertising cookies</label>}
+    {analyticsId && <label><input type="checkbox" name="analytics" /> {labels.analyticsCookies ?? 'Analytics cookies'}</label>}
+    {advertisingId && <label><input type="checkbox" name="advertising" /> {labels.advertisingCookies ?? 'Advertising cookies'}</label>}
   </div>
-  <div class="consent-actions"><button class="button button-small" type="button" data-consent-accept>Accept optional cookies</button><button class="button button-small button-secondary" type="button" data-consent-reject>Reject optional cookies</button><button class="text-button" type="button" data-consent-customize>Choose cookies</button><button class="button button-small" type="button" data-consent-save hidden>Save preferences</button></div>
+  <div class="consent-actions"><button class="button button-small" type="button" data-consent-accept>{labels.acceptCookies ?? 'Accept optional cookies'}</button><button class="button button-small button-secondary" type="button" data-consent-reject>{labels.rejectCookies ?? 'Reject optional cookies'}</button><button class="text-button" type="button" data-consent-customize>{labels.chooseCookies ?? 'Choose cookies'}</button><button class="button button-small" type="button" data-consent-save hidden>{labels.savePreferences ?? 'Save preferences'}</button></div>
 </div>}
 <script>
   type ConsentChoice = { analytics: boolean; advertising: boolean; savedAt: number };

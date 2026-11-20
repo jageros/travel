@@ -3,11 +3,12 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleFactPanel from '../../components/ArticleFactPanel.astro';
 import Photo from '../../components/Photo.astro';
-import { articleHref, destinationDetails, destinationPlace, destinationCategories } from '../../lib/content';
+import { articleHref, destinationDetails, destinationPlace, formatDate } from '../../lib/content';
 import { articleFacts, articleSources } from '../../lib/sources';
 import { getArticlePhoto } from '../../lib/photos';
 import { getLocale, localeLabels, localePath, sourceArticleDigest, sourceSupplementalDigest } from '../../lib/i18n.mjs';
 import { SITE_EDITORIAL_TEAM, SITE_NAME, SITE_URL, isReviewPreview } from '../../lib/site';
+import { articleCopy } from '../../lib/i18n-article-copy.mjs';
 
 export async function getStaticPaths() {
   const [articles, translations] = await Promise.all([
@@ -31,6 +32,7 @@ const { translation, source } = Astro.props;
 const locale = getLocale(translation.data.locale);
 if (!locale) throw new Error(`Unknown translation locale ${translation.data.locale}`);
 const labels = localeLabels(locale.code);
+const copy = articleCopy(locale.code);
 const { Content, headings } = await render(translation);
 const destination = destinationDetails(source);
 const hero = await getArticlePhoto(source.data.hero);
@@ -80,20 +82,20 @@ const articleData = {
       <h1>{translation.data.title}</h1>
       <p class="article-deck">{translation.data.description}</p>
       <div class="article-meta">
-        {destination && <strong>{destinationPlace(destination)} <span aria-hidden="true">·</span> {destinationCategories[destination.category]}</strong>}
+        {destination && <strong>{destinationPlace(destination)} <span aria-hidden="true">·</span> {copy.categories[destination.category as keyof typeof copy.categories]}</strong>}
         <a href={localePath(locale.code, '/editorial-policy/')}>{SITE_EDITORIAL_TEAM}</a>
       </div>
-      {destination && hero && <Photo photo={hero} priority sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) calc(100vw - 44px), 1180px" class="article-figure destination-figure" />}
+      {destination && hero && <Photo photo={hero} priority alt={translation.data.photoAlt ?? copy.photoDescription} captionText={translation.data.photoCaption ?? copy.photoDescription} creditsLabel={copy.imageCredits} aiIllustrationLabel={labels.aiIllustration} creditsHref={localePath(locale.code, '/photo-credits/')} sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) calc(100vw - 44px), 1180px" class="article-figure destination-figure" />}
     </header>
-    <aside class="article-sidebar" aria-label="On this page"><p class="eyebrow">{labels.explore}</p><nav><ul>
+    <aside class="article-sidebar" aria-label={copy.onPage}><p class="eyebrow">{labels.explore}</p><nav><ul>
       {headings.filter(heading => heading.depth === 2).map(heading => <li><a href={`#${heading.slug}`}>{heading.text}</a></li>)}
       <li><a href="#official-sources">{labels.officialSources}</a></li>
     </ul></nav></aside>
     <div class="article-body">
-      {!destination && hero && <Photo photo={hero} priority sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) 70vw, 740px" class="article-figure" />}
+      {!destination && hero && <Photo photo={hero} priority alt={translation.data.photoAlt ?? copy.photoDescription} captionText={translation.data.photoCaption ?? copy.photoDescription} creditsLabel={copy.imageCredits} aiIllustrationLabel={labels.aiIllustration} creditsHref={localePath(locale.code, '/photo-credits/')} sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) 70vw, 740px" class="article-figure" />}
       <div class="prose"><Content /></div>
-      {destination && <ArticleFactPanel facts={facts} title={labels.whatToCheck} />}
-      <section id="official-sources" class="official-sources"><p class="eyebrow">{labels.officialSources}</p><h2>{labels.officialSources}</h2><ul class="sources-list">{sources.map(source => <li><a href={source.url} rel="noopener">{source.title} ↗</a><span>{source.publisher}</span></li>)}</ul><p class="source-note"><a href={localePath(locale.code, '/editorial-policy/')}>{labels.editorialPolicy}</a></p></section>
+      {destination && <ArticleFactPanel facts={facts} title={labels.whatToCheck} locale={locale.code} />}
+      <section id="official-sources" class="official-sources"><p class="eyebrow">{labels.officialSources}</p><h2>{labels.officialSources}</h2><ul class="sources-list">{sources.map(source => <li><a href={source.url} rel="noopener">{source.title} ↗</a><span>{source.publisher} · {copy.checked} {formatDate(source.checkedAt)}</span></li>)}</ul><p class="source-note"><a href={localePath(locale.code, '/editorial-policy/')}>{labels.editorialPolicy}</a></p></section>
     </div>
   </article>
 </BaseLayout>
