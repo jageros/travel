@@ -101,7 +101,7 @@ const navigation = [{ href: localHref('/destinations/'), label: labels.destinati
         </a>
         <nav aria-label={labels.explore}>{navigation.map((item) => <a href={item.href} aria-current={path === item.href || path.startsWith(item.href) ? 'page' : undefined}>{item.label}</a>)}</nav>
         {localizedLinks.length > 0 && <details class="language-picker">
-          <summary aria-label={`${labels.language}: ${currentLocale.label}`}><span aria-hidden="true">文</span><span>{currentLocale.label}</span><span class="language-picker-chevron" aria-hidden="true"></span></summary>
+          <summary aria-label={`${labels.language}: ${currentLocale.label}`}><span>{currentLocale.label}</span><span class="language-picker-chevron" aria-hidden="true"></span></summary>
           <nav class="language-picker-menu" aria-label={labels.language}>
             {localizedLinks.filter(item => item.hreflang !== 'x-default').map((item) => <a href={item.href} hreflang={item.hreflang} lang={item.hreflang} aria-current={item.hreflang === lang ? 'page' : undefined}>{item.label}</a>)}
           </nav>
