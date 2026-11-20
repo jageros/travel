@@ -45,7 +45,6 @@ p { margin-bottom: 1.25em; }
 .language-picker { position: relative; z-index: 20; margin-inline-start: auto; }
 .language-picker summary { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 10px; color: var(--ink); border: 1px solid #b5c7bb; border-radius: 5px; cursor: pointer; list-style: none; font-size: .78rem; font-weight: 600; white-space: nowrap; }
 .language-picker summary::-webkit-details-marker { display: none; }
-.language-picker summary > span:first-child { display: inline-flex; align-items: center; justify-content: center; width: 19px; height: 19px; border: 1px solid currentColor; border-radius: 50%; font-size: .68rem; font-weight: 700; }
 .language-picker summary:hover, .language-picker[open] summary { color: var(--teal); border-color: var(--teal); background: var(--sage); }
 .language-picker summary:focus-visible { outline: 3px solid color-mix(in srgb, var(--orange) 68%, white); outline-offset: 3px; }
 .language-picker-chevron { width: 7px; height: 7px; margin-inline-start: 3px; border-inline-end: 1.5px solid currentColor; border-block-end: 1.5px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform .18s ease; }
