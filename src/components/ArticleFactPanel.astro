@@ -1,23 +1,27 @@
 ---
 import { formatDate } from '../lib/content';
 import type { articleFacts } from '../lib/sources';
+import { articleCopy } from '../lib/i18n-article-copy.mjs';
 
 interface Props {
   facts: ReturnType<typeof articleFacts>;
   title: string;
+  locale?: string;
+  factTranslations?: Record<string, string>;
 }
 
-const { facts, title } = Astro.props;
+const { facts, title, locale = 'en-US', factTranslations = {} } = Astro.props;
+const copy = articleCopy(locale);
 ---
 
-{facts.length > 0 && <section class="fact-panel" aria-label="Source-checked facts">
+{facts.length > 0 && <section class="fact-panel" aria-label={copy.sourceCheckedFacts}>
   <h2>{title}</h2>
   <ul>{facts.map(({ fact, source, status }) => <li>
-    {status === 'current' && <div data-current-fact data-fact-checked={fact.checkedAt} data-fact-expires={fact.expiresAt || ''} hidden>
-      <p>{fact.statement}</p>
-      <small>Checked {formatDate(fact.checkedAt)}{fact.expiresAt && ` · Recheck by ${formatDate(fact.expiresAt)}`}</small>
+    {status === 'current' && (locale === 'en-US' || factTranslations[fact.id]) && <div data-current-fact data-fact-checked={fact.checkedAt} data-fact-expires={fact.expiresAt || ''} hidden>
+      <p>{factTranslations[fact.id] ?? fact.statement}</p>
+      <small>{copy.checked} {formatDate(fact.checkedAt)}{fact.expiresAt && ` · ${copy.recheckBy} ${formatDate(fact.expiresAt)}`}</small>
     </div>}
-    <p data-fact-fallback>This detail needs a fresh check before you rely on it. Consult the official provider for its current rules.</p>
+    <p data-fact-fallback>{copy.freshFact}</p>
     <a href={source.url} rel="noopener">{source.publisher}: {source.title} ↗</a>
   </li>)}</ul>
 </section>}
