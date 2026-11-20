@@ -12,6 +12,12 @@
 - 更新 `cedar-trips` 定时任务，在英文发布和景点补稿之后每轮计划最多四篇英文原文的译文，逐项复核官方来源后独立提交。检查通过 `npm run check`、168 项测试、生产 176 页和预览 182 页静态校验。
 - PR #60 已合并到 `main`，提交 `94572b4` 的 GitHub verify 和 Cloudflare production build 成功。正式 HTTP 验收核对了 `/es/destinations/grand-canyon/`、`/ar/destinations/yosemite/`、`/zh-hans/destinations/yellowstone/`、本地 JPEG 和 sitemap。sitemap 返回 175 个唯一 URL，Grand Canyon 的 12 个语言版本均已列出。
 
+## 2026-11-20：定时任务完成第四篇译文补齐
+
+- 定时任务读取 main `81970c6` 并确认景点待发队列为六篇，没有补稿候选。翻译计划选择 Grand Canyon、旧金山 cable car、Yellowstone 和 Yosemite，只有旧金山 cable car 的 11 个语言版本缺失。
+- 生成并保存 11 份译文，来源 `sfmta-cable-cars` 与 `sfmta-f-line` 的当前报告在 24 小时内且 unchanged，11 份译文全部通过指纹、来源、内容质量和发布门禁。内容提交为 `0076aa0`，没有修改英文发布账本或英文配额。
+- `npm run verify`、预览构建和静态校验通过。GitHub verify、Cloudflare production build 成功。正式站西班牙语和阿拉伯语译文返回 200，sitemap 现有 186 个唯一 URL。
+
 - 实际发现尚未覆盖的州与公园候选。通过入队入口录入 Acadia National Park 和 Hot Springs National Park 及其授权实景照片，储备达到六篇。已核对固定证据、原图身份与哈希，并保留两篇 `review` 与所有发布记录。
 
 ## 2026-11-19：自动补充景点待发队列
