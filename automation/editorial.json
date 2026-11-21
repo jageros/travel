@@ -106,6 +106,12 @@
       "publishedAt": "2026-11-21T01:13:55.970Z",
       "contentSha256": "78abf5d8537352b1d8775f1d9375040a9467793f8e120df77137c70b523a1e1b",
       "manualApproval": false
+    },
+    {
+      "slug": "national-mall",
+      "publishedAt": "2026-11-21T01:18:08.219Z",
+      "contentSha256": "2c360b57d420e6ae552792fe543f5cb13e5398b1dd218b1228f4bf827eb1f0f1",
+      "manualApproval": false
     }
   ]
 }

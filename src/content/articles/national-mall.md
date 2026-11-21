@@ -24,10 +24,11 @@
 "featured": true
 "hero":
   "photoId": "national-mall"
-"status": "review"
+"status": "published"
 "author": "editorial-team"
 "updatedAt": "2026-11-19"
 "checkedAt": "2026-11-19"
+"publishedAt": "2026-11-21"
 ---
 
 ## Why this place is worth visiting
