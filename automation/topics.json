@@ -636,6 +636,104 @@
         "Hot Springs National Park"
       ],
       "priority": 0
+    },
+    {
+      "slug": "black-canyon-of-the-gunnison-national-park",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "How should I choose one rim and plan my first overlook visit at Black Canyon of the Gunnison?",
+      "brief": "Plan a first Black Canyon of the Gunnison visit around one rim. Explain how to appreciate the canyon from overlooks, compare the South and North Rim experiences, and show readers where to verify road access, trail conditions, and wilderness requirements before setting out.",
+      "sources": [
+        "black-canyon-of-the-gunnison-national-park-overview",
+        "black-canyon-of-the-gunnison-national-park-visit",
+        "black-canyon-of-the-gunnison-national-park-highlights"
+      ],
+      "facts": [
+        "black-canyon-of-the-gunnison-national-park-overview-fact-1",
+        "black-canyon-of-the-gunnison-national-park-visit-fact-1",
+        "black-canyon-of-the-gunnison-national-park-visit-fact-2",
+        "black-canyon-of-the-gunnison-national-park-highlights-fact-1",
+        "black-canyon-of-the-gunnison-national-park-highlights-fact-2",
+        "black-canyon-of-the-gunnison-national-park-highlights-fact-3",
+        "black-canyon-of-the-gunnison-national-park-highlights-fact-4"
+      ],
+      "related": [],
+      "region": "Colorado",
+      "location": "Montrose",
+      "category": "national-parks",
+      "featured": false,
+      "hero": {
+        "photoId": "black-canyon-of-the-gunnison-national-park"
+      },
+      "queryAliases": [
+        "Black Canyon Of The Gunnison National Park"
+      ],
+      "priority": 0
+    },
+    {
+      "slug": "haleakala-national-park",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "Should I visit the Haleakalā Summit District or the Kīpahulu District on a first trip to Maui?",
+      "brief": "Help a first-time Maui visitor choose one main Haleakalā district. Contrast the open volcanic summit with the coastal forest at Kīpahulu, offer an overlook-first approach and directions for checking visitor access, conditions, and sunrise reservations with the park.",
+      "sources": [
+        "haleakala-national-park-overview",
+        "haleakala-national-park-visit",
+        "haleakala-national-park-highlights"
+      ],
+      "facts": [
+        "haleakala-national-park-overview-fact-1",
+        "haleakala-national-park-overview-fact-2",
+        "haleakala-national-park-visit-fact-1",
+        "haleakala-national-park-visit-fact-2",
+        "haleakala-national-park-highlights-fact-1"
+      ],
+      "related": [],
+      "region": "Hawaii",
+      "location": "Kula, Maui",
+      "category": "national-parks",
+      "featured": false,
+      "hero": {
+        "photoId": "haleakala-national-park"
+      },
+      "queryAliases": [
+        "Haleakalā National Park"
+      ],
+      "priority": 0
+    },
+    {
+      "slug": "indiana-dunes-national-park",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "Should I start at West Beach or choose a quieter habitat walk on my first Indiana Dunes National Park visit?",
+      "brief": "Help first-time visitors choose a West Beach dune-and-lake outing or a walk in another habitat. Compare the Succession Trail, Miller Woods and Great Marsh by the landscape and pace each offers, then point to official maps, access information and safety updates. Keep swimming conditions, openings, fees and trail access out of evergreen prose.",
+      "sources": [
+        "indiana-dunes-national-park-overview",
+        "indiana-dunes-national-park-visit",
+        "indiana-dunes-national-park-highlights"
+      ],
+      "facts": [
+        "indiana-dunes-national-park-overview-fact-1",
+        "indiana-dunes-national-park-visit-fact-1",
+        "indiana-dunes-national-park-highlights-fact-1",
+        "indiana-dunes-national-park-highlights-fact-2",
+        "indiana-dunes-national-park-highlights-fact-3"
+      ],
+      "related": [],
+      "region": "Indiana",
+      "location": "Porter",
+      "category": "national-parks",
+      "featured": false,
+      "hero": {
+        "photoId": "indiana-dunes-national-park"
+      },
+      "queryAliases": [
+        "Indiana Dunes National Park"
+      ],
+      "priority": 0
     }
   ]
 }

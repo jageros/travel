@@ -1158,6 +1158,219 @@
           "expiresAt": "2026-11-28"
         }
       ]
+    },
+    {
+      "id": "black-canyon-of-the-gunnison-national-park-overview",
+      "url": "https://www.nps.gov/blca/index.htm",
+      "title": "Black Canyon Of The Gunnison National Park overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-21",
+      "contentHash": "8328d1f558d81909bebed78bafcf24c289a932bdb2244406bb8697741e7c7778",
+      "facts": [
+        {
+          "id": "black-canyon-of-the-gunnison-national-park-overview-fact-1",
+          "statement": "The park describes Black Canyon’s geology as shaped by uplift, volcanism, and erosion by water.",
+          "evidence": "one of uplift, volcanism, and the erosive force of water",
+          "checkedAt": "2026-11-21",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "black-canyon-of-the-gunnison-national-park-visit",
+      "url": "https://www.nps.gov/blca/planyourvisit/index.htm",
+      "title": "Black Canyon Of The Gunnison National Park visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-21",
+      "contentHash": "48e5cd1a1d88e0732be6b55f78c702e65cc9d1b679c909f311ed40568fd44274",
+      "facts": [
+        {
+          "id": "black-canyon-of-the-gunnison-national-park-visit-fact-1",
+          "statement": "The park recommends checking road alerts before travel because weather or construction can temporarily close roads or cause delays.",
+          "evidence": "Weather or road construction may necessitate temporary closures or delays.",
+          "checkedAt": "2026-11-21",
+          "dynamic": true,
+          "expiresAt": "2026-11-28"
+        },
+        {
+          "id": "black-canyon-of-the-gunnison-national-park-visit-fact-2",
+          "statement": "Cell reception is limited across the park, so download maps before arriving.",
+          "evidence": "There is limited cell reception across Black Canyon.",
+          "checkedAt": "2026-11-21",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "black-canyon-of-the-gunnison-national-park-highlights",
+      "url": "https://www.nps.gov/blca/planyourvisit/placestogo.htm",
+      "title": "Black Canyon Of The Gunnison National Park highlights",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-21",
+      "contentHash": "a89515e9c58bf018736dc031aa214fe34b786008ba3026392ac33d9552141959",
+      "facts": [
+        {
+          "id": "black-canyon-of-the-gunnison-national-park-highlights-fact-1",
+          "statement": "There is no bridge or road connecting the North and South Rims within the park. A visit to both requires driving on roads outside the park.",
+          "evidence": "There is no bridge or road through the park or connecting the rims.",
+          "checkedAt": "2026-11-21",
+          "dynamic": false
+        },
+        {
+          "id": "black-canyon-of-the-gunnison-national-park-highlights-fact-2",
+          "statement": "The South Rim is the busier and more developed side of the park.",
+          "evidence": "South Rim is the busier, more developed side of the park.",
+          "checkedAt": "2026-11-21",
+          "dynamic": false
+        },
+        {
+          "id": "black-canyon-of-the-gunnison-national-park-highlights-fact-3",
+          "statement": "The North Rim has a rugged setting and limited visitor services.",
+          "evidence": "The north rim of Black Canyon is rugged and primitive with limited services.",
+          "checkedAt": "2026-11-21",
+          "dynamic": false
+        },
+        {
+          "id": "black-canyon-of-the-gunnison-national-park-highlights-fact-4",
+          "statement": "Inner Canyon routes require preparation and a permit. Check the park’s wilderness guidance before planning to go below the rim.",
+          "evidence": "requires skill, experience, and preparation to be successful. Permits required.",
+          "checkedAt": "2026-11-21",
+          "dynamic": true,
+          "expiresAt": "2026-11-28"
+        }
+      ]
+    },
+    {
+      "id": "haleakala-national-park-overview",
+      "url": "https://www.nps.gov/hale/index.htm",
+      "title": "Haleakalā National Park overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-21",
+      "contentHash": "2c31f50ae86bcd582f62636dc4ea46a403b452b1e23ffaaef43dc9e01644027c",
+      "facts": [
+        {
+          "id": "haleakala-national-park-overview-fact-1",
+          "statement": "The National Park Service provides separate visitor guidance for the Summit and Kīpahulu districts.",
+          "evidence": "Summit District Plan your visit to the Summit. Kīpahulu District Plan your visit to the remote Kīpahulu District.",
+          "checkedAt": "2026-11-21",
+          "dynamic": false
+        },
+        {
+          "id": "haleakala-national-park-overview-fact-2",
+          "statement": "The National Park Service provides sunrise reservation guidance for the Summit District. Consult the current requirements before planning a sunrise visit.",
+          "evidence": "Sunrise Reservations Get a permit to watch sunrise in the Summit District.",
+          "checkedAt": "2026-11-21",
+          "dynamic": true,
+          "expiresAt": "2026-11-28"
+        }
+      ]
+    },
+    {
+      "id": "haleakala-national-park-visit",
+      "url": "https://www.nps.gov/hale/planyourvisit/index.htm",
+      "title": "Haleakalā National Park visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-21",
+      "contentHash": "42e1397e7c6fcc0627fd91499520fe87232c4bbbc74428eb36e80297332cc86b",
+      "facts": [
+        {
+          "id": "haleakala-national-park-visit-fact-1",
+          "statement": "The park describes a range of landscapes that includes volcanic overlooks, rain forest and rocky coastline.",
+          "evidence": "From the lush rain forests, to the rocky coastline, or the majestic overlooks of a volcanic landscape above the clouds",
+          "checkedAt": "2026-11-21",
+          "dynamic": false
+        },
+        {
+          "id": "haleakala-national-park-visit-fact-2",
+          "statement": "The official visit planner links to alerts and conditions, directions, safety, and accessibility information. Use those links to verify your own itinerary.",
+          "evidence": "More about Alerts & Current Conditions Basic Information Directions & Transportation Places To Go Things To Do Calendar Safety Accessibility",
+          "checkedAt": "2026-11-21",
+          "dynamic": true,
+          "expiresAt": "2026-11-28"
+        }
+      ]
+    },
+    {
+      "id": "haleakala-national-park-highlights",
+      "url": "https://www.nps.gov/hale/planyourvisit/placestogo.htm",
+      "title": "Haleakalā National Park highlights",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-21",
+      "contentHash": "a8f4065245d930b43b6f8009f12a9888fca340df375356da091022ab96ec3091",
+      "facts": [
+        {
+          "id": "haleakala-national-park-highlights-fact-1",
+          "statement": "The park distinguishes mountain views in the Summit District from coastal forest in the Kīpahulu District.",
+          "evidence": "Mountain views Summit District Learn about what to expect in the Summit District. Coastal forest Kīpahulu District",
+          "checkedAt": "2026-11-21",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "indiana-dunes-national-park-overview",
+      "url": "https://www.nps.gov/indu/index.htm",
+      "title": "Indiana Dunes National Park overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-21",
+      "contentHash": "dc958390cf65b40b7117b3d1818277cadac421e2572a8655d5c407111740f7f3",
+      "facts": [
+        {
+          "id": "indiana-dunes-national-park-overview-fact-1",
+          "statement": "The National Park Service publishes rip-current guidance for visitors to Indiana Dunes National Park.",
+          "evidence": "Learn about rip currents and how to escape them.",
+          "checkedAt": "2026-11-21",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "indiana-dunes-national-park-visit",
+      "url": "https://www.nps.gov/indu/planyourvisit/index.htm",
+      "title": "Indiana Dunes National Park visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-21",
+      "contentHash": "ee7c78aec6dad5901094e5b54a03daaf2f64e5ddafd551b07516ace42027bc70",
+      "facts": [
+        {
+          "id": "indiana-dunes-national-park-visit-fact-1",
+          "statement": "The trip planner links to operating hours, fees, weather, seasonal safety guidance and accessibility information. Check the details for the specific park stop.",
+          "evidence": "Lists operating hours, fees, passes, permits, reservations, weather, pet restrictions and services.",
+          "checkedAt": "2026-11-21",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "indiana-dunes-national-park-highlights",
+      "url": "https://www.nps.gov/indu/planyourvisit/placestogo.htm",
+      "title": "Indiana Dunes National Park highlights",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-21",
+      "contentHash": "eb68bae417ee7c956c5b2dd132a05eb935bc61360f9bd4921a7f555074b04f00",
+      "facts": [
+        {
+          "id": "indiana-dunes-national-park-highlights-fact-1",
+          "statement": "At West Beach, the National Park Service describes the Succession Trail as rising to a dune with a view over the land and Lake Michigan.",
+          "evidence": "Hike the Succession trail to the top of a dune and overlook the land and Lake Michigan",
+          "checkedAt": "2026-11-21",
+          "dynamic": false
+        },
+        {
+          "id": "indiana-dunes-national-park-highlights-fact-2",
+          "statement": "The Paul H. Douglas Trail in Miller Woods crosses wetlands and beach ridges on its way to Lake Michigan.",
+          "evidence": "This oak savanna trail crosses sweeping wetlands and gentle beach ridges on its way to Lake Michigan.",
+          "checkedAt": "2026-11-21",
+          "dynamic": false
+        },
+        {
+          "id": "indiana-dunes-national-park-highlights-fact-3",
+          "statement": "The National Park Service lists a marsh overlook and identifies Great Marsh as a feeding and resting area for migrating wetland birds.",
+          "evidence": "This location is a popular feeding and resting area for migrating wetland birds.",
+          "checkedAt": "2026-11-21",
+          "dynamic": false
+        }
+      ]
     }
   ]
 }
