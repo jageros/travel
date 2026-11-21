@@ -1,6 +1,6 @@
 # Cedar Trips 推进历史
 
-本文件只记已发生的工作和已决定的边界；未来工作见 [roadmap](roadmap.md)，当前日期快照见 [交接](README.md)。截至 2026-11-19；更早的验收链接保留当时状态，不代表今天重新执行。
+本文件记录已发生的工作和已决定的边界。未来工作见 [roadmap](roadmap.md)，当前日期快照见 [交接](README.md)。更新于 2026-11-21，更早的验收链接保留当时状态。
 
 ## 2026-11-19：实测跨州补稿
 
@@ -138,3 +138,9 @@
 ## 2026-11-21：简化语言切换按钮
 
 - 移除按钮前的「文」图标和圆形装饰，保留当前语言名、箭头和菜单入口。
+
+## 2026-11-21：三篇英文景点、队列补稿与译文上线
+
+- 按当天配额逐篇发布自由女神像、国家广场和肯尼迪航天中心；三个提交分别经过全量本地验证、GitHub CI、Cloudflare 生产构建及线上核验。发布账本保留实际时间与原文指纹。
+- 补稿提交 `48076f6` 仅追加三篇景点 `review` 稿件、三张本地 JPEG 及配套登记，队列从三篇恢复至六篇。Commons 照片来自 [甘尼森黑峡谷](https://commons.wikimedia.org/wiki/File:BlackCanyonoftheGunnisonNationalPark.jpg)、[哈莱阿卡拉](https://commons.wikimedia.org/wiki/File:Haleakala_National_Park_Crater.jpg)和 [印第安纳沙丘](https://commons.wikimedia.org/wiki/File:Part_of_the_Dunes_Succession_Trail_at_West_Beach,_Indiana_Dunes_National_Park.jpg)。正式站三篇待发稿均返回 404。
+- 三篇新英文稿的 33 份译文在 `46a60d0` 独立发布。译文按原文逐节核对，保留官方链接，发布前通过来源、事实、原文指纹和构建检查。线上核验全部 33 个译文地址，sitemap 含 222 个唯一 URL。[CI](https://github.com/jageros/travel/actions/runs/44850146138/job/136679311051)
