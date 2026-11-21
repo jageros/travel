@@ -35,30 +35,30 @@
       "url": "https://www.sfmta.com/getting-around/muni/fares",
       "title": "Fares",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [],
-      "contentHash": "5ce5cb5f84ac3e17fe65e815cceedbf975fc32e6dd4f4de44c729e1156da3dca"
+      "contentHash": "012e63fcffed54ff07ce52cb0a3d6036b4a8e4544cb207ef443c28eda5a6adad"
     },
     {
       "id": "sfmta-adult-single",
       "url": "https://www.sfmta.com/fares/single-ride-adult-ages-19-64",
       "title": "Single Ride - Adult (ages 19-64)",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "muni-adult-clipper-fare",
           "statement": "The SFMTA adult single-ride page lists a $2.85 Clipper fare for adults ages 19–64. The same fare table lists contactless credit/debit payment at $2.85; this is not a promise of discounted-program eligibility.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "$2.85"
         },
         {
           "id": "muni-transfer-window",
           "statement": "The adult ordinary Muni single-ride fare covers 120 minutes across buses and light rail under SFMTA’s transfer conditions; this does not establish cable-car or other-operator coverage.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "good for 120 minutes of travel"
         }
@@ -70,13 +70,13 @@
       "url": "https://www.sfmta.com/fares/day-pass",
       "title": "Day Pass",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "muni-day-pass-fare",
           "statement": "SFMTA lists the Muni-Only Day Pass at $5.70 for unlimited Muni buses, trains and historic streetcars through 11:59 p.m. It lists MuniMobile and Clipper pre-purchase, or cash at a vehicle farebox after notifying the operator; cable cars are not included in this listed coverage.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "$5.70"
         }
@@ -88,13 +88,13 @@
       "url": "https://www.sfmta.com/fares/1-day-visitor-passport",
       "title": "1-Day Visitor Passport",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "muni-passport-fare",
           "statement": "The one-day Visitor Passport fare table lists $15.00 for MuniMobile, Paper Passport and Clipper. The Muni-only product includes cable cars but excludes BART, other transit systems and SFO airport transportation; no channel-specific discount is promised here.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "$15.00"
         }
@@ -106,13 +106,13 @@
       "url": "https://www.sfmta.com/routes/f-market-wharves",
       "title": "F Market & Wharves",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "muni-f-waterfront",
           "statement": "The F Market & Wharves stop list includes the Ferry Building, Pier 39 and Fisherman’s Wharf stops. Opposite directions use different stops; this is not a live-service or step-free-access guarantee.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "The Embarcadero/Ferry Bldg"
         }
@@ -124,21 +124,21 @@
       "url": "https://www.sfmta.com/getting-around/accessibility/muni-accessibility/muni-access-guide/access-historic-streetcars",
       "title": "Access on Historic Streetcars",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "muni-f-platform-boarding",
           "statement": "For a historic streetcar stop with a wayside platform, SFMTA instructs riders to use its ramp and wait; the operator deploys a portable bridge plate. Tell the operator the destination stop and whether securement help is needed. This describes the boarding procedure, not a guarantee that today's stop or equipment is available.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "Operator will deploy a portable bridge plate"
         },
         {
           "id": "muni-f-accessible-stop-pattern",
           "statement": "SFMTA describes accessible wayside platforms along The Embarcadero and Market between Van Ness and Castro, but only selected accessible stops on lower Market. Check the named stop, direction and current notices; the guide does not establish that every stop has identical boarding arrangements or that the full journey is step-free.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "accessible stops are located at key locations along lower Market Street"
         }
@@ -150,13 +150,13 @@
       "url": "https://www.goldengate.org/bridge/visiting-the-bridge/public-transit/",
       "title": "Public Transit - Visiting the Bridge",
       "publisher": "Golden Gate Bridge, Highway and Transportation District",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "bridge-transit-option",
           "statement": "Golden Gate Transit’s bridge visitor guide describes transit access at the south and north bridge ends. Use current timetables for routes and stops; older route-number examples in the visitor guide are not current-service authority.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "Accessing the South End of the Bridge"
         }
@@ -168,13 +168,13 @@
       "url": "https://www.goldengate.org/bridge/visiting-the-bridge/bikes-pedestrians/",
       "title": "Bikes & Pedestrians - Visiting the Bridge",
       "publisher": "Golden Gate Bridge, Highway and Transportation District",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "bridge-pedestrian-east",
           "statement": "Golden Gate Bridge pedestrians, including wheelchair users, are restricted to the east sidewalk. Seasonal hours, dated alerts and temporary closures need checking for the travel date; this is not confirmation of uninterrupted current access.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "Pedestrians - Daily Access on the EAST Sidewalk"
         }
@@ -204,7 +204,7 @@
       "url": "https://www.goldengate.org/bus/schedules-maps/",
       "title": "Golden Gate Transit Bus Schedules",
       "publisher": "Golden Gate Bridge, Highway and Transportation District",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [],
       "contentHash": "08d34b7944f1007ebc368e77a04a1f086f0acf80df239a31914b01f991ed27fa"
     },
@@ -213,21 +213,21 @@
       "url": "https://www.sfmta.com/getting-around/muni/cable-cars",
       "title": "Cable Cars",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "muni-cable-car-system",
           "statement": "SFMTA describes cable cars as vehicles pulled by cables beneath the street and identifies three lines: California, Powell/Hyde and Powell/Mason. These are the cable-car system, separate from the F Market & Wharves historic streetcar.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "cables running beneath"
         },
         {
           "id": "muni-cable-car-boarding",
           "statement": "SFMTA directs riders to cable-car turntables or brown-and-white cable-car signposts and states that cable cars are not equipped with accessible boarding. This does not promise a queue length, a particular vehicle or an available boarding place.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "brown-and-white cable car sign post"
         }
@@ -239,13 +239,13 @@
       "url": "https://www.sfmta.com/travel-updates/temporary-stop-relocations",
       "title": "Temporary Stop Relocations",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "muni-temporary-stop-lookup",
           "statement": "SFMTA publishes a temporary-stop map and table for construction or other activities, with nearby alternative stops where applicable, and links separate event-related travel updates. A listed alternative is not automatically verified as accessible for the rider or identical to the usual stop.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "When a temporary stop is not available"
         }
@@ -257,31 +257,31 @@
       "url": "https://www.sfmta.com/travel-transit-updates",
       "title": "Travel & Transit Updates",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "muni-current-advisory-lookup",
           "statement": "The SFMTA travel-updates index lists dated advisories and links the Muni Metro elevator-status and temporary-stop-relocation tools. Open the specific notice to check its route, direction and effective period; presence on this index is not proof that an incident is active today.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "Muni Metro Elevator Status"
         }
       ],
-      "contentHash": "3da795972c2e4e6991fcb01d873ddc4b4a9adcfaf070ea6e848275129a94cd50"
+      "contentHash": "8fc4b12f37fde3a3ffe5453463ea4ae5a6690307fa53e2566fe0724720b6dae6"
     },
     {
       "id": "sfmta-trip-planner",
       "url": "https://www.sfmta.com/trip-planner",
       "title": "Trip Planner",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "muni-official-trip-planner",
           "statement": "SFMTA offers an official trip-planning entry form with starting location, ending location and travel-mode controls. Checking the form does not validate a particular dated itinerary, an accessible connection or a live service result.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "Starting Location"
         }
@@ -319,21 +319,21 @@
       "url": "https://www.sfmta.com/fares/free-muni-all-youth-18-years-and-younger",
       "title": "Free Muni for All Youth (18 years and younger)",
       "publisher": "San Francisco Municipal Transportation Agency",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "muni-youth-eligibility",
           "statement": "SFMTA makes regular Muni travel free for riders 18 and younger regardless of income or residency, without an application or proof of payment/Clipper card. Cable cars are an exception governed by separate conditions; the universal benefit must not be extended to visiting youths on cable cars.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "No application or proof of payment/Clipper card is required"
         },
         {
           "id": "muni-youth-age-id-guidance",
           "statement": "SFMTA encourages riders 16 and above to carry student or other identification for age verification. The page describes this as encouraged, not a universal mandatory document requirement.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "Youth 16 and above are encouraged"
         }
@@ -469,13 +469,13 @@
       "url": "https://www.flysfo.com/passengers/ground-transportation/taxis",
       "title": "Taxis",
       "publisher": "San Francisco International Airport",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "sfo-official-taxi-zone",
           "statement": "SFO places designated taxi zones at roadway center islands on the Arrivals/Baggage Claim level of all terminals. This identifies the official pickup area; no wait time, vehicle availability, child-seat provision or overnight supply is guaranteed.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "roadway center islands"
         }
@@ -487,13 +487,13 @@
       "url": "https://www.flysfo.com/passengers/ground-transportation/lyft-uber-rides",
       "title": "Lyft/Uber/Wingz Rides",
       "publisher": "San Francisco International Airport",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "sfo-standard-ride-app-pickup",
           "statement": "SFO places standard domestic Lyft/Uber pickups on Domestic Garage Level 5 and international Lyft/Uber/Wingz pickups at Departures/Ticketing roadway center-island zones 12–17. Domestic Wingz, limousine/Assist products and wheelchair-accessible arrangements have separate instructions; confirm the actual product and terminal.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "Level 5 of the Domestic Garage"
         }
@@ -505,13 +505,13 @@
       "url": "https://www.goldengate.org/ferry/schedules-maps/",
       "title": "Golden Gate Ferry Schedules",
       "publisher": "Golden Gate Bridge, Highway and Transportation District",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "golden-gate-sausalito-schedule-entry",
           "statement": "Golden Gate Ferry's schedule index lists a Sausalito–San Francisco service with a timetable effective date and a holiday-calendar link. Open the applicable route, direction and travel-date view; the static index does not verify an actual departure or final return.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "Sausalito-San Francisco"
         }
@@ -523,21 +523,21 @@
       "url": "https://www.goldengate.org/ferry/ferry-fares-payment/",
       "title": "Ferry Fares & Payment",
       "publisher": "Golden Gate Bridge, Highway and Transportation District",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "golden-gate-ferry-one-way-products",
           "statement": "Golden Gate Ferry lists fares for one-way travel and requires each passenger's own ticket, contactless bank card or Clipper account. This is not a combined bus/ferry product or a boarding-capacity guarantee.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "Fares are for one-way travel"
         },
         {
           "id": "golden-gate-ferry-paper-ticket-conditions",
           "statement": "Golden Gate Ferry says its paper tickets are usable on ordinary departures except Giants Ferry, valid for 90 days, nonrefundable and not replaceable if lost or stolen. A valid ticket is not evidence that a particular return departure has available boarding capacity.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "Tickets are valid for 90 days"
         }
@@ -558,7 +558,7 @@
           "dynamic": true
         }
       ],
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "contentHash": "89a85a2221253144bfb5a390f5195a79de45cbea31b7ec98f254a5491610af38"
     },
     {
@@ -575,7 +575,7 @@
           "dynamic": true
         }
       ],
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "contentHash": "85d2581adf1e62861aa93e42c2a80041ced04e591e620f0bf362d40841d1823b"
     },
     {
@@ -583,12 +583,12 @@
       "url": "https://www.nps.gov/grca/index.htm",
       "title": "Grand Canyon National Park",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "grand-canyon-tribal-homelands",
           "statement": "The National Park Service describes connections between eleven tribes and the land and resources of Grand Canyon National Park.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false,
           "evidence": "Eleven tribes have cultural connections"
         }
@@ -600,12 +600,12 @@
       "url": "https://www.nps.gov/grca/planyourvisit/grand-canyon-visitor-center.htm",
       "title": "Grand Canyon Visitor Center",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "grand-canyon-mather-rim-trail",
           "statement": "Mather Point is a viewpoint near the South Rim visitor center, with connections to the Canyon Rim Trail in both directions. Check current conditions before choosing a segment.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false,
           "evidence": "walk east or west along the Canyon Rim Trail"
         }
@@ -617,12 +617,12 @@
       "url": "https://www.nps.gov/grca/learn/nature/geologicformations.htm",
       "title": "Geologic Formations of the Grand Canyon",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "grand-canyon-rock-layers",
           "statement": "The canyon walls expose many rock layers. The park geology guide identifies conspicuous rock layers from the Paleozoic Era.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false,
           "evidence": "Rock layers formed during the Paleozoic Era"
         }
@@ -634,13 +634,13 @@
       "url": "https://www.nps.gov/grca/planyourvisit/conditions.htm",
       "title": "Grand Canyon Alerts and Conditions",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "grand-canyon-current-travel-checks",
           "statement": "The park conditions page links to road updates, hiking conditions and South Rim operating information. Check those updates for the chosen entrance and segment.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "Weather, Webcams and Roads"
         }
@@ -652,13 +652,13 @@
       "url": "https://www.nps.gov/grca/planyourvisit/day-hiking.htm",
       "title": "Grand Canyon Day Hiking",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "grand-canyon-day-hiking-updates",
           "statement": "The park day-hiking guide links to backcountry updates and closures for current trail conditions. Choose rim or inner-canyon routes with the official precautions in mind.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "for current information on trail conditions"
         }
@@ -670,13 +670,13 @@
       "url": "https://www.nps.gov/yell/index.htm",
       "title": "Yellowstone National Park",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "yellowstone-seasonal-planning",
           "statement": "The park recommends planning for seasonal conditions and links to current road and operating information.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "Yellowstone changes with the seasons"
         }
@@ -688,19 +688,19 @@
       "url": "https://www.nps.gov/yell/planyourvisit/exploreoldfaithful.htm",
       "title": "Old Faithful and Nearby Geyser Basins",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "yellowstone-old-faithful-boardwalks",
           "statement": "The Old Faithful area has a viewing area and boardwalks in Upper Geyser Basin. The National Park Service publishes eruption predictions as estimates.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false,
           "evidence": "through the Upper Geyser Basin"
         },
         {
           "id": "yellowstone-grand-prismatic-location",
           "statement": "Grand Prismatic Spring is in Midway Geyser Basin, a separate stop from the Old Faithful area.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false,
           "evidence": "Discover Midway Geyser Basin"
         }
@@ -712,13 +712,13 @@
       "url": "https://www.nps.gov/yell/planyourvisit/conditions.htm",
       "title": "Yellowstone Current Conditions",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "yellowstone-current-travel-checks",
           "statement": "Yellowstone publishes current road status, seasonal opening and closing dates and road construction information. Check the entire route before visiting.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "the current road status, seasonal road opening/closing dates"
         }
@@ -730,13 +730,13 @@
       "url": "https://www.nps.gov/yell/planyourvisit/safety.htm",
       "title": "Yellowstone Safety",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "yellowstone-thermal-boardwalk-safety",
           "statement": "In thermal areas, Yellowstone directs visitors to stay on boardwalks and designated trails, and to keep children close.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "Keep children close and do not let them run on boardwalks"
         }
@@ -748,12 +748,12 @@
       "url": "https://www.nps.gov/yose/index.htm",
       "title": "Yosemite National Park",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "yosemite-seasonal-waterfalls",
           "statement": "The National Park Service describes spring snowmelt as the usual period for viewing Yosemite waterfalls. Check current flow and conditions for the actual trip.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false,
           "evidence": "when most of the snowmelt occurs"
         }
@@ -765,12 +765,12 @@
       "url": "https://www.nps.gov/yose/planyourvisit/yv.htm",
       "title": "Yosemite Valley",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "yosemite-tunnel-view-features",
           "statement": "The National Park Service identifies El Capitan, Bridalveil Fall and Half Dome as features visible from Tunnel View in clear conditions.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false,
           "evidence": "with Half Dome in the background"
         }
@@ -782,30 +782,30 @@
       "url": "https://www.nps.gov/yose/planyourvisit/conditions.htm",
       "title": "Yosemite Current Conditions",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "yosemite-current-travel-checks",
           "statement": "Yosemite publishes road status, seasonal information and trail conditions. Check them for the chosen entrance, viewpoint and walking route.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "Road Status"
         }
       ],
-      "contentHash": "43ff8ce632bf5d16b801556befeb26014d1355b8bf95fca7a1ddd6db0b4ebecc"
+      "contentHash": "83d42b32ba22b41921904e3b94974f08640e34690b58e561e4b8917c2f23a6a7"
     },
     {
       "id": "statue-of-liberty-overview",
       "url": "https://www.nps.gov/stli/index.htm",
       "title": "Statue of Liberty National Monument",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "statue-of-liberty-museum-location",
           "statement": "The Statue of Liberty Museum is on Liberty Island. The National Park Service provides separate planning links for directions and reservations.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false,
           "evidence": "through the museum on Liberty Island"
         }
@@ -817,21 +817,21 @@
       "url": "https://www.nps.gov/stli/planyourvisit/index.htm",
       "title": "Plan Your Statue of Liberty Visit",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "statue-of-liberty-authorized-ferry",
           "statement": "The National Park Service identifies Statue City Cruises as the authorized ferry operator for Liberty and Ellis Islands. Check departure instructions before booking.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "ONLY AUTHORIZED ticket seller"
         },
         {
           "id": "statue-of-liberty-ticket-types",
           "statement": "The National Park Service describes general admission, pedestal and crown access as separate booking options. Check the current inclusions with the authorized operator.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "What Are My Ticket Options?"
         }
@@ -843,13 +843,13 @@
       "url": "https://www.nps.gov/stli/planyourvisit/visit-the-crown.htm",
       "title": "Visit the Crown",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "statue-of-liberty-crown-stairs",
           "statement": "The crown climb uses a tight spiral staircase, and the National Park Service states that there is no elevator service to the crown. Check all eligibility and access rules before booking.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "There is no elevator service to the Crown"
         }
@@ -861,12 +861,12 @@
       "url": "https://www.nps.gov/nama/index.htm",
       "title": "National Mall and Memorial Parks",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "national-mall-monuments",
           "statement": "The National Mall and Memorial Parks includes a group of monuments and memorials, with individual sites and events listed by the National Park Service.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false,
           "evidence": "unique monuments & memorials"
         }
@@ -878,12 +878,12 @@
       "url": "https://www.nps.gov/nama/planyourvisit/basicinfo.htm",
       "title": "National Mall Visitor Information",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "national-mall-route-planning",
           "statement": "The park identifies maps and wayfinding signs across the National Mall and provides directions by public transport, bicycle and car.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false,
           "evidence": "system of maps and pylons"
         }
@@ -895,12 +895,12 @@
       "url": "https://www.nps.gov/linc/planyourvisit/visit-the-lincoln-memorial-chamber.htm",
       "title": "Visit the Lincoln Memorial Chamber",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "national-mall-reflecting-pool-view",
           "statement": "The National Park Service describes views of the Reflecting Pool and other landmarks from the Lincoln Memorial area. Check temporary access notices for individual paths.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false,
           "evidence": "views of the Reflecting Pool"
         }
@@ -912,13 +912,13 @@
       "url": "https://www.nps.gov/nama/planyourvisit/conditions.htm",
       "title": "National Mall Alerts and Conditions",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "national-mall-current-travel-checks",
           "statement": "The National Park Service publishes alerts and road closure notices. Check each notice’s effective dates and the individual memorial’s visitor information.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "Road Closures"
         }
@@ -930,90 +930,90 @@
       "url": "https://www.kennedyspacecenter.com/explore-attractions",
       "title": "Explore the Kennedy Space Center Attractions",
       "publisher": "Kennedy Space Center Visitor Complex",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "kennedy-space-center-mission-zones",
           "statement": "The visitor complex groups attractions and tours into zones that follow eras of space exploration.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false,
           "evidence": "grouped by chronological era"
         },
         {
           "id": "kennedy-space-center-saturn-v",
           "statement": "The visitor complex lists the Apollo/Saturn V Center with its Behind the Gates bus tour. Check tour operation before building your visit around it.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "Apollo/Saturn V Center"
         }
       ],
-      "contentHash": "68367f2705cfa650a7772221bc36fba93fe75b32bc9384531c38e8c8d0e93add"
+      "contentHash": "6c788ad85ebeb51a3bc7cb8374bb89ba0a791df7fc471b815139220fe151a3af"
     },
     {
       "id": "kennedy-space-center-atlantis",
       "url": "https://www.kennedyspacecenter.com/explore-attractions/space-shuttle-atlantis",
       "title": "Space Shuttle Atlantis Exhibit",
       "publisher": "Kennedy Space Center Visitor Complex",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "kennedy-space-center-atlantis-exhibit",
           "statement": "The permanent Atlantis exhibit displays the orbiter angled with its payload doors open and its Canadarm extended.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false,
           "evidence": "with payload doors open and Canadarm extended"
         }
       ],
-      "contentHash": "aa478ece00a28fc1893afdcd1e8cba1ff7d476e128108a7935786f2f0965c510"
+      "contentHash": "130daaaf0ce3fd242ca58a4a6b13583a04934ecdef6a5229e7765c6b4959cba7"
     },
     {
       "id": "kennedy-space-center-visit",
       "url": "https://www.kennedyspacecenter.com/info/plan-your-visit",
       "title": "Plan Your Kennedy Space Center Visit",
       "publisher": "Kennedy Space Center Visitor Complex",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "kennedy-space-center-current-travel-checks",
           "statement": "The visitor complex maintains its own operating, parking, accessibility and security information. Check these resources for the chosen day and activities.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "Accessibility Information Security Information"
         }
       ],
-      "contentHash": "003448ad83c6287a3a7b0b4d3ae376d4fb8ce7df94c95a60960e1da407b7d32a"
+      "contentHash": "43aaeb101de02f18e6f2ccee011780eff8db3998b7d9f3640a9d345540fc53e1"
     },
     {
       "id": "kennedy-space-center-launches",
       "url": "https://www.kennedyspacecenter.com/launches-and-events",
       "title": "Kennedy Space Center Featured Events",
       "publisher": "Kennedy Space Center Visitor Complex",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "kennedy-space-center-events-calendar",
           "statement": "The visitor complex publishes a calendar of listed events and experiences. Check the schedule separately from general visit planning.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "see the full list on the Events Calendar"
         }
       ],
-      "contentHash": "1d0443b7e2e5b9e1bfa0eacca05c324c94aa8c89971f4f84607a78523ccbc862"
+      "contentHash": "ce26fc46a01992daaaaacd6d14301f2daa38aa6ae65809459e57230d46ffc2de"
     },
     {
       "id": "balboa-park-overview",
       "url": "https://www.sandiego.gov/park-and-recreation/parks/regional/balboa",
       "title": "Balboa Park",
       "publisher": "City of San Diego",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "balboa-park-prado-architecture",
           "statement": "The City of San Diego describes the Spanish Colonial Revival museum buildings along the Prado.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false,
           "evidence": "Spanish Colonial Revival buildings"
         }
@@ -1025,13 +1025,13 @@
       "url": "https://balboapark.org/plan-your-visit/",
       "title": "Plan Your Balboa Park Visit",
       "publisher": "Balboa Park",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "balboa-park-current-travel-checks",
           "statement": "Balboa Park asks visitors to check each venue’s hours individually. Its trip planning page also links to park maps, transit routes and parking information.",
-          "checkedAt": "2026-11-19",
-          "expiresAt": "2026-11-26",
+          "checkedAt": "2026-11-21",
+          "expiresAt": "2026-11-28",
           "dynamic": true,
           "evidence": "Venue and restaurant hours vary"
         }
@@ -1043,12 +1043,12 @@
       "url": "https://balboapark.org/parks-trails-gardens/botanical-building-and-lily-pond-balboa-park/",
       "title": "Botanical Building and Lily Pond",
       "publisher": "Balboa Park",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "balboa-park-lily-pond",
           "statement": "The historic Botanical Building stands alongside the Lily Pond and Lagoon on El Prado.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false,
           "evidence": "along with the adjacent Lily Pond and Lagoon"
         }
@@ -1060,12 +1060,12 @@
       "url": "https://www.goldengate.org/bridge/visiting-the-bridge/",
       "title": "Visiting the Golden Gate Bridge",
       "publisher": "Golden Gate Bridge, Highway and Transportation District",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "facts": [
         {
           "id": "golden-gate-onsite-exhibits",
           "statement": "The bridge district describes exhibits on the history, science and engineering of the bridge around the Welcome Center plaza.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false,
           "evidence": "science, and engineering of the Bridge"
         }
@@ -1077,14 +1077,14 @@
       "url": "https://www.nps.gov/acad/index.htm",
       "title": "Acadia National Park overview",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "contentHash": "4b7116f6a347ff8f27f70900b176f10216e2f553e737b2fcf4bd88183e2705cd",
       "facts": [
         {
           "id": "acadia-national-park-overview-fact-1",
           "statement": "The park highlights the heritage and continuing presence of the Wabanaki Nations as part of understanding Acadia.",
           "evidence": "heritage, culture, and continuing presence of tribes known collectively as Wabanaki",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false
         }
       ]
@@ -1094,16 +1094,16 @@
       "url": "https://www.nps.gov/acad/planyourvisit/index.htm",
       "title": "Acadia National Park visitor information",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "contentHash": "6427ecffa0ae7fbc76d5d7ef8a255a0ece19cfbd700c42b52cdc690c914e067e",
       "facts": [
         {
           "id": "acadia-national-park-visit-fact-1",
           "statement": "Before traveling, use Acadia's official alerts for current road, facility and program closures or advisories.",
           "evidence": "Find a current listing of alerts, advisories, and closures for park roads, facilities, and programs.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": true,
-          "expiresAt": "2026-11-26"
+          "expiresAt": "2026-11-28"
         }
       ]
     },
@@ -1112,14 +1112,14 @@
       "url": "https://www.nps.gov/acad/planyourvisit/placestogo.htm",
       "title": "Acadia National Park highlights",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "contentHash": "4e85a98fe118a13e5f84dd74bd134cb759a1c6feaead37eea65c21375cd02461",
       "facts": [
         {
           "id": "acadia-national-park-highlights-fact-1",
           "statement": "Acadia's guide to Park Loop Road lists Sand Beach, Thunder Hole and Otter Cliffs among its highlights on Mount Desert Island.",
           "evidence": "Sieur de Monts, Sand Beach, Thunder Hole, Otter Cliffs, Jordan Pond, and Cadillac Mountain",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false
         }
       ]
@@ -1129,14 +1129,14 @@
       "url": "https://www.nps.gov/hosp/index.htm",
       "title": "Hot Springs National Park overview",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "contentHash": "dfb013ed507ac6abef218391b25c440975d46a44cb7d0bad6b3361c5d9049b57",
       "facts": [
         {
           "id": "hot-springs-national-park-overview-fact-1",
           "statement": "Bathhouse Row preserves the historic bathhouses that are central to a visit to this park.",
           "evidence": "Bathhouse Row is home to the Park's historic bathhouses.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": false
         }
       ]
@@ -1146,16 +1146,16 @@
       "url": "https://www.nps.gov/hosp/planyourvisit/index.htm",
       "title": "Hot Springs National Park visitor information",
       "publisher": "National Park Service",
-      "checkedAt": "2026-11-19",
+      "checkedAt": "2026-11-21",
       "contentHash": "0d2d70c24d800ccff16f2d66f3b912992f4e8bd19452d0a2fd0b4b7943f1c68f",
       "facts": [
         {
           "id": "hot-springs-national-park-visit-fact-1",
           "statement": "The park's current visitor guidance does not allow outdoor soaking in its thermal springs.",
           "evidence": "There are no opportunities to soak in the thermal springs outdoors.",
-          "checkedAt": "2026-11-19",
+          "checkedAt": "2026-11-21",
           "dynamic": true,
-          "expiresAt": "2026-11-26"
+          "expiresAt": "2026-11-28"
         }
       ]
     }

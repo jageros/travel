@@ -157,7 +157,7 @@
     "errors": [
       "bart-sfo: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-19T11:16:21.742Z"
+    "detectedAt": "2026-11-21T01:13:28.747Z"
   },
   {
     "slug": "source-monitor",
@@ -165,7 +165,7 @@
     "errors": [
       "clipper-contactless: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-19T11:16:21.742Z"
+    "detectedAt": "2026-11-21T01:13:28.747Z"
   },
   {
     "slug": "source-monitor",
@@ -173,7 +173,7 @@
     "errors": [
       "bart-advisories: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-19T11:16:21.742Z"
+    "detectedAt": "2026-11-21T01:13:28.747Z"
   },
   {
     "slug": "source-monitor",
@@ -181,7 +181,7 @@
     "errors": [
       "bart-paying-fare: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-19T11:16:21.742Z"
+    "detectedAt": "2026-11-21T01:13:28.747Z"
   },
   {
     "slug": "source-monitor",
@@ -189,7 +189,7 @@
     "errors": [
       "clipper-youth-senior: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-19T11:16:21.742Z"
+    "detectedAt": "2026-11-21T01:13:28.747Z"
   },
   {
     "slug": "source-monitor",
@@ -197,7 +197,7 @@
     "errors": [
       "clipper-ways-to-pay: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-19T11:16:21.742Z"
+    "detectedAt": "2026-11-21T01:13:28.747Z"
   },
   {
     "slug": "source-monitor",
@@ -205,7 +205,7 @@
     "errors": [
       "bart-tap-and-ride: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-19T11:16:21.742Z"
+    "detectedAt": "2026-11-21T01:13:28.747Z"
   },
   {
     "slug": "source-monitor",
@@ -213,7 +213,7 @@
     "errors": [
       "bart-schedules: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-19T11:16:21.742Z"
+    "detectedAt": "2026-11-21T01:13:28.747Z"
   },
   {
     "slug": "source-monitor",
@@ -221,6 +221,6 @@
     "errors": [
       "bart-official-app: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-19T11:16:21.742Z"
+    "detectedAt": "2026-11-21T01:13:28.747Z"
   }
 ]

@@ -100,6 +100,12 @@
       "publishedAt": "2026-11-19T11:17:04.973Z",
       "contentSha256": "d4de7ff45833ca16efa5ddc3818a4ec9e64c0cfe980c1c42e5c5ba64c5bbd9dc",
       "manualApproval": false
+    },
+    {
+      "slug": "statue-of-liberty",
+      "publishedAt": "2026-11-21T01:13:55.970Z",
+      "contentSha256": "78abf5d8537352b1d8775f1d9375040a9467793f8e120df77137c70b523a1e1b",
+      "manualApproval": false
     }
   ]
 }
