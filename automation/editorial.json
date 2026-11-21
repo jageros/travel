@@ -112,6 +112,12 @@
       "publishedAt": "2026-11-21T01:18:08.219Z",
       "contentSha256": "2c360b57d420e6ae552792fe543f5cb13e5398b1dd218b1228f4bf827eb1f0f1",
       "manualApproval": false
+    },
+    {
+      "slug": "kennedy-space-center",
+      "publishedAt": "2026-11-21T01:21:42.927Z",
+      "contentSha256": "529c6de617502ff9598180949de0179c2c0191ee3312eded42c061ad9f821be2",
+      "manualApproval": false
     }
   ]
 }
