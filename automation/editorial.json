@@ -130,6 +130,12 @@
       "publishedAt": "2026-11-23T02:05:22.163Z",
       "contentSha256": "4eb0e848d048684654c017105e4fbfc05488275e332e7d533bf8c24e405e396e",
       "manualApproval": false
+    },
+    {
+      "slug": "acadia-national-park",
+      "publishedAt": "2026-11-23T02:10:40.212Z",
+      "contentSha256": "2400229b6bb766289c9ceeb138bd863fb6810bb7d28364a7d2eb8f24e55da0c4",
+      "manualApproval": false
     }
   ]
 }
