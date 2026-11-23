@@ -22,10 +22,11 @@
 "featured": true
 "hero":
   "photoId": "balboa-park"
-"status": "review"
+"status": "published"
 "author": "editorial-team"
 "updatedAt": "2026-11-19"
 "checkedAt": "2026-11-19"
+"publishedAt": "2026-11-23"
 ---
 
 ## Why this place is worth visiting

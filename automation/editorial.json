@@ -118,6 +118,12 @@
       "publishedAt": "2026-11-21T01:21:42.927Z",
       "contentSha256": "529c6de617502ff9598180949de0179c2c0191ee3312eded42c061ad9f821be2",
       "manualApproval": false
+    },
+    {
+      "slug": "balboa-park",
+      "publishedAt": "2026-11-23T01:58:03.515Z",
+      "contentSha256": "4eb857d17b65bd551d16b1a5f8985996f3213ef52ba07db022e1ef8569fa7f7f",
+      "manualApproval": false
     }
   ]
 }
