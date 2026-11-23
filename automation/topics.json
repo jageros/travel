@@ -734,6 +734,64 @@
         "Indiana Dunes National Park"
       ],
       "priority": 0
+    },
+    {
+      "slug": "lincoln-home-national-historic-site",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "How should I combine a Lincoln Home tour with a self-guided walk around the historic Springfield neighborhood?",
+      "brief": "Plan a Springfield visit that pairs the Lincoln Home with a walk through its historic neighborhood. Explain what a house tour and a street-level visit each reveal, then help readers choose a flexible sequence around access, timing, and the interests of their group.",
+      "sources": [
+        "lincoln-home-national-historic-site-overview",
+        "lincoln-home-national-historic-site-visit"
+      ],
+      "facts": [
+        "lincoln-home-national-historic-site-overview-fact-1",
+        "lincoln-home-national-historic-site-visit-fact-1",
+        "lincoln-home-national-historic-site-visit-fact-2",
+        "lincoln-home-national-historic-site-visit-fact-3"
+      ],
+      "related": [],
+      "region": "Illinois",
+      "location": "Springfield",
+      "category": "history-culture",
+      "featured": false,
+      "hero": {
+        "photoId": "lincoln-home-national-historic-site"
+      },
+      "queryAliases": [
+        "Lincoln Home National Historic Site"
+      ],
+      "priority": 0
+    },
+    {
+      "slug": "effigy-mounds-national-monument",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "Should I walk the Fire Point Loop or choose a shorter first visit at Effigy Mounds National Monument?",
+      "brief": "Help a first-time visitor understand the significance of the earthen mounds and choose between a climb to Fire Point and a lower-elevation visit around the visitor center and Yellow River Boardwalk. Point to official route descriptions and safety guidance without promising current access or trail conditions.",
+      "sources": [
+        "effigy-mounds-national-monument-overview",
+        "effigy-mounds-national-monument-visit"
+      ],
+      "facts": [
+        "effigy-mounds-national-monument-overview-fact-1",
+        "effigy-mounds-national-monument-visit-fact-1"
+      ],
+      "related": [],
+      "region": "Iowa",
+      "location": "Harpers Ferry",
+      "category": "landmarks",
+      "featured": false,
+      "hero": {
+        "photoId": "effigy-mounds-national-monument"
+      },
+      "queryAliases": [
+        "Effigy Mounds National Monument"
+      ],
+      "priority": 0
     }
   ]
 }

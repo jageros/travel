@@ -1371,6 +1371,90 @@
           "dynamic": false
         }
       ]
+    },
+    {
+      "id": "lincoln-home-national-historic-site-overview",
+      "url": "https://www.nps.gov/liho/index.htm",
+      "title": "Lincoln Home National Historic Site overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-23",
+      "contentHash": "297628d74cbc5495740f15a8e947d1e11cdcdf4a306e12f6a2a069422d1a1f93",
+      "facts": [
+        {
+          "id": "lincoln-home-national-historic-site-overview-fact-1",
+          "statement": "The National Park Service publishes a Lincoln Home tour page and an events calendar to help visitors plan a stop.",
+          "evidence": "Lincoln Home Events & Programs Check out the Lincoln Home event calendar as you plan your visit!",
+          "checkedAt": "2026-11-23",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "lincoln-home-national-historic-site-visit",
+      "url": "https://www.nps.gov/liho/planyourvisit/index.htm",
+      "title": "Lincoln Home National Historic Site visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-23",
+      "contentHash": "c533568fd3047103776e1987155b48dfd2966e91619584d3cc49d9a070b50c55",
+      "facts": [
+        {
+          "id": "lincoln-home-national-historic-site-visit-fact-1",
+          "statement": "Entering the Lincoln Home requires joining a guided tour. Confirm the ticket procedure before traveling.",
+          "evidence": "The only way to go inside the Lincoln Home is on a guided tour.",
+          "checkedAt": "2026-11-23",
+          "dynamic": true,
+          "expiresAt": "2026-11-30"
+        },
+        {
+          "id": "lincoln-home-national-historic-site-visit-fact-2",
+          "statement": "The site describes a walk around its historic neighborhood as an option alongside the home tour.",
+          "evidence": "walk around the historic 4-block neighborhood",
+          "checkedAt": "2026-11-23",
+          "dynamic": false
+        },
+        {
+          "id": "lincoln-home-national-historic-site-visit-fact-3",
+          "statement": "The site offers self-guided exhibits and park films at its visitor center. Check the park’s guidance for availability.",
+          "evidence": "visitors can browse several self-guided exhibits, watch the park films at the visitor center",
+          "checkedAt": "2026-11-23",
+          "dynamic": true,
+          "expiresAt": "2026-11-30"
+        }
+      ]
+    },
+    {
+      "id": "effigy-mounds-national-monument-overview",
+      "url": "https://www.nps.gov/efmo/index.htm",
+      "title": "Effigy Mounds National Monument overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-23",
+      "contentHash": "20545a981927a2b3b94aa1c4e2e6501eae30365c7d5f6e5fb2b32a6b500cc98a",
+      "facts": [
+        {
+          "id": "effigy-mounds-national-monument-overview-fact-1",
+          "statement": "The National Park Service describes the construction of animal-shaped earthen mounds as a regional cultural practice.",
+          "evidence": "The construction of animal shaped (effigy) mounds was a regional cultural phenomenon.",
+          "checkedAt": "2026-11-23",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "effigy-mounds-national-monument-visit",
+      "url": "https://www.nps.gov/efmo/planyourvisit/index.htm",
+      "title": "Effigy Mounds National Monument visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-23",
+      "contentHash": "0265859acb741181bb44d5424f3a38888c62f1cbdf53149526063cbff20aa34a",
+      "facts": [
+        {
+          "id": "effigy-mounds-national-monument-visit-fact-1",
+          "statement": "The monument’s trip planner links to operating hours, directions, safety and accessibility information. Use it to check the stops and route you plan to visit.",
+          "evidence": "Find important information on operating hours and more for your trip.",
+          "checkedAt": "2026-11-23",
+          "dynamic": false
+        }
+      ]
     }
   ]
 }
