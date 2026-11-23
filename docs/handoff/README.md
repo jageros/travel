@@ -1,6 +1,13 @@
 # Cedar Trips 当前交接
 
-整理日期：**2026-11-21，Asia/Shanghai**。本页同时记录当前自动发布改动和 11 月 5 日历史快照；下次必须重新核对远端、运行记录和部署。先读根目录 [AGENTS.md](../../AGENTS.md)，再按本页接续。项目决策见 [推进历史](history.md)，执行优先级见 [后续计划](roadmap.md)。
+整理日期：**2026-11-23，Asia/Shanghai**。本页同时记录当前自动发布改动和 11 月 5 日历史快照。下次必须重新核对远端、运行记录和部署。先读根目录 [AGENTS.md](../../AGENTS.md)，再按本页接续。项目决策见 [推进历史](history.md)，执行优先级见 [后续计划](roadmap.md)。
+
+### 2026-11-23 定时任务快照
+
+- 当天逐篇发布巴尔博亚公园（`31467d6`）、旧金山 F 线海滨无台阶出行指南（`dc82b41`）和阿卡迪亚国家公园（`3ee28dd`），用完三个英文名额。每篇提交均通过 GitHub、Cloudflare 与正式页核验。 [巴尔博亚公园](https://www.cedartrips.com/destinations/balboa-park/) · [F 线指南](https://www.cedartrips.com/guides/sf-waterfront-step-free-transit-planning/) · [阿卡迪亚](https://www.cedartrips.com/destinations/acadia-national-park/)
+- `7a4fa08` 补入爱荷华州 Effigy Mounds 和伊利诺伊州 Lincoln Home 两篇待发稿，队列从四篇恢复至六篇。正式站两条待发路由均返回 404，sitemap 无对应条目。City of Rocks 的入队抓取失败，本轮使用已核验的其他候选。 [补稿 CI](https://github.com/jageros/travel/actions/runs/45099111263/job/137445585748)
+- `ded7480` 独立发布三篇原文的 33 份译文。110 份译文校验、168 项测试和生产 259 页、预览 265 页静态核验通过。线上核验 36 个文章 URL 的标题、canonical、语言标记及双向 hreflang，并验证五个本地 JPEG 和 258 个唯一 sitemap URL。 [译文 CI](https://github.com/jageros/travel/actions/runs/45099371377/job/137446408917) · [sitemap](https://www.cedartrips.com/sitemap.xml)
+- 英文发布的来源报告捕获于 `2026-11-23T02:09:42.544Z`。70 项来源有 61 项匹配基线，9 项 BART/Clipper 仍返回 403，零证据冲突。补稿另核验并登记四项 NPS 来源。11 月 22 日中断的巴尔博亚本地改动已留存备查，11 月 23 日在重新核验来源后才首次送达远端。
 
 ### 2026-11-21 定时任务快照
 

@@ -144,3 +144,10 @@
 - 按当天配额逐篇发布自由女神像、国家广场和肯尼迪航天中心；三个提交分别经过全量本地验证、GitHub CI、Cloudflare 生产构建及线上核验。发布账本保留实际时间与原文指纹。
 - 补稿提交 `48076f6` 仅追加三篇景点 `review` 稿件、三张本地 JPEG 及配套登记，队列从三篇恢复至六篇。Commons 照片来自 [甘尼森黑峡谷](https://commons.wikimedia.org/wiki/File:BlackCanyonoftheGunnisonNationalPark.jpg)、[哈莱阿卡拉](https://commons.wikimedia.org/wiki/File:Haleakala_National_Park_Crater.jpg)和 [印第安纳沙丘](https://commons.wikimedia.org/wiki/File:Part_of_the_Dunes_Succession_Trail_at_West_Beach,_Indiana_Dunes_National_Park.jpg)。正式站三篇待发稿均返回 404。
 - 三篇新英文稿的 33 份译文在 `46a60d0` 独立发布。译文按原文逐节核对，保留官方链接，发布前通过来源、事实、原文指纹和构建检查。线上核验全部 33 个译文地址，sitemap 含 222 个唯一 URL。[CI](https://github.com/jageros/travel/actions/runs/44850146138/job/136679311051)
+
+## 2026-11-23 每日发布、补稿和多语言维护
+
+- 从远端 `e77c07b` 重新执行当日门禁。11 月 22 日中断的巴尔博亚发布仅存在于本地。留存待查补丁后，按 11 月 23 日账本重新计算额度、抓取官方来源并正式发布。
+- 英文发布顺序为巴尔博亚公园（`31467d6`）、旧金山 F 线海滨无台阶出行指南（`dc82b41`）、阿卡迪亚国家公园（`3ee28dd`）。均通过对应提交的 GitHub 和 Cloudflare 检查及生产 HTTP、配图、canonical、sitemap 检查。F 线指南有往返停靠站与步行路线核对表，分享图使用登记的 Golden Gate JPEG。 [巴尔博亚](https://www.cedartrips.com/destinations/balboa-park/) · [F 线指南](https://www.cedartrips.com/guides/sf-waterfront-step-free-transit-planning/) · [阿卡迪亚](https://www.cedartrips.com/destinations/acadia-national-park/)
+- 补稿提交 `7a4fa08` 追加 Effigy Mounds National Monument 和 Lincoln Home National Historic Site，把可用队列从四篇补到六篇。两张 Commons 照片均为 CC BY-SA 4.0 实景图，已核对作者、原图哈希和主体。发布账本保持原样，待发页经核对返回 404。 [Effigy Mounds 封面](https://commons.wikimedia.org/wiki/File:Great_Bear_Mound_Group,_North_Unit,_Effigy_Mounds_National_Monument.jpg) · [Lincoln Home 封面](https://commons.wikimedia.org/wiki/File:Lincoln_Home_1.jpg)
+- 译文提交 `ded7480` 发布 33 份译文。计划选出的第四篇 Kennedy Space Center 已有全套译文。110 份译文校验、168 项测试通过，生产和预览分别核验 259 和 265 页。正式站核对全部 36 个对应语言页面及其双向 hreflang，sitemap 共 258 个唯一 URL。 [译文 CI](https://github.com/jageros/travel/actions/runs/45099371377/job/137446408917)
