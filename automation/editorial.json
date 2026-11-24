@@ -136,6 +136,12 @@
       "publishedAt": "2026-11-23T02:10:40.212Z",
       "contentSha256": "2400229b6bb766289c9ceeb138bd863fb6810bb7d28364a7d2eb8f24e55da0c4",
       "manualApproval": false
+    },
+    {
+      "slug": "hot-springs-national-park",
+      "publishedAt": "2026-11-24T01:17:04.330Z",
+      "contentSha256": "34f7442de3fe988b9add264ac2f57066f5fb430fbc03f80d433a244d754ba084",
+      "manualApproval": false
     }
   ]
 }
