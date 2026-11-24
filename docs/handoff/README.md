@@ -1,6 +1,13 @@
 # Cedar Trips 当前交接
 
-整理日期：**2026-11-23，Asia/Shanghai**。本页同时记录当前自动发布改动和 11 月 5 日历史快照。下次必须重新核对远端、运行记录和部署。先读根目录 [AGENTS.md](../../AGENTS.md)，再按本页接续。项目决策见 [推进历史](history.md)，执行优先级见 [后续计划](roadmap.md)。
+整理日期：**2026-11-24，Asia/Shanghai**。本页同时记录当前自动发布改动和 11 月 5 日历史快照。下次必须重新核对远端、运行记录和部署。先读根目录 [AGENTS.md](../../AGENTS.md)，再按本页接续。项目决策见 [推进历史](history.md)，执行优先级见 [后续计划](roadmap.md)。
+
+### 2026-11-24 定时任务快照
+
+- 依次发布温泉国家公园（`ea7af61`）、甘尼森黑峡谷国家公园（`dd3731f`）和哈莱阿卡拉国家公园（`401e33f`），用完当天三个英文名额。逐篇核对了对应提交的 GitHub、Cloudflare、正式 URL、配图、canonical 与 sitemap。 [温泉国家公园](https://www.cedartrips.com/destinations/hot-springs-national-park/) · [甘尼森黑峡谷](https://www.cedartrips.com/destinations/black-canyon-of-the-gunnison-national-park/) · [哈莱阿卡拉](https://www.cedartrips.com/destinations/haleakala-national-park/)
+- `dcde7cc` 将佐治亚州 Andersonville、爱达荷州 City of Rocks 和堪萨斯州 Brown v. Board of Education 三篇稿件补入队列，恢复至六篇。逐篇核对了 NPS 来源、证据和 Commons 实景照片的许可。三个待发路由正式站均返回 404，sitemap 未列入。 [补稿 CI](https://github.com/jageros/travel/actions/runs/45305446436/job/138148065908)
+- `0a6c861` 为当天新发攻略独立发布 33 份译文，计划中的 Acadia 已有全套译文。143 份译文校验、168 项测试、生产 295 页与预览 301 页静态检查通过。正式站核验了 36 个文章 URL 的标题、语言标记、canonical 和双向 hreflang，并核对六个本地 JPEG 与 294 个唯一 sitemap URL。 [译文 CI](https://github.com/jageros/travel/actions/runs/45305765865/job/138149107645) · [sitemap](https://www.cedartrips.com/sitemap.xml)
+- 最后一次全量抓取为 `2026-11-24T01:25:14.220Z`。74 项来源中 65 项匹配基线，9 项 BART/Clipper 仍返回 403，证据冲突为零。补稿另核验并登记九项 NPS 来源。
 
 ### 2026-11-23 定时任务快照
 
