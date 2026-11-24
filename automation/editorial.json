@@ -148,6 +148,12 @@
       "publishedAt": "2026-11-24T01:22:23.436Z",
       "contentSha256": "b1369199cf2133a8130e219679dda3953088ad842fd617298861a68f9ab94af0",
       "manualApproval": false
+    },
+    {
+      "slug": "haleakala-national-park",
+      "publishedAt": "2026-11-24T01:25:51.958Z",
+      "contentSha256": "631524a9503720c73e5c07312585213b2f1fcd1ab81342bc8444c026f2184655",
+      "manualApproval": false
     }
   ]
 }
