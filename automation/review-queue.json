@@ -157,7 +157,7 @@
     "errors": [
       "bart-sfo: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-24T01:16:03.623Z"
+    "detectedAt": "2026-11-24T01:21:38.975Z"
   },
   {
     "slug": "source-monitor",
@@ -165,7 +165,7 @@
     "errors": [
       "clipper-contactless: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-24T01:16:03.623Z"
+    "detectedAt": "2026-11-24T01:21:38.975Z"
   },
   {
     "slug": "source-monitor",
@@ -173,7 +173,7 @@
     "errors": [
       "bart-advisories: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-24T01:16:03.623Z"
+    "detectedAt": "2026-11-24T01:21:38.975Z"
   },
   {
     "slug": "source-monitor",
@@ -181,7 +181,7 @@
     "errors": [
       "bart-paying-fare: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-24T01:16:03.623Z"
+    "detectedAt": "2026-11-24T01:21:38.975Z"
   },
   {
     "slug": "source-monitor",
@@ -189,7 +189,7 @@
     "errors": [
       "clipper-youth-senior: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-24T01:16:03.623Z"
+    "detectedAt": "2026-11-24T01:21:38.975Z"
   },
   {
     "slug": "source-monitor",
@@ -197,7 +197,7 @@
     "errors": [
       "clipper-ways-to-pay: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-24T01:16:03.623Z"
+    "detectedAt": "2026-11-24T01:21:38.975Z"
   },
   {
     "slug": "source-monitor",
@@ -205,7 +205,7 @@
     "errors": [
       "bart-tap-and-ride: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-24T01:16:03.623Z"
+    "detectedAt": "2026-11-24T01:21:38.975Z"
   },
   {
     "slug": "source-monitor",
@@ -213,7 +213,7 @@
     "errors": [
       "bart-schedules: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-24T01:16:03.623Z"
+    "detectedAt": "2026-11-24T01:21:38.975Z"
   },
   {
     "slug": "source-monitor",
@@ -221,7 +221,7 @@
     "errors": [
       "bart-official-app: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-24T01:16:03.623Z"
+    "detectedAt": "2026-11-24T01:21:38.975Z"
   },
   {
     "slug": "sf-transit-with-children-fare-planning",
@@ -260,7 +260,7 @@
       "Fact requires current verification: sausalito-bus-return-manual",
       "Fact requires current verification: sausalito-ferry-daytype-manual"
     ],
-    "detectedAt": "2026-11-24T01:15:51.378Z"
+    "detectedAt": "2026-11-24T01:21:38.808Z"
   },
   {
     "slug": "sf-transit-disruption-backup-plan",
@@ -282,7 +282,7 @@
       "Fact requires current verification: bart-youth-fare-eligibility",
       "Fact requires current verification: clipper-youth-birth-date-proof"
     ],
-    "detectedAt": "2026-11-24T01:15:51.378Z"
+    "detectedAt": "2026-11-24T01:21:38.808Z"
   },
   {
     "slug": "sfo-late-arrival-transit-fallbacks",
@@ -295,7 +295,7 @@
       "Fact requires current verification: bart-planner-planned-delays",
       "Fact requires current verification: bart-app-last-train-lookup"
     ],
-    "detectedAt": "2026-11-24T01:15:51.378Z"
+    "detectedAt": "2026-11-24T01:21:38.808Z"
   },
   {
     "slug": "sf-contactless-transit-payment-declined",
@@ -311,7 +311,7 @@
       "Fact requires current verification: bart-contactless-agent-help",
       "Fact requires current verification: bart-clipper-payment-alternative"
     ],
-    "detectedAt": "2026-11-24T01:15:51.378Z"
+    "detectedAt": "2026-11-24T01:21:38.808Z"
   },
   {
     "slug": "sf-transit-disruption-backup-plan",
@@ -323,6 +323,6 @@
       "Fact requires current verification: bart-elevator-alternative-lookup",
       "Fact requires current verification: bart-planner-planned-delays"
     ],
-    "detectedAt": "2026-11-24T01:15:51.378Z"
+    "detectedAt": "2026-11-24T01:21:38.808Z"
   }
 ]
