@@ -1455,6 +1455,182 @@
           "dynamic": false
         }
       ]
+    },
+    {
+      "id": "andersonville-national-historic-site-overview",
+      "url": "https://www.nps.gov/ande/index.htm",
+      "title": "Andersonville National Historic Site overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-24",
+      "contentHash": "702a794fcf1401d81172ae297025bf5f09548270d0e41ced7c61509ab73516ce",
+      "facts": [
+        {
+          "id": "andersonville-national-historic-site-overview-fact-1",
+          "statement": "The National Prisoner of War Museum presents the stories of American prisoners of war across different periods of U.S. history.",
+          "evidence": "We preserve the stories of all American POWs from the Revolutionary War to today.",
+          "checkedAt": "2026-11-24",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "andersonville-national-historic-site-visit",
+      "url": "https://www.nps.gov/ande/planyourvisit/index.htm",
+      "title": "Andersonville National Historic Site visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-24",
+      "contentHash": "37e13fad909fba1e2a1c995aae50b0c2511eeb5685d6c377f2c9af97720df1f8",
+      "facts": [
+        {
+          "id": "andersonville-national-historic-site-visit-fact-1",
+          "statement": "Andersonville preserves the site of a Confederate military prison that operated during the Civil War. More than 45,000 Union soldiers were confined here.",
+          "evidence": "During the 14 months it operated, more than 45,000 Union soldiers were confined here.",
+          "checkedAt": "2026-11-24",
+          "dynamic": false
+        },
+        {
+          "id": "andersonville-national-historic-site-visit-fact-2",
+          "statement": "The site brings together the National Prisoner of War Museum, the former prison grounds, and Andersonville National Cemetery.",
+          "evidence": "The park has three main features, the National Prisoner of War Museum , the historic prison site , and the Andersonville National Cemetery .",
+          "checkedAt": "2026-11-24",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "andersonville-national-historic-site-highlights",
+      "url": "https://www.nps.gov/ande/planyourvisit/placestogo.htm",
+      "title": "Andersonville National Historic Site highlights",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-24",
+      "contentHash": "98cbbb00e1fc384ec4050f3930924e082c33007fef5d46f2a273ef11d3617860",
+      "facts": [
+        {
+          "id": "andersonville-national-historic-site-highlights-fact-1",
+          "statement": "The three main stops help visitors connect the Civil War history of Andersonville to the broader history of American prisoners of war.",
+          "evidence": "better understand the history of the Andersonville prison during the Civil War, and the broader history of prisoners of war throughout American history",
+          "checkedAt": "2026-11-24",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "city-of-rocks-national-reserve-overview",
+      "url": "https://www.nps.gov/ciro/index.htm",
+      "title": "City Of Rocks National Reserve overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-24",
+      "contentHash": "4f4c3b8d7bb8ecc2d9f7aff6196877c58a29bd399f54bc72161a95b14b5e9c1a",
+      "facts": [
+        {
+          "id": "city-of-rocks-national-reserve-overview-fact-1",
+          "statement": "The National Park Service highlights the reserve’s geological features in its overview.",
+          "evidence": "Geological Features Admire geologic wonders sculpted by nature.",
+          "checkedAt": "2026-11-24",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "city-of-rocks-national-reserve-visit",
+      "url": "https://www.nps.gov/ciro/planyourvisit/index.htm",
+      "title": "City Of Rocks National Reserve visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-24",
+      "contentHash": "09a15f3e753e1f2ece425fcb2f083472d5c2ffa4115c6820ea4f26aa2c6f5028",
+      "facts": [
+        {
+          "id": "city-of-rocks-national-reserve-visit-fact-1",
+          "statement": "The park’s visit planner describes a visitor center where travelers can seek advice and obtain maps and guides.",
+          "evidence": "Stop by the Visitor Center to chat with a Ranger, pick up maps, guide booklets",
+          "checkedAt": "2026-11-24",
+          "dynamic": true,
+          "expiresAt": "2026-12-01"
+        },
+        {
+          "id": "city-of-rocks-national-reserve-visit-fact-2",
+          "statement": "The park advises visitors to check the forecast and prepare for a range of weather conditions.",
+          "evidence": "Check the weather forecast before your trip and be prepared for temperature extremes and unexpected storms.",
+          "checkedAt": "2026-11-24",
+          "dynamic": true,
+          "expiresAt": "2026-12-01"
+        }
+      ]
+    },
+    {
+      "id": "city-of-rocks-national-reserve-highlights",
+      "url": "https://www.nps.gov/ciro/planyourvisit/things2do.htm",
+      "title": "City Of Rocks National Reserve highlights",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-24",
+      "contentHash": "847107306d341706a0209ea3e8475a9d1781170dac751fbcd43e140f15431f36",
+      "facts": [
+        {
+          "id": "city-of-rocks-national-reserve-highlights-fact-1",
+          "statement": "The reserve’s landscape includes granite spires and rolling sagebrush hills.",
+          "evidence": "dramatic granite spires, rolling sagebrush hills",
+          "checkedAt": "2026-11-24",
+          "dynamic": false
+        },
+        {
+          "id": "city-of-rocks-national-reserve-highlights-fact-2",
+          "statement": "The park describes gravel-road touring past granite formations and historic sights.",
+          "evidence": "Gravel roads wind through impressive granite formations and historic sights",
+          "checkedAt": "2026-11-24",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "brown-v-board-of-education-national-historical-park-overview",
+      "url": "https://www.nps.gov/brvb/index.htm",
+      "title": "Brown v. Board of Education National Historical Park overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-24",
+      "contentHash": "b324bc83a3c6442eb937ddf900484298384ad715a5508443d42a2014609c5b35",
+      "facts": [
+        {
+          "id": "brown-v-board-of-education-national-historical-park-overview-fact-1",
+          "statement": "The park introduces the story of the U.S. Supreme Court’s 1954 decision in Brown v. Board of Education.",
+          "evidence": "The US Supreme Court decision in Brown v. Board of Education (1954) is one of the most significant ever delivered by the court.",
+          "checkedAt": "2026-11-24",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "brown-v-board-of-education-national-historical-park-visit",
+      "url": "https://www.nps.gov/brvb/planyourvisit/index.htm",
+      "title": "Brown v. Board of Education National Historical Park visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-24",
+      "contentHash": "a7449e002bfcb963f153ce02de3858705003ef1c4c63d68dcadb261b3c5bccbd",
+      "facts": [
+        {
+          "id": "brown-v-board-of-education-national-historical-park-visit-fact-1",
+          "statement": "The park’s visit planner directs visitors to basic information, including directions, contact information, and hours.",
+          "evidence": "Basic Information Find hours of operation, contact information, and directions here.",
+          "checkedAt": "2026-11-24",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "brown-v-board-of-education-national-historical-park-highlights",
+      "url": "https://www.nps.gov/brvb/planyourvisit/things2do.htm",
+      "title": "Brown v. Board of Education National Historical Park highlights",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-24",
+      "contentHash": "4c0d666a07b4e02b0e7b0545e23addd945bd4953b5adf21c4a36b9cebee5e88e",
+      "facts": [
+        {
+          "id": "brown-v-board-of-education-national-historical-park-highlights-fact-1",
+          "statement": "The park commemorates the 1954 ruling that racial segregation in public schools violated the Constitution.",
+          "evidence": "The national historical park commemorates the 1954 Supreme Court decision declaring racial segregation in public schools unconstitutional.",
+          "checkedAt": "2026-11-24",
+          "dynamic": false
+        }
+      ]
     }
   ]
 }

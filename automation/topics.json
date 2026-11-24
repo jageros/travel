@@ -792,6 +792,99 @@
         "Effigy Mounds National Monument"
       ],
       "priority": 0
+    },
+    {
+      "slug": "andersonville-national-historic-site",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "Should I start at the National Prisoner of War Museum or at the historic prison grounds on a first visit to Andersonville?",
+      "brief": "Help first-time visitors to Georgia’s Andersonville National Historic Site choose a museum-first or prison-grounds-first visit, understand how the cemetery complements both, and use the official visit information to plan a respectful outing.",
+      "sources": [
+        "andersonville-national-historic-site-overview",
+        "andersonville-national-historic-site-visit",
+        "andersonville-national-historic-site-highlights"
+      ],
+      "facts": [
+        "andersonville-national-historic-site-overview-fact-1",
+        "andersonville-national-historic-site-visit-fact-1",
+        "andersonville-national-historic-site-visit-fact-2",
+        "andersonville-national-historic-site-highlights-fact-1"
+      ],
+      "related": [],
+      "region": "Georgia",
+      "location": "Andersonville",
+      "category": "history-culture",
+      "featured": false,
+      "hero": {
+        "photoId": "andersonville-national-historic-site"
+      },
+      "queryAliases": [
+        "Andersonville National Historic Site"
+      ],
+      "priority": 0
+    },
+    {
+      "slug": "city-of-rocks-national-reserve",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "How can a first-time visitor see the granite formations at City of Rocks without planning a climb?",
+      "brief": "Build a first visit to City of Rocks around the granite scenery, a mapped stop and an optional short walk. Distinguish the reserve from nearby Castle Rocks and direct travelers to current park conditions, route information and visitor resources.",
+      "sources": [
+        "city-of-rocks-national-reserve-overview",
+        "city-of-rocks-national-reserve-visit",
+        "city-of-rocks-national-reserve-highlights"
+      ],
+      "facts": [
+        "city-of-rocks-national-reserve-overview-fact-1",
+        "city-of-rocks-national-reserve-visit-fact-1",
+        "city-of-rocks-national-reserve-visit-fact-2",
+        "city-of-rocks-national-reserve-highlights-fact-1",
+        "city-of-rocks-national-reserve-highlights-fact-2"
+      ],
+      "related": [],
+      "region": "Idaho",
+      "location": "Almo",
+      "category": "landmarks",
+      "featured": false,
+      "hero": {
+        "photoId": "city-of-rocks-national-reserve"
+      },
+      "queryAliases": [
+        "City Of Rocks National Reserve"
+      ],
+      "priority": 0
+    },
+    {
+      "slug": "brown-v-board-of-education-national-historical-park",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "How should first-time visitors explore Monroe Elementary School and the Brown v. Board of Education exhibits in Topeka?",
+      "brief": "Help visitors plan a focused visit to the former Monroe Elementary School and civil-rights exhibits, with an optional outdoor stop. Point to current visitor and accessibility information without promising hours, programs, or access.",
+      "sources": [
+        "brown-v-board-of-education-national-historical-park-overview",
+        "brown-v-board-of-education-national-historical-park-visit",
+        "brown-v-board-of-education-national-historical-park-highlights"
+      ],
+      "facts": [
+        "brown-v-board-of-education-national-historical-park-overview-fact-1",
+        "brown-v-board-of-education-national-historical-park-visit-fact-1",
+        "brown-v-board-of-education-national-historical-park-highlights-fact-1"
+      ],
+      "related": [],
+      "region": "Kansas",
+      "location": "Topeka",
+      "category": "history-culture",
+      "featured": false,
+      "hero": {
+        "photoId": "brown-v-board-of-education-national-historical-park"
+      },
+      "queryAliases": [
+        "Brown v. Board of Education National Historical Park"
+      ],
+      "priority": 0
     }
   ]
 }
