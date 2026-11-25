@@ -885,6 +885,99 @@
         "Brown v. Board of Education National Historical Park"
       ],
       "priority": 0
+    },
+    {
+      "slug": "mammoth-cave-national-park",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "How should first-time visitors choose a Mammoth Cave tour and plan an aboveground stop?",
+      "brief": "Help a first-time group choose an official cave tour by actual route demands and build a day around visitor center exhibits and one surface stop. Use NPS source links and avoid listing a permanent tour schedule or making accessibility guarantees.",
+      "sources": [
+        "mammoth-cave-national-park-overview",
+        "mammoth-cave-national-park-visit",
+        "mammoth-cave-national-park-highlights"
+      ],
+      "facts": [
+        "mammoth-cave-national-park-overview-fact-1",
+        "mammoth-cave-national-park-visit-fact-1",
+        "mammoth-cave-national-park-highlights-fact-1",
+        "mammoth-cave-national-park-highlights-fact-2"
+      ],
+      "related": [],
+      "region": "Kentucky",
+      "location": "Mammoth Cave",
+      "category": "national-parks",
+      "featured": false,
+      "hero": {
+        "photoId": "mammoth-cave-national-park"
+      },
+      "queryAliases": [
+        "Mammoth Cave National Park"
+      ],
+      "priority": 0
+    },
+    {
+      "slug": "cane-river-creole-national-historical-park",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "How should a first-time visitor choose between Oakland Plantation, Magnolia Plantation, and the depot at Cane River Creole?",
+      "brief": "Help visitors pick one of the park’s three separate stops as their starting point. Put the lives and work of enslaved people and later tenant farmers at the center of a visit to Oakland and Magnolia. Link to official histories, directions and access information without freezing current hours or tour availability.",
+      "sources": [
+        "cane-river-creole-national-historical-park-overview",
+        "cane-river-creole-national-historical-park-visit",
+        "cane-river-creole-national-historical-park-highlights"
+      ],
+      "facts": [
+        "cane-river-creole-national-historical-park-overview-fact-1",
+        "cane-river-creole-national-historical-park-overview-fact-2",
+        "cane-river-creole-national-historical-park-visit-fact-1",
+        "cane-river-creole-national-historical-park-highlights-fact-1"
+      ],
+      "related": [],
+      "region": "Louisiana",
+      "location": "Natchez",
+      "category": "history-culture",
+      "featured": false,
+      "hero": {
+        "photoId": "cane-river-creole-national-historical-park"
+      },
+      "queryAliases": [
+        "Cane River Creole National Historical Park"
+      ],
+      "priority": 0
+    },
+    {
+      "slug": "adams-national-historical-park",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "How should a first-time traveler choose between the Adams birthplaces and Peacefield in Quincy?",
+      "brief": "Compare Penn’s Hill and Peacefield for a first visit, with room for an introductory film or virtual tour. Defer tour dates, reservation rules and access information to the current park planner. Treat the multiple family properties as distinct stops.",
+      "sources": [
+        "adams-national-historical-park-overview",
+        "adams-national-historical-park-visit",
+        "adams-national-historical-park-highlights"
+      ],
+      "facts": [
+        "adams-national-historical-park-overview-fact-1",
+        "adams-national-historical-park-visit-fact-1",
+        "adams-national-historical-park-highlights-fact-1",
+        "adams-national-historical-park-highlights-fact-2"
+      ],
+      "related": [],
+      "region": "Massachusetts",
+      "location": "Quincy",
+      "category": "history-culture",
+      "featured": false,
+      "hero": {
+        "photoId": "adams-national-historical-park"
+      },
+      "queryAliases": [
+        "Adams National Historical Park"
+      ],
+      "priority": 0
     }
   ]
 }

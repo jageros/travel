@@ -1631,6 +1631,181 @@
           "dynamic": false
         }
       ]
+    },
+    {
+      "id": "mammoth-cave-national-park-overview",
+      "url": "https://www.nps.gov/maca/index.htm",
+      "title": "Mammoth Cave National Park overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-25",
+      "contentHash": "48ea0ba2bdd64be61d1b2ea5416c56029891d55f9acbbb11b91c49ff65ac2561",
+      "facts": [
+        {
+          "id": "mammoth-cave-national-park-overview-fact-1",
+          "statement": "The park overview links to an audio tour of Mammoth Cave led by a park ranger.",
+          "evidence": "Audio Tour of Mammoth Cave Join a park ranger as they take you on a audio tour of Mammoth Cave.",
+          "checkedAt": "2026-11-25",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "mammoth-cave-national-park-visit",
+      "url": "https://www.nps.gov/maca/planyourvisit/index.htm",
+      "title": "Mammoth Cave National Park visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-25",
+      "contentHash": "1bbec45e8db6883e247056dfb94f97f610dd0aaf9e7b2ae4c3329119a882b4c0",
+      "facts": [
+        {
+          "id": "mammoth-cave-national-park-visit-fact-1",
+          "statement": "The official visit planner links to the park’s directions, calendar, safety and accessibility pages.",
+          "evidence": "Directions and Transportation Eating and Sleeping Places to Go Things to Do Calendar Safety Accessibility",
+          "checkedAt": "2026-11-25",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "mammoth-cave-national-park-highlights",
+      "url": "https://www.nps.gov/maca/planyourvisit/placestogo.htm",
+      "title": "Mammoth Cave National Park highlights",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-25",
+      "contentHash": "a58070f133bbbfccf54df2a1ea81a07447c7a8acc22eafe83d1f626138eab501",
+      "facts": [
+        {
+          "id": "mammoth-cave-national-park-highlights-fact-1",
+          "statement": "Mammoth Cave National Park includes the world’s longest known cave system and an aboveground landscape of hills and valleys.",
+          "evidence": "On top of the world's longest known cave system, Mammoth Cave National Park spans over 50,000 acres of rolling hills and lush valleys.",
+          "checkedAt": "2026-11-25",
+          "dynamic": false
+        },
+        {
+          "id": "mammoth-cave-national-park-highlights-fact-2",
+          "statement": "The park’s places guide lists short walks near the visitor center and separate overlooks.",
+          "evidence": "Explore the Visitor Center Area There are plenty of things to see only a short walk from the visitor center. Overlooks Discover viewpoints in the park.",
+          "checkedAt": "2026-11-25",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "cane-river-creole-national-historical-park-overview",
+      "url": "https://www.nps.gov/cari/index.htm",
+      "title": "Cane River Creole National Historical Park overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-25",
+      "contentHash": "7637675d656d6b37eeeea0eb162389605a8d6a699b9ff29e278b31da41ca4a9b",
+      "facts": [
+        {
+          "id": "cane-river-creole-national-historical-park-overview-fact-1",
+          "statement": "The National Park Service highlights the oak allée and bottle garden at Oakland Plantation.",
+          "evidence": "Morning sun highlights the oak allée and bottle garden at Oakland Plantation.",
+          "checkedAt": "2026-11-25",
+          "dynamic": false
+        },
+        {
+          "id": "cane-river-creole-national-historical-park-overview-fact-2",
+          "statement": "The National Park Service highlights the blacksmith shop and live oak allée at Magnolia Plantation.",
+          "evidence": "The blacksmith shop and live oak allée at Magnolia Plantation.",
+          "checkedAt": "2026-11-25",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "cane-river-creole-national-historical-park-visit",
+      "url": "https://www.nps.gov/cari/planyourvisit/index.htm",
+      "title": "Cane River Creole National Historical Park visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-25",
+      "contentHash": "67ccddbf60b1159959dc8332b7e21bf87042db0a8307a90a23bab8f71588c272",
+      "facts": [
+        {
+          "id": "cane-river-creole-national-historical-park-visit-fact-1",
+          "statement": "The Texas and Pacific Railway Depot serves as the park headquarters and visitor center.",
+          "evidence": "The Texas and Pacific Railway Depot serves at the park headquarters and visitor center.",
+          "checkedAt": "2026-11-25",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "cane-river-creole-national-historical-park-highlights",
+      "url": "https://www.nps.gov/cari/planyourvisit/things2do.htm",
+      "title": "Cane River Creole National Historical Park highlights",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-25",
+      "contentHash": "c4e4f1d99b93873b5f95346ea930ae8632e693daf6753ebde9e9e421ff41a242",
+      "facts": [
+        {
+          "id": "cane-river-creole-national-historical-park-highlights-fact-1",
+          "statement": "The NPS app provides information for self-guided visits at Oakland and Magnolia.",
+          "evidence": "Audio and Self-Guided Tours Enhance your visit of both Oakland Plantation and Magnolia Plantation using the NPS app.",
+          "checkedAt": "2026-11-25",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "adams-national-historical-park-overview",
+      "url": "https://www.nps.gov/adam/index.htm",
+      "title": "Adams National Historical Park overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-25",
+      "contentHash": "4621c70390850846244574f92bd904ec021f15d94e4a0fbeff107151a1dd26d6",
+      "facts": [
+        {
+          "id": "adams-national-historical-park-overview-fact-1",
+          "statement": "The official overview links to a virtual visit of the historic homes.",
+          "evidence": "Virtual Tour Unable to visit Adams National Historical Park? You can visit the historic homes through a virtual tour!",
+          "checkedAt": "2026-11-25",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "adams-national-historical-park-visit",
+      "url": "https://www.nps.gov/adam/planyourvisit/index.htm",
+      "title": "Adams National Historical Park visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-25",
+      "contentHash": "d0ba3b375d31bba40f3f3a3a559d6e82e43f3e94af5077225535346fe1dec6ba",
+      "facts": [
+        {
+          "id": "adams-national-historical-park-visit-fact-1",
+          "statement": "The park includes the birthplaces of two presidents and a home occupied by four generations of the Adams family.",
+          "evidence": "Come see the birthplaces of two American Presidents and the home of four generations of the Adams Family!",
+          "checkedAt": "2026-11-25",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "adams-national-historical-park-highlights",
+      "url": "https://www.nps.gov/adam/planyourvisit/things2do.htm",
+      "title": "Adams National Historical Park highlights",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-25",
+      "contentHash": "e8a246b6d9d866933c6afcf2107b07e8c248d23e857f6391ac47c34fcea50a3f",
+      "facts": [
+        {
+          "id": "adams-national-historical-park-highlights-fact-1",
+          "statement": "The park describes ranger-guided visits to the birthplaces at Penn’s Hill and to the Old House at Peacefield. Check the current schedule.",
+          "evidence": "join a Park Ranger for a Guided Tour through the Adams Farm at Penn's Hill (the John Adams and John Quincy Adams Birthplaces) and the Old House at Peace field.",
+          "checkedAt": "2026-11-25",
+          "dynamic": true,
+          "expiresAt": "2026-12-02"
+        },
+        {
+          "id": "adams-national-historical-park-highlights-fact-2",
+          "statement": "The park’s grounds include a formal garden, orchard and meadow.",
+          "evidence": "Enjoy a stroll through the formal garden and the orchard, or a run through the meadow.",
+          "checkedAt": "2026-11-25",
+          "dynamic": false
+        }
+      ]
     }
   ]
 }
