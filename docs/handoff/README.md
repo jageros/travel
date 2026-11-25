@@ -1,6 +1,13 @@
 # Cedar Trips 当前交接
 
-整理日期：**2026-11-24，Asia/Shanghai**。本页同时记录当前自动发布改动和 11 月 5 日历史快照。下次必须重新核对远端、运行记录和部署。先读根目录 [AGENTS.md](../../AGENTS.md)，再按本页接续。项目决策见 [推进历史](history.md)，执行优先级见 [后续计划](roadmap.md)。
+整理日期：**2026-11-25，Asia/Shanghai**。本页同时记录当前自动发布改动和 11 月 5 日历史快照。下次必须重新核对远端、运行记录和部署。先读根目录 [AGENTS.md](../../AGENTS.md)，再按本页接续。项目决策见 [推进历史](history.md)，执行优先级见 [后续计划](roadmap.md)。
+
+### 2026-11-25 定时任务快照
+
+- 逐篇发布印第安纳沙丘国家公园（`2233da6`）、林肯故居国家历史遗址（`21a3380`）和 Effigy Mounds 国家纪念地（`9e65caf`），用完当天三个英文名额。逐篇核对对应提交的 GitHub、Cloudflare、正式页面、配图、canonical 和 sitemap。 [印第安纳沙丘](https://www.cedartrips.com/destinations/indiana-dunes-national-park/) · [林肯故居](https://www.cedartrips.com/destinations/lincoln-home-national-historic-site/) · [Effigy Mounds](https://www.cedartrips.com/destinations/effigy-mounds-national-monument/)
+- `744f897` 补入肯塔基州 Mammoth Cave、路易斯安那州 Cane River Creole 和马萨诸塞州 Adams 三篇待发稿。队列从三篇恢复到六篇，三个待发路由在线上返回 404，sitemap 未列入。Antietam 入队抓取重试仍失败，采用同轮已核验的 Adams 提案。 [补稿 CI](https://github.com/jageros/travel/actions/runs/45527819922/job/138915421803)
+- `8cbc8c4` 为当天三篇原文发布 33 份译文。176 份译文校验、168 项测试和生产 331 页、预览 337 页静态核验通过。线上核验 36 个文章 URL 的标题、语言标记、canonical 和双向 hreflang、六个本地 JPEG 和 330 个唯一 sitemap URL。 [译文 CI](https://github.com/jageros/travel/actions/runs/45528107207/job/138916374032) · [sitemap](https://www.cedartrips.com/sitemap.xml)
+- 最后一次全量抓取为 `2026-11-25T01:37:09.458Z`。83 项来源中 74 项匹配基线，9 项 BART/Clipper 仍返回 403，证据冲突为零。补稿另核验并登记九项 NPS 来源。
 
 ### 2026-11-24 定时任务快照
 
