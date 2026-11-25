@@ -20,10 +20,11 @@
 "featured": false
 "hero":
   "photoId": "lincoln-home-national-historic-site"
-"status": "review"
+"status": "published"
 "author": "editorial-team"
 "updatedAt": "2026-11-23"
 "checkedAt": "2026-11-23"
+"publishedAt": "2026-11-25"
 ---
 
 ## Why this place is worth visiting

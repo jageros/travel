@@ -160,6 +160,12 @@
       "publishedAt": "2026-11-25T01:27:49.273Z",
       "contentSha256": "58395633361194e0c9b11b0f19d7011102bd0301f715a78cb23eb32958783c2f",
       "manualApproval": false
+    },
+    {
+      "slug": "lincoln-home-national-historic-site",
+      "publishedAt": "2026-11-25T01:33:26.439Z",
+      "contentSha256": "5b34ec1359fee5a74ec4ee82050f53069b62aed5b823edb7c32cfa03866642bc",
+      "manualApproval": false
     }
   ]
 }
