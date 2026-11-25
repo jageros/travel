@@ -166,6 +166,12 @@
       "publishedAt": "2026-11-25T01:33:26.439Z",
       "contentSha256": "5b34ec1359fee5a74ec4ee82050f53069b62aed5b823edb7c32cfa03866642bc",
       "manualApproval": false
+    },
+    {
+      "slug": "effigy-mounds-national-monument",
+      "publishedAt": "2026-11-25T01:37:59.513Z",
+      "contentSha256": "31a800c7dbdb9c6c4a783890c7ff7867339c6676c22f60131197bc6477c21b6b",
+      "manualApproval": false
     }
   ]
 }

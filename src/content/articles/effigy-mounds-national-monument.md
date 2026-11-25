@@ -18,10 +18,11 @@
 "featured": false
 "hero":
   "photoId": "effigy-mounds-national-monument"
-"status": "review"
+"status": "published"
 "author": "editorial-team"
 "updatedAt": "2026-11-23"
 "checkedAt": "2026-11-23"
+"publishedAt": "2026-11-25"
 ---
 
 ## Why this place is worth visiting
