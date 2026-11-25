@@ -22,10 +22,11 @@
 "featured": false
 "hero":
   "photoId": "indiana-dunes-national-park"
-"status": "review"
+"status": "published"
 "author": "editorial-team"
 "updatedAt": "2026-11-21"
 "checkedAt": "2026-11-21"
+"publishedAt": "2026-11-25"
 ---
 
 ## Why this place is worth visiting

@@ -154,6 +154,12 @@
       "publishedAt": "2026-11-24T01:25:51.958Z",
       "contentSha256": "631524a9503720c73e5c07312585213b2f1fcd1ab81342bc8444c026f2184655",
       "manualApproval": false
+    },
+    {
+      "slug": "indiana-dunes-national-park",
+      "publishedAt": "2026-11-25T01:27:49.273Z",
+      "contentSha256": "58395633361194e0c9b11b0f19d7011102bd0301f715a78cb23eb32958783c2f",
+      "manualApproval": false
     }
   ]
 }
