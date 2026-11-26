@@ -184,6 +184,12 @@
       "publishedAt": "2026-11-26T01:22:13.097Z",
       "contentSha256": "70393bc3271e01f217a9700792586a034b00259fb12a14b6c11c4ac8cde67475",
       "manualApproval": false
+    },
+    {
+      "slug": "brown-v-board-of-education-national-historical-park",
+      "publishedAt": "2026-11-26T01:27:08.624Z",
+      "contentSha256": "4fc166f2572bdbbbb95b946666f71c7a6e8aefdeee01f49d446fa74118e29621",
+      "manualApproval": false
     }
   ]
 }
