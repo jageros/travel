@@ -1806,6 +1806,180 @@
           "dynamic": false
         }
       ]
+    },
+    {
+      "id": "antietam-national-battlefield-overview",
+      "url": "https://www.nps.gov/anti/index.htm",
+      "title": "Antietam National Battlefield overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-26",
+      "contentHash": "373d62418ec4d5105f33580339bd22ad6f925e4476ad99f28878186f5700813f",
+      "facts": [
+        {
+          "id": "antietam-national-battlefield-overview-fact-1",
+          "statement": "The battlefield homepage links to National Park Service material on the Battle of Antietam and the park’s cultural and natural resources.",
+          "evidence": "the history of the Battle of Antietam as well as links to our Cultural and Natural Resources.",
+          "checkedAt": "2026-11-26",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "antietam-national-battlefield-visit",
+      "url": "https://www.nps.gov/anti/planyourvisit/index.htm",
+      "title": "Antietam National Battlefield visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-26",
+      "contentHash": "6dda7818d60fc5bf6c95a452dc940e9f395cdc61dad1180aab0514b7d6f86a0b",
+      "facts": [
+        {
+          "id": "antietam-national-battlefield-visit-fact-1",
+          "statement": "The official visitor planner points to operating hours and directions.",
+          "evidence": "Learn more about operating hours and directions .",
+          "checkedAt": "2026-11-26",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "antietam-national-battlefield-highlights",
+      "url": "https://www.nps.gov/anti/planyourvisit/placestogo.htm",
+      "title": "Antietam National Battlefield highlights",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-26",
+      "contentHash": "f9e3dd12cbbf811d271d05e2a1787e141df48412ed40e5941c158911266e67ae",
+      "facts": [
+        {
+          "id": "antietam-national-battlefield-highlights-fact-1",
+          "statement": "The battle took place on September 17, 1862. The National Park Service highlights the historic terrain as a way to understand what soldiers experienced.",
+          "evidence": "how terrain affected the soldier's experience during the twelve hours of combat on September 17, 1862.",
+          "checkedAt": "2026-11-26",
+          "dynamic": false
+        },
+        {
+          "id": "antietam-national-battlefield-highlights-fact-2",
+          "statement": "The National Park Service’s places guide identifies Dunker Church, Bloody Lane, Burnside Bridge, and the National Cemetery as stops to consider.",
+          "evidence": "From the Dunker Church to Bloody Lane, from the Burnside Bridge to the National Cemetery",
+          "checkedAt": "2026-11-26",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "isle-royale-national-park-overview",
+      "url": "https://www.nps.gov/isro/index.htm",
+      "title": "Isle Royale National Park overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-26",
+      "contentHash": "79a353748da4277bdab904c994a668c906081cc2740b8376442ee962d7800ddd",
+      "facts": [
+        {
+          "id": "isle-royale-national-park-overview-fact-1",
+          "statement": "The park overview points visitors to The Greenstone newspaper for trip planning.",
+          "evidence": "Read The Greenstone The Greenstone newspaper is your one stop shop for planning your trip to Isle Royale.",
+          "checkedAt": "2026-11-26",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "isle-royale-national-park-visit",
+      "url": "https://www.nps.gov/isro/planyourvisit/index.htm",
+      "title": "Isle Royale National Park visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-26",
+      "contentHash": "f036caf7176f3150e9de309deda1f198b48df69b10571632fbd0ac81a742650c",
+      "facts": [
+        {
+          "id": "isle-royale-national-park-visit-fact-1",
+          "statement": "Isle Royale is a remote Lake Superior island wilderness. Visitors reach it by ferry, seaplane or private watercraft.",
+          "evidence": "Isle Royale National Park is a remote island wilderness in the middle of Lake Superior. It is only accessible by ferry, seaplane, or private watercraft.",
+          "checkedAt": "2026-11-26",
+          "dynamic": false
+        },
+        {
+          "id": "isle-royale-national-park-visit-fact-2",
+          "statement": "Weather can affect travel to and from the island, as well as conditions during a visit.",
+          "evidence": "Weather influences traveling to and from the island, as well as your trip once you arrive.",
+          "checkedAt": "2026-11-26",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "isle-royale-national-park-highlights",
+      "url": "https://www.nps.gov/isro/planyourvisit/placestogo.htm",
+      "title": "Isle Royale National Park highlights",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-26",
+      "contentHash": "2fc572e4b3c3dedb00795cf5842e45582bf7a50601d2d1871ea2c2910525346b",
+      "facts": [
+        {
+          "id": "isle-royale-national-park-highlights-fact-1",
+          "statement": "Rock Harbor is on the northeast end of Isle Royale, and Windigo is on its southwest end.",
+          "evidence": "Rock Harbor A more developed area located on the northeast end of the island. Windigo Southwest end of Isle Royale.",
+          "checkedAt": "2026-11-26",
+          "dynamic": false
+        },
+        {
+          "id": "isle-royale-national-park-highlights-fact-2",
+          "statement": "The places guide lists Scoville Point as a rocky trail with views.",
+          "evidence": "Scoville Point A rocky trail with one of the best views in the park.",
+          "checkedAt": "2026-11-26",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "voyageurs-national-park-overview",
+      "url": "https://www.nps.gov/voya/index.htm",
+      "title": "Voyageurs National Park overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-26",
+      "contentHash": "c36d8dca85c7254a64433a04516d48760436bfc170d3cbc31af4b266f85f01ff",
+      "facts": [
+        {
+          "id": "voyageurs-national-park-overview-fact-1",
+          "statement": "The park overview links to current conditions and alerts, including the winter trails and frozen lakes report.",
+          "evidence": "Current conditions and alerts at Voyageurs National Park, including the Winter Trails and Frozen Lakes Report.",
+          "checkedAt": "2026-11-26",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "voyageurs-national-park-visit",
+      "url": "https://www.nps.gov/voya/planyourvisit/index.htm",
+      "title": "Voyageurs National Park visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-26",
+      "contentHash": "eba9931945fb850a10e20e110be9b36bf67c11ef5a1632ffaef61aa7c1002da9",
+      "facts": [
+        {
+          "id": "voyageurs-national-park-visit-fact-1",
+          "statement": "The official visit planner links to hours, fees, permits, and weather information.",
+          "evidence": "Park operating hours & seasons Fees & passes Permits & reservations Weather conditions",
+          "checkedAt": "2026-11-26",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "voyageurs-national-park-highlights",
+      "url": "https://www.nps.gov/voya/planyourvisit/things2do.htm",
+      "title": "Voyageurs National Park highlights",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-26",
+      "contentHash": "fb37cf252ca462fe323068271a3c23f646385d177a62bca1182035a761582eaa",
+      "facts": [
+        {
+          "id": "voyageurs-national-park-highlights-fact-1",
+          "statement": "Voyageurs has trails accessible by vehicle and other trails that require boat access.",
+          "evidence": "Some trails are accessible by vehicle, others only by boat.",
+          "checkedAt": "2026-11-26",
+          "dynamic": false
+        }
+      ]
     }
   ]
 }

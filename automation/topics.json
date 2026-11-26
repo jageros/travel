@@ -978,6 +978,99 @@
         "Adams National Historical Park"
       ],
       "priority": 0
+    },
+    {
+      "slug": "antietam-national-battlefield",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "Which battlefield stops should I pair on my first visit to Antietam to see how the terrain shaped the battle?",
+      "brief": "Help a first-time visitor see how the Maryland battlefield’s terrain mattered. Pair Dunker Church with Bloody Lane for a focused visit, then consider Burnside Bridge or the National Cemetery if time and conditions allow. Link the National Park Service overview, visit planner and places guide. Keep access and operating details conditional.",
+      "sources": [
+        "antietam-national-battlefield-overview",
+        "antietam-national-battlefield-visit",
+        "antietam-national-battlefield-highlights"
+      ],
+      "facts": [
+        "antietam-national-battlefield-overview-fact-1",
+        "antietam-national-battlefield-visit-fact-1",
+        "antietam-national-battlefield-highlights-fact-1",
+        "antietam-national-battlefield-highlights-fact-2"
+      ],
+      "related": [],
+      "region": "Maryland",
+      "location": "Sharpsburg",
+      "category": "history-culture",
+      "featured": false,
+      "hero": {
+        "photoId": "antietam-national-battlefield"
+      },
+      "queryAliases": [
+        "Antietam National Battlefield"
+      ],
+      "priority": 0
+    },
+    {
+      "slug": "isle-royale-national-park",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "Which arrival point should a first-time Isle Royale visitor choose, and what can they do near it?",
+      "brief": "Help first-time visitors choose Rock Harbor or Windigo with the island crossing and return first, then pick one shoreline or woodland outing near the landing. Link to official transportation, park alerts and safety planning without listing departure times, access guarantees or available services.",
+      "sources": [
+        "isle-royale-national-park-overview",
+        "isle-royale-national-park-visit",
+        "isle-royale-national-park-highlights"
+      ],
+      "facts": [
+        "isle-royale-national-park-overview-fact-1",
+        "isle-royale-national-park-visit-fact-1",
+        "isle-royale-national-park-visit-fact-2",
+        "isle-royale-national-park-highlights-fact-1",
+        "isle-royale-national-park-highlights-fact-2"
+      ],
+      "related": [],
+      "region": "Michigan",
+      "location": "Lake Superior",
+      "category": "national-parks",
+      "featured": false,
+      "hero": {
+        "photoId": "isle-royale-national-park"
+      },
+      "queryAliases": [
+        "Isle Royale National Park"
+      ],
+      "priority": 0
+    },
+    {
+      "slug": "voyageurs-national-park",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "How should a first-time visitor to Voyageurs National Park choose between a shore-based visit and a boat outing?",
+      "brief": "Help readers choose a first visit around a road-accessible visitor center and a walk, or a boat trip with time on shore. Explain the trailhead access difference and anchor all changing conditions, hours, and reservations in current official information.",
+      "sources": [
+        "voyageurs-national-park-overview",
+        "voyageurs-national-park-visit",
+        "voyageurs-national-park-highlights"
+      ],
+      "facts": [
+        "voyageurs-national-park-overview-fact-1",
+        "voyageurs-national-park-visit-fact-1",
+        "voyageurs-national-park-highlights-fact-1"
+      ],
+      "related": [],
+      "region": "Minnesota",
+      "location": "International Falls, Kabetogama, Ash River, and Crane Lake",
+      "category": "national-parks",
+      "featured": false,
+      "hero": {
+        "photoId": "voyageurs-national-park"
+      },
+      "queryAliases": [
+        "Voyageurs National Park"
+      ],
+      "priority": 0
     }
   ]
 }
