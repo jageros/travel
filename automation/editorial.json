@@ -172,6 +172,12 @@
       "publishedAt": "2026-11-25T01:37:59.513Z",
       "contentSha256": "31a800c7dbdb9c6c4a783890c7ff7867339c6676c22f60131197bc6477c21b6b",
       "manualApproval": false
+    },
+    {
+      "slug": "andersonville-national-historic-site",
+      "publishedAt": "2026-11-26T01:16:45.840Z",
+      "contentSha256": "7b4785d97d57cd55c519210bb9d37949fdc04b91f3c4b7901067ee9a4f9e20e8",
+      "manualApproval": false
     }
   ]
 }
