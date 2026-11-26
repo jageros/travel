@@ -178,6 +178,12 @@
       "publishedAt": "2026-11-26T01:16:45.840Z",
       "contentSha256": "7b4785d97d57cd55c519210bb9d37949fdc04b91f3c4b7901067ee9a4f9e20e8",
       "manualApproval": false
+    },
+    {
+      "slug": "city-of-rocks-national-reserve",
+      "publishedAt": "2026-11-26T01:22:13.097Z",
+      "contentSha256": "70393bc3271e01f217a9700792586a034b00259fb12a14b6c11c4ac8cde67475",
+      "manualApproval": false
     }
   ]
 }

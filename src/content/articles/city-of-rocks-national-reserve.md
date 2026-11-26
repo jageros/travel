@@ -22,10 +22,11 @@
 "featured": false
 "hero":
   "photoId": "city-of-rocks-national-reserve"
-"status": "review"
+"status": "published"
 "author": "editorial-team"
 "updatedAt": "2026-11-24"
 "checkedAt": "2026-11-24"
+"publishedAt": "2026-11-26"
 ---
 
 ## Why this place is worth visiting
