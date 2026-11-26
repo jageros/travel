@@ -1,6 +1,13 @@
 # Cedar Trips 当前交接
 
-整理日期：**2026-11-25，Asia/Shanghai**。本页同时记录当前自动发布改动和 11 月 5 日历史快照。下次必须重新核对远端、运行记录和部署。先读根目录 [AGENTS.md](../../AGENTS.md)，再按本页接续。项目决策见 [推进历史](history.md)，执行优先级见 [后续计划](roadmap.md)。
+整理日期：**2026-11-26，Asia/Shanghai**。本页同时记录当前自动发布改动和 11 月 5 日历史快照。下次必须重新核对远端、运行记录和部署。先读根目录 [AGENTS.md](../../AGENTS.md)，再按本页接续。项目决策见 [推进历史](history.md)，执行优先级见 [后续计划](roadmap.md)。
+
+### 2026-11-26 定时任务快照
+
+- 逐篇发布 Andersonville 国家历史遗址（`b26a22a`）、City of Rocks 国家保护区（`2a34f5c`）和布朗诉教育委员会国家历史公园（`b9f8b18`），用完当天三个英文名额。逐篇核对对应提交的 GitHub、Cloudflare、正式页面、配图、canonical 和 sitemap。 [Andersonville](https://www.cedartrips.com/destinations/andersonville-national-historic-site/) · [City of Rocks](https://www.cedartrips.com/destinations/city-of-rocks-national-reserve/) · [布朗诉教育委员会](https://www.cedartrips.com/destinations/brown-v-board-of-education-national-historical-park/)
+- `178f323` 补入马里兰州 Antietam、密歇根州 Isle Royale 和明尼苏达州 Voyageurs 三篇待发稿。逐篇核对 NPS 证据和 Commons 实景照片，待发队列从三篇补到六篇。三个待发路由在线上返回 404，sitemap 未列入。 [补稿 CI](https://github.com/jageros/travel/actions/runs/45736501681/job/139630921273)
+- `c85fba0` 为当天三篇原文发布 33 份译文。209 份译文校验、168 项测试和生产 367 页、预览 373 页静态核验通过。正式站核验 36 个文章 URL 的标题、语言标记、canonical、双向 hreflang，以及六个本地 JPEG 和 366 个唯一 sitemap URL。 [译文 CI](https://github.com/jageros/travel/actions/runs/45737051849/job/139632707073) · [sitemap](https://www.cedartrips.com/sitemap.xml)
+- 最后一次全量抓取为 `2026-11-26T01:25:47.899Z`。92 项来源中 86 项匹配基线，证据冲突为零。三个此前不可用的 Clipper 来源恢复并匹配基线。六个 BART 来源仍不可用，其中五项返回 403，一项连接抓取失败。补稿另核验并登记九项 NPS 来源。
 
 ### 2026-11-25 定时任务快照
 
