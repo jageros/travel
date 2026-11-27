@@ -1071,6 +1071,100 @@
         "Voyageurs National Park"
       ],
       "priority": 0
+    },
+    {
+      "slug": "glacier-national-park",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "Should I start at Apgar and Lake McDonald or plan around Logan Pass on my first visit to Glacier National Park?",
+      "brief": "Help a first-time visitor decide between a lakeshore outing at Apgar and Lake McDonald and a higher-elevation outing centered on Logan Pass. Explain what to focus on at either stop and how to keep a workable itinerary if the mountain road, shuttle, parking, or walking approach does not work for the group. Point to the official conditions and planning guidance without promising access.",
+      "sources": [
+        "glacier-national-park-overview",
+        "glacier-national-park-visit",
+        "glacier-national-park-highlights"
+      ],
+      "facts": [
+        "glacier-national-park-overview-fact-1",
+        "glacier-national-park-visit-fact-1",
+        "glacier-national-park-highlights-fact-1",
+        "glacier-national-park-highlights-fact-2"
+      ],
+      "related": [],
+      "region": "Montana",
+      "location": "Northwest Montana",
+      "category": "national-parks",
+      "featured": false,
+      "hero": {
+        "photoId": "glacier-national-park"
+      },
+      "queryAliases": [
+        "Glacier National Park"
+      ],
+      "priority": 0
+    },
+    {
+      "slug": "agate-fossil-beds-national-monument",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "How can a first-time visitor use Agate Fossil Beds exhibits and choose between the Daemonelix and Fossil Hills trails?",
+      "brief": "Connect the Miocene and Lakota history exhibits with one appropriate walk. Contrast the actual subjects of the park’s trails. Use the visitor planner for current operating conditions and access.",
+      "sources": [
+        "agate-fossil-beds-national-monument-overview",
+        "agate-fossil-beds-national-monument-visit",
+        "agate-fossil-beds-national-monument-highlights"
+      ],
+      "facts": [
+        "agate-fossil-beds-national-monument-overview-fact-1",
+        "agate-fossil-beds-national-monument-visit-fact-1",
+        "agate-fossil-beds-national-monument-highlights-fact-1",
+        "agate-fossil-beds-national-monument-highlights-fact-2",
+        "agate-fossil-beds-national-monument-highlights-fact-3"
+      ],
+      "related": [],
+      "region": "Nebraska",
+      "location": "Harrison",
+      "category": "landmarks",
+      "featured": false,
+      "hero": {
+        "photoId": "agate-fossil-beds-national-monument"
+      },
+      "queryAliases": [
+        "Agate Fossil Beds National Monument"
+      ],
+      "priority": 0
+    },
+    {
+      "slug": "great-basin-national-park",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "How should first-time visitors choose between Lehman Caves, the Wheeler Peak high country and an evening of stargazing at Great Basin?",
+      "brief": "Build a visit around one cave, mountain or sky experience, with official links for cave tour requirements, high-elevation trail choices and variable road access. Tell visitors what to compare before adding another stop. Keep schedule, pass and road status information with the official sources.",
+      "sources": [
+        "great-basin-national-park-overview",
+        "great-basin-national-park-visit",
+        "great-basin-national-park-highlights"
+      ],
+      "facts": [
+        "great-basin-national-park-overview-fact-1",
+        "great-basin-national-park-visit-fact-1",
+        "great-basin-national-park-visit-fact-2",
+        "great-basin-national-park-highlights-fact-1"
+      ],
+      "related": [],
+      "region": "Nevada",
+      "location": "Baker",
+      "category": "national-parks",
+      "featured": false,
+      "hero": {
+        "photoId": "great-basin-national-park"
+      },
+      "queryAliases": [
+        "Great Basin National Park"
+      ],
+      "priority": 0
     }
   ]
 }

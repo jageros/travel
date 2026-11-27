@@ -1980,6 +1980,187 @@
           "dynamic": false
         }
       ]
+    },
+    {
+      "id": "glacier-national-park-overview",
+      "url": "https://www.nps.gov/glac/index.htm",
+      "title": "Glacier National Park overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-27",
+      "contentHash": "927d9887ee9438f9a855241bfb23bd7d38a9762928f376e5b0ca0099a38b1f95",
+      "facts": [
+        {
+          "id": "glacier-national-park-overview-fact-1",
+          "statement": "The park homepage links to current information on wildfire, road, trail, and construction conditions.",
+          "evidence": "current conditions on wildfires, roads, trails, and construction in the park.",
+          "checkedAt": "2026-11-27",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "glacier-national-park-visit",
+      "url": "https://www.nps.gov/glac/planyourvisit/index.htm",
+      "title": "Glacier National Park visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-27",
+      "contentHash": "8868c9b24cea0f474139c1fe7e22417b80a171ffdc12a681775ca4486ba06b0b",
+      "facts": [
+        {
+          "id": "glacier-national-park-visit-fact-1",
+          "statement": "The visitor planner provides information about road status and getting around Glacier by car or shuttle.",
+          "evidence": "learn how to get to Glacier and how to get around by car or shuttle once you have arrived.",
+          "checkedAt": "2026-11-27",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "glacier-national-park-highlights",
+      "url": "https://www.nps.gov/glac/planyourvisit/placestogo.htm",
+      "title": "Glacier National Park highlights",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-27",
+      "contentHash": "25c2e8d6ff59a812bbf01b8e03a8cb707c0e2fb02e5297485d3ec25bf9aad074",
+      "facts": [
+        {
+          "id": "glacier-national-park-highlights-fact-1",
+          "statement": "Apgar is at the south end of Lake McDonald and includes a lakefront village and a separate visitor center.",
+          "evidence": "The area includes the lakefront village, the separate visitor center, a lakefront picnic area, short hiking trails",
+          "checkedAt": "2026-11-27",
+          "dynamic": false
+        },
+        {
+          "id": "glacier-national-park-highlights-fact-2",
+          "statement": "Going-to-the-Sun Road crosses the Continental Divide at Logan Pass.",
+          "evidence": "Where Going-to-the-Sun Road crosses over the Continental Divide",
+          "checkedAt": "2026-11-27",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "agate-fossil-beds-national-monument-overview",
+      "url": "https://www.nps.gov/agfo/index.htm",
+      "title": "Agate Fossil Beds National Monument overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-27",
+      "contentHash": "51619f2c73c8c7258ede18b9ceaf538faaf3920717ade5852348d02b15133bb0",
+      "facts": [
+        {
+          "id": "agate-fossil-beds-national-monument-overview-fact-1",
+          "statement": "The park overview introduces the Cook Collection of Lakota artifacts.",
+          "evidence": "Preserving Lakota Heritage The Cook Collection of Lakota artifacts",
+          "checkedAt": "2026-11-27",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "agate-fossil-beds-national-monument-visit",
+      "url": "https://www.nps.gov/agfo/planyourvisit/index.htm",
+      "title": "Agate Fossil Beds National Monument visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-27",
+      "contentHash": "f20d3fb1ba44e150bd15d651c8344ebd94844c3ced4dee37361d7b78bc1a84e2",
+      "facts": [
+        {
+          "id": "agate-fossil-beds-national-monument-visit-fact-1",
+          "statement": "The park’s visitor guide advises refueling your vehicle and packing a meal before arriving.",
+          "evidence": "Make sure you gas up your vehicle and pack a lunch before heading to the Monument.",
+          "checkedAt": "2026-11-27",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "agate-fossil-beds-national-monument-highlights",
+      "url": "https://www.nps.gov/agfo/planyourvisit/things2do.htm",
+      "title": "Agate Fossil Beds National Monument highlights",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-27",
+      "contentHash": "2cf6ebae1d68e80512120b50580aee7d94c01d30280b34963a7ca1b0d6e42e02",
+      "facts": [
+        {
+          "id": "agate-fossil-beds-national-monument-highlights-fact-1",
+          "statement": "The visitor center’s exhibits cover Miocene mammals and the James Cook Collection of Lakota artifacts.",
+          "evidence": "The visitor center exhibits Miocene Epoch mammals and the James Cook Collection of Lakota artifacts.",
+          "checkedAt": "2026-11-27",
+          "dynamic": false
+        },
+        {
+          "id": "agate-fossil-beds-national-monument-highlights-fact-2",
+          "statement": "The Daemonelix Trail features fossil exhibits of spiral Paleocastor burrows in place.",
+          "evidence": "Daemonelix Trail features in situ fossil exhibits of the spiral corkscrew fossil of the Paleocastor",
+          "checkedAt": "2026-11-27",
+          "dynamic": false
+        },
+        {
+          "id": "agate-fossil-beds-national-monument-highlights-fact-3",
+          "statement": "The Fossil Hills Trail leads to historic dig sites and crosses the Niobrara River wetlands.",
+          "evidence": "Fossil Hills Trail takes visitors to the historic dig sites. Explore the source of our famous fossil discoveries. On the way, a boardwalk takes you over natural wetlands and the Niobrara river.",
+          "checkedAt": "2026-11-27",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "great-basin-national-park-overview",
+      "url": "https://www.nps.gov/grba/index.htm",
+      "title": "Great Basin National Park overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-27",
+      "contentHash": "309dada339f89e4cacc1f1e8af722f723ad10e0a65e7d57c71d2b7d2462390b8",
+      "facts": [
+        {
+          "id": "great-basin-national-park-overview-fact-1",
+          "statement": "Lehman Caves is a marble cave with formations that include stalactites, stalagmites and cave shields.",
+          "evidence": "a unique marble cave full of stalactites, stalagmites, popcorn, cave shields, and mystery.",
+          "checkedAt": "2026-11-27",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "great-basin-national-park-visit",
+      "url": "https://www.nps.gov/grba/planyourvisit/index.htm",
+      "title": "Great Basin National Park visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-27",
+      "contentHash": "9c109260fa88b554b232515455f74b8b7751288752271b9858752520f9f21305",
+      "facts": [
+        {
+          "id": "great-basin-national-park-visit-fact-1",
+          "statement": "The visit planner points visitors to information about road conditions and weather.",
+          "evidence": "Start here for information regarding hours, weather, road conditions, and more.",
+          "checkedAt": "2026-11-27",
+          "dynamic": false
+        },
+        {
+          "id": "great-basin-national-park-visit-fact-2",
+          "statement": "The park lists both stargazing and hiking among its activities.",
+          "evidence": "Stargazing, hiking, and fishing are just a few of the activities",
+          "checkedAt": "2026-11-27",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "great-basin-national-park-highlights",
+      "url": "https://www.nps.gov/grba/planyourvisit/things2do.htm",
+      "title": "Great Basin National Park highlights",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-27",
+      "contentHash": "01838219491895c9e325e09db7d3c8cc19a619512d23ce052f4d6eff890631ea",
+      "facts": [
+        {
+          "id": "great-basin-national-park-highlights-fact-1",
+          "statement": "Park trails lead to lakes and bristlecone pines.",
+          "evidence": "Hiking Trails Check out the dozens of miles of trails available in the park, taking you to gorgeous lakes, bristlecone pines, and solitude.",
+          "checkedAt": "2026-11-27",
+          "dynamic": false
+        }
+      ]
     }
   ]
 }
