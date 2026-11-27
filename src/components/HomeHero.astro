@@ -1,0 +1,29 @@
+---
+import type { ComponentProps } from 'astro/types';
+import Photo from './Photo.astro';
+
+type HeroPhoto = Pick<ComponentProps<typeof Photo>, 'photo' | 'alt' | 'captionText' | 'creditsLabel' | 'aiIllustrationLabel' | 'creditsHref'>;
+interface Props {
+  label: string;
+  title: string;
+  description: string;
+  href: string;
+  action: string;
+  destination?: boolean;
+  image?: HeroPhoto;
+}
+const { label, title, description, href, action, destination, image } = Astro.props;
+const sizes = image && image.photo.width / image.photo.height > 2.25
+  ? '(max-width: 700px) calc(200vw - 72px), (max-width: 1000px) 132vw, 1600px'
+  : '(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) 56vw, 680px';
+---
+
+<section class:list={['container discovery-hero', { 'discovery-hero--destination': destination }]}>
+  <div class="discovery-hero-copy">
+    <p class="eyebrow">{label}</p>
+    <h1>{title}</h1>
+    <p>{description}</p>
+    <a class="button" href={href}>{action} <span aria-hidden="true">↗</span></a>
+  </div>
+  {image && <Photo {...image} priority sizes={sizes} class="discovery-hero-photo" />}
+</section>

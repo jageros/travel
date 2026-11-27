@@ -1,11 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Photo from '../../components/Photo.astro';
-import { destinationDetails, destinationPlace } from '../../lib/content';
+import HomeHero from '../../components/HomeHero.astro';
+import { articleHref, destinationDetails, destinationPlace, recentDestinations } from '../../lib/content';
 import { getArticlePhoto } from '../../lib/photos';
 import { localeLabels, localePath, sourceArticleDigest, sourceSupplementalDigest } from '../../lib/i18n.mjs';
-import { SITE_NAME, isReviewPreview } from '../../lib/site';
+import { SITE_NAME } from '../../lib/site';
 import { localeCopy } from '../../lib/i18n-copy.mjs';
 import { articleCopy } from '../../lib/i18n-article-copy.mjs';
 
@@ -17,41 +17,49 @@ const { locale } = Astro.props;
 const labels = localeLabels(locale.code);
 const [articles, translations] = await Promise.all([
   getCollection('articles', ({ data }) => data.status === 'published'),
-  getCollection('translations', ({ data }) => (data.status === 'published' || (isReviewPreview && data.status === 'review')) && data.locale === locale.code),
+  getCollection('translations', ({ data }) => data.status === 'published' && data.locale === locale.code),
 ]);
 const sources = new Map(articles.map(article => [article.data.slug, article]));
-const entries = translations.flatMap(translation => {
-  const source = sources.get(translation.data.sourceSlug);
-  return source && translation.data.sourceDigest === sourceArticleDigest(source) && translation.data.supplementalDigest === sourceSupplementalDigest(source) ? [{ translation, source }] : [];
-});
-const destinations = entries.flatMap(entry => {
-  const details = destinationDetails(entry.source);
-  return details ? [{ ...entry, details }] : [];
-});
-const hero = destinations[0];
-const heroPhoto = hero ? await getArticlePhoto(hero.source.data.hero) : null;
+const destinations = recentDestinations(translations.flatMap(translation => {
+  const article = sources.get(translation.data.sourceSlug);
+  if (!article || translation.data.sourceDigest !== sourceArticleDigest(article) ||
+    translation.data.supplementalDigest !== sourceSupplementalDigest(article)) return [];
+  const details = destinationDetails(article);
+  return details ? [{ translation, article, details }] : [];
+}));
+const hero = destinations.find(({ article }) => article.data.hero && 'photoId' in article.data.hero);
+const recent = destinations.filter(entry => entry !== hero).slice(0, 8);
+const heroPhoto = await getArticlePhoto(hero?.article.data.hero);
 const path = localePath(locale.code, '/');
+const directory = localePath(locale.code, '/destinations/');
 const text = localeCopy(locale.code);
 const articleText = articleCopy(locale.code);
+const image = heroPhoto && hero ? {
+  photo: heroPhoto,
+  alt: hero.translation.data.photoAlt ?? articleText.photoDescription,
+  captionText: hero.translation.data.photoCaption ?? articleText.photoDescription,
+  creditsLabel: articleText.imageCredits,
+  aiIllustrationLabel: labels.aiIllustration,
+  creditsHref: localePath(locale.code, '/photo-credits/'),
+} : undefined;
 ---
 
-<BaseLayout title={`${labels.destinations} — ${SITE_NAME}`} description="Discover places worth visiting across the United States." path={path} lang={locale.hreflang} dir={locale.dir} socialImage={heroPhoto ? { ...heroPhoto.share, alt: hero.translation.data.photoAlt ?? heroPhoto.alt } : undefined}>
-  <section class="container discovery-hero">
-    <div class="discovery-hero-copy">
-      <p class="eyebrow">{text.explore}</p>
-      <h1>{text.homeTitle}</h1>
-      <p>{text.homeDescription}</p>
-      <a class="button" href={localePath(locale.code, '/destinations/')}>{labels.explore} <span aria-hidden="true">↗</span></a>
-    </div>
-    {heroPhoto && <Photo photo={heroPhoto} priority alt={hero.translation.data.photoAlt ?? articleText.photoDescription} captionText={hero.translation.data.photoCaption ?? articleText.photoDescription} creditsLabel={articleText.imageCredits} aiIllustrationLabel={labels.aiIllustration} creditsHref={localePath(locale.code, '/photo-credits/')} sizes="(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) 56vw, 680px" class="discovery-hero-photo" />}
-  </section>
-  {destinations.length > 0 && <section class="container section-block homepage-destinations" aria-labelledby="featured-destinations">
-    <div class="section-heading"><h2 id="featured-destinations">{text.featured}</h2><a href={localePath(locale.code, '/destinations/')}>{text.viewAll} <span aria-hidden="true">→</span></a></div>
+<BaseLayout title={`${labels.destinations} — ${SITE_NAME}`} description={text.homeDescription} path={path} lang={locale.hreflang} dir={locale.dir} socialImage={image ? { ...image.photo.share, alt: image.alt } : undefined}>
+  <HomeHero
+    label={hero ? text.latest : text.explore}
+    title={hero?.translation.data.title ?? text.homeTitle}
+    description={hero?.translation.data.description ?? text.homeDescription}
+    href={hero ? localePath(locale.code, articleHref(hero.article)) : directory}
+    action={hero ? text.readGuide : labels.explore}
+    destination={Boolean(hero)}
+    image={image}
+  />
+  {recent.length > 0 && <section class="container section-block homepage-destinations" aria-labelledby="recent-destinations">
+    <div class="section-heading"><h2 id="recent-destinations">{text.recent}</h2><a href={directory}>{text.viewAll} <span aria-hidden="true">→</span></a></div>
     <div class="cards-grid destination-grid">
-      {destinations.slice(0, 8).map(async ({ translation, source, details }) => {
-        const image = await getArticlePhoto(source.data.hero);
-        if (!details) return null;
-        return <article class="destination-card"><a href={localePath(locale.code, `/destinations/${source.data.slug}/`)}>{image && <div class="destination-card-media"><img src={image.src} srcset={image.srcSet} sizes="(max-width: 700px) calc(100vw - 36px), 280px" width={image.width} height={image.height} alt={translation.data.photoAlt ?? image.alt} loading="lazy" decoding="async" /></div>}<div class="destination-card-body"><p class="destination-card-location">{destinationPlace(details)}</p><h3 class="destination-card-title">{translation.data.title}</h3><p class="destination-card-description">{translation.data.description}</p></div></a></article>;
+      {recent.map(async ({ translation, article, details }) => {
+        const image = await getArticlePhoto(article.data.hero);
+        return <article class="destination-card"><a href={localePath(locale.code, articleHref(article))}>{image && <div class="destination-card-media"><img src={image.src} srcset={image.srcSet} sizes="(max-width: 700px) calc(100vw - 36px), 280px" width={image.width} height={image.height} alt={translation.data.photoAlt ?? articleText.photoDescription} loading="lazy" decoding="async" /></div>}<div class="destination-card-body"><p class="destination-card-location">{destinationPlace(details)}</p><h3 class="destination-card-title">{translation.data.title}</h3><p class="destination-card-description">{translation.data.description}</p></div></a></article>;
       })}
     </div>
   </section>}

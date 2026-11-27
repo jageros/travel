@@ -3,6 +3,7 @@ import { isReviewPreview } from './site';
 import topicRecords from '../data/topics.json';
 import categoryLabels from '../data/destination-categories.json';
 import goldenGate from '../data/golden-gate-attraction.json';
+import editorial from '../../automation/editorial.json';
 
 export type Article = CollectionEntry<'articles'>;
 export type DestinationCategory = keyof typeof categoryLabels;
@@ -40,6 +41,15 @@ export function destinationArticles(articles: Article[]) {
     return details ? [{ article, details }] : [];
   }).sort((a, b) => Number(b.details.featured) - Number(a.details.featured) ||
     a.details.title.localeCompare(b.details.title, 'en-US'));
+}
+
+const publicationTimes = new Map(editorial.publications.map(({ slug, publishedAt }) => [slug, Date.parse(publishedAt)]));
+
+export function recentDestinations<T extends { article: Article }>(destinations: T[]) {
+  const publishedTime = ({ article }: T) => publicationTimes.get(article.data.slug) ??
+    (article.data.publishedAt ? Date.parse(article.data.publishedAt) : 0);
+  return destinations.filter(({ article }) => article.data.status === 'published')
+    .sort((a, b) => publishedTime(b) - publishedTime(a) || a.article.data.slug.localeCompare(b.article.data.slug, 'en-US'));
 }
 
 export async function visibleArticles(): Promise<Article[]> {

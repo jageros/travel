@@ -7,6 +7,7 @@ import {execFileSync} from 'node:child_process';
 import {parse,stringify} from 'yaml';
 import {parse as parseHtml} from 'parse5';
 import {CANONICAL_SITE_URL,SITE_NAME,SITE_EDITORIAL_TEAM} from '../src/lib/site-config.mjs';
+import {articleDigest} from '../scripts/content-lib.mjs';
 
 function pageMetadata(html) {
  const nodes=[];
@@ -44,6 +45,31 @@ function assertDestinationFilters(html) {
  assert.ok(nodes.some(({attrs})=>Object.hasOwn(attrs,'data-destination-filters')&&Object.hasOwn(attrs,'hidden')));
 }
 
+function assertHomepageDestinations(html, {heroTitle, heroHref, cardHrefs}) {
+ function descendants(node) {
+  return (node.childNodes??[]).flatMap(child=>[child,...descendants(child)]);
+ }
+ const attr=(node,name)=>node.attrs?.find(item=>item.name===name)?.value;
+ const hasClass=(node,name)=>attr(node,'class')?.split(/\s+/).includes(name);
+ const content=node=>node?.nodeName==='#text'?node.value:(node?.childNodes??[]).map(content).join('');
+ const nodes=descendants(parseHtml(html));
+ const hero=nodes.find(node=>hasClass(node,'discovery-hero'));
+ assert.ok(hero,'homepage has a hero');
+ const heroNodes=descendants(hero);
+ assert.equal(content(heroNodes.find(node=>node.tagName==='h1')).trim(),heroTitle);
+ const heroLink=heroNodes.find(node=>node.tagName==='a'&&hasClass(node,'button'));
+ assert.ok(heroLink,'hero action links to the destination');
+ assert.equal(attr(heroLink,'href'),heroHref);
+ const gallery=nodes.find(node=>hasClass(node,'homepage-destinations'));
+ assert.ok(gallery,'homepage has a destination gallery');
+ const cards=descendants(gallery).filter(node=>hasClass(node,'destination-card'));
+ assert.deepEqual(cards.map(card=>{
+  const link=descendants(card).find(node=>node.tagName==='a'&&attr(node,'href')?.includes('/destinations/'));
+  assert.ok(link,'card links to the destination');
+  return attr(link,'href');
+ }),cardHrefs);
+}
+
 test('a staged production release has static content, working links, metadata and two gated ad positions',async()=>{
  const source=process.cwd();
  const temporary=await fs.mkdtemp(path.join(os.tmpdir(),'travel-published-test-'));
@@ -59,20 +85,76 @@ test('a staged production release has static content, working links, metadata an
   // Own the fixture's release state so live editorial releases cannot turn the
   // unpublished-link and sitemap assertions into assertions about current data.
   const articlesDir=path.join(root,'src/content/articles');
+  const daysAgo=days=>new Date(Date.now()-days*86400000).toISOString().slice(0,10);
+  const goldenGateSlug='golden-gate-bridge-without-a-car';
+  const homepageOrder=[
+   'mammoth-cave-national-park',
+   'andersonville-national-historic-site',
+   'city-of-rocks-national-reserve',
+   'indiana-dunes-national-park',
+   'hot-springs-national-park',
+   'kennedy-space-center',
+   'national-mall',
+   'statue-of-liberty',
+   'yosemite',
+   goldenGateSlug,
+  ];
+  const homepagePublications=[
+   {slug:'grand-canyon',date:daysAgo(1),time:'20:00:00Z'},
+   {slug:homepageOrder[0],date:daysAgo(1),time:'17:00:00Z'},
+   {slug:homepageOrder[1],date:daysAgo(1),time:'05:00:00Z'},
+   // No ledger entry for City of Rocks, which ranks by its article date.
+   ...homepageOrder.slice(3,-1).map((slug,index)=>({slug,date:daysAgo(3),time:`${15-index}:00:00Z`})),
+   {slug:goldenGateSlug,date:daysAgo(4),time:'05:00:00Z'},
+  ];
   for(const name of await fs.readdir(articlesDir)){
    if(!name.endsWith('.md'))continue;
-   if(name==='golden-gate-bridge-without-a-car.md')continue;
    const target=path.join(articlesDir,name);
    const parts=/^---\n([\s\S]*?)\n---\n([\s\S]*)$/.exec(await fs.readFile(target,'utf8'));
-   const data=parse(parts[1]);data.status='review';delete data.publishedAt;
+   const data=parse(parts[1]);
+   const publication=homepagePublications.find(row=>row.slug===data.slug);
+   data.status=homepageOrder.includes(data.slug)?'published':'review';
+   delete data.publishedAt;
+   if(data.status==='published')data.publishedAt=publication?.date??daysAgo(2);
+   if(publication)publication.contentSha256=articleDigest(data,parts[2]);
    await fs.writeFile(target,`---\n${stringify(data,{defaultStringType:'QUOTE_DOUBLE'})}---\n${parts[2]}`);
   }
+  const ledgerFile=path.join(root,'automation/editorial.json');
+  const ledger=JSON.parse(await fs.readFile(ledgerFile,'utf8'));
+  ledger.publications=homepagePublications.reverse().map(({slug,date,time,contentSha256})=>({
+   slug,publishedAt:`${date}T${time}`,contentSha256,manualApproval:false,
+  }));
+  await fs.writeFile(ledgerFile,JSON.stringify(ledger));
+
+  // Isolate Spanish so live translation releases cannot change this homepage fixture.
+  const translationsDir=path.join(root,'src/content/translations');
+  await fs.rm(translationsDir,{recursive:true});
+  await fs.mkdir(path.join(translationsDir,'es'),{recursive:true});
+  for(const [index,slug] of homepageOrder.slice(0,4).entries()){
+   const name=path.join('es',`${slug}.md`);
+   const text=await fs.readFile(path.join(source,'src/content/translations',name),'utf8');
+   const [,frontmatter,body]=/^---\n([\s\S]*?)\n---\n([\s\S]*)$/.exec(text);
+   const data=parse(frontmatter);
+   data.status=index===0?'review':'published';
+   data.updatedAt=daysAgo(4-index);
+   await fs.writeFile(path.join(translationsDir,name),`---\n${stringify(data,{defaultStringType:'QUOTE_DOUBLE'})}---\n${body}`);
+  }
+  const englishHomepage={
+   heroTitle:'Mammoth Cave National Park',
+   heroHref:`/destinations/${homepageOrder[0]}/`,
+   cardHrefs:homepageOrder.slice(1,9).map(slug=>`/destinations/${slug}/`),
+  };
+  const spanishHomepage={
+   heroTitle:'Sitio Histórico Nacional de Andersonville',
+   heroHref:`/es/destinations/${homepageOrder[1]}/`,
+   cardHrefs:homepageOrder.slice(2,4).map(slug=>`/es/destinations/${slug}/`),
+  };
   const file=path.join(root,'src/content/articles/is-muni-pass-worth-it.md');
   const raw=await fs.readFile(file,'utf8');
   const parts=/^---\n([\s\S]*?)\n---\n([\s\S]*)$/.exec(raw);
   const article=parse(parts[1]);
   article.status='published';article.publishedAt=new Date().toISOString().slice(0,10);
-  // The production fixture keeps the Golden Gate destination and this guide.
+  // The production fixture keeps this guide for the article and ad checks.
   article.related=[];
   await fs.writeFile(file,`---\n${stringify(article,{defaultStringType:'QUOTE_DOUBLE'})}---\n${parts[2]}`);
   const healthFile=path.join(root,'automation/source-health.json');
@@ -111,9 +193,13 @@ test('a staged production release has static content, working links, metadata an
   assert.match(html,/data-current-fact[^>]*hidden/,'precise facts stay hidden without a runtime freshness check');
   assert.match(html,/data-fact-fallback/,'official-source fallback is in static HTML');
   const home=await fs.readFile(path.join(root,'dist/index.html'),'utf8');
+  const spanishHome=await fs.readFile(path.join(root,'dist/es/index.html'),'utf8');
   const destinations=await fs.readFile(path.join(root,'dist/destinations/index.html'),'utf8');
   const topics=await fs.readFile(path.join(root,'dist/topics/index.html'),'utf8');
-  assert.match(home,/Featured destinations/);
+  assertHomepageDestinations(home,englishHomepage);
+  assertHomepageDestinations(spanishHome,spanishHomepage);
+  const reviewTranslation=path.join(root,'dist/es/destinations',homepageOrder[0],'index.html');
+  await assert.rejects(fs.stat(reviewTranslation),{code:'ENOENT'});
   assert.match(home,/href="\/topics\/san-francisco-without-a-car\/"/);
   assert.match(topics,/class="topic-card" href="\/destinations\/"[\s\S]+class="topic-card" href="\/topics\/san-francisco-without-a-car\/"/);
   assert.match(destinations,/data-destination-card/);
@@ -155,6 +241,9 @@ test('a staged production release has static content, working links, metadata an
   const previewDestinations=await fs.readFile(path.join(root,'dist/destinations/index.html'),'utf8');
   assert.match(previewDestinations,/<meta name="robots" content="noindex/);
   assert.doesNotMatch(previewDestinations,/data-ad-container|data-analytics-id="G-FIXTURE123"/);
+  assertHomepageDestinations(await fs.readFile(path.join(root,'dist/index.html'),'utf8'),englishHomepage);
+  assertHomepageDestinations(await fs.readFile(path.join(root,'dist/es/index.html'),'utf8'),spanishHomepage);
+  assert.ok((await fs.stat(reviewTranslation)).isFile(),'the review translation is available by direct URL in preview');
   // A preview with only published content is still a preview: the content
   // visibility switch must not authorize indexing, analytics or advertising.
   const publicPreviewOptions={...options,env:{...previewEnv,CONTENT_REVIEW_PREVIEW:'false'}};

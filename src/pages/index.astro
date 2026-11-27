@@ -1,39 +1,37 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import DestinationGrid from '../components/DestinationGrid.astro';
-import Photo from '../components/Photo.astro';
-import { destinationArticles, destinationTopic, sanFranciscoTopic, visibleArticles } from '../lib/content';
+import HomeHero from '../components/HomeHero.astro';
+import { articleHref, destinationArticles, destinationTopic, recentDestinations, sanFranciscoTopic, visibleArticles } from '../lib/content';
+import { localeCopy } from '../lib/i18n-copy.mjs';
 import { getArticlePhoto, getPhoto } from '../lib/photos';
 import { SITE_NAME } from '../lib/site';
 
 const articles = await visibleArticles();
-const destinations = destinationArticles(articles);
-const featured = destinations.filter(({ details }) => details.featured);
-const featuredArticles = (featured.length ? featured : destinations).slice(0, 8).map(({ article }) => article);
-const hero = destinations.find(({ article }) => article.data.slug === 'grand-canyon') ?? destinations[0];
+const destinations = recentDestinations(destinationArticles(articles));
+const hero = destinations.find(({ article }) => article.data.hero && 'photoId' in article.data.hero);
+const recent = destinations.filter(entry => entry !== hero).slice(0, 8);
 const heroPhoto = await getArticlePhoto(hero?.article.data.hero) ?? await getPhoto('golden-gate');
-const heroSizes = heroPhoto.width / heroPhoto.height > 2.25
-  ? '(max-width: 700px) calc(200vw - 72px), (max-width: 1000px) 132vw, 1600px'
-  : '(max-width: 700px) calc(100vw - 36px), (max-width: 1000px) 56vw, 680px';
+const text = localeCopy('en-US');
 ---
 
 <BaseLayout title={`Places worth visiting in the United States — ${SITE_NAME}`} description="Find your next U.S. destination, from national parks and city landmarks to gardens, museums and space exhibits." path="/" socialImage={{ ...heroPhoto.share, alt: heroPhoto.alt }}>
-  <section class="container discovery-hero">
-    <div class="discovery-hero-copy">
-      <p class="eyebrow">Explore the United States</p>
-      <h1>Places worth<br class="discovery-break" /> the trip.</h1>
-      <p>Discover canyons, city landmarks and places worth a detour. Find out what to see and what to check before you go.</p>
-      <a class="button" href={destinationTopic.href}>Explore destinations <span aria-hidden="true">↗</span></a>
-    </div>
-    <Photo photo={heroPhoto} priority sizes={heroSizes} class="discovery-hero-photo" />
-  </section>
+  <HomeHero
+    label={hero ? text.latest : text.explore}
+    title={hero?.details.title ?? text.homeTitle}
+    description={hero?.details.reason ?? text.homeDescription}
+    href={hero ? articleHref(hero.article) : destinationTopic.href}
+    action={hero ? text.readGuide : 'Explore destinations'}
+    destination={Boolean(hero)}
+    image={{ photo: heroPhoto }}
+  />
 
-  {featuredArticles.length > 0 && <section class="container section-block homepage-destinations" aria-labelledby="featured-destinations">
+  {recent.length > 0 && <section class="container section-block homepage-destinations" aria-labelledby="recent-destinations">
     <div class="section-heading">
-      <h2 id="featured-destinations">Featured destinations</h2>
-      <a href={destinationTopic.href}>View all destinations <span aria-hidden="true">→</span></a>
+      <h2 id="recent-destinations">{text.recent}</h2>
+      <a href={destinationTopic.href}>{text.viewAll} <span aria-hidden="true">→</span></a>
     </div>
-    <DestinationGrid articles={featuredArticles} />
+    <DestinationGrid destinations={recent} />
   </section>}
 
   <section class="container section-block" aria-labelledby="san-francisco-topic">
