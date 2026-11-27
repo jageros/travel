@@ -1,6 +1,13 @@
 # Cedar Trips 当前交接
 
-整理日期：**2026-11-26，Asia/Shanghai**。本页同时记录当前自动发布改动和 11 月 5 日历史快照。下次必须重新核对远端、运行记录和部署。先读根目录 [AGENTS.md](../../AGENTS.md)，再按本页接续。项目决策见 [推进历史](history.md)，执行优先级见 [后续计划](roadmap.md)。
+整理日期：**2026-11-27，Asia/Shanghai**。本页同时记录当前自动发布改动和 11 月 5 日历史快照。下次必须重新核对远端、运行记录和部署。先读根目录 [AGENTS.md](../../AGENTS.md)，再按本页接续。项目决策见 [推进历史](history.md)，执行优先级见 [后续计划](roadmap.md)。
+
+### 2026-11-27 定时任务快照
+
+- 逐篇发布猛犸洞国家公园（`c04ab01`）、Cane River Creole 国家历史公园（`1fcc877`）和亚当斯国家历史公园（`a553806`），用完当天三个英文名额。各提交均通过 GitHub、Cloudflare 以及正式页面、配图、canonical 和 sitemap 核验。 [猛犸洞](https://www.cedartrips.com/destinations/mammoth-cave-national-park/) · [Cane River Creole](https://www.cedartrips.com/destinations/cane-river-creole-national-historical-park/) · [亚当斯](https://www.cedartrips.com/destinations/adams-national-historical-park/)
+- `84d7574` 补入蒙大拿州 Glacier、内布拉斯加州 Agate Fossil Beds 和内华达州 Great Basin。已核对每篇的 NPS 证据和 Commons 实景照片，队列从三篇恢复到六篇，三个待发页在正式站返回 404，sitemap 未列入。 [补稿 CI](https://github.com/jageros/travel/actions/runs/45923192299/job/140258463268)
+- `407aadb` 为三篇新稿发布 33 份译文。242 份译文校验、168 项测试、生产 403 页和预览 409 页静态核验通过。正式站核验 36 个文章 URL 的标题、语言标记、canonical、双向 hreflang、六个本地 JPEG 和 402 个唯一 sitemap URL。 [译文 CI](https://github.com/jageros/travel/actions/runs/45923454174/job/140259285026) · [sitemap](https://www.cedartrips.com/sitemap.xml)
+- 最近一次全量抓取为 `2026-11-27T01:28:05.594Z`。101 项来源中 92 项匹配基线，证据冲突为零。三个 Clipper 来源的抓取再次返回 403，六个 BART 来源也返回 403。补稿另核验并登记九项 NPS 来源。
 
 ### 2026-11-26 定时任务快照
 

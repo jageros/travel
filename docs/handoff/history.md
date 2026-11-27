@@ -170,3 +170,10 @@
 - 补稿 `178f323` 追加 Antietam National Battlefield、Isle Royale National Park 和 Voyageurs National Park。核对了九项 NPS 来源及三张 Commons 照片的主体、作者、许可、原图校验值。队列恢复至六篇，发布账本保持原样，三个待发页在线上返回 404。 [Antietam 封面](https://commons.wikimedia.org/wiki/File:Miller_Farm_Antietam_MD1.jpg) · [Isle Royale 封面](https://commons.wikimedia.org/wiki/File:Rock_Harbor_Lighthouse_at_Isle_Royale_National_park.jpg) · [Voyageurs 封面](https://commons.wikimedia.org/wiki/File:Sunrise,_Rainy_Lake.jpg)
 - 译文 `c85fba0` 发布 33 份。第四篇 Effigy Mounds 已有全套译文。209 份译文与 168 项测试通过，生产和预览分别验证 367、373 页。生产检查覆盖新增原文和译文的 36 个页面、双向 hreflang 及配图，sitemap 共 366 个唯一 URL。 [译文 CI](https://github.com/jageros/travel/actions/runs/45737051849/job/139632707073)
 - Clipper 的无接触支付、青少年与长者、支付方式三个已登记来源恢复并与基线匹配。六个 BART 来源仍不可用，相关选题继续由来源和事实门禁处理。
+
+## 2026-11-27 每日发布、补稿和多语言维护
+
+- 同步 `40c6262`，补验 11 月 26 日交接提交的 GitHub 和 Cloudflare 检查均通过。当天发布前的正式站基线包含 366 个 sitemap URL。 [11 月 26 日交接 CI](https://github.com/jageros/travel/actions/runs/45737463899/job/139634042243)
+- 依次发布 Mammoth Cave（`c04ab01`）、Cane River Creole（`1fcc877`）和 Adams（`a553806`）。逐篇通过对应提交的 GitHub、Cloudflare 和正式页面、配图、canonical、sitemap 核验。 [猛犸洞](https://www.cedartrips.com/destinations/mammoth-cave-national-park/) · [Cane River Creole](https://www.cedartrips.com/destinations/cane-river-creole-national-historical-park/) · [亚当斯](https://www.cedartrips.com/destinations/adams-national-historical-park/)
+- 补稿 `84d7574` 追加 Glacier National Park、Agate Fossil Beds National Monument 和 Great Basin National Park。核对了九项官方来源和三张照片的主体、署名、许可、原图校验值。队列恢复至六篇，发布账本保持原样，三个待发页线上返回 404。 [Lake McDonald 封面](https://commons.wikimedia.org/wiki/File:Lake_McDonald,_Glacier_National_Park,_Montana_USA.jpg) · [Niobrara River 封面](https://commons.wikimedia.org/wiki/File:Niobrara_River_(Agate_Fossil_Beds_National_Monument,_Nebraska,_USA)_2_(24434017679).jpg) · [Great Basin 封面](https://commons.wikimedia.org/wiki/File:Great_Basin_National_Park_-_53837528271.jpg)
+- 译文 `407aadb` 发布 33 份。计划中的第四篇 Andersonville 已有全套译文。242 份译文与 168 项测试通过，生产与预览分别核验 403、409 页。正式站检查覆盖当日 36 个语言页面、双向 hreflang 和配图，sitemap 共 402 个唯一 URL。 [译文 CI](https://github.com/jageros/travel/actions/runs/45923454174/job/140259285026)
