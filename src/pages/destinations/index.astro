@@ -19,6 +19,6 @@ const heroPhoto = await getArticlePhoto(hero?.article.data.hero);
       <h1>Explore U.S. destinations</h1>
       <p>{destinationTopic.description}</p>
     </div>
-    {destinations.length > 0 ? <DestinationGrid articles={articles} filterable /> : <p>Browse the <a href="/guides/">travel guides</a> for places you can explore today.</p>}
+    {destinations.length > 0 ? <DestinationGrid destinations={destinations} filterable /> : <p>Browse the <a href="/guides/">travel guides</a> for places you can explore today.</p>}
   </section>
 </BaseLayout>

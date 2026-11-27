@@ -1,16 +1,15 @@
 ---
-import { articleHref, destinationArticles, destinationCategories, destinationPlace, type Article } from '../lib/content';
+import { articleHref, destinationCategories, destinationPlace, type destinationArticles } from '../lib/content';
 import { getArticlePhoto } from '../lib/photos';
 import DestinationFilter from './DestinationFilter.astro';
 
 interface Props {
-  articles: Article[];
+  destinations: ReturnType<typeof destinationArticles>;
   filterable?: boolean;
 }
 
-const { articles, filterable = false } = Astro.props;
+const { destinations, filterable = false } = Astro.props;
 const CardHeading = filterable ? 'h2' : 'h3';
-const destinations = destinationArticles(articles);
 const regions = [...new Set(destinations.map(({ details }) => details.region))].sort((a, b) => a.localeCompare(b, 'en-US'));
 const categories = Object.entries(destinationCategories).filter(([id]) => destinations.some(({ details }) => details.category === id));
 const cards = await Promise.all(destinations.map(async entry => {

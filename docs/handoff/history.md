@@ -177,3 +177,8 @@
 - 依次发布 Mammoth Cave（`c04ab01`）、Cane River Creole（`1fcc877`）和 Adams（`a553806`）。逐篇通过对应提交的 GitHub、Cloudflare 和正式页面、配图、canonical、sitemap 核验。 [猛犸洞](https://www.cedartrips.com/destinations/mammoth-cave-national-park/) · [Cane River Creole](https://www.cedartrips.com/destinations/cane-river-creole-national-historical-park/) · [亚当斯](https://www.cedartrips.com/destinations/adams-national-historical-park/)
 - 补稿 `84d7574` 追加 Glacier National Park、Agate Fossil Beds National Monument 和 Great Basin National Park。核对了九项官方来源和三张照片的主体、署名、许可、原图校验值。队列恢复至六篇，发布账本保持原样，三个待发页线上返回 404。 [Lake McDonald 封面](https://commons.wikimedia.org/wiki/File:Lake_McDonald,_Glacier_National_Park,_Montana_USA.jpg) · [Niobrara River 封面](https://commons.wikimedia.org/wiki/File:Niobrara_River_(Agate_Fossil_Beds_National_Monument,_Nebraska,_USA)_2_(24434017679).jpg) · [Great Basin 封面](https://commons.wikimedia.org/wiki/File:Great_Basin_National_Park_-_53837528271.jpg)
 - 译文 `407aadb` 发布 33 份。计划中的第四篇 Andersonville 已有全套译文。242 份译文与 168 项测试通过，生产与预览分别核验 403、409 页。正式站检查覆盖当日 36 个语言页面、双向 hreflang 和配图，sitemap 共 402 个唯一 URL。 [译文 CI](https://github.com/jageros/travel/actions/runs/45923454174/job/140259285026)
+
+## 2026-11-27 首页展示最新景点
+
+- 英文和译文首页按英文原文的账本发布时间选取首屏与近期景点卡片。同日发布按账本精确时间排序，缺少账本时间时使用文章发布日期。各语言只展示已发布且指纹匹配的译文。景点目录继续使用其原有顺序。
+- 回归测试覆盖同日排序、发布日期回退、首屏与卡片去重、预览排除待审稿及缺译回退。本地全量校验、168 项测试、生产与预览静态核验通过。浏览器检查英文桌面与手机首屏，以及阿拉伯语手机布局和图片加载。

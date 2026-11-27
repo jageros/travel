@@ -333,6 +333,14 @@ html[dir="rtl"] .destination-filter-options [role="option"] { text-align: right;
   letter-spacing: -.06em;
   margin: 0 0 24px;
 }
+.discovery-hero--destination h1 {
+  font-size: clamp(2.5rem, 4.4vw, 4.5rem);
+  line-height: 1.04;
+  letter-spacing: -.035em;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+html[dir="rtl"] .discovery-hero--destination h1 { letter-spacing: normal; }
 .discovery-hero-copy > p:not(.eyebrow) {
   max-width: 380px;
   margin-bottom: 28px;
@@ -488,9 +496,9 @@ html[dir="rtl"] .destination-filter-options [role="option"] { text-align: right;
 @media (max-width: 700px) {
   .discovery-hero { grid-template-columns: minmax(0, 1fr); gap: 25px; padding-block: 40px 14px; }
   .discovery-hero h1 { font-size: clamp(2.9rem, 11vw, 4.45rem); margin-bottom: 18px; }
+  .discovery-hero--destination h1 { font-size: clamp(2.4rem, 8vw, 3.7rem); }
   .discovery-hero-copy > p:not(.eyebrow) { font-size: .97rem; margin-bottom: 20px; }
   .discovery-hero-photo img { aspect-ratio: 1.55; }
-  .discovery-break { display: none; }
   .destination-grid, .topic-directory { gap: 18px; grid-template-columns: minmax(0, 1fr); }
   .destination-card-location { font-size: .72rem; }
   .destination-filters { gap: 12px; }
