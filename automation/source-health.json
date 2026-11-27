@@ -1,610 +1,610 @@
 {
-  "checkedAt": "2026-11-27T01:19:05.724Z",
+  "checkedAt": "2026-11-27T01:24:12.467Z",
   "sources": [
     {
       "id": "bart-sfo",
       "status": "unavailable",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "error": "Official source returned HTTP 403"
     },
     {
       "id": "sfmta-fares",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "7af4d7f4e0d8ff22064fd49119c2dd710860b9ada7ba0f5e9195b74482229ad8"
     },
     {
       "id": "sfmta-adult-single",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "8087841ae3443a60e9d29ffcc513870b6380e02253256bceb823084c503f0d4c"
     },
     {
       "id": "sfmta-day-pass",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "59e0f03b2ef8dbb7f203e7c45b63be6e4004c9707c6f93fdb6a44008fb7ef1d6"
     },
     {
       "id": "sfmta-visitor-passport",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "51eb2206b07fb7f60b1a03b4ab21ea86a51dc750949c391b0bcb0db60b320dac"
     },
     {
       "id": "sfmta-f-line",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "850e151da52e4e27500032be055ff49c7b4e9c332eda4b59a1c6680f1688bdcd"
     },
     {
       "id": "sfmta-f-access",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "0a9ae8ead93491f93b90e6ed88cc3d7c8003c04815fe7c40660f9a26f8828a13"
     },
     {
       "id": "golden-gate-transit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "f23813f0fee46d9da31b01c0911a67d64183c7b4cdf5d3cd5453adbd4d2ea754"
     },
     {
       "id": "golden-gate-sidewalks",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "76924a4678824bef3762a121f0ab444fe5043f9b10359b28ecc79c36ddd7e669"
     },
     {
       "id": "clipper-contactless",
       "status": "unavailable",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "error": "Official source returned HTTP 403"
     },
     {
       "id": "golden-gate-current-schedules",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "08d34b7944f1007ebc368e77a04a1f086f0acf80df239a31914b01f991ed27fa"
     },
     {
       "id": "sfmta-cable-cars",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "584242c684a29efd7c894ae719544b42dbfa54950dd6045fc1e672650fdacaa7"
     },
     {
       "id": "sfmta-stop-relocations",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "b9a9e3e9fc0534603143a41f6e838b491355e25a3b62a3f22c8711034813f61a"
     },
     {
       "id": "sfmta-travel-updates",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "8b011ca01b660cd9627e3653db516cd99fd71353eb914aa9c0b9ecc8be13daa8"
     },
     {
       "id": "sfmta-trip-planner",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "bbbb4d09cbb5ea22d896a55a08cae7205f062f0fc84d313d6b067256e04d3764"
     },
     {
       "id": "bart-advisories",
       "status": "unavailable",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "error": "Official source returned HTTP 403"
     },
     {
       "id": "sfmta-free-muni-youth",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "597df52cff3f97ec2f9a0167cad48452e67d3d709db37834e4043d4bee5b2bd0"
     },
     {
       "id": "bart-paying-fare",
       "status": "unavailable",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "error": "Official source returned HTTP 403"
     },
     {
       "id": "clipper-youth-senior",
       "status": "unavailable",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "error": "Official source returned HTTP 403"
     },
     {
       "id": "clipper-ways-to-pay",
       "status": "unavailable",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "error": "Official source returned HTTP 403"
     },
     {
       "id": "bart-tap-and-ride",
       "status": "unavailable",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "error": "Official source returned HTTP 403"
     },
     {
       "id": "bart-schedules",
       "status": "unavailable",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "error": "Official source returned HTTP 403"
     },
     {
       "id": "bart-official-app",
       "status": "unavailable",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "error": "Official source returned HTTP 403"
     },
     {
       "id": "sfo-taxis",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "e5de1348a28790bf031f688b51685315c05f4b0d18875ec34fb69964f0291c8b"
     },
     {
       "id": "sfo-ride-app-pickup",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "1fc944d202ab1ac017046667ba1b8986cac872047e48d06054eb7e3a3935b84a"
     },
     {
       "id": "golden-gate-ferry-schedules",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "57350931c05f6b06eb556424499b054a4ed549d7486cbd8224ed8e2a8a4b4e01"
     },
     {
       "id": "golden-gate-ferry-fares",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "c3dda5316c623247ee98dce8be8f9902b04de4daa55f941fd5039bacd71afb40"
     },
     {
       "id": "golden-gate-route120-rendered",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "89a85a2221253144bfb5a390f5195a79de45cbea31b7ec98f254a5491610af38"
     },
     {
       "id": "golden-gate-sausalito-rendered",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "85d2581adf1e62861aa93e42c2a80041ced04e591e620f0bf362d40841d1823b"
     },
     {
       "id": "grand-canyon-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "0e8272a259b7a7185b216b7267d1e78f6642e1db1af5b68d9fd1ece949dd4bd0"
     },
     {
       "id": "grand-canyon-south-rim",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "796e92b76d49eb6fb5bf44f9b588e5256d9061854443c2237ec8c99a0d7ebfed"
     },
     {
       "id": "grand-canyon-geology",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "bb5506183ac28fa0ed9ac69a6d8f1439a5cee45160c66f8b13c65f3043469075"
     },
     {
       "id": "grand-canyon-conditions",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "a5a19f6445c8f517127c776137c5641e8b3f19e5436914f87233a89755bcece5"
     },
     {
       "id": "grand-canyon-hiking",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "30a7c32f5bb9e8b71059c1be4cb760bd6078d9cbdeb2b81eb5d401734bd837c0"
     },
     {
       "id": "yellowstone-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "4043cd8c3681ee21f8c5251f525fca4f71f115305421448cd2bc7952f20d2b0b"
     },
     {
       "id": "yellowstone-old-faithful",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "2a7352d3f015c2d65d8ca634c85c03bd6f2b7229e983dde44ade701a7a113d4e"
     },
     {
       "id": "yellowstone-conditions",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "3ef0fe29019164ff68d20cbb44173b4005be784159679f23fbfd5f9cdb006c2f"
     },
     {
       "id": "yellowstone-safety",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "c8e2f0683acd235a7f2c8b20294088cbc52a8b9714bb2968746cbb0d4a9e6ed0"
     },
     {
       "id": "yosemite-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "6535243f9ca4f1e6defef360064436834b8cf96e9e86d6e6a06f997a5eefbdc1"
     },
     {
       "id": "yosemite-valley",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "d42d8d10468cc756908d72bf08070bb36f242fbcc84ff12c977c45e4dce63546"
     },
     {
       "id": "yosemite-conditions",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "a62bb40a2788857d5991c9260077e28e514b37378d88478ef5543da56dd827ef"
     },
     {
       "id": "statue-of-liberty-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "e81c80660b5ccbcacbfcf4166c4168673f11171ec172d4f85baa5eee24cbc243"
     },
     {
       "id": "statue-of-liberty-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "3f1ace62217fb14eb15240eef78b99c41e4071bfbaeb7fc3094c934acd0aabcf"
     },
     {
       "id": "statue-of-liberty-crown",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "651ecbf8c76e45c75b2a5943457638f9b666f60c4fe24071de29016ce4dc5901"
     },
     {
       "id": "national-mall-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "14990147dd948542119b9abbd0f002d63f46aab8ce1d14de0d88b483d991da26"
     },
     {
       "id": "national-mall-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "f15663bb56d9aecd3a65d57846bb8adad7125714a36dbc8968385e283b32707a"
     },
     {
       "id": "national-mall-lincoln",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "117a635c2c813ae71edad07bba35b3c6cf6de9aeb6cfec8282a99da23f38a518"
     },
     {
       "id": "national-mall-conditions",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "cb442b10ed46347a2b060d9857c1d13362f94835bd6b39f6ef67c518c7b8b3a1"
     },
     {
       "id": "kennedy-space-center-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "68367f2705cfa650a7772221bc36fba93fe75b32bc9384531c38e8c8d0e93add"
     },
     {
       "id": "kennedy-space-center-atlantis",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "aa478ece00a28fc1893afdcd1e8cba1ff7d476e128108a7935786f2f0965c510"
     },
     {
       "id": "kennedy-space-center-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "003448ad83c6287a3a7b0b4d3ae376d4fb8ce7df94c95a60960e1da407b7d32a"
     },
     {
       "id": "kennedy-space-center-launches",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "403f7c489c30a3dd1053301b2a3684420bd4ef9d9d34b364467f6c1c7efba76e"
     },
     {
       "id": "balboa-park-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "09fb649e3988aaa6c73b8292e9278f945eb84e0b08a2f22515d5526a22dabd52"
     },
     {
       "id": "balboa-park-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "eadc40601bb3065310f94cf7380175bf4339a2e6baac7920b57abd2e8cb0ed67"
     },
     {
       "id": "balboa-park-gardens",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "b2a09c45b4a6e37167a9ed76570815ae6a487c494b5a287af05a29d25c5533ad"
     },
     {
       "id": "golden-gate-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "0aa04dbd7c1f390cb0617968218f54308aeb6d2da4c9daa76bac901369c17f9d"
     },
     {
       "id": "acadia-national-park-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "4b7116f6a347ff8f27f70900b176f10216e2f553e737b2fcf4bd88183e2705cd"
     },
     {
       "id": "acadia-national-park-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "6427ecffa0ae7fbc76d5d7ef8a255a0ece19cfbd700c42b52cdc690c914e067e"
     },
     {
       "id": "acadia-national-park-highlights",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "4e85a98fe118a13e5f84dd74bd134cb759a1c6feaead37eea65c21375cd02461"
     },
     {
       "id": "hot-springs-national-park-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "dfb013ed507ac6abef218391b25c440975d46a44cb7d0bad6b3361c5d9049b57"
     },
     {
       "id": "hot-springs-national-park-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "0d2d70c24d800ccff16f2d66f3b912992f4e8bd19452d0a2fd0b4b7943f1c68f"
     },
     {
       "id": "black-canyon-of-the-gunnison-national-park-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "8328d1f558d81909bebed78bafcf24c289a932bdb2244406bb8697741e7c7778"
     },
     {
       "id": "black-canyon-of-the-gunnison-national-park-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "48e5cd1a1d88e0732be6b55f78c702e65cc9d1b679c909f311ed40568fd44274"
     },
     {
       "id": "black-canyon-of-the-gunnison-national-park-highlights",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "a89515e9c58bf018736dc031aa214fe34b786008ba3026392ac33d9552141959"
     },
     {
       "id": "haleakala-national-park-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "4cafc3c0abb84fd254181a13202138d362766df57c275ae875897ff556cbf4f5"
     },
     {
       "id": "haleakala-national-park-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "42e1397e7c6fcc0627fd91499520fe87232c4bbbc74428eb36e80297332cc86b"
     },
     {
       "id": "haleakala-national-park-highlights",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "a8f4065245d930b43b6f8009f12a9888fca340df375356da091022ab96ec3091"
     },
     {
       "id": "indiana-dunes-national-park-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "dc958390cf65b40b7117b3d1818277cadac421e2572a8655d5c407111740f7f3"
     },
     {
       "id": "indiana-dunes-national-park-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "ee7c78aec6dad5901094e5b54a03daaf2f64e5ddafd551b07516ace42027bc70"
     },
     {
       "id": "indiana-dunes-national-park-highlights",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "eb68bae417ee7c956c5b2dd132a05eb935bc61360f9bd4921a7f555074b04f00"
     },
     {
       "id": "lincoln-home-national-historic-site-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "f52d1b77ec69330a47bd45a39c9bd00a6c1e293f7006568cb7d5a98f40e2e07b"
     },
     {
       "id": "lincoln-home-national-historic-site-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "c533568fd3047103776e1987155b48dfd2966e91619584d3cc49d9a070b50c55"
     },
     {
       "id": "effigy-mounds-national-monument-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "20545a981927a2b3b94aa1c4e2e6501eae30365c7d5f6e5fb2b32a6b500cc98a"
     },
     {
       "id": "effigy-mounds-national-monument-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "0265859acb741181bb44d5424f3a38888c62f1cbdf53149526063cbff20aa34a"
     },
     {
       "id": "andersonville-national-historic-site-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "702a794fcf1401d81172ae297025bf5f09548270d0e41ced7c61509ab73516ce"
     },
     {
       "id": "andersonville-national-historic-site-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "37e13fad909fba1e2a1c995aae50b0c2511eeb5685d6c377f2c9af97720df1f8"
     },
     {
       "id": "andersonville-national-historic-site-highlights",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "98cbbb00e1fc384ec4050f3930924e082c33007fef5d46f2a273ef11d3617860"
     },
     {
       "id": "city-of-rocks-national-reserve-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "4f4c3b8d7bb8ecc2d9f7aff6196877c58a29bd399f54bc72161a95b14b5e9c1a"
     },
     {
       "id": "city-of-rocks-national-reserve-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "09a15f3e753e1f2ece425fcb2f083472d5c2ffa4115c6820ea4f26aa2c6f5028"
     },
     {
       "id": "city-of-rocks-national-reserve-highlights",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "847107306d341706a0209ea3e8475a9d1781170dac751fbcd43e140f15431f36"
     },
     {
       "id": "brown-v-board-of-education-national-historical-park-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "b324bc83a3c6442eb937ddf900484298384ad715a5508443d42a2014609c5b35"
     },
     {
       "id": "brown-v-board-of-education-national-historical-park-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "a7449e002bfcb963f153ce02de3858705003ef1c4c63d68dcadb261b3c5bccbd"
     },
     {
       "id": "brown-v-board-of-education-national-historical-park-highlights",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "4c0d666a07b4e02b0e7b0545e23addd945bd4953b5adf21c4a36b9cebee5e88e"
     },
     {
       "id": "mammoth-cave-national-park-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "48ea0ba2bdd64be61d1b2ea5416c56029891d55f9acbbb11b91c49ff65ac2561"
     },
     {
       "id": "mammoth-cave-national-park-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "1bbec45e8db6883e247056dfb94f97f610dd0aaf9e7b2ae4c3329119a882b4c0"
     },
     {
       "id": "mammoth-cave-national-park-highlights",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "a58070f133bbbfccf54df2a1ea81a07447c7a8acc22eafe83d1f626138eab501"
     },
     {
       "id": "cane-river-creole-national-historical-park-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "7637675d656d6b37eeeea0eb162389605a8d6a699b9ff29e278b31da41ca4a9b"
     },
     {
       "id": "cane-river-creole-national-historical-park-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "67ccddbf60b1159959dc8332b7e21bf87042db0a8307a90a23bab8f71588c272"
     },
     {
       "id": "cane-river-creole-national-historical-park-highlights",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "c4e4f1d99b93873b5f95346ea930ae8632e693daf6753ebde9e9e421ff41a242"
     },
     {
       "id": "adams-national-historical-park-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "4621c70390850846244574f92bd904ec021f15d94e4a0fbeff107151a1dd26d6"
     },
     {
       "id": "adams-national-historical-park-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "d0ba3b375d31bba40f3f3a3a559d6e82e43f3e94af5077225535346fe1dec6ba"
     },
     {
       "id": "adams-national-historical-park-highlights",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "e8a246b6d9d866933c6afcf2107b07e8c248d23e857f6391ac47c34fcea50a3f"
     },
     {
       "id": "antietam-national-battlefield-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "373d62418ec4d5105f33580339bd22ad6f925e4476ad99f28878186f5700813f"
     },
     {
       "id": "antietam-national-battlefield-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "6dda7818d60fc5bf6c95a452dc940e9f395cdc61dad1180aab0514b7d6f86a0b"
     },
     {
       "id": "antietam-national-battlefield-highlights",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "f9e3dd12cbbf811d271d05e2a1787e141df48412ed40e5941c158911266e67ae"
     },
     {
       "id": "isle-royale-national-park-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "7da01ee0b8870e4c091d347f93fcd981ef66ba37b61f639ff42ec3aeac5f8bd9"
     },
     {
       "id": "isle-royale-national-park-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "f036caf7176f3150e9de309deda1f198b48df69b10571632fbd0ac81a742650c"
     },
     {
       "id": "isle-royale-national-park-highlights",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "2fc572e4b3c3dedb00795cf5842e45582bf7a50601d2d1871ea2c2910525346b"
     },
     {
       "id": "voyageurs-national-park-overview",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "c36d8dca85c7254a64433a04516d48760436bfc170d3cbc31af4b266f85f01ff"
     },
     {
       "id": "voyageurs-national-park-visit",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "eba9931945fb850a10e20e110be9b36bf67c11ef5a1632ffaef61aa7c1002da9"
     },
     {
       "id": "voyageurs-national-park-highlights",
       "status": "unchanged",
-      "checkedAt": "2026-11-27T01:19:05.724Z",
+      "checkedAt": "2026-11-27T01:24:12.467Z",
       "contentHash": "fb37cf252ca462fe323068271a3c23f646385d177a62bca1182035a761582eaa"
     }
   ],

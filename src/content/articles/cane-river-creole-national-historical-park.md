@@ -21,10 +21,11 @@
 "featured": false
 "hero":
   "photoId": "cane-river-creole-national-historical-park"
-"status": "review"
+"status": "published"
 "author": "editorial-team"
 "updatedAt": "2026-11-25"
 "checkedAt": "2026-11-25"
+"publishedAt": "2026-11-27"
 ---
 
 ## Why this place is worth visiting

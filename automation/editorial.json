@@ -196,6 +196,12 @@
       "publishedAt": "2026-11-27T01:19:53.392Z",
       "contentSha256": "8266711d500ab003c71fed4380df28af9fd460457149a54f1a8fe7e7424fcfdc",
       "manualApproval": false
+    },
+    {
+      "slug": "cane-river-creole-national-historical-park",
+      "publishedAt": "2026-11-27T01:25:05.652Z",
+      "contentSha256": "9a2223bed9df7142ca8a8b97e22158f5fd1d8364c2f5e4ecb135a4968088289e",
+      "manualApproval": false
     }
   ]
 }
