@@ -20,10 +20,11 @@
 "featured": false
 "hero":
   "photoId": "voyageurs-national-park"
-"status": "review"
+"status": "published"
 "author": "editorial-team"
 "updatedAt": "2026-11-26"
 "checkedAt": "2026-11-26"
+"publishedAt": "2026-11-28"
 ---
 
 ## Why this place is worth visiting
