@@ -182,3 +182,9 @@
 
 - 英文和译文首页按英文原文的账本发布时间选取首屏与近期景点卡片。同日发布按账本精确时间排序，缺少账本时间时使用文章发布日期。各语言只展示已发布且指纹匹配的译文。景点目录继续使用其原有顺序。
 - 回归测试覆盖同日排序、发布日期回退、首屏与卡片去重、预览排除待审稿及缺译回退。本地全量校验、168 项测试、生产与预览静态核验通过。浏览器检查英文桌面与手机首屏，以及阿拉伯语手机布局和图片加载。
+
+## 2026-11-28 每日发布、补稿和多语言维护
+
+- 从首页修改提交 `9e5107a` 同步 `main`。安提坦（`16e1032`）、皇家岛（`90d0032`）和航海家（`1281298`）按当天剩余名额逐篇通过来源和发布门禁。每次部署后核对了对应攻略、封面、canonical、sitemap 及首页首屏，再推进下一步。 [安提坦 CI](https://github.com/jageros/travel/actions/runs/46092766307/job/140817235070) · [皇家岛 CI](https://github.com/jageros/travel/actions/runs/46093148684/job/140818448097) · [航海家 CI](https://github.com/jageros/travel/actions/runs/46093454441/job/140819422700)
+- `454543b` 追加 Brices Cross Roads National Battlefield Site、Gateway Arch National Park 和 Carlsbad Caverns National Park。常规 HTTPS 代理恢复了 Commons API 的连接，七项官方来源与三张照片通过原有门禁。Birmingham 和 Denali 的备选照片元数据未通过景点匹配，Coltsville 的备选照片未通过复用门禁，本轮用符合条件的其他景点补齐。三个新稿保持 `review`，页面返回 404，发布账本逐项一致。 [战场纪念碑封面](https://commons.wikimedia.org/wiki/File:Brice%27s_Cross_Roads_Battlefield_Monument.jpg) · [拱门封面](https://commons.wikimedia.org/wiki/File:The_Gateway_Arch_in_St._Louis,_Missouri,_United_States.jpg) · [洞窟封面](https://commons.wikimedia.org/wiki/File:Carlsbad_Caverns_National_Park_and_White%27s_City,_New_Mexico,_USA_-_48345330467.jpg)
+- `1032bdb` 独立发布三篇新原文的 33 份译文，计划中的第四篇 Adams 已覆盖全部语言。发布检查后重新读取翻译计划，四篇均已齐备。线上核对 36 个文章地址和 12 个首页，确认首屏随译文部署更新为航海家国家公园。 [译文 CI](https://github.com/jageros/travel/actions/runs/46094001084/job/140821103850) · [sitemap](https://www.cedartrips.com/sitemap.xml)

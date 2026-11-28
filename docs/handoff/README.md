@@ -1,6 +1,13 @@
 # Cedar Trips 当前交接
 
-整理日期：**2026-11-27，Asia/Shanghai**。本页记录首页改动、定时任务结果和历史快照。下次必须重新核对远端、运行记录和部署。先读根目录 [AGENTS.md](../../AGENTS.md)，再按本页接续。项目决策见 [推进历史](history.md)，执行优先级见 [后续计划](roadmap.md)。
+整理日期：**2026-11-28，Asia/Shanghai**。本页记录首页改动、定时任务结果和历史快照。下次必须重新核对远端、运行记录和部署。先读根目录 [AGENTS.md](../../AGENTS.md)，再按本页接续。项目决策见 [推进历史](history.md)，执行优先级见 [后续计划](roadmap.md)。
+
+### 2026-11-28 定时任务快照
+
+- 先后发布安提坦国家战场遗址（`16e1032`）、皇家岛国家公园（`90d0032`）和航海家国家公园（`1281298`），用完当天三个英文名额。逐篇核对对应提交的 GitHub、Cloudflare、正式页、配图、canonical、sitemap 和英文首页首屏。 [安提坦](https://www.cedartrips.com/destinations/antietam-national-battlefield/) · [皇家岛](https://www.cedartrips.com/destinations/isle-royale-national-park/) · [航海家](https://www.cedartrips.com/destinations/voyageurs-national-park/)
+- `454543b` 补入密西西比州 Brices Cross Roads、密苏里州 Gateway Arch 和新墨西哥州 Carlsbad Caverns，队列从三篇恢复到六篇。七项 NPS 来源和三张 Commons 实景照片通过核验，三个待发页在正式站返回 404，sitemap 无对应条目。 [补稿 CI](https://github.com/jageros/travel/actions/runs/46093762663/job/140820369065)
+- `1032bdb` 为当天三篇英文稿发布 33 份译文，现有 275 份译文通过校验。168 项测试通过，生产与预览分别核验 439、445 页。正式站查验 36 个文章 URL、双向 hreflang、六个本地 JPEG 和 438 个唯一 sitemap URL，12 种语言的首页首屏均已切换为航海家国家公园。 [译文 CI](https://github.com/jageros/travel/actions/runs/46094001084/job/140821103850) · [简体中文首页](https://www.cedartrips.com/zh-hans/)
+- 最新全量抓取时间为 `2026-11-28T01:29:05.766Z`。110 项来源中 101 项匹配基线，证据冲突为零，六个 BART 和三个 Clipper 来源仍返回 403。后续补稿另行核验并追加七项 NPS 来源。
 
 ### 2026-11-27 首页最新景点
 
