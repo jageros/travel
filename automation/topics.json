@@ -1165,6 +1165,94 @@
         "Great Basin National Park"
       ],
       "priority": 0
+    },
+    {
+      "slug": "brices-cross-roads-national-battlefield-site",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "Should I stop at the Brices Cross Roads monument or continue on the battlefield driving tour?",
+      "brief": "Help a visitor to northeastern Mississippi decide between a brief stop at the federal monument and a separate drive exploring the larger Brices Cross Roads battlefield. Distinguish the small federal site from nearby stops, use the official map lead, and keep access and road arrangements conditional.",
+      "sources": [
+        "brices-cross-roads-national-battlefield-site-overview",
+        "brices-cross-roads-national-battlefield-site-visit",
+        "brices-cross-roads-national-battlefield-site-highlights"
+      ],
+      "facts": [
+        "brices-cross-roads-national-battlefield-site-overview-fact-1",
+        "brices-cross-roads-national-battlefield-site-visit-fact-1",
+        "brices-cross-roads-national-battlefield-site-highlights-fact-1",
+        "brices-cross-roads-national-battlefield-site-highlights-fact-2"
+      ],
+      "related": [],
+      "region": "Mississippi",
+      "location": "Baldwyn",
+      "category": "history-culture",
+      "featured": false,
+      "hero": {
+        "photoId": "brices-cross-roads-national-battlefield-site"
+      },
+      "queryAliases": [
+        "Brices Cross Roads National Battlefield Site"
+      ],
+      "priority": 0
+    },
+    {
+      "slug": "gateway-arch-national-park",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "How should a first-time visitor choose between the Gateway Arch grounds, museum, tram and Old Courthouse?",
+      "brief": "Build a first downtown St. Louis visit around the Arch grounds and one indoor stop, with the tram as a separate choice and current official guidance for access, security and tickets.",
+      "sources": [
+        "gateway-arch-national-park-overview",
+        "gateway-arch-national-park-visit"
+      ],
+      "facts": [
+        "gateway-arch-national-park-overview-fact-1",
+        "gateway-arch-national-park-visit-fact-1"
+      ],
+      "related": [],
+      "region": "Missouri",
+      "location": "St. Louis",
+      "category": "national-parks",
+      "featured": false,
+      "hero": {
+        "photoId": "gateway-arch-national-park"
+      },
+      "queryAliases": [
+        "Gateway Arch National Park"
+      ],
+      "priority": 0
+    },
+    {
+      "slug": "carlsbad-caverns-national-park",
+      "type": "destination",
+      "topic": "us-destinations",
+      "status": "ready",
+      "primaryIntent": "Should a first-time visitor enter Carlsbad Cavern through the Natural Entrance or take the elevator straight to the Big Room?",
+      "brief": "Help readers choose between the Natural Entrance and elevator access to the Big Room. Explain how slope, damp footing, visitor pace and mobility affect the order of the visit, then present the bat flight program as a separate option. Keep current entry rules, hours and elevator status behind official links.",
+      "sources": [
+        "carlsbad-caverns-national-park-overview",
+        "carlsbad-caverns-national-park-visit"
+      ],
+      "facts": [
+        "carlsbad-caverns-national-park-overview-fact-1",
+        "carlsbad-caverns-national-park-visit-fact-1",
+        "carlsbad-caverns-national-park-visit-fact-2"
+      ],
+      "related": [],
+      "region": "New Mexico",
+      "location": "Carlsbad",
+      "category": "national-parks",
+      "featured": false,
+      "hero": {
+        "photoId": "carlsbad-caverns-national-park"
+      },
+      "queryAliases": [
+        "Carlsbad Caverns National Park"
+      ],
+      "priority": 0
     }
   ]
 }

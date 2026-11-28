@@ -2161,6 +2161,140 @@
           "dynamic": false
         }
       ]
+    },
+    {
+      "id": "brices-cross-roads-national-battlefield-site-overview",
+      "url": "https://www.nps.gov/brcr/index.htm",
+      "title": "Brices Cross Roads National Battlefield Site overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-28",
+      "contentHash": "659523d801d75be0cbc0ae1fb32e5a2dbe065eb9d762f54187729b71b3a8aa57",
+      "facts": [
+        {
+          "id": "brices-cross-roads-national-battlefield-site-overview-fact-1",
+          "statement": "The NPS park homepage points visitors to other places associated with the battlefield.",
+          "evidence": "Follow along to see the many places of the battlefield",
+          "checkedAt": "2026-11-28",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "brices-cross-roads-national-battlefield-site-visit",
+      "url": "https://www.nps.gov/brcr/planyourvisit/index.htm",
+      "title": "Brices Cross Roads National Battlefield Site visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-28",
+      "contentHash": "2e67de48df49e2f90a664cbf72ed94eaf84bc984a30dc0bb1126698df267b96b",
+      "facts": [
+        {
+          "id": "brices-cross-roads-national-battlefield-site-visit-fact-1",
+          "statement": "The Natchez Trace Parkway administers the site. The NPS directs trip questions to the Parkway because the battlefield site has no visitor facilities.",
+          "evidence": "Because there are no visitor facilities at the site, questions or concerns that you have regarding Brices Cross Roads National Battlefield Site should be directed to the Natchez Trace Parkway",
+          "checkedAt": "2026-11-28",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "brices-cross-roads-national-battlefield-site-highlights",
+      "url": "https://www.nps.gov/brcr/planyourvisit/placestogo.htm",
+      "title": "Brices Cross Roads National Battlefield Site highlights",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-28",
+      "contentHash": "8ab47eebc8a08d3ad30afb1429f4132f3bb7f06e20c54103c55d747e74127f09",
+      "facts": [
+        {
+          "id": "brices-cross-roads-national-battlefield-site-highlights-fact-1",
+          "statement": "The National Park Service recommends contacting the Mississippi Final Stands Interpretive Center for a map of the battlefield driving tour.",
+          "evidence": "contact the Mississippi Final Stands Interpretive Center.",
+          "checkedAt": "2026-11-28",
+          "dynamic": false
+        },
+        {
+          "id": "brices-cross-roads-national-battlefield-site-highlights-fact-2",
+          "statement": "The federal site was established to preserve a small area commemorating the battle.",
+          "evidence": "with the intention of preserving 1 acre in commemoration of the battle.",
+          "checkedAt": "2026-11-28",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "gateway-arch-national-park-overview",
+      "url": "https://www.nps.gov/jeff/index.htm",
+      "title": "Gateway Arch National Park overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-28",
+      "contentHash": "f0fbfbdd135dbf4bc8a10a6b4c0b893b260502f519e3ee738d8a561531d2ccfd",
+      "facts": [
+        {
+          "id": "gateway-arch-national-park-overview-fact-1",
+          "statement": "A tram takes visitors to the top of the Gateway Arch.",
+          "evidence": "Tram Ride to the Top Learn about the unique transportation system that brings visitors to the top of the Gateway Arch.",
+          "checkedAt": "2026-11-28",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "gateway-arch-national-park-visit",
+      "url": "https://www.nps.gov/jeff/planyourvisit/index.htm",
+      "title": "Gateway Arch National Park visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-28",
+      "contentHash": "2cee4cbbd4e87674cc14c50fbb0cc5a433a3cec4f05b108e93df23fe98f98dd2",
+      "facts": [
+        {
+          "id": "gateway-arch-national-park-visit-fact-1",
+          "statement": "A museum beneath the Gateway Arch explores St. Louis’s role in United States history.",
+          "evidence": "museum underneath the Gateway Arch reveals St. Louis's important role in United States history.",
+          "checkedAt": "2026-11-28",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "carlsbad-caverns-national-park-overview",
+      "url": "https://www.nps.gov/cave/index.htm",
+      "title": "Carlsbad Caverns National Park overview",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-28",
+      "contentHash": "a756a0f64b76a6fd2a0b139c2c3a695a0c1d31da0b26144b445f806d8e091038",
+      "facts": [
+        {
+          "id": "carlsbad-caverns-national-park-overview-fact-1",
+          "statement": "The park highlights the Big Room as an experience visitors can explore at their own pace.",
+          "evidence": "Enjoy at Your Own Pace Big Room Adventure",
+          "checkedAt": "2026-11-28",
+          "dynamic": false
+        }
+      ]
+    },
+    {
+      "id": "carlsbad-caverns-national-park-visit",
+      "url": "https://www.nps.gov/cave/planyourvisit/index.htm",
+      "title": "Carlsbad Caverns National Park visitor information",
+      "publisher": "National Park Service",
+      "checkedAt": "2026-11-28",
+      "contentHash": "827abd5761cade9674a51c468c4b2396b6430b1c485628b2f9f8dfd16049a055",
+      "facts": [
+        {
+          "id": "carlsbad-caverns-national-park-visit-fact-1",
+          "statement": "The park’s visit planner points to operating hours, entrance fees and weather information.",
+          "evidence": "Basic Information Operating hours, fees, weather, pets, and more.",
+          "checkedAt": "2026-11-28",
+          "dynamic": false
+        },
+        {
+          "id": "carlsbad-caverns-national-park-visit-fact-2",
+          "statement": "The park currently lists timed-entry tickets for Carlsbad Cavern.",
+          "evidence": "Timed Entry Tickets Required to Enter Carlsbad Cavern",
+          "checkedAt": "2026-11-28",
+          "dynamic": true,
+          "expiresAt": "2026-12-05"
+        }
+      ]
     }
   ]
 }
