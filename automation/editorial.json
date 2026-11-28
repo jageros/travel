@@ -208,6 +208,12 @@
       "publishedAt": "2026-11-27T01:28:57.198Z",
       "contentSha256": "1020d5f7973f47630370005c3fea6da74380df07c090e6e9122e24cfed56e462",
       "manualApproval": false
+    },
+    {
+      "slug": "antietam-national-battlefield",
+      "publishedAt": "2026-11-28T01:21:33.474Z",
+      "contentSha256": "b364f9fd45f65a1bfa36da4d4baab497c91a227bcb0323f0a1cfecad7ded1352",
+      "manualApproval": false
     }
   ]
 }

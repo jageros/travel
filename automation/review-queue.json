@@ -109,7 +109,7 @@
     "errors": [
       "bart-sfo: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-27T01:28:05.594Z"
+    "detectedAt": "2026-11-28T01:20:33.374Z"
   },
   {
     "slug": "source-monitor",
@@ -117,7 +117,7 @@
     "errors": [
       "bart-advisories: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-27T01:28:05.594Z"
+    "detectedAt": "2026-11-28T01:20:33.374Z"
   },
   {
     "slug": "source-monitor",
@@ -125,7 +125,7 @@
     "errors": [
       "bart-paying-fare: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-27T01:28:05.594Z"
+    "detectedAt": "2026-11-28T01:20:33.374Z"
   },
   {
     "slug": "source-monitor",
@@ -133,7 +133,7 @@
     "errors": [
       "bart-tap-and-ride: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-27T01:28:05.594Z"
+    "detectedAt": "2026-11-28T01:20:33.374Z"
   },
   {
     "slug": "source-monitor",
@@ -141,7 +141,7 @@
     "errors": [
       "bart-schedules: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-27T01:28:05.594Z"
+    "detectedAt": "2026-11-28T01:20:33.374Z"
   },
   {
     "slug": "source-monitor",
@@ -149,7 +149,7 @@
     "errors": [
       "bart-official-app: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-27T01:28:05.594Z"
+    "detectedAt": "2026-11-28T01:20:33.374Z"
   },
   {
     "slug": "sf-transit-with-children-fare-planning",
@@ -188,7 +188,7 @@
       "Fact requires current verification: sausalito-bus-return-manual",
       "Fact requires current verification: sausalito-ferry-daytype-manual"
     ],
-    "detectedAt": "2026-11-27T01:28:05.427Z"
+    "detectedAt": "2026-11-28T01:20:07.306Z"
   },
   {
     "slug": "sf-transit-disruption-backup-plan",
@@ -223,7 +223,7 @@
       "Fact requires current verification: bart-planner-planned-delays",
       "Fact requires current verification: bart-app-last-train-lookup"
     ],
-    "detectedAt": "2026-11-27T01:28:05.427Z"
+    "detectedAt": "2026-11-28T01:20:07.306Z"
   },
   {
     "slug": "sf-contactless-transit-payment-declined",
@@ -251,7 +251,7 @@
       "Fact requires current verification: bart-elevator-alternative-lookup",
       "Fact requires current verification: bart-planner-planned-delays"
     ],
-    "detectedAt": "2026-11-27T01:28:05.427Z"
+    "detectedAt": "2026-11-28T01:20:07.306Z"
   },
   {
     "slug": "sf-transit-with-children-fare-planning",
@@ -279,7 +279,7 @@
     "errors": [
       "clipper-contactless: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-27T01:28:05.594Z"
+    "detectedAt": "2026-11-28T01:20:33.374Z"
   },
   {
     "slug": "source-monitor",
@@ -287,7 +287,7 @@
     "errors": [
       "clipper-youth-senior: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-27T01:28:05.594Z"
+    "detectedAt": "2026-11-28T01:20:33.374Z"
   },
   {
     "slug": "source-monitor",
@@ -295,7 +295,7 @@
     "errors": [
       "clipper-ways-to-pay: unavailable (Official source returned HTTP 403)"
     ],
-    "detectedAt": "2026-11-27T01:28:05.594Z"
+    "detectedAt": "2026-11-28T01:20:33.374Z"
   },
   {
     "slug": "sf-transit-with-children-fare-planning",
@@ -305,7 +305,7 @@
       "Official source needs review: clipper-youth-senior",
       "Fact requires current verification: bart-youth-fare-eligibility"
     ],
-    "detectedAt": "2026-11-27T01:28:05.427Z"
+    "detectedAt": "2026-11-28T01:20:07.306Z"
   },
   {
     "slug": "sf-contactless-transit-payment-declined",
@@ -318,6 +318,6 @@
       "Fact requires current verification: bart-contactless-agent-help",
       "Fact requires current verification: bart-clipper-payment-alternative"
     ],
-    "detectedAt": "2026-11-27T01:28:05.427Z"
+    "detectedAt": "2026-11-28T01:20:07.306Z"
   }
 ]
