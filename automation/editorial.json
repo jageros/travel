@@ -214,6 +214,12 @@
       "publishedAt": "2026-11-28T01:21:33.474Z",
       "contentSha256": "b364f9fd45f65a1bfa36da4d4baab497c91a227bcb0323f0a1cfecad7ded1352",
       "manualApproval": false
+    },
+    {
+      "slug": "isle-royale-national-park",
+      "publishedAt": "2026-11-28T01:26:07.811Z",
+      "contentSha256": "138f20caae25dab5b38df7dada1d7ae3c502882065e43c5672b862d55a1daf76",
+      "manualApproval": false
     }
   ]
 }
